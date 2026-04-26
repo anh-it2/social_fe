@@ -2,10 +2,12 @@
 
 export interface ChatMessageDTO {
   id: string;
+  tempId: string;
   conversationId: string;
   senderId: string;
   senderName: string;
   content: string;
+  seq?: number;
   timestamp: number;
   type: "text" | "image" | "file" | "video";
 }
@@ -20,13 +22,14 @@ export interface TypingEventDTO {
 export interface ReadReceiptDto {
   conversationId: string;
   userId: string;
-  messageId: string;
+  upToSeq: number;
 }
 
 //client send to server
 
 export interface SendMessageDTO {
   conversationId: string;
+  tempId: string;
   content: string;
   type: ChatMessageDTO["type"];
 }
@@ -51,11 +54,13 @@ export interface ChatHistoryRequestDTO {
 
 export interface ChatHistoryResponseDTO {
   messages: ChatMessageDTO[]; //because history is message that get from server
-  nextCurosr?: string;
-  hasMore?: boolean;
+  nextCurosr?: number;
+  hasMore: boolean;
 }
 
 //socket event
+
+//alway remember that you have to destructure params in function to get variable or function that get to server
 
 export interface ChatClientToServerEvents {
   "chat:join": (conversationId: string) => void;

@@ -15,8 +15,6 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     const { isLoggined } = useAuthStore.getState();
     sync(isLoggined);
 
-    console.log(isLoggined)
-
     const unsub = useAuthStore.subscribe((state, prev) => {
       if (state.isLoggined && !prev.isLoggined) {
         console.log("login");

@@ -7,13 +7,11 @@ export function OnlineUserList() {
   const isLoggined = useAuthStore((state) => state.isLoggined);
   const [users, setUsers] = useState<OnlineUserDto[]>([]);
 
+  console.log(users);
+
   useEffect(() => {
     if (!isLoggined) return;
-    console.log(1);
     const socket = getPresenceSocket();
-
-    console.log(2);
-    console.log("socket", socket.connected);
 
     const onJoined = (u: OnlineUserDto) =>
       setUsers((prev) =>
