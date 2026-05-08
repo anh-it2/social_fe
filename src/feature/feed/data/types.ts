@@ -32,12 +32,22 @@ export interface FeedAuthor {
   gradient: [string, string];
 }
 
+export interface Feeling {
+  id: string;
+  emoji: string;
+  label: string;
+  kind: "feeling" | "activity";
+}
+
 export interface FeedPostData {
   id: string;
   author: FeedAuthor;
   time: string;
   text: string;
   imageGradient?: [string, string, string];
+  imageUrl?: string;
+  feeling?: Feeling;
+  isLive?: boolean;
   likes: string;
   comments: number;
   shares: number;

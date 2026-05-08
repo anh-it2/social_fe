@@ -45,9 +45,20 @@ export function FeedPost({ post }: FeedPostProps) {
       className="!w-full !overflow-hidden !rounded-xl"
       style={{ background: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
     >
-      <PostHeader author={post.author} time={post.time} />
-      <PostText text={post.text} />
-      {post.imageGradient ? <PostImage gradient={post.imageGradient} /> : null}
+      <PostHeader
+        author={post.author}
+        time={post.time}
+        feeling={post.feeling}
+        isLive={post.isLive}
+      />
+      {post.text ? <PostText text={post.text} /> : null}
+      {(post.imageUrl || post.imageGradient) ? (
+        <PostImage
+          gradient={post.imageGradient}
+          imageUrl={post.imageUrl}
+          isLive={post.isLive}
+        />
+      ) : null}
       <PostStats
         reaction={reaction}
         likes={post.likes}

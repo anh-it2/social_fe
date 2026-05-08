@@ -1,12 +1,20 @@
 "use client";
 
 import { Flex } from "antd";
+import { useState } from "react";
 import { FEED_POSTS } from "../../data/constants";
+import type { FeedPostData } from "../../data/types";
 import { Composer } from "./Composer";
 import { FeedPost } from "./FeedPost";
 import { Stories } from "./Stories";
 
 export function CenterFeed() {
+  const [posts, setPosts] = useState<FeedPostData[]>(FEED_POSTS);
+
+  const handleCreate = (post: FeedPostData) => {
+    setPosts((prev) => [post, ...prev]);
+  };
+
   return (
     <Flex
       vertical
@@ -15,8 +23,8 @@ export function CenterFeed() {
       style={{ background: "var(--color-bg)" }}
     >
       <Stories />
-      <Composer />
-      {FEED_POSTS.map((p) => (
+      <Composer onCreatePost={handleCreate} />
+      {posts.map((p) => (
         <FeedPost key={p.id} post={p} />
       ))}
     </Flex>

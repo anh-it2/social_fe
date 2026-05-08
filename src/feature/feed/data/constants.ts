@@ -2,6 +2,7 @@ import type {
   CenterTab,
   ContactRowData,
   CurrentUser,
+  Feeling,
   FeedPostData,
   MusicTrack,
   NavRow,
@@ -92,6 +93,29 @@ export const SPONSORED: SponsoredAd = {
 
 export const BIRTHDAY_TEXT =
   "It's Hà My's birthday today. Wish them a happy birthday! 🎉";
+
+export const FEELINGS: Feeling[] = [
+  { id: "f-happy", emoji: "😊", label: "happy", kind: "feeling" },
+  { id: "f-loved", emoji: "🥰", label: "loved", kind: "feeling" },
+  { id: "f-excited", emoji: "🤩", label: "excited", kind: "feeling" },
+  { id: "f-blessed", emoji: "🙏", label: "blessed", kind: "feeling" },
+  { id: "f-sad", emoji: "😢", label: "sad", kind: "feeling" },
+  { id: "f-angry", emoji: "😠", label: "angry", kind: "feeling" },
+  { id: "f-tired", emoji: "😩", label: "tired", kind: "feeling" },
+  { id: "f-grateful", emoji: "💖", label: "grateful", kind: "feeling" },
+  { id: "f-proud", emoji: "😌", label: "proud", kind: "feeling" },
+  { id: "f-cool", emoji: "😎", label: "cool", kind: "feeling" },
+  { id: "a-watching", emoji: "🎬", label: "watching a movie", kind: "activity" },
+  { id: "a-listening", emoji: "🎧", label: "listening to music", kind: "activity" },
+  { id: "a-eating", emoji: "🍜", label: "eating", kind: "activity" },
+  { id: "a-traveling", emoji: "✈️", label: "traveling", kind: "activity" },
+  { id: "a-reading", emoji: "📖", label: "reading a book", kind: "activity" },
+  { id: "a-coding", emoji: "💻", label: "coding", kind: "activity" },
+  { id: "a-gaming", emoji: "🎮", label: "playing a game", kind: "activity" },
+  { id: "a-celebrating", emoji: "🎉", label: "celebrating", kind: "activity" },
+  { id: "a-working-out", emoji: "💪", label: "working out", kind: "activity" },
+  { id: "a-relaxing", emoji: "🌴", label: "relaxing", kind: "activity" },
+];
 
 export const CONTACTS: ContactRowData[] = [
   { id: "c1", initial: "M", name: "Mai Linh", gradient: ["#22c55e", "#10b981"], online: true },

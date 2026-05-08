@@ -2,7 +2,7 @@
 
 import { Flex, Typography } from "antd";
 import { Icon } from "@/shared/components/Icon";
-import type { FeedAuthor } from "../../data/types";
+import type { FeedAuthor, Feeling } from "../../data/types";
 import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
@@ -10,9 +10,11 @@ const { Text } = Typography;
 interface PostHeaderProps {
   author: FeedAuthor;
   time: string;
+  feeling?: Feeling;
+  isLive?: boolean;
 }
 
-export function PostHeader({ author, time }: PostHeaderProps) {
+export function PostHeader({ author, time, feeling, isLive }: PostHeaderProps) {
   return (
     <Flex
       align="center"
@@ -37,6 +39,25 @@ export function PostHeader({ author, time }: PostHeaderProps) {
             style={{ color: "var(--color-text)" }}
           >
             {author.name}
+            {isLive && (
+              <Text className="!text-[15px]" style={{ color: "var(--color-text-secondary)", fontWeight: 400 }}>
+                {" was live"}
+              </Text>
+            )}
+            {feeling && (
+              <Text
+                className="!text-[15px]"
+                style={{ color: "var(--color-text-secondary)", fontWeight: 400 }}
+              >
+                {feeling.kind === "feeling" ? " is feeling " : " is "}
+                <Text
+                  className="!text-[15px] !font-semibold"
+                  style={{ color: "var(--color-text)" }}
+                >
+                  {feeling.emoji} {feeling.label}
+                </Text>
+              </Text>
+            )}
           </Text>
           <Flex align="center" gap={4}>
             <Text className="!text-xs" style={{ color: "var(--color-text-secondary)" }}>
