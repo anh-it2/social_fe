@@ -16,6 +16,9 @@ export function Icon({ name, size = 20, color, className, style }: IconProps) {
         height: size,
         color,
         lineHeight: 1,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
         ...style,
       }}
     >

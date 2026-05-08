@@ -64,6 +64,22 @@ export interface SponsoredAd {
   thumbGradient: [string, string];
 }
 
+export interface MusicTrack {
+  id: string;
+  title: string;
+  artist: string;
+  duration: string;
+  url: string;
+}
+
+export interface ReelData {
+  id: string;
+  mediaType: "video" | "image";
+  mediaUrl: string;
+  musicId?: string;
+  caption?: string;
+}
+
 export type {
   Reaction,
   ReactionId,

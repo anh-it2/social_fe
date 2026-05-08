@@ -6,10 +6,15 @@ import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
 
-export function CreateStoryCard() {
+interface CreateStoryCardProps {
+  onClick?: () => void;
+}
+
+export function CreateStoryCard({ onClick }: CreateStoryCardProps = {}) {
   return (
     <Flex
       vertical
+      onClick={onClick}
       className="!h-[186px] !w-[130px] !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl"
       style={{ background: "#1f1f1f", border: "1px solid #2e2e2e" }}
     >
@@ -40,7 +45,7 @@ export function CreateStoryCard() {
           className="!mt-5 !text-xs !font-semibold"
           style={{ color: "#e4e6eb" }}
         >
-          Create story
+          Create reel
         </Text>
       </Flex>
     </Flex>

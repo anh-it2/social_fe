@@ -3,6 +3,7 @@ import type {
   ContactRowData,
   CurrentUser,
   FeedPostData,
+  MusicTrack,
   NavRow,
   ShortcutRow,
   SponsoredAd,
@@ -69,6 +70,17 @@ export const FEED_POSTS: FeedPostData[] = [
     comments: 56,
     shares: 12,
   },
+];
+
+export const MUSIC_TRACKS: MusicTrack[] = [
+  { id: "m1", title: "Sunset Drive", artist: "SoundHelix", duration: "6:11", url: "/music/track-1.mp3" },
+  { id: "m2", title: "Neon Dreams", artist: "SoundHelix", duration: "7:00", url: "/music/track-2.mp3" },
+  { id: "m3", title: "Midnight Loop", artist: "SoundHelix", duration: "5:39", url: "/music/track-3.mp3" },
+  { id: "m4", title: "Pixel Hearts", artist: "SoundHelix", duration: "4:54", url: "/music/track-4.mp3" },
+  { id: "m5", title: "Echo Chamber", artist: "SoundHelix", duration: "6:00", url: "/music/track-5.mp3" },
+  { id: "m6", title: "Vibe Check", artist: "SoundHelix", duration: "4:32", url: "/music/track-6.mp3" },
+  { id: "m7", title: "Ocean Loop", artist: "SoundHelix", duration: "6:53", url: "/music/track-7.mp3" },
+  { id: "m8", title: "Cyber Saigon", artist: "SoundHelix", duration: "5:22", url: "/music/track-8.mp3" },
 ];
 
 export const SPONSORED: SponsoredAd = {
