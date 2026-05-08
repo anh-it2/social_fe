@@ -29,7 +29,7 @@ export function PostActions({
       align="center"
       justify="space-around"
       className="!h-11 !w-full !border-t !px-2 !py-1"
-      style={{ borderColor: "#2e2e2e" }}
+      style={{ borderColor: "var(--color-border)" }}
     >
       <LikeButton
         reaction={reaction}

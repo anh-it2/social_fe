@@ -12,7 +12,7 @@ export function Composer() {
     <Flex
       vertical
       className="!w-full !overflow-hidden !rounded-xl"
-      style={{ background: "#141414", border: "1px solid #2e2e2e" }}
+      style={{ background: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
     >
       <Flex align="center" gap={12} className="!h-16 !w-full !px-4 !py-3">
         <Flex
@@ -28,14 +28,14 @@ export function Composer() {
         <Flex
           align="center"
           className="!h-10 !flex-1 !cursor-pointer !rounded-full !px-4"
-          style={{ background: "#2e2e2e" }}
+          style={{ background: "var(--color-bg-tertiary)" }}
         >
-          <Text className="!text-base" style={{ color: "#b0b3b8" }}>
+          <Text className="!text-base" style={{ color: "var(--color-text-secondary)" }}>
             What&rsquo;s on your mind, {CURRENT_USER.name.split(" ").pop()}?
           </Text>
         </Flex>
       </Flex>
-      <div className="!h-px !w-full" style={{ background: "#2e2e2e" }} />
+      <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
       <Flex align="center" justify="space-around" className="!w-full !px-4 !py-2">
         <ComposerActionBtn icon="videocam" iconColor="#f02849" label="Live video" />
         <ComposerActionBtn icon="photo_library" iconColor="#22c55e" label="Photo/video" />

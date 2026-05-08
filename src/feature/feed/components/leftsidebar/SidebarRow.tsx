@@ -18,7 +18,7 @@ export function SidebarRow({ iconBg, icon, label, active }: SidebarRowProps) {
       align="center"
       gap={12}
       className="!h-11 !w-full !cursor-pointer !rounded-lg !px-2"
-      style={{ background: active ? "#1d2c3f" : "transparent" }}
+      style={{ background: active ? "var(--color-primary-bg)" : "transparent" }}
     >
       <Flex
         align="center"
@@ -31,7 +31,7 @@ export function SidebarRow({ iconBg, icon, label, active }: SidebarRowProps) {
       <Text
         className="!text-[15px] !leading-tight"
         style={{
-          color: active ? "#2374e1" : "#e4e6eb",
+          color: active ? "var(--color-primary)" : "var(--color-text)",
           fontWeight: active ? 600 : 500,
         }}
       >

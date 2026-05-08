@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
-import { gradientBg } from "../../data/mock";
+import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
 

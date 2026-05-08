@@ -25,7 +25,7 @@ export function UserRow() {
       </Flex>
       <Text
         className="!text-[15px] !font-semibold !leading-tight"
-        style={{ color: "#e4e6eb" }}
+        style={{ color: "var(--color-text)" }}
       >
         {CURRENT_USER.name}
       </Text>

@@ -15,13 +15,13 @@ export function ContactsSection() {
         justify="space-between"
         className="!h-9 !w-full !pb-2"
       >
-        <Text className="!text-base !font-semibold" style={{ color: "#b0b3b8" }}>
+        <Text className="!text-base !font-semibold" style={{ color: "var(--color-text-secondary)" }}>
           Contacts
         </Text>
         <Flex align="center" gap={8}>
-          <Icon name="videocam" size={22} color="#b0b3b8" />
-          <Icon name="search" size={22} color="#b0b3b8" />
-          <Icon name="more_horiz" size={22} color="#b0b3b8" />
+          <Icon name="videocam" size={22} color="var(--color-text-secondary)" />
+          <Icon name="search" size={22} color="var(--color-text-secondary)" />
+          <Icon name="more_horiz" size={22} color="var(--color-text-secondary)" />
         </Flex>
       </Flex>
       {CONTACTS.map((c) => (

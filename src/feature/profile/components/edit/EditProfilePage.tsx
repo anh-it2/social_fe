@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Flex, Typography } from "antd";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "@/i18n/navigation";
-import { TopNav } from "../topnav/TopNav";
+import { TopNav } from "@/shared/components/topnav/TopNav";
 import {
   EDIT_PAGE_MAX_WIDTH,
   EDIT_PAGE_PADDING,

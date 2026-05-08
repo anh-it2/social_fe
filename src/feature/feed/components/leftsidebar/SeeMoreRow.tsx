@@ -16,11 +16,11 @@ export function SeeMoreRow() {
         align="center"
         justify="center"
         className="!h-9 !w-9 !shrink-0 !rounded-full"
-        style={{ background: "#2e2e2e" }}
+        style={{ background: "var(--color-bg-tertiary)" }}
       >
-        <Icon name="keyboard_arrow_down" size={22} color="#e4e6eb" />
+        <Icon name="keyboard_arrow_down" size={22} color="var(--color-text)" />
       </Flex>
-      <Text className="!text-[15px] !font-medium" style={{ color: "#e4e6eb" }}>
+      <Text className="!text-[15px] !font-medium" style={{ color: "var(--color-text)" }}>
         See more
       </Text>
     </Flex>

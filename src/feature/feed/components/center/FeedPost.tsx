@@ -43,7 +43,7 @@ export function FeedPost({ post }: FeedPostProps) {
     <Flex
       vertical
       className="!w-full !overflow-hidden !rounded-xl"
-      style={{ background: "#141414", border: "1px solid #2e2e2e" }}
+      style={{ background: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
     >
       <PostHeader author={post.author} time={post.time} />
       <PostText text={post.text} />

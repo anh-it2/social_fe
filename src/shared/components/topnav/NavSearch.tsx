@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "antd";
-import { Icon } from "../Icon";
+import { Icon } from "@/shared/components/Icon";
 
 export function NavSearch() {
   return (

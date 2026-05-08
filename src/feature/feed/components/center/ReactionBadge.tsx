@@ -14,7 +14,7 @@ export function ReactionBadge({ bg, icon }: ReactionBadgeProps) {
       align="center"
       justify="center"
       className="!h-5 !w-5 !rounded-full"
-      style={{ background: bg, border: "2px solid #141414" }}
+      style={{ background: bg, border: "2px solid var(--color-bg-secondary)" }}
     >
       <Icon name={icon} size={12} color="#FFFFFF" />
     </Flex>

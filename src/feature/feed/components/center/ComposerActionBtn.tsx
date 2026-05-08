@@ -20,7 +20,7 @@ export function ComposerActionBtn({ icon, iconColor, label }: ComposerActionBtnP
       className="!h-10 !flex-1 !cursor-pointer !rounded-lg"
     >
       <Icon name={icon} size={22} color={iconColor} />
-      <Text className="!text-sm !font-semibold" style={{ color: "#b0b3b8" }}>
+      <Text className="!text-sm !font-semibold" style={{ color: "var(--color-text-secondary)" }}>
         {label}
       </Text>
     </Flex>

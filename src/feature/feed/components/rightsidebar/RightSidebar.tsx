@@ -11,12 +11,12 @@ export function RightSidebar() {
       vertical
       gap={20}
       className="no-scrollbar !sticky !top-14 !w-80 !shrink-0 !overflow-y-auto !p-4"
-      style={{ background: "#0a0a0a", height: "calc(100vh - 56px)" }}
+      style={{ background: "var(--color-bg)", height: "calc(100vh - 56px)" }}
     >
       <SponsoredSection />
-      <div className="!h-px !w-full" style={{ background: "#2e2e2e" }} />
+      <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
       <BirthdaysSection />
-      <div className="!h-px !w-full" style={{ background: "#2e2e2e" }} />
+      <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
       <ContactsSection />
     </Flex>
   );

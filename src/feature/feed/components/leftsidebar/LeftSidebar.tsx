@@ -16,7 +16,7 @@ export function LeftSidebar() {
       gap={2}
       className="no-scrollbar !sticky !top-14 !w-[340px] !shrink-0 !overflow-y-auto !px-2 !py-4"
       style={{
-        background: "#0a0a0a",
+        background: "var(--color-bg)",
         height: "calc(100vh - 56px)",
       }}
     >
@@ -33,12 +33,12 @@ export function LeftSidebar() {
       <SeeMoreRow />
       <div
         className="!my-2 !h-px !w-full"
-        style={{ background: "#2e2e2e" }}
+        style={{ background: "var(--color-border)" }}
       />
       <Flex align="center" className="!h-9 !px-2">
         <Text
           className="!text-[15px] !font-semibold"
-          style={{ color: "#b0b3b8" }}
+          style={{ color: "var(--color-text-secondary)" }}
         >
           Your shortcuts
         </Text>

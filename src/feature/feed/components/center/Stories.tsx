@@ -23,8 +23,8 @@ export function Stories() {
         gap={8}
         className="no-scrollbar !w-full !overflow-x-auto !rounded-xl !p-2"
         style={{
-          background: "#141414",
-          border: "1px solid #2e2e2e",
+          background: "var(--color-bg-secondary)",
+          border: "1px solid var(--color-border)",
           height: 202,
         }}
       >

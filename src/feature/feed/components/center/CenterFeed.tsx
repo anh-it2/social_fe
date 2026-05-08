@@ -11,8 +11,8 @@ export function CenterFeed() {
     <Flex
       vertical
       gap={16}
-      className="!flex-1 !px-10 !py-5"
-      style={{ background: "#0a0a0a" }}
+      className="!min-w-0 !flex-1 !px-10 !py-5"
+      style={{ background: "var(--color-bg)" }}
     >
       <Stories />
       <Composer />

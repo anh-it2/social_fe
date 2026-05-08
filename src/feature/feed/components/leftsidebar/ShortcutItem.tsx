@@ -21,7 +21,7 @@ export function ShortcutItem({ label, gradient }: ShortcutItemProps) {
         className="!h-9 !w-9 !shrink-0 !rounded-lg"
         style={{ background: gradientBg(gradient) }}
       />
-      <Text className="!text-sm !font-medium" style={{ color: "#e4e6eb" }}>
+      <Text className="!text-sm !font-medium" style={{ color: "var(--color-text)" }}>
         {label}
       </Text>
     </Flex>

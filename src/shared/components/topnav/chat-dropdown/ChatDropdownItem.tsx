@@ -1,9 +1,9 @@
 "use client";
 
 import { Flex, Typography } from "antd";
-import type { ChatPreview } from "../../../data/mock";
-import { gradientBg } from "../../../data/mock";
-import { Icon } from "../../Icon";
+import { Icon } from "@/shared/components/Icon";
+import type { ChatPreview } from "@/shared/data/chats";
+import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
 

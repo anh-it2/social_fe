@@ -2,7 +2,7 @@
 
 import { Button, Dropdown } from "antd";
 import { useState } from "react";
-import { Icon } from "../Icon";
+import { Icon } from "@/shared/components/Icon";
 import { ChatDropdownContent } from "./chat-dropdown/ChatDropdownContent";
 
 export function ChatNavBtn() {
@@ -19,7 +19,7 @@ export function ChatNavBtn() {
       <Button
         type="text"
         className="!flex !h-10 !w-10 !items-center !justify-center !rounded-[10px] !p-0"
-        style={{ background: open ? "#1f1f1f" : "transparent" }}
+        style={{ background: open ? "var(--color-bg-tertiary)" : "transparent" }}
       >
         <Icon name="chat_bubble" size={22} color="var(--color-text-muted)" />
       </Button>

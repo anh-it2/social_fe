@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Flex, Typography } from "antd";
-import { Icon } from "../../Icon";
+import { Icon } from "@/shared/components/Icon";
 
 const { Text } = Typography;
 

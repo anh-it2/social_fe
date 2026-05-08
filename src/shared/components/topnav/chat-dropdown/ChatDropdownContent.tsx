@@ -2,7 +2,7 @@
 
 import { Flex } from "antd";
 import { useRouter } from "@/i18n/navigation";
-import { RECENT_CHATS } from "../../../data/mock";
+import { RECENT_CHATS } from "@/shared/data/chats";
 import { ChatDropdownFooter } from "./ChatDropdownFooter";
 import { ChatDropdownHeader } from "./ChatDropdownHeader";
 import { ChatDropdownItem } from "./ChatDropdownItem";

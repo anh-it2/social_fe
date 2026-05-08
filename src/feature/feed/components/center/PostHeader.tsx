@@ -34,22 +34,22 @@ export function PostHeader({ author, time }: PostHeaderProps) {
         <Flex vertical gap={2}>
           <Text
             className="!text-[15px] !font-semibold"
-            style={{ color: "#e4e6eb" }}
+            style={{ color: "var(--color-text)" }}
           >
             {author.name}
           </Text>
           <Flex align="center" gap={4}>
-            <Text className="!text-xs" style={{ color: "#b0b3b8" }}>
+            <Text className="!text-xs" style={{ color: "var(--color-text-secondary)" }}>
               {time}
             </Text>
-            <Text className="!text-xs" style={{ color: "#b0b3b8" }}>
+            <Text className="!text-xs" style={{ color: "var(--color-text-secondary)" }}>
               ·
             </Text>
-            <Icon name="public" size={12} color="#b0b3b8" />
+            <Icon name="public" size={12} color="var(--color-text-secondary)" />
           </Flex>
         </Flex>
       </Flex>
-      <Icon name="more_horiz" size={24} color="#b0b3b8" />
+      <Icon name="more_horiz" size={24} color="var(--color-text-secondary)" />
     </Flex>
   );
 }

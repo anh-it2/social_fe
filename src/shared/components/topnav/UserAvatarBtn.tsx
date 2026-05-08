@@ -1,8 +1,8 @@
 "use client";
 
 import { Avatar } from "antd";
-import { Icon } from "../Icon";
-import { gradientBg } from "../../data/mock";
+import { Icon } from "@/shared/components/Icon";
+import { gradientBg } from "@/shared/utils/gradient";
 
 export function UserAvatarBtn() {
   return (

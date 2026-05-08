@@ -33,14 +33,14 @@ export function ContactRow({ contact }: ContactRowProps) {
             className="!absolute !h-3 !w-3 !rounded-full"
             style={{
               background: "#22c55e",
-              border: "2px solid #0a0a0a",
+              border: "2px solid var(--color-bg)",
               right: -2,
               bottom: -2,
             }}
           />
         ) : null}
       </div>
-      <Text className="!text-sm !font-medium" style={{ color: "#e4e6eb" }}>
+      <Text className="!text-sm !font-medium" style={{ color: "var(--color-text)" }}>
         {contact.name}
       </Text>
     </Flex>

@@ -32,11 +32,11 @@ export function PostStats({ reaction, likes, comments, shares }: PostStatsProps)
             </div>
           </Flex>
         )}
-        <Text className="!text-sm" style={{ color: "#b0b3b8" }}>
+        <Text className="!text-sm" style={{ color: "var(--color-text-secondary)" }}>
           {likes}
         </Text>
       </Flex>
-      <Text className="!text-sm" style={{ color: "#b0b3b8" }}>
+      <Text className="!text-sm" style={{ color: "var(--color-text-secondary)" }}>
         {comments} comments &nbsp;·&nbsp; {shares} shares
       </Text>
     </Flex>

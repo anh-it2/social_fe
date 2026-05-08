@@ -5,7 +5,7 @@ import { ContentArea } from "./ContentArea";
 import { CoverSection } from "./cover/CoverSection";
 import { HighlightsStrip } from "./highlights/HighlightsStrip";
 import { StatsAndTabs } from "./stats/StatsAndTabs";
-import { TopNav } from "./topnav/TopNav";
+import { TopNav } from "@/shared/components/topnav/TopNav";
 
 export function ProfilePage() {
   return (

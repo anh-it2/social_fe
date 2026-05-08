@@ -3,7 +3,7 @@
 import { Button } from "antd";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Icon } from "../Icon";
+import { Icon } from "@/shared/components/Icon";
 
 export function ThemeNavBtn() {
   const { resolvedTheme, setTheme } = useTheme();
