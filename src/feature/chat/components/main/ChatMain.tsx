@@ -1,8 +1,10 @@
 "use client";
 
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { useChat } from "../../hooks/useChat";
 import { useMessages } from "../../hooks/useMessage";
+import { buildDmId } from "../../lib/conversation";
 import { ChatHeader } from "./ChatHeader";
 import { EmptyChat } from "./EmptyChat";
 import { MessageInput } from "./MessageInput";
@@ -18,8 +20,10 @@ export function ChatMain({ user }: ChatMainProps) {
 }
 
 function ActiveChat({ user }: { user: OnlineUserDto }) {
-  const { sendMessage, isConnected } = useChat(user.id);
-  const { messages, isLoading } = useMessages(user.id);
+  const myId = useAuthStore((s) => s.userId);
+  const conversationId = buildDmId(myId, user.id);
+  const { sendMessage, isConnected } = useChat(conversationId);
+  const { messages, isLoading } = useMessages(conversationId);
 
   return (
     <section className="flex h-full flex-1 flex-col">

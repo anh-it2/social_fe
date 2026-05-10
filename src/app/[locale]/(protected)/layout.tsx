@@ -4,7 +4,15 @@ import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useRouter } from "@/i18n/navigation";
 import { ChatBoxes } from "@/shared/components/chatbox/ChatBoxes";
 import { NavigationProgressBar } from "@/shared/components/NavigationProgressBar";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+
+function useAuthHydrated() {
+  return useSyncExternalStore(
+    (cb) => useAuthStore.persist.onFinishHydration(cb),
+    () => useAuthStore.persist.hasHydrated(),
+    () => false,
+  );
+}
 
 export default function ProtectedLayout({
   children,
@@ -13,24 +21,7 @@ export default function ProtectedLayout({
 }) {
   const router = useRouter();
   const isLoggined = useAuthStore((s) => s.isLoggined);
-  const [hydrated, setHydrated] = useState(() =>
-    useAuthStore.persist?.hasHydrated() ?? false,
-  );
-
-  useEffect(() => {
-    if (hydrated) return;
-    const persistApi = useAuthStore.persist;
-    if (!persistApi) {
-      setHydrated(true);
-      return;
-    }
-    if (persistApi.hasHydrated()) {
-      setHydrated(true);
-      return;
-    }
-    const unsub = persistApi.onFinishHydration(() => setHydrated(true));
-    return () => unsub();
-  }, [hydrated]);
+  const hydrated = useAuthHydrated();
 
   useEffect(() => {
     if (hydrated && !isLoggined) router.replace("/login");

@@ -1,8 +1,9 @@
 "use client";
 
 import { SocketProvider } from "@/socket/client/provider";
-import { NextIntlClientProvider } from "next-intl";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
+import { useState } from "react";
 
 // Silence React 19's "script inside component" warning that next-themes
 // triggers when it renders its FOUC-prevention <script>. The script still
@@ -29,18 +30,21 @@ if (
   };
 }
 
-export function Providers({
-  children,
-  locale,
-}: {
-  children: React.ReactNode;
-  locale: string;
-}) {
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: { staleTime: 30_000, refetchOnWindowFocus: false },
+        },
+      }),
+  );
+
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <NextIntlClientProvider locale={locale}>
+      <QueryClientProvider client={queryClient}>
         <SocketProvider>{children}</SocketProvider>
-      </NextIntlClientProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

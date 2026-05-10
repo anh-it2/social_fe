@@ -1,12 +1,16 @@
 "use client";
 
-import { Flex } from "antd";
+import { Flex, Typography } from "antd";
 import { useNavigation } from "@/shared/hooks/useNavigation";
-import { RECENT_CHATS, type ChatPreview } from "@/shared/data/chats";
+import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
+import { usePresenceStore } from "@/feature/presence/stores/presence.store";
+import { pickGradient } from "@/feature/chat/lib/avatar";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { ChatDropdownFooter } from "./ChatDropdownFooter";
 import { ChatDropdownHeader } from "./ChatDropdownHeader";
 import { ChatDropdownItem } from "./ChatDropdownItem";
+
+const { Text } = Typography;
 
 interface ChatDropdownContentProps {
   onClose: () => void;
@@ -14,10 +18,18 @@ interface ChatDropdownContentProps {
 
 export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
   const nav = useNavigation();
+  const onlineUsers = usePresenceStore((s) => s.onlineUsers);
   const openChat = useChatBoxesStore((s) => s.openChat);
 
-  function handleItemClick(chat: ChatPreview) {
-    openChat(chat);
+  function handleItemClick(user: OnlineUserDto) {
+    openChat({
+      id: user.id,
+      name: user.name,
+      lastMessage: "",
+      time: "",
+      online: true,
+      gradient: pickGradient(user.id),
+    });
     onClose();
   }
 
@@ -49,13 +61,31 @@ export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
           overflowY: "auto",
         }}
       >
-        {RECENT_CHATS.map((c) => (
-          <ChatDropdownItem
-            key={c.id}
-            chat={c}
-            onClick={() => handleItemClick(c)}
-          />
-        ))}
+        {onlineUsers.length === 0 ? (
+          <div style={{ padding: "24px 12px", textAlign: "center" }}>
+            <Text
+              className="!text-[13px]"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              No one online right now.
+            </Text>
+          </div>
+        ) : (
+          onlineUsers.map((u) => (
+            <ChatDropdownItem
+              key={u.id}
+              chat={{
+                id: u.id,
+                name: u.name,
+                lastMessage: "Active now",
+                time: "",
+                online: true,
+                gradient: pickGradient(u.id),
+              }}
+              onClick={() => handleItemClick(u)}
+            />
+          ))
+        )}
       </Flex>
       <ChatDropdownFooter onSeeAll={goSeeAll} />
     </Flex>

@@ -3,17 +3,15 @@
 import { Button, Flex, Input, Typography } from "antd";
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
+import { useChat } from "@/feature/chat/hooks/useChat";
+import { useMessages } from "@/feature/chat/hooks/useMessage";
+import { buildDmId } from "@/feature/chat/lib/conversation";
 import type { ChatPreview } from "@/shared/data/chats";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
-
-interface ChatBoxMessage {
-  id: string;
-  text: string;
-  fromMe: boolean;
-}
 
 interface ChatBoxProps {
   chat: ChatPreview;
@@ -24,18 +22,16 @@ export function ChatBox({ chat }: ChatBoxProps) {
   const closeChat = useChatBoxesStore((s) => s.closeChat);
   const toggleMinimize = useChatBoxesStore((s) => s.toggleMinimize);
 
-  const [messages, setMessages] = useState<ChatBoxMessage[]>([
-    { id: "m0", text: chat.lastMessage, fromMe: false },
-  ]);
+  const myId = useAuthStore((s) => s.userId);
+  const conversationId = buildDmId(myId, chat.id);
+  const { sendMessage, isConnected } = useChat(conversationId);
+  const { messages } = useMessages(conversationId);
   const [draft, setDraft] = useState("");
 
   function send() {
     const v = draft.trim();
-    if (!v) return;
-    setMessages((prev) => [
-      ...prev,
-      { id: `m-${Date.now()}`, text: v, fromMe: true },
-    ]);
+    if (!v || !isConnected) return;
+    sendMessage(v, "text").catch(() => undefined);
     setDraft("");
   }
 
@@ -157,30 +153,33 @@ export function ChatBox({ chat }: ChatBoxProps) {
             className="!flex-1 !overflow-y-auto"
             style={{ padding: "12px" }}
           >
-            {messages.map((m) => (
-              <Flex
-                key={m.id}
-                justify={m.fromMe ? "flex-end" : "flex-start"}
-                className="!w-full"
-              >
-                <div
-                  style={{
-                    maxWidth: "75%",
-                    padding: "8px 12px",
-                    borderRadius: 18,
-                    background: m.fromMe
-                      ? "var(--color-primary)"
-                      : "var(--color-bg-tertiary)",
-                    color: m.fromMe ? "#fff" : "var(--color-text)",
-                    fontSize: 14,
-                    lineHeight: 1.35,
-                    wordBreak: "break-word",
-                  }}
+            {[...messages].reverse().map((m) => {
+              const fromMe = m.senderId === myId;
+              return (
+                <Flex
+                  key={m.id ?? m.tempId}
+                  justify={fromMe ? "flex-end" : "flex-start"}
+                  className="!w-full"
                 >
-                  {m.text}
-                </div>
-              </Flex>
-            ))}
+                  <div
+                    style={{
+                      maxWidth: "75%",
+                      padding: "8px 12px",
+                      borderRadius: 18,
+                      background: fromMe
+                        ? "var(--color-primary)"
+                        : "var(--color-bg-tertiary)",
+                      color: fromMe ? "#fff" : "var(--color-text)",
+                      fontSize: 14,
+                      lineHeight: 1.35,
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    {m.content}
+                  </div>
+                </Flex>
+              );
+            })}
           </Flex>
           <Flex
             align="center"

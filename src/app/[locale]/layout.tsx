@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { routing } from "@/i18n/routing";
 import { Providers } from "../provider";
 import "../globals.css";
@@ -32,20 +34,25 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound();
   }
 
+  const messages = await getMessages();
+
   return (
     <html
       lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
+      <body className="min-h-full flex flex-col">
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=block"
+          precedence="default"
         />
-      </head>
-      <body className="min-h-full flex flex-col">
-        <Providers locale={locale}>{children}</Providers>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <AntdRegistry>
+            <Providers>{children}</Providers>
+          </AntdRegistry>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

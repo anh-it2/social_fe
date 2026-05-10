@@ -15,3 +15,15 @@ export function getChatSocket(): ChatSocket {
   const { userId, userName } = useAuthStore.getState();
   return getNamespaceSocket<ChatSocket>("/chat", { userId, userName });
 }
+
+let initialized = false;
+
+export function initChat() {
+  if (initialized) return;
+  initialized = true;
+  getChatSocket();
+}
+
+export function disposeChat() {
+  initialized = false;
+}

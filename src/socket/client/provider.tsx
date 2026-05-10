@@ -1,34 +1,39 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useSyncExternalStore } from "react";
 import { connectManager, disposeAll } from "./manager";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
+import {
+  disposePresence,
+  initPresence,
+} from "@/feature/presence/socket";
+import { disposeChat, initChat } from "@/feature/chat/socket";
 
-//provider is used for sync state of auth with state of connection
+function useAuthReady() {
+  const isLoggined = useAuthStore((s) => s.isLoggined);
+  const hydrated = useSyncExternalStore(
+    (cb) => useAuthStore.persist.onFinishHydration(cb),
+    () => useAuthStore.persist.hasHydrated(),
+    () => false,
+  );
+  return { isLoggined, hydrated };
+}
+
 export function SocketProvider({ children }: { children: React.ReactNode }) {
+  const { isLoggined, hydrated } = useAuthReady();
+
   useEffect(() => {
-    const sync = (isLoginned: boolean) => {
-      isLoginned ? connectManager() : disposeAll();
-    };
-
-    //sync default state
-    const { isLoggined } = useAuthStore.getState();
-    sync(isLoggined);
-
-    const unsub = useAuthStore.subscribe((state, prev) => {
-      if (state.isLoggined && !prev.isLoggined) {
-        console.log("login");
-        connectManager();
-      }
-      if (!state.isLoggined && prev.isLoggined) {
-        disposeAll();
-      }
-    });
-
-    return () => {
-      unsub();
-    };
-  }, []);
+    if (!hydrated) return;
+    if (isLoggined) {
+      connectManager();
+      initPresence();
+      initChat();
+    } else {
+      disposePresence();
+      disposeChat();
+      disposeAll();
+    }
+  }, [hydrated, isLoggined]);
 
   return <>{children}</>;
 }

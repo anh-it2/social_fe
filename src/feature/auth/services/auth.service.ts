@@ -12,7 +12,7 @@ export async function login(
     status: 200,
     message: "OK",
     data: {
-      userId: "user_fake_1",
+      userId: `user_${dto.username.trim().toLowerCase()}`,
       username: dto.username,
       token: "fake-jwt-token",
     },
