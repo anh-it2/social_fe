@@ -5,7 +5,13 @@ import { Icon } from "@/shared/components/Icon";
 
 const { Text } = Typography;
 
-export function NotificationDropdownHeader() {
+interface NotificationDropdownHeaderProps {
+  onMarkAllRead?: () => void;
+}
+
+export function NotificationDropdownHeader({
+  onMarkAllRead,
+}: NotificationDropdownHeaderProps) {
   return (
     <Flex
       align="center"
@@ -29,6 +35,7 @@ export function NotificationDropdownHeader() {
         <Button
           type="text"
           shape="circle"
+          onClick={onMarkAllRead}
           className="!flex !h-8 !w-8 !items-center !justify-center !p-0"
           style={{ background: "var(--color-bg-tertiary)" }}
           aria-label="Mark all read"

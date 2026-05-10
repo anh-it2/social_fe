@@ -1,10 +1,13 @@
 "use client";
 
-import { Flex } from "antd";
-import { RECENT_NOTIFICATIONS } from "@/shared/data/notifications";
+import { Flex, Typography } from "antd";
+import { useNotifications } from "@/feature/notification/hooks/useNotifications";
+import { useNotificationStore } from "@/feature/notification/stores/notification.store";
 import { NotificationDropdownFooter } from "./NotificationDropdownFooter";
 import { NotificationDropdownHeader } from "./NotificationDropdownHeader";
 import { NotificationDropdownItem } from "./NotificationDropdownItem";
+
+const { Text } = Typography;
 
 interface NotificationDropdownContentProps {
   onClose: () => void;
@@ -13,7 +16,11 @@ interface NotificationDropdownContentProps {
 export function NotificationDropdownContent({
   onClose,
 }: NotificationDropdownContentProps) {
-  function handleItemClick() {
+  const { readOne, readAll } = useNotifications();
+  const notifications = useNotificationStore((s) => s.notifications);
+
+  function handleItemClick(id: string) {
+    readOne(id);
     onClose();
   }
 
@@ -33,7 +40,7 @@ export function NotificationDropdownContent({
         overflow: "hidden",
       }}
     >
-      <NotificationDropdownHeader />
+      <NotificationDropdownHeader onMarkAllRead={readAll} />
       <Flex
         vertical
         gap={2}
@@ -44,13 +51,25 @@ export function NotificationDropdownContent({
           overflowY: "auto",
         }}
       >
-        {RECENT_NOTIFICATIONS.map((n) => (
-          <NotificationDropdownItem
-            key={n.id}
-            notification={n}
-            onClick={handleItemClick}
-          />
-        ))}
+        {notifications.length === 0 ? (
+          <Flex
+            align="center"
+            justify="center"
+            style={{ padding: "32px 16px" }}
+          >
+            <Text style={{ color: "var(--color-text-muted)" }}>
+              No notifications yet
+            </Text>
+          </Flex>
+        ) : (
+          notifications.map((n) => (
+            <NotificationDropdownItem
+              key={n.id}
+              notification={n}
+              onClick={() => handleItemClick(n.id)}
+            />
+          ))
+        )}
       </Flex>
       <NotificationDropdownFooter onSeeAll={goSeeAll} />
     </Flex>

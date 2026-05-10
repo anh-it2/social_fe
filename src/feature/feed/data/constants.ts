@@ -62,7 +62,8 @@ export const STORIES: StoryCardData[] = [
 export const FEED_POSTS: FeedPostData[] = [
   {
     id: "fp1",
-    author: { name: "Mai Linh", initial: "M", gradient: ["#22c55e", "#10b981"] },
+    ownerId: "u-mailinh",
+    author: { id: "u-mailinh", name: "Mai Linh", initial: "M", gradient: ["#22c55e", "#10b981"] },
     time: "2 hours ago",
     text: "Just wrapped up an amazing UI/UX workshop in Hanoi! Loved meeting fellow designers passionate about crafting meaningful digital experiences. Big thanks to everyone who joined! 🎨",
     imageGradient: ["#fb923c", "#ef4444", "#7c3aed"],
@@ -72,7 +73,8 @@ export const FEED_POSTS: FeedPostData[] = [
   },
   {
     id: "fp2",
-    author: { name: "Tuấn Anh", initial: "T", gradient: ["#a855f7", "#7c3aed"] },
+    ownerId: "u-tuananh",
+    author: { id: "u-tuananh", name: "Tuấn Anh", initial: "T", gradient: ["#a855f7", "#7c3aed"] },
     time: "5 hours ago",
     text: "Shipped a new feature today 🚀 Hot reload + RSC streaming is wild. Anyone else playing with the new Next.js cache directives?",
     likes: "428",

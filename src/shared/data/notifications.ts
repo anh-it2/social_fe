@@ -1,73 +1,6 @@
-export type NotificationKind =
-  | "like"
-  | "comment"
-  | "follow"
-  | "mention"
-  | "share";
+import type { NotificationKind } from "@/feature/notification/types";
 
-export interface NotificationPreview {
-  id: string;
-  kind: NotificationKind;
-  actor: string;
-  text: string;
-  time: string;
-  unread?: boolean;
-  gradient: [string, string];
-}
-
-export const RECENT_NOTIFICATIONS: NotificationPreview[] = [
-  {
-    id: "n1",
-    kind: "like",
-    actor: "Alex Chen",
-    text: "liked your photo.",
-    time: "2m",
-    unread: true,
-    gradient: ["#4096ff", "#a855f7"],
-  },
-  {
-    id: "n2",
-    kind: "comment",
-    actor: "Mia Lopez",
-    text: "commented: \"This is amazing! 🎉\"",
-    time: "12m",
-    unread: true,
-    gradient: ["#ec4899", "#8b5cf6"],
-  },
-  {
-    id: "n3",
-    kind: "follow",
-    actor: "James Wu",
-    text: "started following you.",
-    time: "1h",
-    unread: true,
-    gradient: ["#22c55e", "#06b6d4"],
-  },
-  {
-    id: "n4",
-    kind: "mention",
-    actor: "Design Team",
-    text: "mentioned you in a post.",
-    time: "3h",
-    gradient: ["#f59e0b", "#ef4444"],
-  },
-  {
-    id: "n5",
-    kind: "share",
-    actor: "Lily Zhang",
-    text: "shared your reel.",
-    time: "5h",
-    gradient: ["#f97316", "#eab308"],
-  },
-  {
-    id: "n6",
-    kind: "like",
-    actor: "David Kim",
-    text: "and 12 others liked your post.",
-    time: "1d",
-    gradient: ["#06b6d4", "#3b82f6"],
-  },
-];
+export type { NotificationKind } from "@/feature/notification/types";
 
 export const NOTIFICATION_ICON: Record<NotificationKind, string> = {
   like: "favorite",
@@ -84,3 +17,46 @@ export const NOTIFICATION_ICON_COLOR: Record<NotificationKind, string> = {
   mention: "#a855f7",
   share: "#f59e0b",
 };
+
+const ACTOR_GRADIENTS: [string, string][] = [
+  ["#4096ff", "#a855f7"],
+  ["#ec4899", "#8b5cf6"],
+  ["#22c55e", "#06b6d4"],
+  ["#f59e0b", "#ef4444"],
+  ["#f97316", "#eab308"],
+  ["#06b6d4", "#3b82f6"],
+];
+
+export function actorGradient(actorId: string): [string, string] {
+  let hash = 0;
+  for (let i = 0; i < actorId.length; i++) {
+    hash = (hash * 31 + actorId.charCodeAt(i)) >>> 0;
+  }
+  return ACTOR_GRADIENTS[hash % ACTOR_GRADIENTS.length];
+}
+
+export function notificationText(kind: NotificationKind, preview?: string): string {
+  switch (kind) {
+    case "like":
+      return "reacted to your post.";
+    case "comment":
+      return preview ? `commented: "${preview}"` : "commented on your post.";
+    case "share":
+      return "shared your post.";
+    case "follow":
+      return "started following you.";
+    case "mention":
+      return "mentioned you in a post.";
+  }
+}
+
+export function relativeTime(timestamp: number): string {
+  const diff = Math.max(0, Date.now() - timestamp);
+  const m = Math.floor(diff / 60_000);
+  if (m < 1) return "just now";
+  if (m < 60) return `${m}m`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h`;
+  const d = Math.floor(h / 24);
+  return `${d}d`;
+}

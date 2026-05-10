@@ -5,14 +5,17 @@ import { Icon } from "@/shared/components/Icon";
 import {
   NOTIFICATION_ICON,
   NOTIFICATION_ICON_COLOR,
-  type NotificationPreview,
+  actorGradient,
+  notificationText,
+  relativeTime,
 } from "@/shared/data/notifications";
+import type { Notification } from "@/feature/notification/types";
 import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
 
 interface NotificationDropdownItemProps {
-  notification: NotificationPreview;
+  notification: Notification;
   onClick: () => void;
 }
 
@@ -20,6 +23,9 @@ export function NotificationDropdownItem({
   notification,
   onClick,
 }: NotificationDropdownItemProps) {
+  const gradient = actorGradient(notification.actorId);
+  const unread = !notification.read;
+
   return (
     <Flex
       align="center"
@@ -40,7 +46,7 @@ export function NotificationDropdownItem({
           style={{
             width: 52,
             height: 52,
-            background: gradientBg([...notification.gradient]),
+            background: gradientBg([...gradient]),
           }}
         >
           <Icon name="person" size={28} color="#FFFFFF" />
@@ -72,17 +78,17 @@ export function NotificationDropdownItem({
           className="!text-sm"
           style={{
             color: "var(--color-text)",
-            fontWeight: notification.unread ? 600 : 400,
+            fontWeight: unread ? 600 : 400,
           }}
         >
-          <span style={{ fontWeight: 700 }}>{notification.actor}</span>{" "}
-          {notification.text}
+          <span style={{ fontWeight: 700 }}>{notification.actorName}</span>{" "}
+          {notificationText(notification.kind, notification.preview)}
         </Text>
         <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
-          {notification.time}
+          {relativeTime(notification.timestamp)}
         </Text>
       </Flex>
-      {notification.unread ? (
+      {unread ? (
         <span
           style={{
             width: 10,

@@ -27,6 +27,7 @@ export interface StoryCardData {
 }
 
 export interface FeedAuthor {
+  id?: string;
   name: string;
   initial: string;
   gradient: [string, string];
@@ -41,6 +42,7 @@ export interface Feeling {
 
 export interface FeedPostData {
   id: string;
+  ownerId?: string;
   author: FeedAuthor;
   time: string;
   text: string;

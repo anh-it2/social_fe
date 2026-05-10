@@ -3,14 +3,20 @@
 import { Badge, Button } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
-import { RECENT_NOTIFICATIONS } from "@/shared/data/notifications";
+import { useNotifications } from "@/feature/notification/hooks/useNotifications";
+import { useNotificationStore } from "@/feature/notification/stores/notification.store";
 import styles from "./NavBtn.module.scss";
 import { NotificationDropdownContent } from "./notification-dropdown/NotificationDropdownContent";
 
 export function NotificationNavBtn() {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
-  const unreadCount = RECENT_NOTIFICATIONS.filter((n) => n.unread).length;
+
+  useNotifications();
+
+  const unreadCount = useNotificationStore(
+    (s) => s.notifications.filter((n) => !n.read).length,
+  );
 
   useEffect(() => {
     if (!open) return;

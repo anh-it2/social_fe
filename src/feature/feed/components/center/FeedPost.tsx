@@ -4,6 +4,8 @@ import { Flex } from "antd";
 import { useState } from "react";
 import { CommentSection } from "@/shared/components/post/CommentSection";
 import type { Comment, ReactionId } from "@/shared/data/reactions";
+import { emitNotification } from "@/feature/notification/lib/emit";
+import { getFirstUserId } from "@/shared/lib/firstUser";
 import { CURRENT_USER } from "../../data/constants";
 import type { FeedPostData } from "../../data/types";
 import { PostActions } from "./PostActions";
@@ -28,6 +30,10 @@ export function FeedPost({ post, onRemove, onUpdate }: FeedPostProps) {
 
   const commentCount = post.comments + comments.length;
 
+  function resolveRecipient(): string | undefined {
+    return getFirstUserId() ?? post.ownerId ?? post.author.id;
+  }
+
   function handleAdd(text: string) {
     setComments((prev) => [
       ...prev,
@@ -41,6 +47,41 @@ export function FeedPost({ post, onRemove, onUpdate }: FeedPostProps) {
       },
     ]);
     if (!showComments) setShowComments(true);
+    const recipientId = resolveRecipient();
+    if (recipientId) {
+      emitNotification({
+        recipientId,
+        kind: "comment",
+        postId: post.id,
+        preview: text,
+      });
+    }
+  }
+
+  function handleReactionChange(next: ReactionId | null) {
+    setReaction(next);
+    const recipientId = resolveRecipient();
+    if (next && recipientId) {
+      emitNotification({
+        recipientId,
+        kind: "like",
+        postId: post.id,
+        preview: post.text?.slice(0, 80),
+      });
+    }
+  }
+
+  function handleShared() {
+    setShareCount((n) => n + 1);
+    const recipientId = resolveRecipient();
+    if (recipientId) {
+      emitNotification({
+        recipientId,
+        kind: "share",
+        postId: post.id,
+        preview: post.text?.slice(0, 80),
+      });
+    }
   }
 
   return (
@@ -75,9 +116,9 @@ export function FeedPost({ post, onRemove, onUpdate }: FeedPostProps) {
       <PostActions
         postId={post.id}
         reaction={reaction}
-        onReactionChange={setReaction}
+        onReactionChange={handleReactionChange}
         onCommentClick={() => setShowComments((v) => !v)}
-        onShared={() => setShareCount((n) => n + 1)}
+        onShared={handleShared}
       />
       {showComments ? (
         <CommentSection

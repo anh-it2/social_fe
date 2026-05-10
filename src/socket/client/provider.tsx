@@ -8,6 +8,10 @@ import {
   initPresence,
 } from "@/feature/presence/socket";
 import { disposeChat, initChat } from "@/feature/chat/socket";
+import {
+  disposeNotification,
+  initNotification,
+} from "@/feature/notification/socket";
 
 function useAuthReady() {
   const isLoggined = useAuthStore((s) => s.isLoggined);
@@ -28,9 +32,11 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       connectManager();
       initPresence();
       initChat();
+      initNotification();
     } else {
       disposePresence();
       disposeChat();
+      disposeNotification();
       disposeAll();
     }
   }, [hydrated, isLoggined]);

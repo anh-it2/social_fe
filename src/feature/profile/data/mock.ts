@@ -55,6 +55,7 @@ export interface PostAuthor {
 
 export interface Post {
   id: string;
+  ownerId?: string;
   author: PostAuthor;
   coAuthor?: PostAuthor;
   time: string;
@@ -130,6 +131,7 @@ export const PHOTOS: PhotoTile[] = [
 export const POSTS: Post[] = [
   {
     id: "post-1",
+    ownerId: "u-sarah",
     author: { name: "Sarah Anderson", gradient: ["#4096ff", "#a855f7"] },
     time: "2 hours ago  ·  🌍",
     text: "Just wrapped up an amazing design sprint with the team! 🎨✨ Nothing beats the energy of collaborative creativity. Here's a sneak peek at what we've been working on.",
@@ -141,6 +143,7 @@ export const POSTS: Post[] = [
   },
   {
     id: "post-2",
+    ownerId: "u-alexchen",
     author: { name: "Alex Chen" },
     coAuthor: { name: "Sarah Anderson" },
     time: "5 hours ago  ·  🌍",
