@@ -7,7 +7,7 @@ export function MoreButton() {
   return (
     <Button
       type="text"
-      className="!flex !h-10 !w-10 !items-center !justify-center !rounded-[20px] !p-0"
+      className="!flex !h-9 !w-9 !items-center !justify-center !rounded-[20px] !p-0 md:!h-10 md:!w-10"
       style={{
         background: "rgba(255,255,255,0.18)",
         border: "1px solid rgba(255,255,255,0.35)",

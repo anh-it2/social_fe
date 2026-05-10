@@ -15,16 +15,15 @@ export function StatCard({ item }: StatCardProps) {
       vertical
       align="center"
       gap={2}
-      className="!flex-1"
+      className="!flex-1 !basis-[calc(50%-6px)] !px-3 !py-3 sm:!basis-0 sm:!px-6 sm:!py-4"
       style={{
         background: "var(--color-bg-secondary)",
         border: "1px solid var(--color-border)",
         borderRadius: 14,
-        padding: "16px 24px",
       }}
     >
       <Text
-        className="!text-[24px] !font-extrabold !leading-tight"
+        className="!text-[20px] !font-extrabold !leading-tight md:!text-[24px]"
         style={{
           fontFamily: "var(--font-geist-mono), 'Geist Mono', monospace",
           ...gradientText([...item.gradient], 135),

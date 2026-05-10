@@ -11,8 +11,7 @@ export function ProfileCenter() {
       vertical
       align="center"
       gap={16}
-      className="!relative !z-10"
-      style={{ paddingBottom: 40 }}
+      className="!relative !z-10 !pb-6 !px-4 md:!pb-10"
     >
       <ProfileAvatar />
       <ProfileIdentity />

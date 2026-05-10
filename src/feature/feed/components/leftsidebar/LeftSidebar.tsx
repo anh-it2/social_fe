@@ -10,17 +10,23 @@ import { UserRow } from "./UserRow";
 
 const { Text } = Typography;
 
-export function LeftSidebar() {
+interface LeftSidebarProps {
+  embedded?: boolean;
+}
+
+export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <Flex
       vertical
       gap={8}
-      className="no-scrollbar !sticky !top-14 !w-[340px] !shrink-0 !overflow-y-auto !px-2 !py-4"
+      className={`no-scrollbar !w-[340px] !shrink-0 !overflow-y-auto !px-2 !py-4 ${
+        embedded ? "" : "!sticky !top-14"
+      }`}
       style={{
         background: "var(--color-bg)",
-        height: "calc(100vh - 56px)",
+        height: embedded ? "100%" : "calc(100vh - 56px)",
       }}
     >
       <UserRow />

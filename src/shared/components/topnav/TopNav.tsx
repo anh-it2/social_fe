@@ -1,6 +1,7 @@
 "use client";
 
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
+import { Icon } from "@/shared/components/Icon";
 import { ChatNavBtn } from "./ChatNavBtn";
 import { Logo } from "./Logo";
 import { NavSearch } from "./NavSearch";
@@ -8,7 +9,11 @@ import { NotificationNavBtn } from "./NotificationNavBtn";
 import { ThemeNavBtn } from "./ThemeNavBtn";
 import { UserAvatarBtn } from "./UserAvatarBtn";
 
-export function TopNav() {
+interface TopNavProps {
+  onMenuClick?: () => void;
+}
+
+export function TopNav({ onMenuClick }: TopNavProps) {
   return (
     <Flex
       align="center"
@@ -19,7 +24,19 @@ export function TopNav() {
         borderColor: "var(--color-border)",
       }}
     >
-      <Flex align="center" className="!min-w-0 !gap-3 sm:!gap-4 lg:!gap-6">
+      <Flex align="center" className="!min-w-0 !gap-2 sm:!gap-3 lg:!gap-6">
+        {onMenuClick && (
+          <Button
+            type="text"
+            shape="circle"
+            aria-label="Open menu"
+            onClick={onMenuClick}
+            className="!h-10 !w-10 lg:!hidden"
+            icon={
+              <Icon name="menu" size={22} color="var(--color-text)" />
+            }
+          />
+        )}
         <Logo />
         <NavSearch />
       </Flex>

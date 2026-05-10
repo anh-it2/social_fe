@@ -7,7 +7,11 @@ import { PhotosCard } from "./PhotosCard";
 
 export function Sidebar() {
   return (
-    <Flex vertical gap={20} style={{ width: 380, flexShrink: 0 }}>
+    <Flex
+      vertical
+      gap={20}
+      className="!w-full lg:!w-[340px] lg:!shrink-0 xl:!w-[380px]"
+    >
       <AboutCard />
       <FriendsCard />
       <PhotosCard />

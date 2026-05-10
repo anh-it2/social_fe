@@ -12,8 +12,8 @@ export function CoverSection() {
     <Flex
       vertical
       justify="end"
-      className="!relative !w-full !shrink-0 !overflow-hidden"
-      style={{ height: 440, background: COVER_GRADIENT }}
+      className="!relative !h-[300px] !w-full !shrink-0 !overflow-hidden sm:!h-[360px] md:!h-[400px] lg:!h-[440px]"
+      style={{ background: COVER_GRADIENT }}
     >
       <CoverBlobs />
       <ProfileCenter />

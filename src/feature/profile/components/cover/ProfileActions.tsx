@@ -7,7 +7,7 @@ import { MoreButton } from "./MoreButton";
 
 export function ProfileActions() {
   return (
-    <Flex align="center" gap={12}>
+    <Flex align="center" justify="center" wrap gap={8} className="md:!gap-3">
       <EditButton />
       <ShareButton />
       <MoreButton />

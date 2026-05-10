@@ -12,7 +12,7 @@ export function EditButton() {
     <Link href="/profile/edit">
       <Button
         type="text"
-        className="!h-10 !rounded-3xl !border-0 !px-6"
+        className="!h-9 !rounded-3xl !border-0 !px-4 md:!h-10 md:!px-6"
         style={{
           background: gradientBg(["#4096ff", "#a855f7"]),
           boxShadow: "0 2px 12px #4096ff40",

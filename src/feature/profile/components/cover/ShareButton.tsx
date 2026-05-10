@@ -9,7 +9,7 @@ export function ShareButton() {
   return (
     <Button
       type="text"
-      className="!h-10 !rounded-3xl !px-6"
+      className="!h-9 !rounded-3xl !px-4 md:!h-10 md:!px-6"
       style={{
         background: "rgba(255,255,255,0.18)",
         border: "1px solid rgba(255,255,255,0.35)",
