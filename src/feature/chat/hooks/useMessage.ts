@@ -6,6 +6,8 @@ import { useChat } from "./useChat";
 import {
   ChatHistoryResponseDTO,
   ChatMessageDTO,
+  MessageEditedDTO,
+  MessageUnsentDTO,
   ReadReceiptDto,
 } from "../dto/chat.dto";
 import { useChatStore } from "../stores/chat.store";
@@ -191,12 +193,72 @@ export function useMessages(conversationId: string) {
       );
     };
 
+    const handleEdited = (dto: MessageEditedDTO) => {
+      if (dto.conversationId !== conversationId) return;
+      useChatStore
+        .getState()
+        .applyEditToOptimistic(
+          conversationId,
+          dto.messageId,
+          dto.content,
+          dto.editedAt,
+        );
+      queryClient.setQueryData<HistoryInfinteData>(
+        ["chat:messages", conversationId],
+        (old) => {
+          if (!old) return old;
+          let changed = false;
+          const pages = old.pages.map((page) => {
+            const messages = page.messages.map((msg) => {
+              if (msg.id === dto.messageId) {
+                changed = true;
+                return { ...msg, content: dto.content, editedAt: dto.editedAt };
+              }
+              return msg;
+            });
+            return { ...page, messages };
+          });
+          return changed ? { ...old, pages } : old;
+        },
+      );
+    };
+
+    const handleUnsent = (dto: MessageUnsentDTO) => {
+      console.log("[chat] received chat:unsent", dto);
+      if (dto.conversationId !== conversationId) return;
+      useChatStore
+        .getState()
+        .applyDeletedToOptimistic(conversationId, dto.messageId);
+      queryClient.setQueryData<HistoryInfinteData>(
+        ["chat:messages", conversationId],
+        (old) => {
+          if (!old) return old;
+          let changed = false;
+          const pages = old.pages.map((page) => {
+            const messages = page.messages.map((msg) => {
+              if (msg.id === dto.messageId) {
+                changed = true;
+                return { ...msg, content: "", deleted: true };
+              }
+              return msg;
+            });
+            return { ...page, messages };
+          });
+          return changed ? { ...old, pages } : old;
+        },
+      );
+    };
+
     chatSocket.on("chat:message", handleMessage);
     chatSocket.on("chat:read", handleRead);
+    chatSocket.on("chat:edited", handleEdited);
+    chatSocket.on("chat:unsent", handleUnsent);
 
     return () => {
       chatSocket.off("chat:message", handleMessage);
       chatSocket.off("chat:read", handleRead);
+      chatSocket.off("chat:edited", handleEdited);
+      chatSocket.off("chat:unsent", handleUnsent);
     };
   }, [chatSocket, conversationId, isConnected, queryClient]);
 

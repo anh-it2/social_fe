@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Flex, Typography } from "antd";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useChat } from "@/feature/chat/hooks/useChat";
@@ -11,6 +11,7 @@ import { buildDmId } from "@/feature/chat/lib/conversation";
 import { MessageInput } from "@/feature/chat/components/main/MessageInput";
 import { MessageList } from "@/feature/chat/components/main/MessageList";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
+import type { ReplyContext } from "@/feature/chat/types";
 import type { ChatPreview } from "@/shared/data/chats";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
@@ -32,9 +33,11 @@ export function ChatBox({ chat }: ChatBoxProps) {
 
   const myId = useAuthStore((s) => s.userId);
   const conversationId = buildDmId(myId, chat.id);
-  const { sendMessage, isConnected } = useChat(conversationId);
+  const { sendMessage, editMessage, unsendMessage, isConnected } =
+    useChat(conversationId);
   const { messages, isLoading } = useMessages(conversationId);
   const { notifyTyping, stopTyping } = useTyping(conversationId);
+  const [replyTo, setReplyTo] = useState<ReplyContext | null>(null);
 
   const user: OnlineUserDto = { id: chat.id, name: chat.name };
 
@@ -198,15 +201,22 @@ export function ChatBox({ chat }: ChatBoxProps) {
             user={user}
             messages={messages}
             isLoading={isLoading}
+            onReply={setReplyTo}
+            onEdit={editMessage}
+            onUnsend={unsendMessage}
             compact
           />
           <MessageInput
             recipientName={chat.name}
-            onSend={(content, type) =>
-              sendMessage(content, type).catch(() => undefined)
-            }
+            onSend={async (content, type) => {
+              const ctx = replyTo ?? undefined;
+              setReplyTo(null);
+              await sendMessage(content, type, ctx).catch(() => undefined);
+            }}
             onTyping={notifyTyping}
             onStopTyping={stopTyping}
+            replyTo={replyTo}
+            onCancelReply={() => setReplyTo(null)}
             disabled={!isConnected}
             compact
           />

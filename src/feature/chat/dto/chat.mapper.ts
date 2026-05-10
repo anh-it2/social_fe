@@ -18,6 +18,9 @@ export function toMessage(dto: ChatMessageDTO): ChatMessage {
     queueAt: dto.timestamp,
     type: dto.type,
     seq: dto.seq,
+    replyTo: dto.replyTo,
+    editedAt: dto.editedAt,
+    deleted: dto.deleted,
   };
 }
 
@@ -49,8 +52,9 @@ export function toSendMessageDto(
   tempId: string,
   content: string,
   type: ChatMessage["type"],
+  replyTo?: SendMessageDTO["replyTo"],
 ): SendMessageDTO {
-  return { conversationId, tempId, content, type };
+  return { conversationId, tempId, content, type, replyTo };
 }
 
 // export function toMessageDto(model: ChatMessage): ChatMessageDTO {

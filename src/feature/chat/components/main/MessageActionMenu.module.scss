@@ -1,0 +1,38 @@
+.menu {
+  background: var(--color-bg-secondary) !important;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  padding: 6px;
+  min-width: 160px;
+
+  :global(.ant-dropdown-menu-item) {
+    color: var(--color-text) !important;
+    border-radius: 8px;
+
+    &:hover {
+      background: var(--color-bg-tertiary) !important;
+    }
+
+    :global(.ant-dropdown-menu-item-icon),
+    :global(.anticon) {
+      color: var(--color-text-secondary) !important;
+    }
+  }
+
+  :global(.ant-dropdown-menu-item-danger) {
+    color: var(--color-error) !important;
+
+    :global(.anticon) {
+      color: var(--color-error) !important;
+    }
+
+    &:hover {
+      background: color-mix(
+        in srgb,
+        var(--color-error) 12%,
+        transparent
+      ) !important;
+    }
+  }
+}

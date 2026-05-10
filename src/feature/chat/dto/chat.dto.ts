@@ -1,5 +1,13 @@
 //server send to client
 
+export interface ReplyContextDTO {
+  id: string;
+  senderId: string;
+  senderName: string;
+  content: string;
+  type: "text" | "image" | "file" | "video";
+}
+
 export interface ChatMessageDTO {
   id: string;
   tempId: string;
@@ -10,6 +18,21 @@ export interface ChatMessageDTO {
   seq?: number;
   timestamp: number;
   type: "text" | "image" | "file" | "video";
+  replyTo?: ReplyContextDTO;
+  editedAt?: number;
+  deleted?: boolean;
+}
+
+export interface MessageEditedDTO {
+  conversationId: string;
+  messageId: string;
+  content: string;
+  editedAt: number;
+}
+
+export interface MessageUnsentDTO {
+  conversationId: string;
+  messageId: string;
 }
 
 export interface TypingEventDTO {
@@ -32,6 +55,23 @@ export interface SendMessageDTO {
   tempId: string;
   content: string;
   type: ChatMessageDTO["type"];
+  replyTo?: ReplyContextDTO;
+}
+
+export interface EditMessageDTO {
+  conversationId: string;
+  messageId: string;
+  content: string;
+}
+
+export interface UnsendMessageDTO {
+  conversationId: string;
+  messageId: string;
+}
+
+export interface MessageActionAck {
+  ok: boolean;
+  error?: string;
 }
 
 export interface SendTypingDTO {
@@ -75,10 +115,20 @@ export interface ChatClientToServerEvents {
     data: ChatHistoryRequestDTO,
     ack: (res: ChatHistoryResponseDTO) => void,
   ) => void;
+  "chat:edit": (
+    data: EditMessageDTO,
+    ack: (res: MessageActionAck) => void,
+  ) => void;
+  "chat:unsend": (
+    data: UnsendMessageDTO,
+    ack: (res: MessageActionAck) => void,
+  ) => void;
 }
 
 export interface ChatServerToClientEvents {
   "chat:message": (message: ChatMessageDTO) => void;
   "chat:typing": (data: TypingEventDTO) => void;
   "chat:read": (data: ReadReceiptDto) => void;
+  "chat:edited": (data: MessageEditedDTO) => void;
+  "chat:unsent": (data: MessageUnsentDTO) => void;
 }

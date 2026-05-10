@@ -3,8 +3,8 @@ import { getChatSocket } from "../socket";
 import { useCallback, useEffect, useState } from "react";
 import { useChatStore } from "../stores/chat.store";
 import { toSendMessageDto } from "../dto/chat.mapper";
-import { ChatMessageDTO } from "../dto/chat.dto";
-import { ChatMessage } from "../types";
+import { ChatMessageDTO, MessageActionAck } from "../dto/chat.dto";
+import { ChatMessage, ReplyContext } from "../types";
 
 export function useChat(conversationId: string) {
   const { isLoggined, userId: senderId, userName: senderName } = useAuthStore();
@@ -73,7 +73,11 @@ export function useChat(conversationId: string) {
   }, [conversationId, isConnected, chatSocket]);
 
   const sendMessage = useCallback(
-    (content: string, type: ChatMessage["type"]) => {
+    (
+      content: string,
+      type: ChatMessage["type"],
+      replyTo?: ReplyContext,
+    ) => {
       return new Promise<void>((resolve, reject) => {
         const tempId = crypto.randomUUID().slice(0, 10);
         const queueAt = Date.now();
@@ -87,6 +91,7 @@ export function useChat(conversationId: string) {
           senderName,
           conversationId,
           status: "pending",
+          replyTo,
         };
 
         addOptimisticMessage(conversationId, optimisticMessage);
@@ -102,6 +107,7 @@ export function useChat(conversationId: string) {
             optimisticMessage.tempId,
             optimisticMessage.content,
             optimisticMessage.type,
+            replyTo,
           ),
           (ack: ChatMessageDTO) => {
             reconcileAck(conversationId, optimisticMessage.tempId, {
@@ -115,6 +121,46 @@ export function useChat(conversationId: string) {
       });
     },
     [conversationId, senderId, senderName, chatSocket, isConnected],
+  );
+
+  const editMessage = useCallback(
+    (messageId: string, content: string) => {
+      return new Promise<void>((resolve, reject) => {
+        if (!chatSocket || !isConnected) {
+          return reject(new Error("Not connected"));
+        }
+        chatSocket.emit(
+          "chat:edit",
+          { conversationId, messageId, content },
+          (ack: MessageActionAck) => {
+            if (ack.ok) resolve();
+            else reject(new Error(ack.error || "edit_failed"));
+          },
+        );
+      });
+    },
+    [conversationId, chatSocket, isConnected],
+  );
+
+  const unsendMessage = useCallback(
+    (messageId: string) => {
+      return new Promise<void>((resolve, reject) => {
+        console.log("[chat] unsend emit", { conversationId, messageId, isConnected });
+        if (!chatSocket || !isConnected) {
+          return reject(new Error("Not connected"));
+        }
+        chatSocket.emit(
+          "chat:unsend",
+          { conversationId, messageId },
+          (ack: MessageActionAck) => {
+            console.log("[chat] unsend ack", ack);
+            if (ack.ok) resolve();
+            else reject(new Error(ack.error || "unsend_failed"));
+          },
+        );
+      });
+    },
+    [conversationId, chatSocket, isConnected],
   );
 
   const retryMessage = useCallback(
@@ -152,6 +198,8 @@ export function useChat(conversationId: string) {
   return {
     sendMessage,
     retryMessage,
+    editMessage,
+    unsendMessage,
     isConnected,
   };
 }

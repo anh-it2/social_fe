@@ -6,7 +6,7 @@ import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { buildDmId } from "../../lib/conversation";
 import { useChatStore } from "../../stores/chat.store";
-import type { ChatMessage } from "../../types";
+import type { ChatMessage, ReplyContext } from "../../types";
 import { MessageBubble } from "./MessageBubble";
 import { TypingIndicator } from "./TypingIndicator";
 
@@ -17,13 +17,24 @@ interface MessageListProps {
   messages: ChatMessage[];
   isLoading: boolean;
   compact?: boolean;
+  onReply?: (ctx: ReplyContext) => void;
+  onEdit?: (id: string, content: string) => Promise<void> | void;
+  onUnsend?: (id: string) => Promise<void> | void;
 }
 
 function messageKey(m: ChatMessage) {
   return m.id ?? m.tempId;
 }
 
-export function MessageList({ user, messages, isLoading, compact = false }: MessageListProps) {
+export function MessageList({
+  user,
+  messages,
+  isLoading,
+  compact = false,
+  onReply,
+  onEdit,
+  onUnsend,
+}: MessageListProps) {
   const myId = useAuthStore((s) => s.userId);
   const conversationId = buildDmId(myId, user.id);
   const typingMap = useChatStore((s) => s.typingUsers[conversationId]);
@@ -127,12 +138,19 @@ export function MessageList({ user, messages, isLoading, compact = false }: Mess
             return (
               <div key={key} data-msg-key={key}>
                 <MessageBubble
+                  id={m.id}
                   content={m.content}
                   type={m.type}
                   mine={mine}
                   senderName={m.senderName || user.name}
                   senderSeed={user.id}
                   showAvatar={!sameAsPrev}
+                  replyTo={m.replyTo}
+                  editedAt={m.editedAt}
+                  deleted={m.deleted}
+                  onReply={onReply}
+                  onEdit={onEdit}
+                  onUnsend={onUnsend}
                 />
               </div>
             );

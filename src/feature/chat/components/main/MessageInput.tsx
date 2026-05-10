@@ -2,16 +2,21 @@
 
 import {
   AudioOutlined,
+  CloseOutlined,
   PictureOutlined,
   PlusOutlined,
   SendOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
-import { Button, Flex, Input, Popover, Upload, message as antdMessage } from "antd";
-import { useState } from "react";
+import { Button, Flex, Input, Popover, Typography, Upload, message as antdMessage } from "antd";
+import type { InputRef } from "antd";
+import { useEffect, useRef, useState } from "react";
 import { CHAT_IMAGE_MAX_BYTES, uploadChatImage } from "../../lib/upload";
+import type { ReplyContext } from "../../types";
 import { EmojiPicker } from "./EmojiPicker";
 import { GifPicker } from "./GifPicker";
+
+const { Text } = Typography;
 
 interface MessageInputProps {
   recipientName: string;
@@ -21,6 +26,8 @@ interface MessageInputProps {
   ) => void | Promise<void>;
   onTyping?: () => void;
   onStopTyping?: () => void;
+  replyTo?: ReplyContext | null;
+  onCancelReply?: () => void;
   disabled?: boolean;
   compact?: boolean;
 }
@@ -36,6 +43,8 @@ export function MessageInput({
   onSend,
   onTyping,
   onStopTyping,
+  replyTo,
+  onCancelReply,
   disabled = false,
   compact = false,
 }: MessageInputProps) {
@@ -43,7 +52,12 @@ export function MessageInput({
   const [uploading, setUploading] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
   const [emojiOpen, setEmojiOpen] = useState(false);
+  const inputRef = useRef<InputRef>(null);
   const trimmed = draft.trim();
+
+  useEffect(() => {
+    if (replyTo) inputRef.current?.focus();
+  }, [replyTo]);
 
   async function handleGifPick(url: string) {
     setGifOpen(false);
@@ -96,9 +110,46 @@ export function MessageInput({
   const inputSize = compact ? "!h-9" : "!h-11";
 
   return (
+    <div className="border-t border-[var(--color-border)] bg-white dark:bg-[#141414]">
+      {replyTo && (
+        <Flex
+          align="center"
+          justify="space-between"
+          className={"border-b " + (compact ? "px-2 py-1.5" : "px-4 py-2")}
+          style={{ borderColor: "var(--color-border)" }}
+          gap={8}
+        >
+          <Flex
+            vertical
+            className="min-w-0 flex-1 border-l-2 pl-2"
+            style={{ borderColor: "var(--color-primary)" }}
+          >
+            <Text
+              className="!text-[11px] !font-semibold"
+              style={{ color: "var(--color-primary)" }}
+            >
+              Replying to {replyTo.senderName}
+            </Text>
+            <Text
+              ellipsis
+              className="!text-[12px]"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              {replyTo.type === "image" ? "📷 Photo" : replyTo.content}
+            </Text>
+          </Flex>
+          <Button
+            type="text"
+            size="small"
+            icon={<CloseOutlined />}
+            onClick={onCancelReply}
+            style={{ color: "var(--color-text-muted)" }}
+          />
+        </Flex>
+      )}
     <div
       className={
-        "flex items-center border-t border-[var(--color-border)] bg-white dark:bg-[#141414] " +
+        "flex items-center " +
         (compact
           ? "h-14 gap-1 px-2"
           : "h-20 gap-2 px-3 sm:gap-3 sm:px-6")
@@ -148,6 +199,7 @@ export function MessageInput({
         </Popover>
       </Flex>
       <Input
+        ref={inputRef}
         value={draft}
         onChange={(e) => handleChange(e.target.value)}
         onPressEnter={handleSend}
@@ -207,6 +259,7 @@ export function MessageInput({
             "linear-gradient(90deg, var(--color-primary-dark), var(--color-primary))",
         }}
       />
+    </div>
     </div>
   );
 }

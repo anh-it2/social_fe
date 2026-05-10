@@ -39,6 +39,13 @@ export interface ChatState {
     isTyping: boolean,
   ) => void;
   clearTyping: (conversationId: string, userId: string) => void;
+  applyDeletedToOptimistic: (conversationId: string, id: string) => void;
+  applyEditToOptimistic: (
+    conversationId: string,
+    id: string,
+    content: string,
+    editedAt: number,
+  ) => void;
 }
 
 export function match(

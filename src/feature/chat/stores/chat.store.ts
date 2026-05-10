@@ -169,6 +169,50 @@ export const useChatStore = create<ChatState>()(
           };
         });
       },
+
+      applyDeletedToOptimistic: (conversationId, id) => {
+        set((state) => {
+          const list = state.optimisticMessages[conversationId];
+          if (!list) return state;
+          let changed = false;
+          const next = list.map((m) => {
+            if (m.id === id && !m.deleted) {
+              changed = true;
+              return { ...m, deleted: true, content: "" };
+            }
+            return m;
+          });
+          if (!changed) return state;
+          return {
+            optimisticMessages: {
+              ...state.optimisticMessages,
+              [conversationId]: next,
+            },
+          };
+        });
+      },
+
+      applyEditToOptimistic: (conversationId, id, content, editedAt) => {
+        set((state) => {
+          const list = state.optimisticMessages[conversationId];
+          if (!list) return state;
+          let changed = false;
+          const next = list.map((m) => {
+            if (m.id === id && (m.content !== content || m.editedAt !== editedAt)) {
+              changed = true;
+              return { ...m, content, editedAt };
+            }
+            return m;
+          });
+          if (!changed) return state;
+          return {
+            optimisticMessages: {
+              ...state.optimisticMessages,
+              [conversationId]: next,
+            },
+          };
+        });
+      },
     }),
     {
       name: "chat-storage",

@@ -7,6 +7,14 @@ export type MessageStatus =
   | "read" // recipient opened conversation (2 blue ticks)
   | "failed"; // send error / timeout (red ! + retry button)
 
+export interface ReplyContext {
+  id: string;
+  senderId: string;
+  senderName: string;
+  content: string;
+  type: "text" | "image" | "file" | "video";
+}
+
 export interface ChatMessage {
   id?: string;
   tempId: string;
@@ -19,6 +27,9 @@ export interface ChatMessage {
   type: "text" | "image" | "file" | "video";
   status?: MessageStatus;
   queueAt: number;
+  replyTo?: ReplyContext;
+  editedAt?: number;
+  deleted?: boolean;
 }
 
 export interface HistoryMessagePage {
