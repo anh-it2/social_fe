@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
+import { notification as antdNotification } from "antd";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { getNotificationSocket } from "../socket";
 import { useNotificationStore } from "../stores/notification.store";
@@ -13,10 +14,18 @@ import {
   NotificationListResponseDTO,
 } from "../dto/notification.dto";
 import { setFirstUserId, clearFirstUserId } from "@/shared/lib/firstUser";
+import {
+  NOTIFICATION_ICON,
+  NOTIFICATION_ICON_COLOR,
+  notificationText,
+} from "@/shared/data/notifications";
+import { Icon } from "@/shared/components/Icon";
 
 /**
  * Mount once at top-level (e.g. NotificationNavBtn). Attaches socket listeners,
- * fetches initial list on (re)connect, and exposes emit/read actions.
+ * fetches initial list on (re)connect, fires antd notification toast on push,
+ * and exposes emit/read actions. Render the returned `contextHolder` once in
+ * the tree to enable the antd notification API.
  */
 export function useNotifications() {
   const isLoggined = useAuthStore((s) => s.isLoggined);
@@ -26,6 +35,17 @@ export function useNotifications() {
   );
   const { setAll, addOne, markRead, markAllRead } =
     useNotificationStore.getState();
+
+  const [api, contextHolder] = antdNotification.useNotification({
+    placement: "topRight",
+    duration: 4.5,
+    stack: { threshold: 3 },
+  });
+  const apiRef = useRef(api);
+  apiRef.current = api;
+
+  // first render hides past notifications. Suppress toast until initial list resolves.
+  const initialFetchedRef = useRef(false);
 
   useEffect(() => {
     if (!isLoggined || !socket) return;
@@ -48,6 +68,7 @@ export function useNotifications() {
 
     socket.emit("notification:list", (res: NotificationListResponseDTO) => {
       setAll(toNotifications(res.notifications));
+      initialFetchedRef.current = true;
     });
 
     socket.emit("notification:first-user", (res: FirstUserResponseDTO) => {
@@ -61,7 +82,31 @@ export function useNotifications() {
     if (!isLoggined || !socket) return;
 
     const handleNew = (dto: NotificationDTO) => {
-      addOne(toNotification(dto));
+      const n = toNotification(dto);
+      addOne(n);
+
+      if (!initialFetchedRef.current) return;
+
+      apiRef.current.open({
+        title: n.actorName,
+        description: notificationText(n.kind, n.preview),
+        icon: (
+          <span
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: "50%",
+              background: NOTIFICATION_ICON_COLOR[n.kind],
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Icon name={NOTIFICATION_ICON[n.kind]} size={18} color="#FFFFFF" />
+          </span>
+        ),
+        key: n.id,
+      });
     };
 
     const handleReadUpdate = (notificationId: string) => {
@@ -110,5 +155,5 @@ export function useNotifications() {
     socket.emit("notification:read-all", (_ack: NotificationActionAck) => {});
   }, [socket, isConnected, markAllRead]);
 
-  return { isConnected, emit, readOne, readAll };
+  return { isConnected, emit, readOne, readAll, contextHolder };
 }

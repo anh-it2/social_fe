@@ -12,7 +12,7 @@ export function NotificationNavBtn() {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
-  useNotifications();
+  const { contextHolder } = useNotifications();
 
   const unreadCount = useNotificationStore(
     (s) => s.notifications.filter((n) => !n.read).length,
@@ -37,6 +37,7 @@ export function NotificationNavBtn() {
 
   return (
     <div ref={wrapRef} className="!relative">
+      {contextHolder}
       <Badge
         count={unreadCount}
         offset={[-2, 2]}
