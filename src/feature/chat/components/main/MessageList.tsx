@@ -60,6 +60,7 @@ export function MessageList({ user, messages, isLoading }: MessageListProps) {
                 <MessageBubble
                   key={m.id ?? m.tempId}
                   content={m.content}
+                  type={m.type}
                   mine={mine}
                   senderName={m.senderName || user.name}
                   senderSeed={user.id}

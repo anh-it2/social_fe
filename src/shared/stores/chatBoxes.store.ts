@@ -8,6 +8,7 @@ interface ChatBoxesState {
   minimized: Record<string, boolean>;
   openChat: (chat: ChatPreview) => void;
   closeChat: (id: string) => void;
+  closeAll: () => void;
   toggleMinimize: (id: string) => void;
 }
 
@@ -33,6 +34,7 @@ export const useChatBoxesStore = create<ChatBoxesState>((set) => ({
         minimized: rest,
       };
     }),
+  closeAll: () => set({ openChats: [], minimized: {} }),
   toggleMinimize: (id) =>
     set((state) => ({
       minimized: { ...state.minimized, [id]: !state.minimized[id] },

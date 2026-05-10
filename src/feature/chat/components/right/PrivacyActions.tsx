@@ -11,21 +11,23 @@ interface PrivacyActionsProps {
 
 export function PrivacyActions({ recipientName }: PrivacyActionsProps) {
   return (
-    <Flex vertical gap={4} className="px-6 py-5">
+    <Flex vertical gap={4} className="px-6 py-6">
       <Text className="!mb-2 !text-[14px] !font-semibold !text-[var(--color-text)]">
         Privacy & support
       </Text>
       <Button
         type="text"
         icon={<StopOutlined />}
-        className="!flex !justify-start !text-[13px] !font-medium !text-[var(--color-error)]"
+        className="!flex !h-10 !items-center !justify-start !truncate !px-2 !text-[13px] !font-medium !text-[var(--color-error)]"
       >
-        Block {recipientName.split(" ")[0]}
+        <span className="truncate">
+          Block {recipientName.split(" ")[0]}
+        </span>
       </Button>
       <Button
         type="text"
         icon={<FlagOutlined />}
-        className="!flex !justify-start !text-[13px] !font-medium !text-[var(--color-text)]"
+        className="!flex !h-10 !items-center !justify-start !px-2 !text-[13px] !font-medium !text-[var(--color-text)]"
       >
         Report
       </Button>

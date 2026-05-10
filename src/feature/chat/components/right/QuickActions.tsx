@@ -27,9 +27,9 @@ const ACTIONS: ActionDef[] = [
 export function QuickActions() {
   return (
     <Flex
-      justify="space-between"
-      gap={12}
-      className="border-b border-[var(--color-border)] px-6 py-4"
+      justify="space-around"
+      gap={8}
+      className="border-b border-[var(--color-border)] px-6 py-6"
     >
       {ACTIONS.map((a) => (
         <Flex key={a.key} vertical align="center" gap={6}>
@@ -37,7 +37,7 @@ export function QuickActions() {
             type="text"
             shape="circle"
             icon={a.icon}
-            className="!h-12 !w-12 !bg-[#f0f2f5] !text-[var(--color-primary)] hover:!bg-[#e4e6eb] dark:!bg-[#1f1f1f] dark:hover:!bg-[#262626]"
+            className="!h-11 !w-11 !bg-[#f0f2f5] !text-[var(--color-primary)] hover:!bg-[#e4e6eb] dark:!bg-[#1f1f1f] dark:hover:!bg-[#262626]"
           />
           <Text className="!text-[11px] !font-medium !text-[var(--color-text)]">
             {a.label}

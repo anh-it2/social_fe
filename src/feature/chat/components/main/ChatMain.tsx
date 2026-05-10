@@ -12,14 +12,21 @@ import { MessageList } from "./MessageList";
 
 interface ChatMainProps {
   user: OnlineUserDto | null;
+  onToggleInfo?: () => void;
 }
 
-export function ChatMain({ user }: ChatMainProps) {
+export function ChatMain({ user, onToggleInfo }: ChatMainProps) {
   if (!user) return <EmptyChat />;
-  return <ActiveChat user={user} />;
+  return <ActiveChat user={user} onToggleInfo={onToggleInfo} />;
 }
 
-function ActiveChat({ user }: { user: OnlineUserDto }) {
+function ActiveChat({
+  user,
+  onToggleInfo,
+}: {
+  user: OnlineUserDto;
+  onToggleInfo?: () => void;
+}) {
   const myId = useAuthStore((s) => s.userId);
   const conversationId = buildDmId(myId, user.id);
   const { sendMessage, isConnected } = useChat(conversationId);
@@ -27,11 +34,13 @@ function ActiveChat({ user }: { user: OnlineUserDto }) {
 
   return (
     <section className="flex h-full flex-1 flex-col">
-      <ChatHeader user={user} />
+      <ChatHeader user={user} onToggleInfo={onToggleInfo} />
       <MessageList user={user} messages={messages} isLoading={isLoading} />
       <MessageInput
         recipientName={user.name}
-        onSend={(text) => sendMessage(text, "text").catch(() => undefined)}
+        onSend={(content, type) =>
+          sendMessage(content, type).catch(() => undefined)
+        }
         disabled={!isConnected}
       />
     </section>

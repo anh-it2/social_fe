@@ -16,9 +16,10 @@ const ACTION_BTN_CLASS =
 
 interface ChatHeaderProps {
   user: OnlineUserDto;
+  onToggleInfo?: () => void;
 }
 
-export function ChatHeader({ user }: ChatHeaderProps) {
+export function ChatHeader({ user, onToggleInfo }: ChatHeaderProps) {
   return (
     <div className="flex h-[72px] items-center justify-between border-b border-[var(--color-border)] bg-white px-6 dark:bg-[#141414]">
       <Flex align="center" gap={12}>
@@ -50,6 +51,7 @@ export function ChatHeader({ user }: ChatHeaderProps) {
           type="text"
           icon={<InfoCircleOutlined />}
           className={ACTION_BTN_CLASS}
+          onClick={onToggleInfo}
         />
       </Flex>
     </div>
