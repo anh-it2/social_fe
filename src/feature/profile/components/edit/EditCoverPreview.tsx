@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, Typography, Upload, message } from "antd";
+import { App, Button, Flex, Typography, Upload } from "antd";
 import { useEffect, useRef } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Icon } from "../Icon";
@@ -19,6 +19,7 @@ const { Text } = Typography;
 const MAX_BYTES = 4 * 1024 * 1024;
 
 export function EditCoverPreview() {
+  const { message } = App.useApp();
   const { control, setValue } = useFormContext<EditProfileValues>();
   const name = useWatch({ control, name: "name" });
   const avatarUrl = useWatch({ control, name: "avatarUrl" });
@@ -55,12 +56,14 @@ export function EditCoverPreview() {
     if (prev?.startsWith("blob:")) URL.revokeObjectURL(prev);
     const url = URL.createObjectURL(raw);
     setValue(field, url, { shouldDirty: true });
+    message.success(field === "avatarUrl" ? "Profile picture updated" : "Cover photo updated");
     return false;
   };
 
   const removeAvatar = () => {
     if (avatarUrl?.startsWith("blob:")) URL.revokeObjectURL(avatarUrl);
     setValue("avatarUrl", "", { shouldDirty: true });
+    message.success("Profile picture removed");
   };
 
   return (

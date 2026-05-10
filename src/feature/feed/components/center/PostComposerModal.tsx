@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Button, Flex, Input, Typography, Upload, message } from "antd";
+import { App, Avatar, Button, Flex, Input, Typography, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
@@ -28,6 +28,7 @@ export function PostComposerModal({
   onSubmit,
   initialPost,
 }: PostComposerModalProps) {
+  const { message } = App.useApp();
   const isEdit = !!initialPost;
   const [text, setText] = useState("");
   const [file, setFile] = useState<UploadFile | null>(null);
@@ -132,6 +133,7 @@ export function PostComposerModal({
         feeling: feeling ?? undefined,
         time: `${initialPost.time} · edited`,
       });
+      message.success("Post updated");
       onClose();
       return;
     }
@@ -150,6 +152,7 @@ export function PostComposerModal({
       comments: 0,
       shares: 0,
     });
+    message.success("Post created");
     onClose();
   };
 

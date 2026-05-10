@@ -2,6 +2,7 @@
 
 import { SocketProvider } from "@/socket/client/provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { App as AntdApp } from "antd";
 import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 
@@ -43,7 +44,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <QueryClientProvider client={queryClient}>
-        <SocketProvider>{children}</SocketProvider>
+        <AntdApp message={{ maxCount: 3 }} notification={{ placement: "topRight" }}>
+          <SocketProvider>{children}</SocketProvider>
+        </AntdApp>
       </QueryClientProvider>
     </ThemeProvider>
   );

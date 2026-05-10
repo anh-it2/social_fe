@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Button, Flex, Input, Typography } from "antd";
+import { App, Avatar, Button, Flex, Input, Typography } from "antd";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
@@ -21,6 +21,7 @@ type Phase = "idle" | "preview" | "live";
 const LIVE_GRADIENT: [string, string] = ["#f02849", "#dc2626"];
 
 export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastModalProps) {
+  const { message } = App.useApp();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -66,9 +67,11 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
         await videoRef.current.play().catch(() => {});
       }
       setPhase("preview");
+      message.success("Camera enabled");
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Camera access denied";
       setError(msg);
+      message.error(msg);
     }
   };
 
@@ -80,6 +83,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
       setElapsed((s) => s + 1);
       setViewers((v) => v + Math.floor(Math.random() * 3));
     }, 1000);
+    message.success("Broadcast started");
   };
 
   const captureFrame = (): string | null => {
@@ -118,6 +122,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
       comments: 0,
       shares: 0,
     });
+    message.success("Broadcast ended and saved");
     onClose();
   };
 

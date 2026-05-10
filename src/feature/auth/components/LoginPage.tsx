@@ -8,7 +8,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Checkbox, Divider, Typography } from "antd";
+import { App, Button, Checkbox, Divider, Typography } from "antd";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -44,6 +44,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginPage() {
   const router = useRouter();
+  const { message } = App.useApp();
   const saveLoginnedUser = useAuthStore((s) => s.saveLoginnedUser);
 
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -78,12 +79,16 @@ export function LoginPage() {
           userName: session?.username || "",
         });
         setSubmitSuccess(`Welcome, ${session?.username ?? "user"}!`);
+        message.success(`Welcome back, ${session?.username ?? "user"}!`);
         router.push("/");
       } else {
         setSubmitError(res.message || "Login failed");
+        message.error(res.message || "Login failed");
       }
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : "Unknown error");
+      const msg = err instanceof Error ? err.message : "Unknown error";
+      setSubmitError(msg);
+      message.error(msg);
     }
   }
 

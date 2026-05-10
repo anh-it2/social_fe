@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Dropdown, Flex, Typography } from "antd";
+import { App, Button, Dropdown, Flex, Typography } from "antd";
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { ConfirmModal } from "@/shared/components/modal/ConfirmModal";
@@ -30,11 +30,13 @@ export function PostHeader({
   onRemove,
   onEdit,
 }: PostHeaderProps) {
+  const { message } = App.useApp();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleConfirm = () => {
     setConfirmOpen(false);
     onRemove?.();
+    message.success("Post removed");
   };
 
   return (

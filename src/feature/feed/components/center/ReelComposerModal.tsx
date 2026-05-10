@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Button, Flex, Input, Typography, Upload, message } from "antd";
+import { App, Avatar, Button, Flex, Input, Typography, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
@@ -59,6 +59,7 @@ export function ReelComposerModal({
   onClose,
   onSubmit,
 }: ReelComposerModalProps) {
+  const { message } = App.useApp();
   const [file, setFile] = useState<UploadFile | null>(null);
   const [mediaUrl, setMediaUrl] = useState<string>("");
   const [mediaType, setMediaType] = useState<"video" | "image" | null>(null);
@@ -150,6 +151,7 @@ export function ReelComposerModal({
       musicId: musicId ?? undefined,
       caption: caption.trim() || undefined,
     });
+    message.success("Reel posted");
     onClose();
   };
 

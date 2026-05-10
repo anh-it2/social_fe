@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Flex, Typography } from "antd";
+import { App, Flex, Typography } from "antd";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigation } from "@/shared/hooks/useNavigation";
 import { TopNav } from "@/shared/components/topnav/TopNav";
@@ -21,6 +21,7 @@ const { Text } = Typography;
 
 export function EditProfilePage() {
   const nav = useNavigation();
+  const { message } = App.useApp();
   const methods = useForm<EditProfileValues>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: EDIT_PROFILE_DEFAULTS,
@@ -29,6 +30,7 @@ export function EditProfilePage() {
 
   async function onSubmit(values: EditProfileValues) {
     console.log("[edit-profile] save", values);
+    message.success("Profile updated");
     nav.push("/profile");
   }
 
