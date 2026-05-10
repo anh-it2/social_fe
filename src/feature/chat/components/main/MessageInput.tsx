@@ -10,6 +10,7 @@ import {
 import { Button, Flex, Input, Popover, Upload, message as antdMessage } from "antd";
 import { useState } from "react";
 import { CHAT_IMAGE_MAX_BYTES, uploadChatImage } from "../../lib/upload";
+import { EmojiPicker } from "./EmojiPicker";
 import { GifPicker } from "./GifPicker";
 
 interface MessageInputProps {
@@ -32,11 +33,16 @@ export function MessageInput({
   const [draft, setDraft] = useState("");
   const [uploading, setUploading] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
+  const [emojiOpen, setEmojiOpen] = useState(false);
   const trimmed = draft.trim();
 
   async function handleGifPick(url: string) {
     setGifOpen(false);
     await onSend(url, "image");
+  }
+
+  function handleEmojiPick(emoji: string) {
+    setDraft((d) => d + emoji);
   }
 
   async function handleSend() {
@@ -91,7 +97,14 @@ export function MessageInput({
           placement="topLeft"
           destroyOnHidden
           content={<GifPicker onPick={handleGifPick} />}
-          styles={{ content: { padding: 0 } }}
+          styles={{
+            content: {
+              padding: 0,
+              background: "var(--color-bg)",
+              border: "1px solid var(--color-border)",
+              borderRadius: 12,
+            },
+          }}
         >
           <Button
             type="text"
@@ -110,12 +123,29 @@ export function MessageInput({
         disabled={disabled}
         suffix={
           <Flex align="center" gap={6}>
-            <Button
-              type="text"
-              size="small"
-              icon={<SmileOutlined />}
-              className="!text-[var(--color-primary)]"
-            />
+            <Popover
+              open={emojiOpen}
+              onOpenChange={setEmojiOpen}
+              trigger="click"
+              placement="topRight"
+              destroyOnHidden
+              content={<EmojiPicker onPick={handleEmojiPick} />}
+              styles={{
+                content: {
+                  padding: 0,
+                  background: "var(--color-bg)",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: 12,
+                },
+              }}
+            >
+              <Button
+                type="text"
+                size="small"
+                icon={<SmileOutlined />}
+                className="!text-[var(--color-primary)]"
+              />
+            </Popover>
             <Button
               type="text"
               size="small"
@@ -131,7 +161,7 @@ export function MessageInput({
         icon={<SendOutlined />}
         onClick={handleSend}
         disabled={!trimmed || disabled}
-        className="!h-11 !w-11 !rounded-full !border-0"
+        className="!h-11 !w-11 !rounded-full !border-0 !text-[var(--color-on-primary)]"
         style={{
           background:
             "linear-gradient(90deg, var(--color-primary-dark), var(--color-primary))",

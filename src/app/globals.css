@@ -12,6 +12,10 @@
   padding: 0 !important;
 }
 
+.ant-popover-container {
+  padding: 0 !important;
+}
+
 .chat-image-preview-mask {
   background: rgba(8, 10, 14, 0.92) !important;
   backdrop-filter: blur(12px) !important;
@@ -69,6 +73,7 @@
   --color-primary-dark: #0d5bc4;
   --color-primary-light: #42a5f5;
   --color-primary-bg: #e6f4ff;
+  --color-on-primary: #ffffff;
 
   --color-success: #52c41a;
   --color-warning: #faad14;
@@ -116,6 +121,7 @@
   --color-primary-dark: #1877f2;
   --color-primary-light: #69b1ff;
   --color-primary-bg: #111a2c;
+  --color-on-primary: #f5f7fb;
 
   --color-success: #73d13d;
   --color-warning: #ffc53d;
