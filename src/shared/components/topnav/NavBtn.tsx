@@ -2,6 +2,7 @@
 
 import { Button } from "antd";
 import { Icon } from "@/shared/components/Icon";
+import styles from "./NavBtn.module.scss";
 
 interface NavBtnProps {
   icon: string;
@@ -12,12 +13,9 @@ export function NavBtn({ icon, active }: NavBtnProps) {
   return (
     <Button
       type="text"
-      className="topnav-btn !flex !h-10 !w-10 !items-center !justify-center !rounded-[10px] !p-0"
+      className={`${styles.hoverBg} !flex !h-10 !w-10 !items-center !justify-center !rounded-[10px] !p-0`}
       style={{ background: active ? "var(--color-bg-tertiary)" : "transparent" }}
     >
-      <style>{`
-        .topnav-btn:hover { background: var(--color-bg-tertiary) !important; }
-      `}</style>
       <Icon name={icon} size={22} color="var(--color-text-muted)" />
     </Button>
   );

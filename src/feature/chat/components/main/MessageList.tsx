@@ -26,7 +26,7 @@ function messageKey(m: ChatMessage) {
 export function MessageList({ user, messages, isLoading, compact = false }: MessageListProps) {
   const myId = useAuthStore((s) => s.userId);
   const conversationId = buildDmId(myId, user.id);
-  const typingMap = useChatStore((s) => s.typingUsers[user.id]);
+  const typingMap = useChatStore((s) => s.typingUsers[conversationId]);
   const readCursor = useChatStore(
     (s) => s.readCursors[conversationId] ?? -1,
   );

@@ -1,0 +1,7 @@
+.btn {
+  transition: background 0.15s;
+
+  &:hover {
+    background: var(--color-bg-tertiary);
+  }
+}

@@ -6,6 +6,7 @@ import { Icon } from "@/shared/components/Icon";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useChat } from "@/feature/chat/hooks/useChat";
 import { useMessages } from "@/feature/chat/hooks/useMessage";
+import { useTyping } from "@/feature/chat/hooks/useTyping";
 import { buildDmId } from "@/feature/chat/lib/conversation";
 import { MessageInput } from "@/feature/chat/components/main/MessageInput";
 import { MessageList } from "@/feature/chat/components/main/MessageList";
@@ -33,6 +34,7 @@ export function ChatBox({ chat }: ChatBoxProps) {
   const conversationId = buildDmId(myId, chat.id);
   const { sendMessage, isConnected } = useChat(conversationId);
   const { messages, isLoading } = useMessages(conversationId);
+  const { notifyTyping, stopTyping } = useTyping(conversationId);
 
   const user: OnlineUserDto = { id: chat.id, name: chat.name };
 
@@ -203,6 +205,8 @@ export function ChatBox({ chat }: ChatBoxProps) {
             onSend={(content, type) =>
               sendMessage(content, type).catch(() => undefined)
             }
+            onTyping={notifyTyping}
+            onStopTyping={stopTyping}
             disabled={!isConnected}
             compact
           />

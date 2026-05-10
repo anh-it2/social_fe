@@ -6,6 +6,7 @@ import { CURRENT_USER } from "../../data/constants";
 import { gradientBg } from "@/shared/utils/gradient";
 import type { FeedPostData } from "../../data/types";
 import { ComposerActionBtn } from "./ComposerActionBtn";
+import styles from "./Composer.module.scss";
 import { LiveBroadcastModal } from "./LiveBroadcastModal";
 import { PostComposerModal, type ComposerMode } from "./PostComposerModal";
 
@@ -43,13 +44,9 @@ export function Composer({ onCreatePost }: ComposerProps) {
           <Flex
             align="center"
             onClick={() => open("default")}
-            className="!h-10 !flex-1 !cursor-pointer !rounded-full !px-4 composer-input"
+            className={`${styles.input} !h-10 !flex-1 !cursor-pointer !rounded-full !px-4`}
             style={{ background: "var(--color-bg-tertiary)" }}
           >
-            <style>{`
-              .composer-input { transition: filter 0.15s; }
-              .composer-input:hover { filter: brightness(1.15); }
-            `}</style>
             <Text className="!text-base" style={{ color: "var(--color-text-secondary)" }}>
               What&rsquo;s on your mind, {CURRENT_USER.name.split(" ").pop()}?
             </Text>

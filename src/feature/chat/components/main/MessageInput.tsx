@@ -19,6 +19,8 @@ interface MessageInputProps {
     content: string,
     type: "text" | "image",
   ) => void | Promise<void>;
+  onTyping?: () => void;
+  onStopTyping?: () => void;
   disabled?: boolean;
   compact?: boolean;
 }
@@ -32,6 +34,8 @@ const PILL_BTN_COMPACT =
 export function MessageInput({
   recipientName,
   onSend,
+  onTyping,
+  onStopTyping,
   disabled = false,
   compact = false,
 }: MessageInputProps) {
@@ -52,8 +56,18 @@ export function MessageInput({
 
   async function handleSend() {
     if (!trimmed) return;
+    onStopTyping?.();
     await onSend(trimmed, "text");
     setDraft("");
+  }
+
+  function handleChange(value: string) {
+    setDraft(value);
+    if (value.trim().length === 0) {
+      onStopTyping?.();
+    } else {
+      onTyping?.();
+    }
   }
 
   async function handleImage(file: File) {
@@ -135,7 +149,7 @@ export function MessageInput({
       </Flex>
       <Input
         value={draft}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         onPressEnter={handleSend}
         placeholder={`Message ${recipientName}`}
         disabled={disabled}

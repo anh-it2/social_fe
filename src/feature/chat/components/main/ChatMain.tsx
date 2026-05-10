@@ -4,6 +4,7 @@ import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { useChat } from "../../hooks/useChat";
 import { useMessages } from "../../hooks/useMessage";
+import { useTyping } from "../../hooks/useTyping";
 import { buildDmId } from "../../lib/conversation";
 import { ChatHeader } from "./ChatHeader";
 import { EmptyChat } from "./EmptyChat";
@@ -36,6 +37,7 @@ function ActiveChat({
   const conversationId = buildDmId(myId, user.id);
   const { sendMessage, isConnected } = useChat(conversationId);
   const { messages, isLoading } = useMessages(conversationId);
+  const { notifyTyping, stopTyping } = useTyping(conversationId);
 
   return (
     <section className="flex h-full flex-1 flex-col">
@@ -46,6 +48,8 @@ function ActiveChat({
         onSend={(content, type) =>
           sendMessage(content, type).catch(() => undefined)
         }
+        onTyping={notifyTyping}
+        onStopTyping={stopTyping}
         disabled={!isConnected}
       />
     </section>

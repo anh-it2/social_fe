@@ -2,6 +2,7 @@
 
 import { Flex, Typography } from "antd";
 import { Icon } from "@/shared/components/Icon";
+import styles from "./ComposerActionBtn.module.scss";
 
 const { Text } = Typography;
 
@@ -27,12 +28,8 @@ export function ComposerActionBtn({ icon, iconColor, label, onClick }: ComposerA
           onClick?.();
         }
       }}
-      className="!h-10 !flex-1 !cursor-pointer !rounded-lg composer-action-btn"
+      className={`${styles.btn} !h-10 !flex-1 !cursor-pointer !rounded-lg`}
     >
-      <style>{`
-        .composer-action-btn { transition: background 0.15s; }
-        .composer-action-btn:hover { background: var(--color-bg-tertiary); }
-      `}</style>
       <Icon name={icon} size={22} color={iconColor} />
       <Text
         className="!hidden !text-sm !font-semibold sm:!inline"

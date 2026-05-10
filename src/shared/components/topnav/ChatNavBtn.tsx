@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
 import { ChatDropdownContent } from "./chat-dropdown/ChatDropdownContent";
+import styles from "./NavBtn.module.scss";
 
 export function ChatNavBtn() {
   const [open, setOpen] = useState(false);
@@ -51,12 +52,9 @@ export function ChatNavBtn() {
         <Button
           type="text"
           onClick={() => setOpen((v) => !v)}
-          className="chat-nav-btn !flex !h-10 !w-10 !items-center !justify-center !rounded-[10px] !p-0"
+          className={`${styles.hoverBg} !flex !h-10 !w-10 !items-center !justify-center !rounded-[10px] !p-0`}
           style={{ background: open ? "var(--color-bg-tertiary)" : "transparent" }}
         >
-          <style>{`
-            .chat-nav-btn:hover { background: var(--color-bg-tertiary) !important; }
-          `}</style>
           <Icon name="chat_bubble" size={22} color="var(--color-text-muted)" />
         </Button>
       </Badge>

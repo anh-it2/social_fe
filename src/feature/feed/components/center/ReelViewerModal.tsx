@@ -6,6 +6,7 @@ import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
 import { CURRENT_USER, MUSIC_TRACKS } from "../../data/constants";
 import type { ReelData } from "../../data/types";
+import styles from "./ReelViewerModal.module.scss";
 
 const { Text } = Typography;
 
@@ -73,25 +74,13 @@ export function ReelViewerModal({ open, onClose, reel }: ReelViewerModalProps) {
       closeIcon={null}
       title={null}
       centered
-      className="reel-viewer-modal"
+      className={styles.modal}
       styles={{
         body: { background: "transparent", padding: 0 },
         header: { display: "none" },
         mask: { background: "rgba(0,0,0,0.85)" },
       }}
     >
-      <style>{`
-        .reel-viewer-modal {
-          padding: 0 !important;
-          background: transparent !important;
-        }
-        .reel-viewer-modal .ant-modal-content {
-          padding: 0 !important;
-          background: transparent !important;
-          box-shadow: none !important;
-        }
-      `}</style>
-
       <Flex gap={10} align="end">
         <div
           className="!relative !overflow-hidden !cursor-pointer"

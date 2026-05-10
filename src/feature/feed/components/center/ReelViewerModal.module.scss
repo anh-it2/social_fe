@@ -1,0 +1,10 @@
+.modal {
+  padding: 0 !important;
+  background: transparent !important;
+
+  :global(.ant-modal-content) {
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
