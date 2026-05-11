@@ -2,6 +2,7 @@
 
 import { App, Avatar, Button, Flex, Input, Typography, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
@@ -28,6 +29,9 @@ export function PostComposerModal({
   onSubmit,
   initialPost,
 }: PostComposerModalProps) {
+  const t = useTranslations("Feed.postComposer");
+  const tPost = useTranslations("Feed.post");
+  const tReel = useTranslations("Feed.reelViewer");
   const { message } = App.useApp();
   const isEdit = !!initialPost;
   const [text, setText] = useState("");
@@ -136,7 +140,7 @@ export function PostComposerModal({
 
   const handleSubmit = () => {
     if (!canSubmit) {
-      message.warning("Add text, media, or a feeling first");
+      message.warning(t("warningEmpty"));
       return;
     }
     submittedRef.current = true;
@@ -149,7 +153,7 @@ export function PostComposerModal({
         feeling: feeling ?? undefined,
         time: `${initialPost.time} · edited`,
       });
-      message.success("Post updated");
+      message.success(t("successUpdated"));
       onClose();
       return;
     }
@@ -160,7 +164,7 @@ export function PostComposerModal({
         initial: CURRENT_USER.initial,
         gradient: CURRENT_USER.gradient,
       },
-      time: "Just now",
+      time: tReel("justNow"),
       text: text.trim(),
       imageUrl: imageUrl || undefined,
       feeling: feeling ?? undefined,
@@ -168,7 +172,7 @@ export function PostComposerModal({
       comments: 0,
       shares: 0,
     });
-    message.success("Post created");
+    message.success(t("successCreated"));
     onClose();
   };
 
@@ -187,7 +191,7 @@ export function PostComposerModal({
         style={{ borderBottom: "1px solid var(--color-border)" }}
       >
         <Title level={5} className="!m-0" style={{ color: "var(--color-text)" }}>
-          {isEdit ? "Edit post" : "Create post"}
+          {isEdit ? t("edit") : t("create")}
         </Title>
       </Flex>
 
@@ -207,8 +211,7 @@ export function PostComposerModal({
                   className="!text-sm !font-normal"
                   style={{ color: "var(--color-text-muted)" }}
                 >
-                  {" is "}
-                  {feeling.kind === "feeling" ? "feeling " : ""}
+                  {" "}{feeling.kind === "feeling" ? tPost("isFeeling") : tPost("isActivity")}{" "}
                   <Text
                     className="!text-sm !font-semibold"
                     style={{ color: "var(--color-text)" }}
@@ -229,7 +232,7 @@ export function PostComposerModal({
                 className="!text-[10px] !font-semibold"
                 style={{ color: "var(--color-text-muted)" }}
               >
-                Public
+                {t("visibility")}
               </Text>
             </Flex>
           </Flex>
@@ -238,7 +241,7 @@ export function PostComposerModal({
         <Input.TextArea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder={`What's on your mind, ${CURRENT_USER.name.split(" ").pop()}?`}
+          placeholder={t("placeholder", { name: CURRENT_USER.name.split(" ").pop() ?? "" })}
           autoSize={{ minRows: 4, maxRows: 8 }}
           maxLength={500}
           variant="borderless"
@@ -286,13 +289,13 @@ export function PostComposerModal({
                     className="!text-sm !font-semibold"
                     style={{ color: "var(--color-text)" }}
                   >
-                    Add photos/videos
+                    {t("addPhotos")}
                   </Text>
                   <Text
                     className="!text-[11px]"
                     style={{ color: "var(--color-text-placeholder)" }}
                   >
-                    or drag and drop
+                    {t("dragDrop")}
                   </Text>
                 </Flex>
               </Upload.Dragger>
@@ -344,7 +347,7 @@ export function PostComposerModal({
           >
             <Flex align="center" justify="space-between">
               <Title level={5} className="!m-0" style={{ color: "var(--color-text)" }}>
-                How are you feeling?
+                {t("feelingTitle")}
               </Title>
               {feeling && (
                 <Button
@@ -353,7 +356,7 @@ export function PostComposerModal({
                   onClick={() => setFeeling(null)}
                   style={{ color: "var(--color-text-muted)" }}
                 >
-                  Clear
+                  {t("clear")}
                 </Button>
               )}
             </Flex>
@@ -377,7 +380,7 @@ export function PostComposerModal({
                       textTransform: "capitalize",
                     }}
                   >
-                    {tab === "feeling" ? "Feelings" : "Activities"}
+                    {tab === "feeling" ? t("feelingsTab") : t("activitiesTab")}
                   </Button>
                 );
               })}
@@ -385,7 +388,7 @@ export function PostComposerModal({
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder={`Search ${feelingTab}s...`}
+              placeholder={t("searchPlaceholder", { type: feelingTab === "feeling" ? t("feelingsTab") : t("activitiesTab") })}
               prefix={
                 <Icon name="search" size={14} color="var(--color-text-muted)" />
               }
@@ -439,7 +442,7 @@ export function PostComposerModal({
                   className="!text-xs !w-full !text-center !py-4"
                   style={{ color: "var(--color-text-muted)" }}
                 >
-                  No matches
+                  {t("noMatches")}
                 </Text>
               )}
             </Flex>
@@ -456,7 +459,7 @@ export function PostComposerModal({
             className="!text-sm !font-semibold"
             style={{ color: "var(--color-text)" }}
           >
-            Add to your post
+            {t("addToPost")}
           </Text>
           <Flex gap={4}>
             <Button
@@ -492,7 +495,7 @@ export function PostComposerModal({
           size="large"
           className="!h-10 !font-bold"
         >
-          {isEdit ? "Save" : "Post"}
+          {isEdit ? t("save") : t("post")}
         </Button>
       </Flex>
     </DarkModal>

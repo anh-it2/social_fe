@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 
 const { Text } = Typography;
@@ -11,6 +12,7 @@ interface SeeMoreRowProps {
 }
 
 export function SeeMoreRow({ expanded, onToggle }: SeeMoreRowProps) {
+  const t = useTranslations("Feed.leftSidebar");
   return (
     <Flex
       align="center"
@@ -39,7 +41,7 @@ export function SeeMoreRow({ expanded, onToggle }: SeeMoreRowProps) {
         />
       </Flex>
       <Text className="!text-[15px] !font-medium" style={{ color: "var(--color-text)" }}>
-        {expanded ? "See less" : "See more"}
+        {expanded ? t("seeLess") : t("seeMore")}
       </Text>
     </Flex>
   );

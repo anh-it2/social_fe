@@ -1,10 +1,12 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 
 const { Text } = Typography;
 
 export function ComposerInput() {
+  const t = useTranslations("Profile.feed");
   return (
     <Flex
       align="center"
@@ -17,7 +19,7 @@ export function ComposerInput() {
       }}
     >
       <Text className="!text-sm" style={{ color: "var(--color-text-muted)" }}>
-        What&apos;s on your mind, Sarah?
+        {t("composer")}
       </Text>
     </Flex>
   );

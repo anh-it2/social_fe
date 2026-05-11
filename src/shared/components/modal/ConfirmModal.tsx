@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "./DarkModal";
 
@@ -22,13 +23,14 @@ export function ConfirmModal({
   open,
   title,
   description,
-  okText = "Confirm",
-  cancelText = "Cancel",
+  okText,
+  cancelText,
   danger = false,
   iconName = "warning",
   onOk,
   onCancel,
 }: ConfirmModalProps) {
+  const t = useTranslations("Common");
   return (
     <DarkModal
       open={open}
@@ -86,7 +88,7 @@ export function ConfirmModal({
               color: "var(--color-text)",
             }}
           >
-            {cancelText}
+            {cancelText ?? t("cancel")}
           </Button>
           <Button
             type="primary"
@@ -94,7 +96,7 @@ export function ConfirmModal({
             onClick={onOk}
             style={{ fontWeight: 600 }}
           >
-            {okText}
+            {okText ?? t("confirm")}
           </Button>
         </Flex>
       </Flex>

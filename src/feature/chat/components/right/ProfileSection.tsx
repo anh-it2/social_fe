@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { Avatar } from "../Avatar";
 
@@ -11,6 +12,7 @@ interface ProfileSectionProps {
 }
 
 export function ProfileSection({ user }: ProfileSectionProps) {
+  const t = useTranslations("Chat.header");
   return (
     <Flex
       vertical
@@ -26,7 +28,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
         {user.name}
       </Title>
       <Text className="!text-[12px] !font-medium !text-[#22c55e]">
-        Active now
+        {t("activeNow")}
       </Text>
     </Flex>
   );

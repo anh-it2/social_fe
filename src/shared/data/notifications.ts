@@ -35,28 +35,34 @@ export function actorGradient(actorId: string): [string, string] {
   return ACTOR_GRADIENTS[hash % ACTOR_GRADIENTS.length];
 }
 
-export function notificationText(kind: NotificationKind, preview?: string): string {
+type Translator = (key: string, values?: Record<string, string | number>) => string;
+
+export function notificationText(
+  t: Translator,
+  kind: NotificationKind,
+  preview?: string,
+): string {
   switch (kind) {
     case "like":
-      return "reacted to your post.";
+      return t("like");
     case "comment":
-      return preview ? `commented: "${preview}"` : "commented on your post.";
+      return preview ? t("commentWithPreview", { preview }) : t("comment");
     case "share":
-      return "shared your post.";
+      return t("share");
     case "follow":
-      return "started following you.";
+      return t("follow");
     case "mention":
-      return "mentioned you in a post.";
+      return t("mention");
   }
 }
 
-export function relativeTime(timestamp: number): string {
+export function relativeTime(t: Translator, timestamp: number): string {
   const diff = Math.max(0, Date.now() - timestamp);
   const m = Math.floor(diff / 60_000);
-  if (m < 1) return "just now";
-  if (m < 60) return `${m}m`;
+  if (m < 1) return t("justNow");
+  if (m < 60) return t("minutes", { value: m });
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h`;
+  if (h < 24) return t("hours", { value: h });
   const d = Math.floor(h / 24);
-  return `${d}d`;
+  return t("days", { value: d });
 }

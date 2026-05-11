@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Popover, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "../Icon";
 import { REACTION_BY_ID, type ReactionId } from "../../data/reactions";
@@ -15,11 +16,12 @@ interface LikeButtonProps {
 }
 
 export function LikeButton({ reaction, onChange, className }: LikeButtonProps) {
+  const t = useTranslations("Post");
   const [open, setOpen] = useState(false);
   const active = reaction !== null;
   const current = reaction ? REACTION_BY_ID[reaction] : null;
   const color = current?.color ?? "var(--color-text-muted)";
-  const label = current?.label ?? "Like";
+  const label = current?.label ?? t("like");
 
   function handleClick() {
     onChange(reaction ? null : "like");

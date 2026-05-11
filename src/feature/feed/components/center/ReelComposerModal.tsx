@@ -2,6 +2,7 @@
 
 import { App, Avatar, Button, Flex, Input, Typography, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
@@ -59,6 +60,8 @@ export function ReelComposerModal({
   onClose,
   onSubmit,
 }: ReelComposerModalProps) {
+  const t = useTranslations("Feed.reelComposer");
+  const tPostComposer = useTranslations("Feed.postComposer");
   const { message } = App.useApp();
   const [file, setFile] = useState<UploadFile | null>(null);
   const [mediaUrl, setMediaUrl] = useState<string>("");
@@ -94,11 +97,11 @@ export function ReelComposerModal({
     const isVideo = raw.type.startsWith("video/");
     const isImage = raw.type.startsWith("image/");
     if (!isVideo && !isImage) {
-      message.error("Only video or image files allowed");
+      message.error(t("errorTypeNotAllowed"));
       return Upload.LIST_IGNORE;
     }
     if (raw.size > 100 * 1024 * 1024) {
-      message.error("File too big (max 100MB)");
+      message.error(t("errorFileTooBig"));
       return Upload.LIST_IGNORE;
     }
     if (mediaUrl) URL.revokeObjectURL(mediaUrl);
@@ -130,7 +133,7 @@ export function ReelComposerModal({
     }
     audioRef.current?.pause();
     const audio = new Audio(track.url);
-    audio.play().catch(() => message.error("Cannot play track"));
+    audio.play().catch(() => message.error(t("errorCannotPlay")));
     audio.onended = () => setPlayingId(null);
     audioRef.current = audio;
     setPlayingId(track.id);
@@ -138,7 +141,7 @@ export function ReelComposerModal({
 
   const handleSubmit = () => {
     if (!mediaUrl || !mediaType) {
-      message.warning("Upload video or image first");
+      message.warning(t("warningUploadFirst"));
       return;
     }
     audioRef.current?.pause();
@@ -151,7 +154,7 @@ export function ReelComposerModal({
       musicId: musicId ?? undefined,
       caption: caption.trim() || undefined,
     });
-    message.success("Reel posted");
+    message.success(t("success"));
     onClose();
   };
 
@@ -210,10 +213,10 @@ export function ReelComposerModal({
                 className="!m-0 !leading-tight"
                 style={{ color: "#e4e6eb" }}
               >
-                Create Reel
+                {t("title")}
               </Title>
               <Text className="!text-xs" style={{ color: "#9ca3af" }}>
-                Share a moment with your friends
+                {t("subtitle")}
               </Text>
             </Flex>
           </Flex>
@@ -263,15 +266,18 @@ export function ReelComposerModal({
                         className="!text-base !font-bold"
                         style={{ color: "#e4e6eb" }}
                       >
-                        Upload your reel
+                        {t("uploadTitle")}
                       </Text>
                       <Text
                         className="!text-xs !text-center"
                         style={{ color: "#9ca3af" }}
                       >
-                        Drag video or photo here
-                        <br />
-                        or click to browse
+                        {t("uploadSubtitle").split("\n").map((line, i, arr) => (
+                          <span key={i}>
+                            {line}
+                            {i < arr.length - 1 && <br />}
+                          </span>
+                        ))}
                       </Text>
                     </Flex>
                     <Flex gap={6}>
@@ -289,7 +295,7 @@ export function ReelComposerModal({
                           className="!text-[11px] !font-semibold"
                           style={{ color: "#e4e6eb" }}
                         >
-                          Video
+                          {t("video")}
                         </Text>
                       </Flex>
                       <Flex
@@ -306,7 +312,7 @@ export function ReelComposerModal({
                           className="!text-[11px] !font-semibold"
                           style={{ color: "#e4e6eb" }}
                         >
-                          Photo
+                          {t("photo")}
                         </Text>
                       </Flex>
                     </Flex>
@@ -314,7 +320,7 @@ export function ReelComposerModal({
                       className="!text-[10px]"
                       style={{ color: "#6b7280" }}
                     >
-                      MP4, MOV, JPG, PNG · max 100MB
+                      {t("formats")}
                     </Text>
                   </Flex>
                 </Upload.Dragger>
@@ -424,7 +430,7 @@ export function ReelComposerModal({
                       className="!text-[10px] !font-semibold"
                       style={{ color: "#9ca3af" }}
                     >
-                      Public
+                      {tPostComposer("visibility")}
                     </Text>
                   </Flex>
                 </Flex>
@@ -432,7 +438,7 @@ export function ReelComposerModal({
               <Input.TextArea
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
-                placeholder="What's your reel about? Add hashtags to reach more people..."
+                placeholder={t("captionPlaceholder")}
                 rows={3}
                 maxLength={300}
                 showCount
@@ -472,7 +478,7 @@ export function ReelComposerModal({
                     className="!text-[10px] !font-bold !uppercase !tracking-wider"
                     style={{ color: "rgba(255,255,255,0.85)" }}
                   >
-                    Now using
+                    {t("nowUsing")}
                   </Text>
                   <Text
                     ellipsis
@@ -545,18 +551,18 @@ export function ReelComposerModal({
                     className="!text-sm !font-semibold"
                     style={{ color: "#e4e6eb" }}
                   >
-                    {selectedTrack ? "Browse other music" : "Add music"}
+                    {selectedTrack ? t("browseOther") : t("addMusic")}
                   </Text>
                 </Flex>
                 <Text className="!text-xs" style={{ color: "#6b7280" }}>
-                  {filteredTracks.length} tracks
+                  {t("tracksCount", { count: filteredTracks.length })}
                 </Text>
               </Flex>
 
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search songs or artists..."
+                placeholder={t("musicSearch")}
                 prefix={<Icon name="search" size={14} color="#6b7280" />}
                 style={{
                   background: "#0a0a0a",
@@ -581,7 +587,7 @@ export function ReelComposerModal({
                   >
                     <Icon name="music_off" size={24} color="#6b7280" />
                     <Text className="!text-xs" style={{ color: "#6b7280" }}>
-                      No tracks found
+                      {t("noTracks")}
                     </Text>
                   </Flex>
                 )}
@@ -677,7 +683,7 @@ export function ReelComposerModal({
           <Flex align="center" gap={6}>
             <Icon name="info" size={14} color="#6b7280" />
             <Text className="!text-[11px]" style={{ color: "#9ca3af" }}>
-              Reels reach more people when you add music
+              {t("info")}
             </Text>
           </Flex>
           <Flex gap={8}>
@@ -689,7 +695,7 @@ export function ReelComposerModal({
                 color: "#e4e6eb",
               }}
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               type="primary"
@@ -704,7 +710,7 @@ export function ReelComposerModal({
                 paddingInline: 24,
               }}
             >
-              Post Reel
+              {t("submit")}
             </Button>
           </Flex>
         </Flex>

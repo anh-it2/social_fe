@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "../Icon";
 import { PROFILE } from "../../data/mock";
 import { useProfileMeta } from "../edit/useProfileMeta";
@@ -9,6 +10,7 @@ import styles from "./ProfileIdentity.module.scss";
 const { Text } = Typography;
 
 export function ProfileIdentity() {
+  const t = useTranslations("Profile.cover");
   const { meta, hydrated } = useProfileMeta();
   const name = hydrated && meta.name ? meta.name : PROFILE.name;
   const bio = hydrated && meta.bio ? meta.bio : PROFILE.bio;
@@ -22,7 +24,7 @@ export function ProfileIdentity() {
         >
           {name}
         </Text>
-        <span className={styles.verified} aria-label="Verified">
+        <span className={styles.verified} aria-label={t("verified")}>
           <Icon name="verified" size={20} />
         </span>
       </Flex>
@@ -47,7 +49,7 @@ export function ProfileIdentity() {
         ) : null}
         <span className={`${styles.chip} ${styles.statusChip}`}>
           <span className={styles.statusDot} />
-          <span className={styles.chipText}>Open to collab</span>
+          <span className={styles.chipText}>{t("openToCollab")}</span>
         </span>
       </Flex>
     </Flex>

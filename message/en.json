@@ -1,5 +1,432 @@
 {
   "HomePage": {
     "title": "Hello world!"
+  },
+  "Auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Enter your credentials to access your account",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "name@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgot": "Forgot password?",
+      "remember": "Remember me for 30 days",
+      "submit": "Sign in",
+      "submitLoading": "Signing in…",
+      "divider": "or",
+      "google": "Google",
+      "apple": "Apple",
+      "signupPrompt": "Don't have an account?",
+      "signupLink": "Sign up for free",
+      "footer": "Protected by reCAPTCHA and subject to the Facebook Privacy Policy and Terms of Service.",
+      "usernameLabel": "Username",
+      "validation": {
+        "emailRequired": "Email is required",
+        "passwordRequired": "Password is required"
+      }
+    },
+    "hero": {
+      "brand": "facebook",
+      "title": "Connect with your world, your way.",
+      "subtitle": "Join billions of people who use Facebook to share ideas, find communities, and grow closer to the people who matter most.",
+      "users": "Monthly users",
+      "communities": "Communities",
+      "messages": "Messages daily"
+    }
+  },
+  "Topnav": {
+    "search": "Search Facebook...",
+    "openMenu": "Open menu",
+    "toggleTheme": "Toggle theme",
+    "accountMenu": "Account menu",
+    "language": "Language",
+    "chat": {
+      "header": "Chats",
+      "options": "Options",
+      "new": "New chat",
+      "noOne": "No one online right now.",
+      "newMessage": "New message",
+      "activeNow": "Active now",
+      "seeAll": "See all in Messenger"
+    },
+    "notifications": {
+      "header": "Notifications",
+      "options": "Options",
+      "markAllRead": "Mark all read",
+      "noNotifications": "No notifications yet",
+      "seeAll": "See all notifications"
+    },
+    "userMenu": {
+      "profile": "See your profile",
+      "settings": "Settings & privacy",
+      "help": "Help & support",
+      "display": "Display & accessibility",
+      "feedback": "Give feedback",
+      "logout": "Log Out",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "advertising": "Advertising",
+      "cookies": "Cookies",
+      "comingSoon": "Coming soon",
+      "loggedOut": "Logged out",
+      "comingSoonSuffix": " is coming in a future update"
+    },
+    "display": {
+      "title": "Display & accessibility",
+      "darkMode": "Dark mode",
+      "darkModeDesc": "Adjust the appearance to reduce glare and give your eyes a break.",
+      "compactMode": "Compact mode",
+      "compactModeDesc": "Make font size smaller so more content fits on screen.",
+      "autoplay": "Autoplay videos",
+      "autoplayDesc": "Automatically play videos and GIFs as you scroll.",
+      "reduceMotion": "Reduce motion",
+      "reduceMotionDesc": "Minimize animations and transitions across the app.",
+      "preferenceSaved": "Preferences saved on this device."
+    }
+  },
+  "Common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "remove": "Remove",
+    "back": "Back",
+    "selectPlaceholder": "Select…"
+  },
+  "Post": {
+    "comment": "Comment",
+    "like": "Like",
+    "share": "Share",
+    "reply": "Reply",
+    "shareNow": "Share now (Public)",
+    "shareToFeed": "Share to feed",
+    "sendMessenger": "Send in Messenger",
+    "shareToStory": "Share to your story",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "sharedVia": "Shared via ",
+    "firstToComment": "Be the first to comment.",
+    "writeComment": "Write a comment...",
+    "send": "Send"
+  },
+  "ChatBox": {
+    "activeNow": "Active now",
+    "offline": "Offline"
+  },
+  "Notification": {
+    "template": {
+      "like": "reacted to your post.",
+      "comment": "commented on your post.",
+      "commentWithPreview": "commented: \"{preview}\"",
+      "share": "shared your post.",
+      "follow": "started following you.",
+      "mention": "mentioned you in a post."
+    },
+    "time": {
+      "justNow": "just now",
+      "minutes": "{value}m",
+      "hours": "{value}h",
+      "days": "{value}d"
+    }
+  },
+  "Chat": {
+    "sidebar": {
+      "title": "Chats",
+      "goToFeed": "Go to feed",
+      "profile": "Profile",
+      "logout": "Log out",
+      "filterAll": "All",
+      "filterUnread": "Unread",
+      "filterGroups": "Groups",
+      "filterRequests": "Requests",
+      "searchPlaceholder": "Search Messenger",
+      "newMessage": "New message",
+      "tapToStart": "Tap to start chatting",
+      "unreadLabel": "Unread",
+      "signedInAs": "Signed in as",
+      "you": "you",
+      "waiting": "Waiting for others to come online…"
+    },
+    "header": {
+      "activeNow": "Active now"
+    },
+    "empty": {
+      "title": "Your messages",
+      "description": "Pick someone from the sidebar to start a conversation."
+    },
+    "messageList": {
+      "startWith": "Start the conversation with"
+    },
+    "message": {
+      "unsent": "Message unsent",
+      "edited": "edited",
+      "replyingTo": "Replying to",
+      "photo": "📷 Photo",
+      "imageAlt": "chat attachment"
+    },
+    "input": {
+      "placeholder": "Message {name}",
+      "errorImageType": "Only image files allowed",
+      "errorImageTooLarge": "Image too big (max 2MB)",
+      "errorUploadFailed": "Upload failed",
+      "gif": "GIF"
+    },
+    "actionMenu": {
+      "reply": "Reply",
+      "edit": "Edit",
+      "unsend": "Unsend",
+      "unsendConfirmTitle": "Unsend message?",
+      "unsendConfirmDesc": "This message will be removed for everyone.",
+      "unsendError": "Unsend failed"
+    },
+    "inlineEditor": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "editError": "Edit failed"
+    },
+    "replyQuote": {
+      "youRepliedTo": "You replied to"
+    },
+    "gifPicker": {
+      "placeholder": "Search GIFs",
+      "errorMissingKey": "Missing NEXT_PUBLIC_GIPHY_API_KEY",
+      "noResults": "No GIFs"
+    },
+    "right": {
+      "empty": "Pick a conversation to see profile details.",
+      "audio": "Audio",
+      "video": "Video",
+      "mute": "Mute",
+      "search": "Search",
+      "sharedMedia": "Shared media",
+      "seeAll": "See all",
+      "noSharedMedia": "No shared media yet",
+      "privacyTitle": "Privacy & support",
+      "block": "Block",
+      "report": "Report"
+    }
+  },
+  "Feed": {
+    "page": {
+      "closeMenu": "Close menu"
+    },
+    "leftSidebar": {
+      "shortcuts": "Your shortcuts",
+      "edit": "Edit",
+      "privacy": "Privacy · Terms · Advertising · Ad choices · Cookies · More · Meta © {year}",
+      "seeMore": "See more",
+      "seeLess": "See less"
+    },
+    "rightSidebar": {
+      "birthdays": "Birthdays",
+      "contacts": "Contacts",
+      "noContacts": "No contacts yet.",
+      "sponsored": "Sponsored",
+      "birthdayText": "It's Hà My's birthday today. Wish them a happy birthday! 🎉"
+    },
+    "story": {
+      "createReel": "Create reel",
+      "scrollLeft": "Scroll left",
+      "scrollRight": "Scroll right"
+    },
+    "composer": {
+      "placeholder": "What's on your mind, {name}?",
+      "live": "Live video",
+      "photoVideo": "Photo/video",
+      "feeling": "Feeling/activity"
+    },
+    "post": {
+      "wasLive": "was live",
+      "isFeeling": "is feeling",
+      "isActivity": "is",
+      "moreOptions": "Post options",
+      "menuEdit": "Edit post",
+      "menuSave": "Save post",
+      "menuPin": "Pin post",
+      "menuRemove": "Remove post",
+      "menuHide": "Hide post",
+      "menuSnooze": "Snooze {name} for 30 days",
+      "menuUnfollow": "Unfollow {name}",
+      "menuReport": "Report post",
+      "liveReplay": "LIVE REPLAY",
+      "comments": "comments",
+      "shares": "shares",
+      "removeTitle": "Remove this post?",
+      "removeDesc": "This post will be permanently removed from your timeline.",
+      "remove": "Remove",
+      "cancel": "Cancel",
+      "removed": "Post removed"
+    },
+    "postComposer": {
+      "create": "Create post",
+      "edit": "Edit post",
+      "visibility": "Public",
+      "placeholder": "What's on your mind, {name}?",
+      "addPhotos": "Add photos/videos",
+      "dragDrop": "or drag and drop",
+      "addToPost": "Add to your post",
+      "feelingTitle": "How are you feeling?",
+      "clear": "Clear",
+      "feelingsTab": "Feelings",
+      "activitiesTab": "Activities",
+      "searchPlaceholder": "Search {type}s...",
+      "noMatches": "No matches",
+      "post": "Post",
+      "save": "Save",
+      "warningEmpty": "Add text, media, or a feeling first",
+      "successCreated": "Post created",
+      "successUpdated": "Post updated"
+    },
+    "reelComposer": {
+      "title": "Create Reel",
+      "subtitle": "Share a moment with your friends",
+      "uploadTitle": "Upload your reel",
+      "uploadSubtitle": "Drag video or photo here\nor click to browse",
+      "video": "Video",
+      "photo": "Photo",
+      "formats": "MP4, MOV, JPG, PNG · max 100MB",
+      "captionPlaceholder": "What's your reel about? Add hashtags to reach more people...",
+      "nowUsing": "Now using",
+      "browseOther": "Browse other music",
+      "addMusic": "Add music",
+      "tracksCount": "{count} tracks",
+      "musicSearch": "Search songs or artists...",
+      "noTracks": "No tracks found",
+      "info": "Reels reach more people when you add music",
+      "cancel": "Cancel",
+      "submit": "Post Reel",
+      "errorTypeNotAllowed": "Only video or image files allowed",
+      "errorFileTooBig": "File too big (max 100MB)",
+      "warningUploadFirst": "Upload video or image first",
+      "errorCannotPlay": "Cannot play track",
+      "success": "Reel posted"
+    },
+    "reelViewer": {
+      "title": "Reels",
+      "follow": "Follow",
+      "justNow": "Just now"
+    },
+    "live": {
+      "titleIdle": "Go live",
+      "titleActive": "You're live",
+      "subtitleIdle": "Stream video to your friends and followers",
+      "subtitleActive": "Broadcasting to your followers",
+      "ready": "Camera ready",
+      "permission": "We need access to your camera and microphone to start the broadcast",
+      "enableCamera": "Enable camera",
+      "errorNotSupported": "Camera not supported in this browser",
+      "errorDenied": "Camera access denied",
+      "successCamera": "Camera enabled",
+      "successStarted": "Broadcast started",
+      "successEnded": "Broadcast ended and saved",
+      "indicator": "LIVE",
+      "titlePlaceholder": "Add a title to your live video...",
+      "cancel": "Cancel",
+      "goLive": "Go live",
+      "endLive": "End live",
+      "wasLiveTitle": "Was live"
+    }
+  },
+  "Profile": {
+    "cover": {
+      "verified": "Verified",
+      "openToCollab": "Open to collab"
+    },
+    "actions": {
+      "editProfile": "Edit Profile",
+      "share": "Share"
+    },
+    "sidebar": {
+      "about": "About",
+      "bio": "Designing digital experiences that matter. Passionate about human-centered design, accessibility, and building products that bring people together.",
+      "friends": "Friends",
+      "friendsCount": "4,832 friends",
+      "seeAll": "See all",
+      "photos": "Photos",
+      "photosCount": "892 photos"
+    },
+    "stats": {
+      "posts": "Posts",
+      "friends": "Friends",
+      "photos": "Photos",
+      "likes": "Likes"
+    },
+    "tabs": {
+      "posts": "Posts",
+      "about": "About",
+      "friends": "Friends",
+      "photos": "Photos",
+      "videos": "Videos"
+    },
+    "about": {
+      "overview": "Overview",
+      "noInfo": "No info yet. Pick a category on the left and add details.",
+      "categories": {
+        "workEducation": "Work and education",
+        "placesLived": "Places lived",
+        "contactBasicInfo": "Contact and basic info",
+        "familyRelationships": "Family and relationships",
+        "details": "Details about you",
+        "lifeEvents": "Life events"
+      },
+      "modal": {
+        "requiredFields": "Please fill out the required fields marked with *.",
+        "removeItem": "Remove this item?",
+        "removeDesc": "This entry will be removed from your profile.",
+        "remove": "Remove"
+      },
+      "row": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "footer": {
+        "cancel": "Cancel",
+        "save": "Save"
+      }
+    },
+    "edit": {
+      "title": "Edit Profile",
+      "subtitle": "Update your personal information and how others see you.",
+      "back": "Back",
+      "cancel": "Cancel",
+      "saveChanges": "Save Changes",
+      "basicInfo": "Basic Info",
+      "basicInfoDesc": "Your name, headline, and where you're based.",
+      "displayName": "Display name",
+      "displayNamePlaceholder": "e.g. Sarah Anderson",
+      "bio": "Bio",
+      "bioPlaceholder": "Tell people what you do, in one line.",
+      "location": "Location",
+      "locationPlaceholder": "City, Country",
+      "about": "About",
+      "aboutDesc": "Details shown in the About panel on your profile.",
+      "work": "Work",
+      "workPlaceholder": "e.g. Product Designer at Meta",
+      "education": "Education",
+      "educationPlaceholder": "e.g. Stanford University",
+      "relationship": "Relationship",
+      "relationshipPlaceholder": "Select relationship status",
+      "single": "Single",
+      "inRelationship": "In a relationship"
+    },
+    "feed": {
+      "composer": "What's on your mind, Sarah?",
+      "liveVideo": "Live Video",
+      "photoVideo": "Photo/Video",
+      "feelingActivity": "Feeling/Activity",
+      "comments": "comments",
+      "shares": "shares"
+    },
+    "highlights": {
+      "travel": "Travel",
+      "design": "Design",
+      "food": "Food",
+      "fitness": "Fitness",
+      "music": "Music",
+      "photos": "Photos",
+      "new": "New"
+    }
   }
 }

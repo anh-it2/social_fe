@@ -1,5 +1,432 @@
 {
   "HomePage": {
-    "title": "hey!"
+    "title": "Xin chào!"
+  },
+  "Auth": {
+    "login": {
+      "title": "Chào mừng trở lại",
+      "subtitle": "Nhập thông tin đăng nhập để truy cập tài khoản",
+      "emailLabel": "Địa chỉ email",
+      "emailPlaceholder": "ten@example.com",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu của bạn",
+      "forgot": "Quên mật khẩu?",
+      "remember": "Ghi nhớ trong 30 ngày",
+      "submit": "Đăng nhập",
+      "submitLoading": "Đang đăng nhập…",
+      "divider": "hoặc",
+      "google": "Google",
+      "apple": "Apple",
+      "signupPrompt": "Chưa có tài khoản?",
+      "signupLink": "Đăng ký miễn phí",
+      "footer": "Được bảo vệ bởi reCAPTCHA và tuân theo Chính sách Quyền riêng tư cùng Điều khoản Dịch vụ của Facebook.",
+      "usernameLabel": "Tên người dùng",
+      "validation": {
+        "emailRequired": "Email là bắt buộc",
+        "passwordRequired": "Mật khẩu là bắt buộc"
+      }
+    },
+    "hero": {
+      "brand": "facebook",
+      "title": "Kết nối với thế giới của bạn, theo cách của bạn.",
+      "subtitle": "Tham gia hàng tỷ người dùng Facebook để chia sẻ ý tưởng, tìm cộng đồng và gần gũi hơn với những người quan trọng nhất.",
+      "users": "Người dùng hàng tháng",
+      "communities": "Cộng đồng",
+      "messages": "Tin nhắn mỗi ngày"
+    }
+  },
+  "Topnav": {
+    "search": "Tìm kiếm trên Facebook...",
+    "openMenu": "Mở menu",
+    "toggleTheme": "Chuyển chế độ sáng/tối",
+    "accountMenu": "Menu tài khoản",
+    "language": "Ngôn ngữ",
+    "chat": {
+      "header": "Tin nhắn",
+      "options": "Tùy chọn",
+      "new": "Cuộc trò chuyện mới",
+      "noOne": "Hiện không có ai trực tuyến.",
+      "newMessage": "Tin nhắn mới",
+      "activeNow": "Đang hoạt động",
+      "seeAll": "Xem tất cả trong Messenger"
+    },
+    "notifications": {
+      "header": "Thông báo",
+      "options": "Tùy chọn",
+      "markAllRead": "Đánh dấu tất cả đã đọc",
+      "noNotifications": "Chưa có thông báo nào",
+      "seeAll": "Xem tất cả thông báo"
+    },
+    "userMenu": {
+      "profile": "Xem hồ sơ của bạn",
+      "settings": "Cài đặt & quyền riêng tư",
+      "help": "Trợ giúp & hỗ trợ",
+      "display": "Hiển thị & trợ năng",
+      "feedback": "Gửi phản hồi",
+      "logout": "Đăng xuất",
+      "privacy": "Quyền riêng tư",
+      "terms": "Điều khoản",
+      "advertising": "Quảng cáo",
+      "cookies": "Cookie",
+      "comingSoon": "Sắp ra mắt",
+      "loggedOut": "Đã đăng xuất",
+      "comingSoonSuffix": " sẽ sớm có trong bản cập nhật tới"
+    },
+    "display": {
+      "title": "Hiển thị & trợ năng",
+      "darkMode": "Chế độ tối",
+      "darkModeDesc": "Điều chỉnh giao diện để giảm chói và nghỉ ngơi cho mắt.",
+      "compactMode": "Chế độ gọn",
+      "compactModeDesc": "Giảm cỡ chữ để hiển thị nhiều nội dung hơn.",
+      "autoplay": "Tự động phát video",
+      "autoplayDesc": "Tự động phát video và GIF khi bạn cuộn.",
+      "reduceMotion": "Giảm chuyển động",
+      "reduceMotionDesc": "Giảm hoạt ảnh và chuyển tiếp trong ứng dụng.",
+      "preferenceSaved": "Tùy chọn đã lưu trên thiết bị này."
+    }
+  },
+  "Common": {
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "save": "Lưu",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "remove": "Xóa",
+    "back": "Quay lại",
+    "selectPlaceholder": "Chọn…"
+  },
+  "Post": {
+    "comment": "Bình luận",
+    "like": "Thích",
+    "share": "Chia sẻ",
+    "reply": "Trả lời",
+    "shareNow": "Chia sẻ ngay (Công khai)",
+    "shareToFeed": "Chia sẻ lên bảng tin",
+    "sendMessenger": "Gửi qua Messenger",
+    "shareToStory": "Chia sẻ lên tin của bạn",
+    "copyLink": "Sao chép liên kết",
+    "linkCopied": "Đã sao chép liên kết",
+    "sharedVia": "Đã chia sẻ qua ",
+    "firstToComment": "Hãy là người đầu tiên bình luận.",
+    "writeComment": "Viết bình luận...",
+    "send": "Gửi"
+  },
+  "ChatBox": {
+    "activeNow": "Đang hoạt động",
+    "offline": "Ngoại tuyến"
+  },
+  "Notification": {
+    "template": {
+      "like": "đã bày tỏ cảm xúc với bài viết của bạn.",
+      "comment": "đã bình luận về bài viết của bạn.",
+      "commentWithPreview": "đã bình luận: \"{preview}\"",
+      "share": "đã chia sẻ bài viết của bạn.",
+      "follow": "đã bắt đầu theo dõi bạn.",
+      "mention": "đã nhắc đến bạn trong một bài viết."
+    },
+    "time": {
+      "justNow": "vừa xong",
+      "minutes": "{value} phút",
+      "hours": "{value} giờ",
+      "days": "{value} ngày"
+    }
+  },
+  "Chat": {
+    "sidebar": {
+      "title": "Tin nhắn",
+      "goToFeed": "Tới bảng tin",
+      "profile": "Hồ sơ",
+      "logout": "Đăng xuất",
+      "filterAll": "Tất cả",
+      "filterUnread": "Chưa đọc",
+      "filterGroups": "Nhóm",
+      "filterRequests": "Yêu cầu",
+      "searchPlaceholder": "Tìm trên Messenger",
+      "newMessage": "Tin nhắn mới",
+      "tapToStart": "Nhấn để bắt đầu trò chuyện",
+      "unreadLabel": "Chưa đọc",
+      "signedInAs": "Đã đăng nhập với",
+      "you": "bạn",
+      "waiting": "Đang chờ người khác trực tuyến…"
+    },
+    "header": {
+      "activeNow": "Đang hoạt động"
+    },
+    "empty": {
+      "title": "Tin nhắn của bạn",
+      "description": "Chọn ai đó từ thanh bên để bắt đầu trò chuyện."
+    },
+    "messageList": {
+      "startWith": "Bắt đầu trò chuyện với"
+    },
+    "message": {
+      "unsent": "Tin nhắn đã thu hồi",
+      "edited": "đã chỉnh sửa",
+      "replyingTo": "Đang trả lời",
+      "photo": "📷 Ảnh",
+      "imageAlt": "tệp đính kèm trò chuyện"
+    },
+    "input": {
+      "placeholder": "Nhắn tin cho {name}",
+      "errorImageType": "Chỉ chấp nhận tệp hình ảnh",
+      "errorImageTooLarge": "Ảnh quá lớn (tối đa 2MB)",
+      "errorUploadFailed": "Tải lên thất bại",
+      "gif": "GIF"
+    },
+    "actionMenu": {
+      "reply": "Trả lời",
+      "edit": "Chỉnh sửa",
+      "unsend": "Thu hồi",
+      "unsendConfirmTitle": "Thu hồi tin nhắn?",
+      "unsendConfirmDesc": "Tin nhắn này sẽ bị xóa cho mọi người.",
+      "unsendError": "Thu hồi thất bại"
+    },
+    "inlineEditor": {
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "editError": "Chỉnh sửa thất bại"
+    },
+    "replyQuote": {
+      "youRepliedTo": "Bạn đã trả lời"
+    },
+    "gifPicker": {
+      "placeholder": "Tìm GIF",
+      "errorMissingKey": "Thiếu NEXT_PUBLIC_GIPHY_API_KEY",
+      "noResults": "Không có GIF"
+    },
+    "right": {
+      "empty": "Chọn cuộc trò chuyện để xem chi tiết hồ sơ.",
+      "audio": "Gọi thoại",
+      "video": "Gọi video",
+      "mute": "Tắt tiếng",
+      "search": "Tìm kiếm",
+      "sharedMedia": "Phương tiện đã chia sẻ",
+      "seeAll": "Xem tất cả",
+      "noSharedMedia": "Chưa có phương tiện nào",
+      "privacyTitle": "Quyền riêng tư & hỗ trợ",
+      "block": "Chặn",
+      "report": "Báo cáo"
+    }
+  },
+  "Feed": {
+    "page": {
+      "closeMenu": "Đóng menu"
+    },
+    "leftSidebar": {
+      "shortcuts": "Lối tắt của bạn",
+      "edit": "Chỉnh sửa",
+      "privacy": "Quyền riêng tư · Điều khoản · Quảng cáo · Lựa chọn quảng cáo · Cookie · Khác · Meta © {year}",
+      "seeMore": "Xem thêm",
+      "seeLess": "Ẩn bớt"
+    },
+    "rightSidebar": {
+      "birthdays": "Sinh nhật",
+      "contacts": "Danh bạ",
+      "noContacts": "Chưa có liên hệ nào.",
+      "sponsored": "Được tài trợ",
+      "birthdayText": "Hôm nay là sinh nhật của Hà My. Chúc mừng sinh nhật nhé! 🎉"
+    },
+    "story": {
+      "createReel": "Tạo reel",
+      "scrollLeft": "Cuộn trái",
+      "scrollRight": "Cuộn phải"
+    },
+    "composer": {
+      "placeholder": "Bạn đang nghĩ gì, {name}?",
+      "live": "Video trực tiếp",
+      "photoVideo": "Ảnh/video",
+      "feeling": "Cảm xúc/hoạt động"
+    },
+    "post": {
+      "wasLive": "đã phát trực tiếp",
+      "isFeeling": "đang cảm thấy",
+      "isActivity": "đang",
+      "moreOptions": "Tùy chọn bài viết",
+      "menuEdit": "Chỉnh sửa bài viết",
+      "menuSave": "Lưu bài viết",
+      "menuPin": "Ghim bài viết",
+      "menuRemove": "Xóa bài viết",
+      "menuHide": "Ẩn bài viết",
+      "menuSnooze": "Tắt thông báo từ {name} trong 30 ngày",
+      "menuUnfollow": "Bỏ theo dõi {name}",
+      "menuReport": "Báo cáo bài viết",
+      "liveReplay": "PHÁT LẠI",
+      "comments": "bình luận",
+      "shares": "lượt chia sẻ",
+      "removeTitle": "Xóa bài viết này?",
+      "removeDesc": "Bài viết sẽ bị xóa vĩnh viễn khỏi dòng thời gian của bạn.",
+      "remove": "Xóa",
+      "cancel": "Hủy",
+      "removed": "Đã xóa bài viết"
+    },
+    "postComposer": {
+      "create": "Tạo bài viết",
+      "edit": "Chỉnh sửa bài viết",
+      "visibility": "Công khai",
+      "placeholder": "Bạn đang nghĩ gì, {name}?",
+      "addPhotos": "Thêm ảnh/video",
+      "dragDrop": "hoặc kéo và thả",
+      "addToPost": "Thêm vào bài viết",
+      "feelingTitle": "Bạn đang cảm thấy thế nào?",
+      "clear": "Xóa",
+      "feelingsTab": "Cảm xúc",
+      "activitiesTab": "Hoạt động",
+      "searchPlaceholder": "Tìm {type}...",
+      "noMatches": "Không có kết quả",
+      "post": "Đăng",
+      "save": "Lưu",
+      "warningEmpty": "Hãy thêm văn bản, phương tiện hoặc cảm xúc trước",
+      "successCreated": "Đã tạo bài viết",
+      "successUpdated": "Đã cập nhật bài viết"
+    },
+    "reelComposer": {
+      "title": "Tạo Reel",
+      "subtitle": "Chia sẻ khoảnh khắc với bạn bè",
+      "uploadTitle": "Tải lên reel của bạn",
+      "uploadSubtitle": "Kéo video hoặc ảnh vào đây\nhoặc nhấp để chọn",
+      "video": "Video",
+      "photo": "Ảnh",
+      "formats": "MP4, MOV, JPG, PNG · tối đa 100MB",
+      "captionPlaceholder": "Reel của bạn nói về điều gì? Thêm hashtag để tiếp cận nhiều người hơn...",
+      "nowUsing": "Đang dùng",
+      "browseOther": "Xem nhạc khác",
+      "addMusic": "Thêm nhạc",
+      "tracksCount": "{count} bài hát",
+      "musicSearch": "Tìm bài hát hoặc nghệ sĩ...",
+      "noTracks": "Không tìm thấy bài hát",
+      "info": "Reels tiếp cận nhiều người hơn khi bạn thêm nhạc",
+      "cancel": "Hủy",
+      "submit": "Đăng Reel",
+      "errorTypeNotAllowed": "Chỉ chấp nhận tệp video hoặc ảnh",
+      "errorFileTooBig": "Tệp quá lớn (tối đa 100MB)",
+      "warningUploadFirst": "Hãy tải lên video hoặc ảnh trước",
+      "errorCannotPlay": "Không thể phát bài hát",
+      "success": "Đã đăng Reel"
+    },
+    "reelViewer": {
+      "title": "Reels",
+      "follow": "Theo dõi",
+      "justNow": "Vừa xong"
+    },
+    "live": {
+      "titleIdle": "Phát trực tiếp",
+      "titleActive": "Bạn đang phát trực tiếp",
+      "subtitleIdle": "Phát video cho bạn bè và người theo dõi",
+      "subtitleActive": "Đang phát cho người theo dõi của bạn",
+      "ready": "Camera sẵn sàng",
+      "permission": "Cần truy cập camera và micrô để bắt đầu phát sóng",
+      "enableCamera": "Bật camera",
+      "errorNotSupported": "Trình duyệt không hỗ trợ camera",
+      "errorDenied": "Truy cập camera bị từ chối",
+      "successCamera": "Đã bật camera",
+      "successStarted": "Đã bắt đầu phát sóng",
+      "successEnded": "Đã kết thúc và lưu phát sóng",
+      "indicator": "TRỰC TIẾP",
+      "titlePlaceholder": "Thêm tiêu đề cho video trực tiếp...",
+      "cancel": "Hủy",
+      "goLive": "Phát trực tiếp",
+      "endLive": "Kết thúc phát",
+      "wasLiveTitle": "Đã phát trực tiếp"
+    }
+  },
+  "Profile": {
+    "cover": {
+      "verified": "Đã xác minh",
+      "openToCollab": "Sẵn sàng hợp tác"
+    },
+    "actions": {
+      "editProfile": "Chỉnh sửa hồ sơ",
+      "share": "Chia sẻ"
+    },
+    "sidebar": {
+      "about": "Giới thiệu",
+      "bio": "Thiết kế trải nghiệm số có ý nghĩa. Đam mê thiết kế lấy người dùng làm trung tâm, khả năng tiếp cận và xây dựng sản phẩm gắn kết mọi người.",
+      "friends": "Bạn bè",
+      "friendsCount": "4.832 bạn bè",
+      "seeAll": "Xem tất cả",
+      "photos": "Ảnh",
+      "photosCount": "892 ảnh"
+    },
+    "stats": {
+      "posts": "Bài viết",
+      "friends": "Bạn bè",
+      "photos": "Ảnh",
+      "likes": "Lượt thích"
+    },
+    "tabs": {
+      "posts": "Bài viết",
+      "about": "Giới thiệu",
+      "friends": "Bạn bè",
+      "photos": "Ảnh",
+      "videos": "Video"
+    },
+    "about": {
+      "overview": "Tổng quan",
+      "noInfo": "Chưa có thông tin. Chọn một mục bên trái và thêm chi tiết.",
+      "categories": {
+        "workEducation": "Công việc và học vấn",
+        "placesLived": "Nơi đã sống",
+        "contactBasicInfo": "Liên hệ và thông tin cơ bản",
+        "familyRelationships": "Gia đình và mối quan hệ",
+        "details": "Chi tiết về bạn",
+        "lifeEvents": "Sự kiện cuộc đời"
+      },
+      "modal": {
+        "requiredFields": "Vui lòng điền các trường có dấu *.",
+        "removeItem": "Xóa mục này?",
+        "removeDesc": "Mục này sẽ bị xóa khỏi hồ sơ của bạn.",
+        "remove": "Xóa"
+      },
+      "row": {
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa"
+      },
+      "footer": {
+        "cancel": "Hủy",
+        "save": "Lưu"
+      }
+    },
+    "edit": {
+      "title": "Chỉnh sửa hồ sơ",
+      "subtitle": "Cập nhật thông tin cá nhân và cách người khác nhìn thấy bạn.",
+      "back": "Quay lại",
+      "cancel": "Hủy",
+      "saveChanges": "Lưu thay đổi",
+      "basicInfo": "Thông tin cơ bản",
+      "basicInfoDesc": "Tên, tiêu đề và nơi bạn sinh sống.",
+      "displayName": "Tên hiển thị",
+      "displayNamePlaceholder": "ví dụ Sarah Anderson",
+      "bio": "Tiểu sử",
+      "bioPlaceholder": "Cho mọi người biết bạn làm gì, trong một dòng.",
+      "location": "Vị trí",
+      "locationPlaceholder": "Thành phố, Quốc gia",
+      "about": "Giới thiệu",
+      "aboutDesc": "Chi tiết hiển thị trong bảng Giới thiệu trên hồ sơ của bạn.",
+      "work": "Công việc",
+      "workPlaceholder": "ví dụ Nhà thiết kế sản phẩm tại Meta",
+      "education": "Học vấn",
+      "educationPlaceholder": "ví dụ Đại học Stanford",
+      "relationship": "Mối quan hệ",
+      "relationshipPlaceholder": "Chọn trạng thái mối quan hệ",
+      "single": "Độc thân",
+      "inRelationship": "Đang hẹn hò"
+    },
+    "feed": {
+      "composer": "Bạn đang nghĩ gì, Sarah?",
+      "liveVideo": "Video trực tiếp",
+      "photoVideo": "Ảnh/Video",
+      "feelingActivity": "Cảm xúc/Hoạt động",
+      "comments": "bình luận",
+      "shares": "lượt chia sẻ"
+    },
+    "highlights": {
+      "travel": "Du lịch",
+      "design": "Thiết kế",
+      "food": "Ẩm thực",
+      "fitness": "Thể hình",
+      "music": "Âm nhạc",
+      "photos": "Ảnh",
+      "new": "Mới"
+    }
   }
 }

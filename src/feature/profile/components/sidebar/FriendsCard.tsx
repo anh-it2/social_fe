@@ -1,21 +1,23 @@
 "use client";
 
 import { Flex } from "antd";
+import { useTranslations } from "next-intl";
 import { FRIENDS } from "../../data/mock";
 import { CardSectionHeader } from "./CardSectionHeader";
 import { CardWrapper } from "./CardWrapper";
 import { FriendItem } from "./FriendItem";
 
 export function FriendsCard() {
+  const t = useTranslations("Profile.sidebar");
   const row1 = FRIENDS.slice(0, 3);
   const row2 = FRIENDS.slice(3, 6);
 
   return (
     <CardWrapper gap={16}>
       <CardSectionHeader
-        title="Friends"
-        subtitle="4,832 friends"
-        action="See all"
+        title={t("friends")}
+        subtitle={t("friendsCount")}
+        action={t("seeAll")}
       />
       <Flex vertical gap={12} className="!w-full">
         <Flex gap={12} className="!w-full">

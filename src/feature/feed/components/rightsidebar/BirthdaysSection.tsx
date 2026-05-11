@@ -1,16 +1,17 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
-import { BIRTHDAY_TEXT } from "../../data/constants";
 
 const { Text } = Typography;
 
 export function BirthdaysSection() {
+  const t = useTranslations("Feed.rightSidebar");
   return (
     <Flex vertical gap={8} className="!w-full">
       <Text className="!text-base !font-semibold" style={{ color: "var(--color-text)" }}>
-        Birthdays
+        {t("birthdays")}
       </Text>
       <Flex align="center" gap={12} className="!w-full">
         <Flex
@@ -22,7 +23,7 @@ export function BirthdaysSection() {
           <Icon name="cake" size={22} color="#f59e0b" />
         </Flex>
         <Text className="!text-sm" style={{ color: "var(--color-text)" }}>
-          {BIRTHDAY_TEXT}
+          {t("birthdayText")}
         </Text>
       </Flex>
     </Flex>

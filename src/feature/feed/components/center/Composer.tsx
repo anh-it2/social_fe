@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CURRENT_USER } from "../../data/constants";
 import { gradientBg } from "@/shared/utils/gradient";
@@ -17,6 +18,7 @@ interface ComposerProps {
 }
 
 export function Composer({ onCreatePost }: ComposerProps) {
+  const t = useTranslations("Feed.composer");
   const [postMode, setPostMode] = useState<ComposerMode | null>(null);
   const [liveOpen, setLiveOpen] = useState(false);
 
@@ -48,7 +50,7 @@ export function Composer({ onCreatePost }: ComposerProps) {
             style={{ background: "var(--color-bg-tertiary)" }}
           >
             <Text className="!text-base" style={{ color: "var(--color-text-secondary)" }}>
-              What&rsquo;s on your mind, {CURRENT_USER.name.split(" ").pop()}?
+              {t("placeholder", { name: CURRENT_USER.name.split(" ").pop() ?? "" })}
             </Text>
           </Flex>
         </Flex>
@@ -57,19 +59,19 @@ export function Composer({ onCreatePost }: ComposerProps) {
           <ComposerActionBtn
             icon="videocam"
             iconColor="#f02849"
-            label="Live video"
+            label={t("live")}
             onClick={() => setLiveOpen(true)}
           />
           <ComposerActionBtn
             icon="photo_library"
             iconColor="#22c55e"
-            label="Photo/video"
+            label={t("photoVideo")}
             onClick={() => open("photo")}
           />
           <ComposerActionBtn
             icon="mood"
             iconColor="#f59e0b"
-            label="Feeling/activity"
+            label={t("feeling")}
             onClick={() => open("feeling")}
           />
         </Flex>

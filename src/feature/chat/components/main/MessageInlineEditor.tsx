@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex, Input, message as antdMessage } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface MessageInlineEditorProps {
@@ -14,6 +15,7 @@ export function MessageInlineEditor({
   onSave,
   onCancel,
 }: MessageInlineEditorProps) {
+  const t = useTranslations("Chat.inlineEditor");
   const [draft, setDraft] = useState(initial);
   const [saving, setSaving] = useState(false);
 
@@ -27,7 +29,7 @@ export function MessageInlineEditor({
       setSaving(true);
       await onSave(next);
     } catch {
-      antdMessage.error("Edit failed");
+      antdMessage.error(t("editError"));
     } finally {
       setSaving(false);
     }
@@ -50,10 +52,10 @@ export function MessageInlineEditor({
       />
       <Flex gap={8} justify="end" className="mt-1">
         <Button size="small" onClick={onCancel} disabled={saving}>
-          Cancel
+          {t("cancel")}
         </Button>
         <Button size="small" type="primary" loading={saving} onClick={commit}>
-          Save
+          {t("save")}
         </Button>
       </Flex>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useNavigation } from "@/shared/hooks/useNavigation";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { usePresenceStore } from "@/feature/presence/stores/presence.store";
@@ -18,6 +19,7 @@ interface ChatDropdownContentProps {
 }
 
 export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
+  const t = useTranslations("Topnav.chat");
   const nav = useNavigation();
   const onlineUsers = usePresenceStore((s) => s.onlineUsers);
   const openChat = useChatBoxesStore((s) => s.openChat);
@@ -71,7 +73,7 @@ export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
               className="!text-[13px]"
               style={{ color: "var(--color-text-muted)" }}
             >
-              No one online right now.
+              {t("noOne")}
             </Text>
           </div>
         ) : (
@@ -81,7 +83,7 @@ export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
               chat={{
                 id: u.id,
                 name: u.name,
-                lastMessage: unreadMap[u.id] ? "New message" : "Active now",
+                lastMessage: unreadMap[u.id] ? t("newMessage") : t("activeNow"),
                 time: "",
                 online: true,
                 unread: !!unreadMap[u.id],

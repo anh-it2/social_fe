@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex } from "antd";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { STORIES } from "../../data/constants";
@@ -11,6 +12,7 @@ import { ReelComposerModal } from "./ReelComposerModal";
 import { StoryCard } from "./StoryCard";
 
 export function Stories() {
+  const t = useTranslations("Feed.story");
   const [reels, setReels] = useState<ReelData[]>([]);
   const [composerOpen, setComposerOpen] = useState(false);
   const scrollerRef = useRef<HTMLDivElement | null>(null);
@@ -71,7 +73,7 @@ export function Stories() {
         </Flex>
         <Button
           shape="circle"
-          aria-label="Scroll left"
+          aria-label={t("scrollLeft")}
           onClick={() => scrollBy(-1)}
           icon={<Icon name="chevron_left" size={22} color="var(--color-text)" />}
           className={
@@ -85,7 +87,7 @@ export function Stories() {
         />
         <Button
           shape="circle"
-          aria-label="Scroll right"
+          aria-label={t("scrollRight")}
           onClick={() => scrollBy(1)}
           icon={<Icon name="chevron_right" size={22} color="var(--color-text)" />}
           className={

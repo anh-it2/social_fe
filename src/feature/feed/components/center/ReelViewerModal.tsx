@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, Button, Flex, Modal, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
@@ -17,6 +18,7 @@ interface ReelViewerModalProps {
 }
 
 export function ReelViewerModal({ open, onClose, reel }: ReelViewerModalProps) {
+  const t = useTranslations("Feed.reelViewer");
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [muted, setMuted] = useState(false);
@@ -130,7 +132,7 @@ export function ReelViewerModal({ open, onClose, reel }: ReelViewerModalProps) {
               className="!text-base !font-bold !text-white"
               style={{ textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
             >
-              Reels
+              {t("title")}
             </Text>
             <Flex gap={6}>
               <Button
@@ -227,7 +229,7 @@ export function ReelViewerModal({ open, onClose, reel }: ReelViewerModalProps) {
                   className="!text-[11px] !leading-tight"
                   style={{ color: "rgba(255,255,255,0.75)" }}
                 >
-                  Just now
+                  {t("justNow")}
                 </Text>
               </Flex>
               <Button
@@ -241,7 +243,7 @@ export function ReelViewerModal({ open, onClose, reel }: ReelViewerModalProps) {
                   height: 26,
                 }}
               >
-                Follow
+                {t("follow")}
               </Button>
             </Flex>
 

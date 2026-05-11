@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Drawer, Flex } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { TopNav } from "@/shared/components/topnav/TopNav";
@@ -9,6 +10,7 @@ import { LeftSidebar } from "./leftsidebar/LeftSidebar";
 import { RightSidebar } from "./rightsidebar/RightSidebar";
 
 export function FeedPage() {
+  const t = useTranslations("Feed.page");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -33,7 +35,7 @@ export function FeedPage() {
         <Button
           type="text"
           shape="circle"
-          aria-label="Close menu"
+          aria-label={t("closeMenu")}
           onClick={() => setSidebarOpen(false)}
           className="!absolute !top-2 !right-2 !z-10 !h-9 !w-9"
           icon={<Icon name="close" size={20} color="var(--color-text)" />}

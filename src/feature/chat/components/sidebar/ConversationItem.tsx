@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { Avatar } from "../Avatar";
 
@@ -19,6 +20,7 @@ export function ConversationItem({
   unread = false,
   onClick,
 }: ConversationItemProps) {
+  const t = useTranslations("Chat.sidebar");
   const baseCls =
     "!h-[72px] !w-full !rounded-xl !px-3 !text-left !justify-start !border-0 !shadow-none";
   const stateCls = active
@@ -51,12 +53,12 @@ export function ConversationItem({
               fontWeight: unread ? 600 : 400,
             }}
           >
-            {unread ? "New message" : "Tap to start chatting"}
+            {unread ? t("newMessage") : t("tapToStart")}
           </Text>
         </Flex>
         {unread ? (
           <span
-            aria-label="Unread"
+            aria-label={t("unreadLabel")}
             style={{
               width: 10,
               height: 10,

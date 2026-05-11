@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Flex, Input, Popover, Typography, Upload, message as antdMessage } from "antd";
 import type { InputRef } from "antd";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { CHAT_IMAGE_MAX_BYTES, uploadChatImage } from "../../lib/upload";
 import type { ReplyContext } from "../../types";
@@ -48,6 +49,7 @@ export function MessageInput({
   disabled = false,
   compact = false,
 }: MessageInputProps) {
+  const t = useTranslations("Chat");
   const [draft, setDraft] = useState("");
   const [uploading, setUploading] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
@@ -86,11 +88,11 @@ export function MessageInput({
 
   async function handleImage(file: File) {
     if (!file.type.startsWith("image/")) {
-      antdMessage.error("Only image files allowed");
+      antdMessage.error(t("input.errorImageType"));
       return false;
     }
     if (file.size > CHAT_IMAGE_MAX_BYTES) {
-      antdMessage.error("Image too big (max 2MB)");
+      antdMessage.error(t("input.errorImageTooLarge"));
       return false;
     }
     try {
@@ -98,7 +100,7 @@ export function MessageInput({
       const url = await uploadChatImage(file);
       await onSend(url, "image");
     } catch {
-      antdMessage.error("Upload failed");
+      antdMessage.error(t("input.errorUploadFailed"));
     } finally {
       setUploading(false);
     }
@@ -128,14 +130,14 @@ export function MessageInput({
               className="!text-[11px] !font-semibold"
               style={{ color: "var(--color-primary)" }}
             >
-              Replying to {replyTo.senderName}
+              {t("message.replyingTo")} {replyTo.senderName}
             </Text>
             <Text
               ellipsis
               className="!text-[12px]"
               style={{ color: "var(--color-text-muted)" }}
             >
-              {replyTo.type === "image" ? "📷 Photo" : replyTo.content}
+              {replyTo.type === "image" ? t("message.photo") : replyTo.content}
             </Text>
           </Flex>
           <Button
@@ -194,7 +196,7 @@ export function MessageInput({
             disabled={disabled}
             className={pill + " !text-[11px] !font-bold"}
           >
-            GIF
+            {t("input.gif")}
           </Button>
         </Popover>
       </Flex>
@@ -203,7 +205,7 @@ export function MessageInput({
         value={draft}
         onChange={(e) => handleChange(e.target.value)}
         onPressEnter={handleSend}
-        placeholder={`Message ${recipientName}`}
+        placeholder={t("input.placeholder", { name: recipientName })}
         disabled={disabled}
         suffix={
           <Flex align="center" gap={6}>

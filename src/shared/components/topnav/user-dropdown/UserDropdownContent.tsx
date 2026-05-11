@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, App, Divider, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
@@ -19,6 +20,7 @@ interface UserDropdownContentProps {
 }
 
 export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
+  const t = useTranslations("Topnav.userMenu");
   const { message } = App.useApp();
   const router = useRouter();
   const userName = useAuthStore((s) => s.userName);
@@ -31,7 +33,7 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
   function handleLogout() {
     removeLogginedUser();
     onClose();
-    message.success("Logged out");
+    message.success(t("loggedOut"));
     router.push("/login");
   }
 
@@ -41,7 +43,7 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
   }
 
   function comingSoon() {
-    message.info("Coming soon");
+    message.info(t("comingSoon"));
   }
 
   return (
@@ -87,7 +89,7 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
             className="!text-[13px]"
             style={{ color: "var(--color-text-muted)" }}
           >
-            See your profile
+            {t("profile")}
           </Text>
         </Flex>
       </Flex>
@@ -97,25 +99,25 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
       <Flex vertical gap={2} className="!px-2">
         <UserDropdownItem
           icon="settings"
-          label="Settings & privacy"
+          label={t("settings")}
           trailingIcon="chevron_right"
           onClick={comingSoon}
         />
         <UserDropdownItem
           icon="help"
-          label="Help & support"
+          label={t("help")}
           trailingIcon="chevron_right"
           onClick={comingSoon}
         />
         <UserDropdownItem
           icon="dark_mode"
-          label="Display & accessibility"
+          label={t("display")}
           trailingIcon="chevron_right"
           onClick={() => setPanel("display")}
         />
         <UserDropdownItem
           icon="campaign"
-          label="Give feedback"
+          label={t("feedback")}
           onClick={comingSoon}
         />
       </Flex>
@@ -123,26 +125,26 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
       <Divider className="!my-2" style={{ borderColor: "var(--color-border)" }} />
 
       <Flex vertical className="!px-2 !pb-3">
-        <UserDropdownItem icon="logout" label="Log Out" onClick={handleLogout} />
+        <UserDropdownItem icon="logout" label={t("logout")} onClick={handleLogout} />
         <Flex
           align="center"
           gap={6}
           className="!px-3 !pt-3 !flex-wrap"
         >
           <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
-            Privacy
+            {t("privacy")}
           </Text>
           <Icon name="circle" size={4} color="var(--color-text-muted)" />
           <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
-            Terms
+            {t("terms")}
           </Text>
           <Icon name="circle" size={4} color="var(--color-text-muted)" />
           <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
-            Advertising
+            {t("advertising")}
           </Text>
           <Icon name="circle" size={4} color="var(--color-text-muted)" />
           <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
-            Cookies
+            {t("cookies")}
           </Text>
         </Flex>
       </Flex>

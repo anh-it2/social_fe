@@ -1,16 +1,18 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { SPONSORED } from "../../data/constants";
 import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
 
 export function SponsoredSection() {
+  const t = useTranslations("Feed.rightSidebar");
   return (
     <Flex vertical gap={12} className="!w-full">
       <Text className="!text-base !font-semibold" style={{ color: "var(--color-text-secondary)" }}>
-        Sponsored
+        {t("sponsored")}
       </Text>
       <Flex gap={10} className="!w-full !cursor-pointer !rounded-lg !p-1">
         <div

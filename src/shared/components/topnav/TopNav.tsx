@@ -1,8 +1,10 @@
 "use client";
 
 import { Button, Flex } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import { ChatNavBtn } from "./ChatNavBtn";
+import { LanguageNavBtn } from "./LanguageNavBtn";
 import { Logo } from "./Logo";
 import { NavSearch } from "./NavSearch";
 import { NotificationNavBtn } from "./NotificationNavBtn";
@@ -13,6 +15,7 @@ interface TopNavProps {
 }
 
 export function TopNav({ onMenuClick }: TopNavProps) {
+  const t = useTranslations("Topnav");
   return (
     <Flex
       align="center"
@@ -28,7 +31,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
           <Button
             type="text"
             shape="circle"
-            aria-label="Open menu"
+            aria-label={t("openMenu")}
             onClick={onMenuClick}
             className="!h-10 !w-10 lg:!hidden"
             icon={
@@ -40,6 +43,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
         <NavSearch />
       </Flex>
       <Flex align="center" className="!gap-2 sm:!gap-3 lg:!gap-4">
+        <LanguageNavBtn />
         <ChatNavBtn />
         <NotificationNavBtn />
         <UserAvatarBtn />

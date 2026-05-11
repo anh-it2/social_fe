@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, Button } from "antd";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { CURRENT_USER } from "@/feature/feed/data/constants";
@@ -10,6 +11,7 @@ import styles from "./NavBtn.module.scss";
 import { UserDropdownContent } from "./user-dropdown/UserDropdownContent";
 
 export function UserAvatarBtn() {
+  const t = useTranslations("Topnav");
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const userName = useAuthStore((s) => s.userName);
@@ -39,7 +41,7 @@ export function UserAvatarBtn() {
       <Button
         type="text"
         onClick={() => setOpen((v) => !v)}
-        aria-label="Account menu"
+        aria-label={t("accountMenu")}
         className={`${styles.hoverBg} !flex !h-10 !w-10 !items-center !justify-center !rounded-full !p-0`}
         style={{ background: open ? "var(--color-bg-tertiary)" : "transparent" }}
       >

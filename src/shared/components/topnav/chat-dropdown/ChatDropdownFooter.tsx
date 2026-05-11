@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Typography } from "antd";
+import { useTranslations } from "next-intl";
 
 const { Text } = Typography;
 
@@ -9,6 +10,7 @@ interface ChatDropdownFooterProps {
 }
 
 export function ChatDropdownFooter({ onSeeAll }: ChatDropdownFooterProps) {
+  const t = useTranslations("Topnav.chat");
   return (
     <div
       className="w-full border-t"
@@ -24,7 +26,7 @@ export function ChatDropdownFooter({ onSeeAll }: ChatDropdownFooterProps) {
           className="!text-sm !font-semibold"
           style={{ color: "#4096ff" }}
         >
-          See all in Messenger
+          {t("seeAll")}
         </Text>
       </Button>
     </div>

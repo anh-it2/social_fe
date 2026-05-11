@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "../Icon";
 
 const { Text } = Typography;
@@ -11,6 +12,7 @@ interface CommentButtonProps {
 }
 
 export function CommentButton({ onClick, className }: CommentButtonProps) {
+  const t = useTranslations("Post");
   return (
     <Button
       type="text"
@@ -25,7 +27,7 @@ export function CommentButton({ onClick, className }: CommentButtonProps) {
         className="!text-sm !font-medium"
         style={{ color: "var(--color-text-muted)" }}
       >
-        Comment
+        {t("comment")}
       </Text>
     </Button>
   );

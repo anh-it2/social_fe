@@ -2,10 +2,12 @@
 
 import { MessageOutlined } from "@ant-design/icons";
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 
 const { Title, Text } = Typography;
 
 export function EmptyChat() {
+  const t = useTranslations("Chat.empty");
   return (
     <Flex
       vertical
@@ -24,10 +26,10 @@ export function EmptyChat() {
         <MessageOutlined className="!text-[36px] !text-white" />
       </div>
       <Title level={4} className="!m-0 !text-[var(--color-text)]">
-        Your messages
+        {t("title")}
       </Title>
       <Text className="!max-w-[320px] !text-center !text-[14px] !text-[var(--color-text-muted)]">
-        Pick someone from the sidebar to start a conversation.
+        {t("description")}
       </Text>
     </Flex>
   );

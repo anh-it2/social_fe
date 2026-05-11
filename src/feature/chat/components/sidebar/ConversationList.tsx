@@ -1,6 +1,7 @@
 "use client";
 
 import { Typography } from "antd";
+import { useTranslations } from "next-intl";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { ConversationItem } from "./ConversationItem";
 
@@ -21,15 +22,16 @@ export function ConversationList({
   onSelect,
   unreadMap,
 }: ConversationListProps) {
+  const t = useTranslations("Chat.sidebar");
   if (users.length === 0) {
     return (
       <div className="flex-1 px-4 py-6 text-center">
         <Text className="!text-[13px] !text-[var(--color-text-muted)]">
-          Signed in as{" "}
+          {t("signedInAs")}{" "}
           <Text strong className="!text-[var(--color-text)]">
-            {currentUserName || "you"}
+            {currentUserName || t("you")}
           </Text>
-          . Waiting for others to come online…
+          . {t("waiting")}
         </Text>
       </div>
     );

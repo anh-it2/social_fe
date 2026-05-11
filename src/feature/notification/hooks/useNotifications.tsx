@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import { notification as antdNotification } from "antd";
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { getNotificationSocket } from "../socket";
 import { useNotificationStore } from "../stores/notification.store";
@@ -28,6 +29,7 @@ import { Icon } from "@/shared/components/Icon";
  * the tree to enable the antd notification API.
  */
 export function useNotifications() {
+  const tTpl = useTranslations("Notification.template");
   const isLoggined = useAuthStore((s) => s.isLoggined);
   const socket = getNotificationSocket();
   const [isConnected, setIsConnected] = useState<boolean>(
@@ -89,7 +91,7 @@ export function useNotifications() {
 
       apiRef.current.open({
         title: n.actorName,
-        description: notificationText(n.kind, n.preview),
+        description: notificationText(tTpl, n.kind, n.preview),
         icon: (
           <span
             style={{

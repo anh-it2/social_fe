@@ -2,6 +2,7 @@
 
 import { Dropdown, Flex, Typography } from "antd";
 import type { MenuProps } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "../Icon";
 import { gradientText, type AboutRowData } from "../../data/mock";
 
@@ -14,6 +15,7 @@ interface AboutRowProps {
 }
 
 export function AboutRow({ row, onEdit, onDelete }: AboutRowProps) {
+  const t = useTranslations("Profile.about.row");
   const iconStyle = row.gradient
     ? (gradientText([...row.gradient], 135) as React.CSSProperties)
     : undefined;
@@ -21,8 +23,8 @@ export function AboutRow({ row, onEdit, onDelete }: AboutRowProps) {
   const showMenu = Boolean(onEdit || onDelete);
 
   const items: MenuProps["items"] = [];
-  if (onEdit) items.push({ key: "edit", label: "Edit" });
-  if (onDelete) items.push({ key: "delete", label: "Delete", danger: true });
+  if (onEdit) items.push({ key: "edit", label: t("edit") });
+  if (onDelete) items.push({ key: "delete", label: t("delete"), danger: true });
 
   const handleClick: MenuProps["onClick"] = ({ key, domEvent }) => {
     domEvent.stopPropagation();

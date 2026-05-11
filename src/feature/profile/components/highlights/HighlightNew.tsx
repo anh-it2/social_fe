@@ -1,11 +1,13 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "../Icon";
 
 const { Text } = Typography;
 
 export function HighlightNew() {
+  const t = useTranslations("Profile.highlights");
   return (
     <Flex vertical align="center" gap={8} className="!shrink-0">
       <Flex
@@ -20,7 +22,7 @@ export function HighlightNew() {
         <Icon name="add" size={28} color="var(--color-text-muted)" />
       </Flex>
       <Text className="!text-xs !font-medium" style={{ color: "var(--color-text-muted)" }}>
-        New
+        {t("new")}
       </Text>
     </Flex>
   );

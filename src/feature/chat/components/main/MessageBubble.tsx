@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { ReplyContext } from "../../types";
 import { Avatar } from "../Avatar";
@@ -45,6 +46,7 @@ export function MessageBubble({
   onEdit,
   onUnsend,
 }: MessageBubbleProps) {
+  const t = useTranslations("Chat.message");
   const [editing, setEditing] = useState(false);
   const isImage = type === "image";
 
@@ -74,7 +76,7 @@ export function MessageBubble({
             className="!text-[13px]"
             style={{ color: "var(--color-text-muted)" }}
           >
-            Message unsent
+            {t("unsent")}
           </Text>
         </div>
       </Flex>
@@ -174,7 +176,7 @@ export function MessageBubble({
               className="!mt-0.5 !text-[11px]"
               style={{ color: "var(--color-text-muted)" }}
             >
-              edited
+              {t("edited")}
             </Text>
           )}
         </Flex>
@@ -194,7 +196,7 @@ export function MessageBubble({
         {body}
         {editedAt && (
           <Text className="!mt-0.5 !text-[11px] !text-[var(--color-text-muted)]">
-            edited
+            {t("edited")}
           </Text>
         )}
       </Flex>

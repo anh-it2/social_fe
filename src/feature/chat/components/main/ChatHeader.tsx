@@ -7,6 +7,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { Avatar } from "../Avatar";
 
@@ -22,6 +23,7 @@ interface ChatHeaderProps {
 }
 
 export function ChatHeader({ user, onToggleInfo, onBack }: ChatHeaderProps) {
+  const t = useTranslations("Chat.header");
   return (
     <div className="flex h-[72px] items-center justify-between border-b border-[var(--color-border)] bg-white px-3 sm:px-6 dark:bg-[#141414]">
       <Flex align="center" gap={8} className="min-w-0">
@@ -44,7 +46,7 @@ export function ChatHeader({ user, onToggleInfo, onBack }: ChatHeaderProps) {
           <Flex align="center" gap={6}>
             <span className="h-2 w-2 rounded-full bg-[#22c55e]" />
             <Text className="!text-[12px] !text-[var(--color-text-muted)]">
-              Active now
+              {t("activeNow")}
             </Text>
           </Flex>
         </Flex>

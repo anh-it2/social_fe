@@ -1,6 +1,7 @@
 "use client";
 
 import { App, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
@@ -13,6 +14,8 @@ interface DisplayPanelProps {
 }
 
 export function DisplayPanel({ onBack }: DisplayPanelProps) {
+  const t = useTranslations("Topnav.display");
+  const tMenu = useTranslations("Topnav.userMenu");
   const { message } = App.useApp();
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -22,7 +25,7 @@ export function DisplayPanel({ onBack }: DisplayPanelProps) {
   const isDark = mounted && resolvedTheme === "dark";
 
   const comingSoon = (feature: string) => {
-    message.info(`${feature} is coming in a future update`);
+    message.info(`${feature}${tMenu("comingSoonSuffix")}`);
   };
 
   return (
@@ -40,38 +43,38 @@ export function DisplayPanel({ onBack }: DisplayPanelProps) {
           className="!text-[17px] !font-bold"
           style={{ color: "var(--color-text)" }}
         >
-          Display & accessibility
+          {t("title")}
         </Text>
       </Flex>
 
       <Flex vertical className="!px-3 !pb-3">
         <DisplayToggleRow
           icon="dark_mode"
-          title="Dark mode"
-          description="Adjust the appearance to reduce glare and give your eyes a break."
+          title={t("darkMode")}
+          description={t("darkModeDesc")}
           checked={isDark}
           onChange={(v) => setTheme(v ? "dark" : "light")}
         />
         <DisplayToggleRow
           icon="compress"
-          title="Compact mode"
-          description="Make font size smaller so more content fits on screen."
+          title={t("compactMode")}
+          description={t("compactModeDesc")}
           checked={false}
-          onChange={() => comingSoon("Compact mode")}
+          onChange={() => comingSoon(t("compactMode"))}
         />
         <DisplayToggleRow
           icon="play_circle"
-          title="Autoplay videos"
-          description="Automatically play videos and GIFs as you scroll."
+          title={t("autoplay")}
+          description={t("autoplayDesc")}
           checked={false}
-          onChange={() => comingSoon("Autoplay videos")}
+          onChange={() => comingSoon(t("autoplay"))}
         />
         <DisplayToggleRow
           icon="accessibility_new"
-          title="Reduce motion"
-          description="Minimize animations and transitions across the app."
+          title={t("reduceMotion")}
+          description={t("reduceMotionDesc")}
           checked={false}
-          onChange={() => comingSoon("Reduce motion")}
+          onChange={() => comingSoon(t("reduceMotion"))}
         />
 
         <Flex
@@ -85,7 +88,7 @@ export function DisplayPanel({ onBack }: DisplayPanelProps) {
             className="!text-[12px]"
             style={{ color: "var(--color-text-muted)" }}
           >
-            Preferences saved on this device.
+            {t("preferenceSaved")}
           </Text>
         </Flex>
       </Flex>

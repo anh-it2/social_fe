@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useNotifications } from "@/feature/notification/hooks/useNotifications";
 import { useNotificationStore } from "@/feature/notification/stores/notification.store";
 import { NotificationDropdownFooter } from "./NotificationDropdownFooter";
@@ -16,6 +17,7 @@ interface NotificationDropdownContentProps {
 export function NotificationDropdownContent({
   onClose,
 }: NotificationDropdownContentProps) {
+  const t = useTranslations("Topnav.notifications");
   const { readOne, readAll } = useNotifications();
   const notifications = useNotificationStore((s) => s.notifications);
 
@@ -58,7 +60,7 @@ export function NotificationDropdownContent({
             style={{ padding: "32px 16px" }}
           >
             <Text style={{ color: "var(--color-text-muted)" }}>
-              No notifications yet
+              {t("noNotifications")}
             </Text>
           </Flex>
         ) : (

@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { NAV_ROWS, NAV_ROWS_MORE, SHORTCUTS } from "../../data/constants";
 import { SeeMoreRow } from "./SeeMoreRow";
@@ -15,6 +16,7 @@ interface LeftSidebarProps {
 }
 
 export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
+  const t = useTranslations("Feed.leftSidebar");
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -65,14 +67,14 @@ export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
           className="!text-[15px] !font-semibold"
           style={{ color: "var(--color-text-secondary)" }}
         >
-          Your shortcuts
+          {t("shortcuts")}
         </Text>
         <Button
           type="text"
           size="small"
           className="!text-[13px] !font-semibold !text-[var(--color-primary)] hover:!bg-transparent"
         >
-          Edit
+          {t("edit")}
         </Button>
       </Flex>
       {SHORTCUTS.map((s) => (
@@ -88,8 +90,7 @@ export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
           className="!text-[12px] !leading-snug"
           style={{ color: "var(--color-text-muted)" }}
         >
-          Privacy · Terms · Advertising · Ad choices · Cookies · More · Meta
-          © {new Date().getFullYear()}
+          {t("privacy", { year: new Date().getFullYear() })}
         </Text>
       </Flex>
     </Flex>

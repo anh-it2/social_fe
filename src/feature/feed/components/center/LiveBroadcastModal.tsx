@@ -2,6 +2,7 @@
 
 import { App, Avatar, Button, Flex, Input, Typography } from "antd";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
@@ -21,6 +22,9 @@ type Phase = "idle" | "preview" | "live";
 const LIVE_GRADIENT: [string, string] = ["#f02849", "#dc2626"];
 
 export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastModalProps) {
+  const t = useTranslations("Feed.live");
+  const tPostComposer = useTranslations("Feed.postComposer");
+  const tReel = useTranslations("Feed.reelViewer");
   const { message } = App.useApp();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -68,7 +72,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
   const startCamera = async () => {
     setError(null);
     if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
-      setError("Camera not supported in this browser");
+      setError(t("errorNotSupported"));
       return;
     }
     try {
@@ -82,9 +86,9 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
         await videoRef.current.play().catch(() => {});
       }
       setPhase("preview");
-      message.success("Camera enabled");
+      message.success(t("successCamera"));
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Camera access denied";
+      const msg = e instanceof Error ? e.message : t("errorDenied");
       setError(msg);
       message.error(msg);
     }
@@ -124,7 +128,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
         recorderRef.current = null;
       }
     }
-    message.success("Broadcast started");
+    message.success(t("successStarted"));
   };
 
   const finalizeRecording = (): Promise<string | undefined> => {
@@ -180,8 +184,8 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
         initial: CURRENT_USER.initial,
         gradient: CURRENT_USER.gradient,
       },
-      time: "Just now",
-      text: title.trim() || "Was live",
+      time: tReel("justNow"),
+      text: title.trim() || t("wasLiveTitle"),
       imageUrl: frame ?? undefined,
       videoUrl,
       isLive: true,
@@ -189,7 +193,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
       comments: 0,
       shares: 0,
     });
-    message.success("Broadcast ended and saved");
+    message.success(t("successEnded"));
     onClose();
   };
 
@@ -229,12 +233,10 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
         </Flex>
         <Flex vertical>
           <Title level={5} className="!m-0 !leading-tight" style={{ color: "var(--color-text)" }}>
-            {phase === "live" ? "You're live" : "Go live"}
+            {phase === "live" ? t("titleActive") : t("titleIdle")}
           </Title>
           <Text className="!text-xs" style={{ color: "var(--color-text-muted)" }}>
-            {phase === "live"
-              ? "Broadcasting to your followers"
-              : "Stream video to your friends and followers"}
+            {phase === "live" ? t("subtitleActive") : t("subtitleIdle")}
           </Text>
         </Flex>
       </Flex>
@@ -266,13 +268,13 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
               className="!text-xl !font-bold"
               style={{ color: "var(--color-text)" }}
             >
-              Camera ready
+              {t("ready")}
             </Text>
             <Text
               className="!text-sm !text-center"
               style={{ color: "var(--color-text-muted)", maxWidth: 360 }}
             >
-              We need access to your camera and microphone to start the broadcast
+              {t("permission")}
             </Text>
             {error && (
               <Text
@@ -293,7 +295,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
               }}
               icon={<Icon name="videocam" size={20} color="#fff" />}
             >
-              Enable camera
+              {t("enableCamera")}
             </Button>
           </Flex>
         )}
@@ -320,7 +322,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
             >
               <span className="!h-2 !w-2 !rounded-full !bg-white" />
               <Text className="!text-[11px] !font-bold !text-white !tracking-wider">
-                LIVE
+                {t("indicator")}
               </Text>
             </Flex>
             <Flex
@@ -370,7 +372,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
                 className="!text-[10px] !font-semibold"
                 style={{ color: "var(--color-text-muted)" }}
               >
-                Public
+                {tPostComposer("visibility")}
               </Text>
             </Flex>
           </Flex>
@@ -378,7 +380,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
         <Input.TextArea
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Add a title to your live video..."
+          placeholder={t("titlePlaceholder")}
           autoSize={{ minRows: 2, maxRows: 4 }}
           maxLength={150}
           disabled={phase === "live"}
@@ -399,7 +401,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
               color: "var(--color-text)",
             }}
           >
-            Cancel
+            {t("cancel")}
           </Button>
           {phase === "preview" && (
             <Button
@@ -412,7 +414,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
                 border: "none",
               }}
             >
-              Go live
+              {t("goLive")}
             </Button>
           )}
           {phase === "live" && (
@@ -426,7 +428,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
                 border: "none",
               }}
             >
-              End live
+              {t("endLive")}
             </Button>
           )}
         </Flex>

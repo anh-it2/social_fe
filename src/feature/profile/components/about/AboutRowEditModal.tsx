@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo } from "react";
 import { FormProvider, useForm, type Resolver } from "react-hook-form";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
@@ -37,6 +38,7 @@ export function AboutRowEditModal({
   onCancel,
   onSubmit,
 }: AboutRowEditModalProps) {
+  const t = useTranslations("Profile.about.modal");
   const resolver = useMemo(
     () => zodResolver(buildZodSchema(schema.fields)) as unknown as Resolver<FormValues>,
     [schema]
@@ -94,7 +96,7 @@ export function AboutRowEditModal({
                 className="!mt-3 !block !text-[13px]"
                 style={{ color: "var(--color-error)" }}
               >
-                Please fill out the required fields marked with *.
+                {t("requiredFields")}
               </Text>
             )}
             <AboutEditFooter onCancel={handleCancel} />

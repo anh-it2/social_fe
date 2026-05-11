@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Dropdown, message as antdMessage } from "antd";
 import type { MenuProps } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ConfirmModal } from "@/shared/components/modal/ConfirmModal";
 import type { ReplyContext } from "../../types";
@@ -38,20 +39,21 @@ export function MessageActionMenu({
   onUnsend,
   placement = "bottomRight",
 }: MessageActionMenuProps) {
+  const t = useTranslations("Chat.actionMenu");
   const [confirmOpen, setConfirmOpen] = useState(false);
   const canEdit = mine && type === "text" && !!onStartEdit;
   const canUnsend = mine && !!onUnsend;
 
   const items: MenuProps["items"] = [
     onReply
-      ? { key: "reply", icon: <EnterOutlined />, label: "Reply" }
+      ? { key: "reply", icon: <EnterOutlined />, label: t("reply") }
       : null,
-    canEdit ? { key: "edit", icon: <EditOutlined />, label: "Edit" } : null,
+    canEdit ? { key: "edit", icon: <EditOutlined />, label: t("edit") } : null,
     canUnsend
       ? {
           key: "unsend",
           icon: <DeleteOutlined />,
-          label: "Unsend",
+          label: t("unsend"),
           danger: true,
         }
       : null,
@@ -81,7 +83,7 @@ export function MessageActionMenu({
       await onUnsend(id);
       setConfirmOpen(false);
     } catch {
-      antdMessage.error("Unsend failed");
+      antdMessage.error(t("unsendError"));
     }
   }
 
@@ -102,9 +104,9 @@ export function MessageActionMenu({
       </Dropdown>
       <ConfirmModal
         open={confirmOpen}
-        title="Unsend message?"
-        description="This message will be removed for everyone."
-        okText="Unsend"
+        title={t("unsendConfirmTitle")}
+        description={t("unsendConfirmDesc")}
+        okText={t("unsend")}
         danger
         iconName="delete"
         onOk={handleConfirmUnsend}

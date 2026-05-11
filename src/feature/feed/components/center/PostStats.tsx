@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { REACTION_BY_ID, type ReactionId } from "@/shared/data/reactions";
 import { ReactionBadge } from "./ReactionBadge";
 
@@ -14,6 +15,7 @@ interface PostStatsProps {
 }
 
 export function PostStats({ reaction, likes, comments, shares }: PostStatsProps) {
+  const t = useTranslations("Feed.post");
   const current = reaction ? REACTION_BY_ID[reaction] : null;
   return (
     <Flex
@@ -37,7 +39,7 @@ export function PostStats({ reaction, likes, comments, shares }: PostStatsProps)
         </Text>
       </Flex>
       <Text className="!text-sm" style={{ color: "var(--color-text-secondary)" }}>
-        {comments} comments &nbsp;·&nbsp; {shares} shares
+        {comments} {t("comments")} &nbsp;·&nbsp; {shares} {t("shares")}
       </Text>
     </Flex>
   );

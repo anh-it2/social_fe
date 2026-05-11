@@ -1,6 +1,7 @@
 "use client";
 
 import { Empty, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import {
   ABOUT_CATEGORIES,
   type AboutCategoryId,
@@ -17,6 +18,7 @@ interface AboutContentProps {
 }
 
 export function AboutContent({ active }: AboutContentProps) {
+  const t = useTranslations("Profile.about");
   const { getRows, addRow, updateRow, deleteRow, hydrated } = useAboutData();
   const category = ABOUT_CATEGORIES.find((c) => c.id === active);
   if (!category) return null;
@@ -50,13 +52,13 @@ export function AboutContent({ active }: AboutContentProps) {
           className="!text-[20px] !font-bold !leading-tight"
           style={{ color: "var(--color-text)" }}
         >
-          Overview
+          {t("overview")}
         </Text>
         {!hydrated ? null : overviewRows.length === 0 ? (
           <Empty
             description={
               <Text style={{ color: "var(--color-text-muted)" }}>
-                No info yet. Pick a category on the left and add details.
+                {t("noInfo")}
               </Text>
             }
           />

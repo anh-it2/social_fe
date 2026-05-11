@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { FormEvent, useState } from "react";
 import { toAuthSession, toLoginRequestDto } from "../dto/auth.mapper";
 import { login } from "../services/auth.service";
@@ -7,6 +8,7 @@ import { useAuthStore } from "../stores/auth.store";
 import { useRouter } from "@/i18n/navigation";
 
 export function LoginForm() {
+  const t = useTranslations("Auth.login");
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -48,12 +50,12 @@ export function LoginForm() {
       className="flex w-full max-w-sm flex-col gap-4 rounded-2xl border border-black/10 bg-white p-6 dark:border-white/10 dark:bg-zinc-900"
     >
       <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-        Sign in
+        {t("submit")}
       </h1>
 
       <label className="flex flex-col gap-1">
         <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          Username
+          {t("usernameLabel")}
         </span>
         <input
           type="text"
@@ -67,7 +69,7 @@ export function LoginForm() {
 
       <label className="flex flex-col gap-1">
         <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          Password
+          {t("passwordLabel")}
         </span>
         <input
           type="password"
@@ -87,7 +89,7 @@ export function LoginForm() {
         disabled={loading}
         className="h-10 rounded-lg bg-zinc-900 text-sm font-medium text-zinc-50 disabled:opacity-60 dark:bg-zinc-50 dark:text-zinc-900"
       >
-        {loading ? "Signing in…" : "Sign in"}
+        {loading ? t("submitLoading") : t("submit")}
       </button>
     </form>
   );

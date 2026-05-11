@@ -2,6 +2,7 @@
 
 import { Button, Dropdown, Typography, message } from "antd";
 import type { MenuProps } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "../Icon";
 
 const { Text } = Typography;
@@ -13,15 +14,16 @@ interface ShareMenuProps {
 }
 
 export function ShareMenu({ postId, onShared, className }: ShareMenuProps) {
+  const t = useTranslations("Post");
   const [api, contextHolder] = message.useMessage();
 
-  function handleAction(action: string) {
+  function handleAction(action: string, label: string) {
     if (action === "copy") {
       const url = `${window.location.origin}/posts/${postId}`;
       void navigator.clipboard.writeText(url);
-      api.success("Link copied");
+      api.success(t("linkCopied"));
     } else {
-      api.success(`Shared via ${action}`);
+      api.success(`${t("sharedVia")}${label}`);
     }
     onShared();
   }
@@ -29,34 +31,34 @@ export function ShareMenu({ postId, onShared, className }: ShareMenuProps) {
   const items: MenuProps["items"] = [
     {
       key: "now",
-      label: "Share now (Public)",
+      label: t("shareNow"),
       icon: <Icon name="public" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("now"),
+      onClick: () => handleAction("now", t("shareNow")),
     },
     {
       key: "feed",
-      label: "Share to feed",
+      label: t("shareToFeed"),
       icon: <Icon name="post_add" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("feed"),
+      onClick: () => handleAction("feed", t("shareToFeed")),
     },
     {
       key: "messenger",
-      label: "Send in Messenger",
+      label: t("sendMessenger"),
       icon: <Icon name="chat_bubble" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("messenger"),
+      onClick: () => handleAction("messenger", t("sendMessenger")),
     },
     {
       key: "story",
-      label: "Share to your story",
+      label: t("shareToStory"),
       icon: <Icon name="auto_stories" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("story"),
+      onClick: () => handleAction("story", t("shareToStory")),
     },
     { type: "divider" },
     {
       key: "copy",
-      label: "Copy link",
+      label: t("copyLink"),
       icon: <Icon name="link" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("copy"),
+      onClick: () => handleAction("copy", t("copyLink")),
     },
   ];
 
@@ -76,7 +78,7 @@ export function ShareMenu({ postId, onShared, className }: ShareMenuProps) {
             className="!text-sm !font-medium"
             style={{ color: "var(--color-text-muted)" }}
           >
-            Share
+            {t("share")}
           </Text>
         </Button>
       </Dropdown>

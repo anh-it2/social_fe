@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Spin, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
@@ -35,6 +36,7 @@ export function MessageList({
   onEdit,
   onUnsend,
 }: MessageListProps) {
+  const t = useTranslations("Chat.messageList");
   const myId = useAuthStore((s) => s.userId);
   const conversationId = buildDmId(myId, user.id);
   const typingMap = useChatStore((s) => s.typingUsers[conversationId]);
@@ -125,7 +127,7 @@ export function MessageList({
         {messages.length === 0 ? (
           <Flex justify="center" className="py-8">
             <Text className="!text-[13px] !text-[var(--color-text-muted)]">
-              Start the conversation with {user.name}
+              {t("startWith")} {user.name}
             </Text>
           </Flex>
         ) : (

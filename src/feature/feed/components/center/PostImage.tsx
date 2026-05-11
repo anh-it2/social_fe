@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
 
@@ -14,6 +15,7 @@ interface PostImageProps {
 }
 
 export function PostImage({ gradient, imageUrl, videoUrl, isLive }: PostImageProps) {
+  const t = useTranslations("Feed.post");
   if (videoUrl) {
     return (
       <div className="!relative !w-full" style={{ background: "#000" }}>
@@ -35,7 +37,7 @@ export function PostImage({ gradient, imageUrl, videoUrl, isLive }: PostImagePro
           >
             <span className="!h-2 !w-2 !rounded-full" style={{ background: "#fff" }} />
             <Text className="!text-[11px] !font-bold !text-white !tracking-wider">
-              LIVE REPLAY
+              {t("liveReplay")}
             </Text>
           </Flex>
         )}
@@ -61,7 +63,7 @@ export function PostImage({ gradient, imageUrl, videoUrl, isLive }: PostImagePro
           >
             <span className="!h-2 !w-2 !rounded-full" style={{ background: "#fff" }} />
             <Text className="!text-[11px] !font-bold !text-white !tracking-wider">
-              LIVE REPLAY
+              {t("liveReplay")}
             </Text>
           </Flex>
         )}

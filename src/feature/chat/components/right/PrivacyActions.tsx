@@ -2,6 +2,7 @@
 
 import { FlagOutlined, StopOutlined } from "@ant-design/icons";
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 
 const { Text } = Typography;
 
@@ -10,10 +11,11 @@ interface PrivacyActionsProps {
 }
 
 export function PrivacyActions({ recipientName }: PrivacyActionsProps) {
+  const t = useTranslations("Chat.right");
   return (
     <Flex vertical gap={4} className="px-6 py-6">
       <Text className="!mb-2 !text-[14px] !font-semibold !text-[var(--color-text)]">
-        Privacy & support
+        {t("privacyTitle")}
       </Text>
       <Button
         type="text"
@@ -21,7 +23,7 @@ export function PrivacyActions({ recipientName }: PrivacyActionsProps) {
         className="!flex !h-10 !items-center !justify-start !truncate !px-2 !text-[13px] !font-medium !text-[var(--color-error)]"
       >
         <span className="truncate">
-          Block {recipientName.split(" ")[0]}
+          {t("block")} {recipientName.split(" ")[0]}
         </span>
       </Button>
       <Button
@@ -29,7 +31,7 @@ export function PrivacyActions({ recipientName }: PrivacyActionsProps) {
         icon={<FlagOutlined />}
         className="!flex !h-10 !items-center !justify-start !px-2 !text-[13px] !font-medium !text-[var(--color-text)]"
       >
-        Report
+        {t("report")}
       </Button>
     </Flex>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import {
   NOTIFICATION_ICON,
@@ -23,6 +24,8 @@ export function NotificationDropdownItem({
   notification,
   onClick,
 }: NotificationDropdownItemProps) {
+  const tTpl = useTranslations("Notification.template");
+  const tTime = useTranslations("Notification.time");
   const gradient = actorGradient(notification.actorId);
   const unread = !notification.read;
 
@@ -82,10 +85,10 @@ export function NotificationDropdownItem({
           }}
         >
           <span style={{ fontWeight: 700 }}>{notification.actorName}</span>{" "}
-          {notificationText(notification.kind, notification.preview)}
+          {notificationText(tTpl, notification.kind, notification.preview)}
         </Text>
         <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
-          {relativeTime(notification.timestamp)}
+          {relativeTime(tTime, notification.timestamp)}
         </Text>
       </Flex>
       {unread ? (

@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { formatCount, REACTION_BY_ID, type ReactionId } from "../../data/mock";
 
 const { Text } = Typography;
@@ -27,6 +28,7 @@ export function PostReactions({
   commentCount,
   shareCount,
 }: PostReactionsProps) {
+  const t = useTranslations("Profile.feed");
   return (
     <Flex
       align="center"
@@ -44,10 +46,10 @@ export function PostReactions({
       </Flex>
       <Flex align="center" gap={16}>
         <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
-          {formatCount(commentCount)} comments
+          {formatCount(commentCount)} {t("comments")}
         </Text>
         <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
-          {formatCount(shareCount)} shares
+          {formatCount(shareCount)} {t("shares")}
         </Text>
       </Flex>
     </Flex>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CommentSection } from "@/shared/components/post/CommentSection";
 import type { Comment, ReactionId } from "@/shared/data/reactions";
@@ -22,6 +23,7 @@ interface FeedPostProps {
 }
 
 export function FeedPost({ post, onRemove, onUpdate }: FeedPostProps) {
+  const t = useTranslations("Feed.reelViewer");
   const [editOpen, setEditOpen] = useState(false);
   const [reaction, setReaction] = useState<ReactionId | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -43,7 +45,7 @@ export function FeedPost({ post, onRemove, onUpdate }: FeedPostProps) {
         authorInitial: CURRENT_USER.initial,
         authorGradient: CURRENT_USER.gradient,
         text,
-        time: "Just now",
+        time: t("justNow"),
       },
     ]);
     if (!showComments) setShowComments(true);

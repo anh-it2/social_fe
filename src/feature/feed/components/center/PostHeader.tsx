@@ -1,13 +1,14 @@
 "use client";
 
 import { App, Button, Dropdown, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { ConfirmModal } from "@/shared/components/modal/ConfirmModal";
 import type { FeedAuthor, Feeling } from "../../data/types";
 import { gradientBg } from "@/shared/utils/gradient";
 import styles from "./PostHeader.module.scss";
-import { makePostHeaderMenuItems } from "./PostHeaderMenu";
+import { usePostHeaderMenuItems } from "./PostHeaderMenu";
 
 const { Text } = Typography;
 
@@ -30,13 +31,15 @@ export function PostHeader({
   onRemove,
   onEdit,
 }: PostHeaderProps) {
+  const t = useTranslations("Feed.post");
+  const menuItems = usePostHeaderMenuItems(author.name, isOwn);
   const { message } = App.useApp();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleConfirm = () => {
     setConfirmOpen(false);
     onRemove?.();
-    message.success("Post removed");
+    message.success(t("removed"));
   };
 
   return (
@@ -65,7 +68,7 @@ export function PostHeader({
             {author.name}
             {isLive && (
               <Text className="!text-[15px]" style={{ color: "var(--color-text-secondary)", fontWeight: 400 }}>
-                {" was live"}
+                {" "}{t("wasLive")}
               </Text>
             )}
             {feeling && (
@@ -73,7 +76,7 @@ export function PostHeader({
                 className="!text-[15px]"
                 style={{ color: "var(--color-text-secondary)", fontWeight: 400 }}
               >
-                {feeling.kind === "feeling" ? " is feeling " : " is "}
+                {" "}{feeling.kind === "feeling" ? t("isFeeling") : t("isActivity")}{" "}
                 <Text
                   className="!text-[15px] !font-semibold"
                   style={{ color: "var(--color-text)" }}
@@ -98,7 +101,7 @@ export function PostHeader({
         trigger={["click"]}
         placement="bottomRight"
         menu={{
-          items: makePostHeaderMenuItems(author.name, isOwn),
+          items: menuItems,
           className: styles.menu,
           onClick: ({ key, domEvent }) => {
             domEvent.stopPropagation();
@@ -110,7 +113,7 @@ export function PostHeader({
         <Button
           type="text"
           shape="circle"
-          aria-label="Post options"
+          aria-label={t("moreOptions")}
           className={`${styles.moreBtn} !flex !h-9 !w-9 !items-center !justify-center`}
           icon={
             <Icon
@@ -123,10 +126,10 @@ export function PostHeader({
       </Dropdown>
       <ConfirmModal
         open={confirmOpen}
-        title="Remove this post?"
-        description="This post will be permanently removed from your timeline."
-        okText="Remove"
-        cancelText="Cancel"
+        title={t("removeTitle")}
+        description={t("removeDesc")}
+        okText={t("remove")}
+        cancelText={t("cancel")}
         danger
         onOk={handleConfirm}
         onCancel={() => setConfirmOpen(false)}

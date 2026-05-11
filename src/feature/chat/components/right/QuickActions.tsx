@@ -7,24 +7,25 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 const { Text } = Typography;
 
 interface ActionDef {
-  key: string;
-  label: string;
+  key: "audio" | "video" | "mute" | "search";
   icon: ReactNode;
 }
 
 const ACTIONS: ActionDef[] = [
-  { key: "audio", label: "Audio", icon: <PhoneOutlined /> },
-  { key: "video", label: "Video", icon: <VideoCameraOutlined /> },
-  { key: "mute", label: "Mute", icon: <BellOutlined /> },
-  { key: "search", label: "Search", icon: <SearchOutlined /> },
+  { key: "audio", icon: <PhoneOutlined /> },
+  { key: "video", icon: <VideoCameraOutlined /> },
+  { key: "mute", icon: <BellOutlined /> },
+  { key: "search", icon: <SearchOutlined /> },
 ];
 
 export function QuickActions() {
+  const t = useTranslations("Chat.right");
   return (
     <Flex
       justify="space-around"
@@ -40,7 +41,7 @@ export function QuickActions() {
             className="!h-11 !w-11 !bg-[#f0f2f5] !text-[var(--color-primary)] hover:!bg-[#e4e6eb] dark:!bg-[#1f1f1f] dark:hover:!bg-[#262626]"
           />
           <Text className="!text-[11px] !font-medium !text-[var(--color-text)]">
-            {a.label}
+            {t(a.key)}
           </Text>
         </Flex>
       ))}

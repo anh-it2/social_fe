@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex, Input } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "../Icon";
 import { PostAvatar } from "./PostAvatar";
@@ -16,6 +17,7 @@ export function CommentInput({
   authorInitial,
   authorGradient = ["#4096ff", "#a855f7"],
 }: CommentInputProps) {
+  const t = useTranslations("Post");
   const [value, setValue] = useState("");
 
   function handleSend() {
@@ -44,7 +46,7 @@ export function CommentInput({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onPressEnter={handleSend}
-          placeholder="Write a comment..."
+          placeholder={t("writeComment")}
           variant="borderless"
           className="!flex-1 !p-0 !text-sm"
           style={{ background: "transparent", color: "var(--color-text)" }}
@@ -55,7 +57,7 @@ export function CommentInput({
           onClick={handleSend}
           disabled={!value.trim()}
           className="!flex !h-7 !w-7 !items-center !justify-center !p-0"
-          aria-label="Send"
+          aria-label={t("send")}
         >
           <Icon
             name="send"

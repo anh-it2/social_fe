@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { pickGradient } from "@/feature/chat/lib/avatar";
@@ -13,6 +14,7 @@ import { ContactRow } from "./ContactRow";
 const { Text } = Typography;
 
 export function ContactsSection() {
+  const t = useTranslations("Feed.rightSidebar");
   const onlineUsers = usePresenceStore((s) => s.onlineUsers);
   const knownUsers = usePresenceStore((s) => s.knownUsers);
   const openChat = useChatBoxesStore((s) => s.openChat);
@@ -51,7 +53,7 @@ export function ContactsSection() {
         className="!h-9 !w-full !pb-2"
       >
         <Text className="!text-base !font-semibold" style={{ color: "var(--color-text-secondary)" }}>
-          Contacts
+          {t("contacts")}
         </Text>
         <Flex align="center" gap={8}>
           <Icon name="videocam" size={22} color="var(--color-text-secondary)" />
@@ -64,7 +66,7 @@ export function ContactsSection() {
           className="!text-[13px] !px-1 !py-3"
           style={{ color: "var(--color-text-muted)" }}
         >
-          No contacts yet.
+          {t("noContacts")}
         </Text>
       ) : (
         contacts.map((c) => (

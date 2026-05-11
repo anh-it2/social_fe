@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Icon } from "../Icon";
 import { gradientText } from "../../data/mock";
@@ -9,6 +10,7 @@ import { EDIT_PRIMARY_GRADIENT } from "./edit-profile.constants";
 const { Title, Text } = Typography;
 
 export function EditPageHeader() {
+  const t = useTranslations("Profile.edit");
   return (
     <Flex align="center" justify="space-between" className="!w-full">
       <Flex vertical gap={4}>
@@ -17,10 +19,10 @@ export function EditPageHeader() {
           className="!m-0 !text-2xl !font-bold"
           style={gradientText([...EDIT_PRIMARY_GRADIENT])}
         >
-          Edit Profile
+          {t("title")}
         </Title>
         <Text className="!text-sm" style={{ color: "var(--color-text-muted)" }}>
-          Update your personal information and how others see you.
+          {t("subtitle")}
         </Text>
       </Flex>
       <Link href="/profile">
@@ -39,7 +41,7 @@ export function EditPageHeader() {
               size={16}
               color="var(--color-text-secondary)"
             />
-            <span className="text-sm font-medium">Back</span>
+            <span className="text-sm font-medium">{t("back")}</span>
           </Flex>
         </Button>
       </Link>

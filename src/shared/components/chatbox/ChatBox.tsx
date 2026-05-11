@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
@@ -24,6 +25,7 @@ interface ChatBoxProps {
 }
 
 export function ChatBox({ chat }: ChatBoxProps) {
+  const t = useTranslations("ChatBox");
   const minimized = useChatBoxesStore((s) => s.minimized[chat.id] ?? false);
   const closeChat = useChatBoxesStore((s) => s.closeChat);
   const toggleMinimize = useChatBoxesStore((s) => s.toggleMinimize);
@@ -157,7 +159,7 @@ export function ChatBox({ chat }: ChatBoxProps) {
               className="!text-[11px] !leading-tight"
               style={{ color: "var(--color-text-muted)" }}
             >
-              {chat.online ? "Active now" : "Offline"}
+              {chat.online ? t("activeNow") : t("offline")}
             </Text>
           </Flex>
         </Flex>

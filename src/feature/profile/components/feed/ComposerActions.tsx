@@ -1,15 +1,16 @@
 "use client";
 
 import { Flex } from "antd";
+import { useTranslations } from "next-intl";
 import { ComposerActionItem } from "./ComposerActionItem";
 
-const ACTIONS = [
-  { id: "live", icon: "videocam", label: "Live Video", color: "#ef4444" },
-  { id: "media", icon: "photo_library", label: "Photo/Video", color: "#22c55e" },
-  { id: "feeling", icon: "mood", label: "Feeling/Activity", color: "#f59e0b" },
-];
-
 export function ComposerActions() {
+  const t = useTranslations("Profile.feed");
+  const ACTIONS = [
+    { id: "live", icon: "videocam", label: t("liveVideo"), color: "#ef4444" },
+    { id: "media", icon: "photo_library", label: t("photoVideo"), color: "#22c55e" },
+    { id: "feeling", icon: "mood", label: t("feelingActivity"), color: "#f59e0b" },
+  ];
   return (
     <Flex justify="space-around" className="!w-full">
       {ACTIONS.map((a) => (

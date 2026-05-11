@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Typography } from "antd";
+import { useTranslations } from "next-intl";
 
 const { Text } = Typography;
 
@@ -11,6 +12,7 @@ interface NotificationDropdownFooterProps {
 export function NotificationDropdownFooter({
   onSeeAll,
 }: NotificationDropdownFooterProps) {
+  const t = useTranslations("Topnav.notifications");
   return (
     <div
       className="w-full border-t"
@@ -23,7 +25,7 @@ export function NotificationDropdownFooter({
         className="!flex !h-10 !items-center !justify-center !rounded-lg"
       >
         <Text className="!text-sm !font-semibold" style={{ color: "#4096ff" }}>
-          See all notifications
+          {t("seeAll")}
         </Text>
       </Button>
     </div>

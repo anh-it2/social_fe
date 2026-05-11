@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ConfirmModal } from "@/shared/components/modal/ConfirmModal";
 import type {
@@ -29,6 +30,7 @@ export function AboutSection({
   onUpdate,
   onDelete,
 }: AboutSectionProps) {
+  const t = useTranslations("Profile.about.modal");
   const [editOpen, setEditOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -99,9 +101,9 @@ export function AboutSection({
       />
       <ConfirmModal
         open={Boolean(deletingId)}
-        title="Remove this item?"
-        description="This entry will be removed from your profile."
-        okText="Remove"
+        title={t("removeItem")}
+        description={t("removeDesc")}
+        okText={t("remove")}
         danger
         onOk={handleConfirmDelete}
         onCancel={() => setDeletingId(null)}

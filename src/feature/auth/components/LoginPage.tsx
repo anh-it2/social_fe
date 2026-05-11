@@ -9,7 +9,8 @@ import {
 } from "@ant-design/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { App, Button, Checkbox, Divider, Typography } from "antd";
-import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "@/i18n/navigation";
@@ -20,35 +21,37 @@ import { toAuthSession, toLoginRequestDto } from "../dto/auth.mapper";
 import { login } from "../services/auth.service";
 import { useAuthStore } from "../stores/auth.store";
 import {
-  BRAND_NAME,
-  FOOTER_TEXT,
   HERO_AVATAR_CLASSES,
   HERO_DOT_POSITIONS,
   HERO_GRADIENT_CLASS,
   HERO_LINE_CLASSES,
-  HERO_STATS,
-  HERO_SUBTITLE,
-  HERO_TITLE_LINES,
+  HERO_STAT_VALUES,
   SIGN_IN_BUTTON_CLASS,
 } from "./login.constants";
 
 const { Title, Text, Paragraph, Link } = Typography;
 
-const loginSchema = z.object({
-  username: z.string().min(1, "Email is required"),
-  password: z.string().min(1, "Password is required"),
-  remember: z.boolean().optional(),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
-
 export function LoginPage() {
+  const t = useTranslations("Auth.login");
+  const tHero = useTranslations("Auth.hero");
   const router = useRouter();
   const { message } = App.useApp();
   const saveLoginnedUser = useAuthStore((s) => s.saveLoginnedUser);
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
+
+  const loginSchema = useMemo(
+    () =>
+      z.object({
+        username: z.string().min(1, t("validation.emailRequired")),
+        password: z.string().min(1, t("validation.passwordRequired")),
+        remember: z.boolean().optional(),
+      }),
+    [t],
+  );
+
+  type LoginFormValues = z.infer<typeof loginSchema>;
 
   const methods = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -61,6 +64,9 @@ export function LoginPage() {
     register,
     formState: { isSubmitting },
   } = methods;
+
+  const heroTitleLines = tHero("title").split(", ");
+  const heroStatLabels = [tHero("users"), tHero("communities"), tHero("messages")];
 
   async function onSubmit(values: LoginFormValues) {
     setSubmitError(null);
@@ -135,7 +141,7 @@ export function LoginPage() {
               </span>
             </div>
             <span className="text-[36px] font-bold text-white">
-              {BRAND_NAME}
+              {tHero("brand")}
             </span>
           </div>
 
@@ -143,25 +149,25 @@ export function LoginPage() {
             level={1}
             className="!m-0 !text-[48px] !font-extrabold !leading-[1.15] !text-white"
           >
-            {HERO_TITLE_LINES.map((line, i) => (
+            {heroTitleLines.map((line, i) => (
               <span key={i}>
                 {line}
-                {i < HERO_TITLE_LINES.length - 1 && <br />}
+                {i < heroTitleLines.length - 1 && <br />}
               </span>
             ))}
           </Title>
 
           <Paragraph className="!m-0 !max-w-[520px] !text-[18px] !leading-[1.6] !text-white/80">
-            {HERO_SUBTITLE}
+            {tHero("subtitle")}
           </Paragraph>
 
           <div className="flex gap-10">
-            {HERO_STATS.map((s) => (
-              <div key={s.label} className="flex flex-col gap-0.5">
+            {HERO_STAT_VALUES.map((value, i) => (
+              <div key={i} className="flex flex-col gap-0.5">
                 <span className="text-[28px] font-bold text-white">
-                  {s.value}
+                  {value}
                 </span>
-                <span className="text-[13px] text-white/60">{s.label}</span>
+                <span className="text-[13px] text-white/60">{heroStatLabels[i]}</span>
               </div>
             ))}
           </div>
@@ -179,10 +185,10 @@ export function LoginPage() {
               level={2}
               className="!m-0 !text-[32px] !font-bold !text-[var(--color-text)]"
             >
-              Welcome back
+              {t("title")}
             </Title>
             <Text className="!text-[15px] !text-[var(--color-text-muted)]">
-              Enter your credentials to access your account
+              {t("subtitle")}
             </Text>
           </div>
 
@@ -194,8 +200,8 @@ export function LoginPage() {
               <div className="flex flex-col gap-5">
                 <RHFTextField
                   name="username"
-                  label="Email address"
-                  placeholder="name@example.com"
+                  label={t("emailLabel")}
+                  placeholder={t("emailPlaceholder")}
                   autoComplete="username"
                   isRequire
                   prefixIcon={<MailOutlined />}
@@ -208,7 +214,7 @@ export function LoginPage() {
                       className="text-sm font-medium text-[var(--color-text-secondary)]"
                     >
                       <span className="inline-flex items-center gap-1">
-                        Password
+                        {t("passwordLabel")}
                         <span className="text-[var(--color-error)]">*</span>
                       </span>
                     </label>
@@ -216,12 +222,12 @@ export function LoginPage() {
                       href="/forgot-password"
                       className="!text-[13px] !font-medium"
                     >
-                      Forgot password?
+                      {t("forgot")}
                     </Link>
                   </div>
                   <RHFPasswordField
                     name="password"
-                    placeholder="Enter your password"
+                    placeholder={t("passwordPlaceholder")}
                     autoComplete="current-password"
                     prefixIcon={<LockOutlined />}
                   />
@@ -229,7 +235,7 @@ export function LoginPage() {
 
                 <Checkbox {...register("remember")}>
                   <span className="text-[13px] text-[var(--color-text-muted)]">
-                    Remember me for 30 days
+                    {t("remember")}
                   </span>
                 </Checkbox>
 
@@ -254,12 +260,12 @@ export function LoginPage() {
                   loading={isSubmitting}
                   className={SIGN_IN_BUTTON_CLASS}
                 >
-                  Sign in
+                  {t("submit")}
                 </Button>
 
                 <Divider plain className="!m-0">
                   <span className="text-[13px] text-[var(--color-text-placeholder)]">
-                    or
+                    {t("divider")}
                   </span>
                 </Divider>
 
@@ -270,7 +276,7 @@ export function LoginPage() {
                     icon={<GoogleOutlined />}
                     className="!h-12 !rounded-[10px] !font-medium"
                   >
-                    Google
+                    {t("google")}
                   </Button>
                   <Button
                     size="large"
@@ -278,7 +284,7 @@ export function LoginPage() {
                     icon={<AppleFilled />}
                     className="!h-12 !rounded-[10px] !font-medium"
                   >
-                    Apple
+                    {t("apple")}
                   </Button>
                 </div>
               </div>
@@ -287,16 +293,16 @@ export function LoginPage() {
 
           <div className="flex items-center justify-center gap-1.5">
             <Text className="!text-[14px] !text-[var(--color-text-muted)]">
-              Don&apos;t have an account?
+              {t("signupPrompt")}
             </Text>
             <Link href="/register" className="!text-[14px] !font-semibold">
-              Sign up for free
+              {t("signupLink")}
             </Link>
           </div>
         </div>
 
         <Paragraph className="absolute bottom-[60px] left-0 right-0 !m-0 px-10 text-center !text-[11px] !text-[var(--color-text-placeholder)]">
-          {FOOTER_TEXT}
+          {t("footer")}
         </Paragraph>
       </div>
     </div>

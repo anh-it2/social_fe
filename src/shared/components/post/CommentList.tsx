@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import type { Comment } from "../../data/reactions";
 import { CommentItem } from "./CommentItem";
 
@@ -11,10 +12,11 @@ interface CommentListProps {
 }
 
 export function CommentList({ comments }: CommentListProps) {
+  const t = useTranslations("Post");
   if (comments.length === 0) {
     return (
       <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
-        Be the first to comment.
+        {t("firstToComment")}
       </Text>
     );
   }

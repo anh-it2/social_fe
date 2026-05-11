@@ -1,6 +1,7 @@
 "use client";
 
 import { Select } from "antd";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import {
@@ -36,6 +37,7 @@ export function RHFSelect({
   className,
   allowClear = true,
 }: RHFSelectProps) {
+  const t = useTranslations("Common");
   const { control } = useFormContext();
 
   return (
@@ -58,7 +60,7 @@ export function RHFSelect({
             onChange={(v) => field.onChange(v ?? "")}
             onBlur={field.onBlur}
             options={options}
-            placeholder={placeholder ?? "Select…"}
+            placeholder={placeholder ?? t("selectPlaceholder")}
             disabled={disabled}
             status={fieldState.invalid ? "error" : ""}
             allowClear={allowClear}

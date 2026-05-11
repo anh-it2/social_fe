@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { PrivacyActions } from "./PrivacyActions";
 import { ProfileSection } from "./ProfileSection";
@@ -13,11 +14,12 @@ interface ChatRightPanelProps {
 }
 
 export function ChatRightPanel({ user }: ChatRightPanelProps) {
+  const t = useTranslations("Chat.right");
   if (!user) {
     return (
       <aside className="flex h-full w-[340px] shrink-0 items-center justify-center border-l border-[var(--color-border)] bg-white px-6 dark:bg-[#141414]">
         <Text className="!text-center !text-[13px] !text-[var(--color-text-muted)]">
-          Pick a conversation to see profile details.
+          {t("empty")}
         </Text>
       </aside>
     );
@@ -36,14 +38,14 @@ export function ChatRightPanel({ user }: ChatRightPanelProps) {
       >
         <Flex justify="space-between" align="center" gap={8}>
           <Text className="!text-[14px] !font-semibold !text-[var(--color-text)]">
-            Shared media
+            {t("sharedMedia")}
           </Text>
           <Text className="!shrink-0 !cursor-pointer !text-[12px] !font-semibold !text-[var(--color-primary)]">
-            See all
+            {t("seeAll")}
           </Text>
         </Flex>
         <Text className="!text-[13px] !text-[var(--color-text-muted)]">
-          No shared media yet
+          {t("noSharedMedia")}
         </Text>
       </Flex>
       <div className="h-3" />

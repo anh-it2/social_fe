@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex } from "antd";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { gradientBg } from "../../data/mock";
 import { EDIT_PRIMARY_GRADIENT } from "./edit-profile.constants";
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function EditActions({ submitting }: Props) {
+  const t = useTranslations("Profile.edit");
   return (
     <Flex
       align="center"
@@ -28,7 +30,7 @@ export function EditActions({ submitting }: Props) {
             color: "var(--color-text-secondary)",
           }}
         >
-          <span className="text-sm font-semibold">Cancel</span>
+          <span className="text-sm font-semibold">{t("cancel")}</span>
         </Button>
       </Link>
       <Button
@@ -42,7 +44,7 @@ export function EditActions({ submitting }: Props) {
           color: "#fff",
         }}
       >
-        <span className="text-sm font-semibold text-white">Save Changes</span>
+        <span className="text-sm font-semibold text-white">{t("saveChanges")}</span>
       </Button>
     </Flex>
   );

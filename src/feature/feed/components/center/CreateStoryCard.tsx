@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
 
@@ -11,6 +12,7 @@ interface CreateStoryCardProps {
 }
 
 export function CreateStoryCard({ onClick }: CreateStoryCardProps = {}) {
+  const t = useTranslations("Feed.story");
   return (
     <Flex
       vertical
@@ -45,7 +47,7 @@ export function CreateStoryCard({ onClick }: CreateStoryCardProps = {}) {
           className="!mt-5 !text-xs !font-semibold"
           style={{ color: "#e4e6eb" }}
         >
-          Create reel
+          {t("createReel")}
         </Text>
       </Flex>
     </Flex>

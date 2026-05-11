@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Empty, Image as AntImage, Input, Spin } from "antd";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import {
   fetchTrendingGifs,
@@ -14,6 +15,7 @@ interface GifPickerProps {
 }
 
 export function GifPicker({ onPick }: GifPickerProps) {
+  const t = useTranslations("Chat.gifPicker");
   const [query, setQuery] = useState("");
   const [gifs, setGifs] = useState<GiphyGif[]>([]);
   const [loading, setLoading] = useState(false);
@@ -22,7 +24,7 @@ export function GifPicker({ onPick }: GifPickerProps) {
 
   useEffect(() => {
     if (!HAS_GIPHY_KEY) {
-      setError("Missing NEXT_PUBLIC_GIPHY_API_KEY");
+      setError(t("errorMissingKey"));
       return;
     }
     let cancelled = false;
@@ -46,12 +48,12 @@ export function GifPicker({ onPick }: GifPickerProps) {
       cancelled = true;
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [query]);
+  }, [query, t]);
 
   return (
     <div className="flex w-[340px] flex-col gap-3 p-3">
       <Input
-        placeholder="Search GIFs"
+        placeholder={t("placeholder")}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         allowClear
@@ -65,7 +67,7 @@ export function GifPicker({ onPick }: GifPickerProps) {
             <Spin />
           </div>
         ) : gifs.length === 0 ? (
-          <Empty description="No GIFs" />
+          <Empty description={t("noResults")} />
         ) : (
           <div className="grid grid-cols-2 gap-2">
             {gifs.map((g) => (

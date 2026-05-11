@@ -1,6 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import type { Comment } from "../../data/reactions";
 import { PostAvatar } from "./PostAvatar";
 
@@ -11,6 +12,7 @@ interface CommentItemProps {
 }
 
 export function CommentItem({ comment }: CommentItemProps) {
+  const t = useTranslations("Post");
   return (
     <Flex gap={8} className="!w-full">
       <PostAvatar
@@ -48,13 +50,13 @@ export function CommentItem({ comment }: CommentItemProps) {
             className="!text-[11px] !font-semibold"
             style={{ color: "var(--color-text-muted)", cursor: "pointer" }}
           >
-            Like
+            {t("like")}
           </Text>
           <Text
             className="!text-[11px] !font-semibold"
             style={{ color: "var(--color-text-muted)", cursor: "pointer" }}
           >
-            Reply
+            {t("reply")}
           </Text>
           <Text className="!text-[11px]" style={{ color: "var(--color-text-muted)" }}>
             {comment.time}

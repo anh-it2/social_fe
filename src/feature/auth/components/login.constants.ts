@@ -1,18 +1,4 @@
-export const HERO_STATS = [
-  { value: "2.9B+", label: "Monthly users" },
-  { value: "200M+", label: "Communities" },
-  { value: "100B+", label: "Messages daily" },
-];
-
-export const HERO_TITLE_LINES = ["Connect with your", "world, your way."];
-
-export const HERO_SUBTITLE =
-  "Join billions of people who use Facebook to share ideas, find communities, and grow closer to the people who matter most.";
-
-export const FOOTER_TEXT =
-  "Protected by reCAPTCHA and subject to the Facebook Privacy Policy and Terms of Service.";
-
-export const BRAND_NAME = "facebook";
+export const HERO_STAT_VALUES = ["2.9B+", "200M+", "100B+"];
 
 export const HERO_AVATAR_CLASSES = [
   "right-[264px] top-[140px] h-14 w-14 [animation-delay:0s] text-[24px]",

@@ -1,36 +1,37 @@
 "use client";
 
 import { Flex } from "antd";
+import { useTranslations } from "next-intl";
 import { RHFSelect } from "@/shared/components/form-fields/RHFSelect";
 import { RHFTextField } from "@/shared/components/form-fields/RHFTextField";
 import { EditCard } from "./EditCard";
 
-const RELATIONSHIP_OPTIONS = [
-  { label: "Single", value: "Single" },
-  { label: "In a relationship", value: "In a relationship" },
-];
-
 export function EditAboutSection() {
+  const t = useTranslations("Profile.edit");
+  const RELATIONSHIP_OPTIONS = [
+    { label: t("single"), value: "Single" },
+    { label: t("inRelationship"), value: "In a relationship" },
+  ];
   return (
     <EditCard
-      title="About"
-      description="Details shown in the About panel on your profile."
+      title={t("about")}
+      description={t("aboutDesc")}
     >
       <Flex vertical gap={16} className="!w-full">
         <RHFTextField
           name="work"
-          label="Work"
-          placeholder="e.g. Product Designer at Meta"
+          label={t("work")}
+          placeholder={t("workPlaceholder")}
         />
         <RHFTextField
           name="education"
-          label="Education"
-          placeholder="e.g. Stanford University"
+          label={t("education")}
+          placeholder={t("educationPlaceholder")}
         />
         <RHFSelect
           name="relationship"
-          label="Relationship"
-          placeholder="Select relationship status"
+          label={t("relationship")}
+          placeholder={t("relationshipPlaceholder")}
           options={RELATIONSHIP_OPTIONS}
         />
       </Flex>

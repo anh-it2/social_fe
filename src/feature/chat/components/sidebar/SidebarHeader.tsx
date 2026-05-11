@@ -7,6 +7,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { useNavigation } from "@/shared/hooks/useNavigation";
 
 const { Text } = Typography;
@@ -19,6 +20,7 @@ interface SidebarHeaderProps {
 }
 
 export function SidebarHeader({ onLogout }: SidebarHeaderProps) {
+  const t = useTranslations("Chat.sidebar");
   const nav = useNavigation();
   return (
     <div className="flex h-[72px] items-center justify-between border-b border-[var(--color-border)] px-4">
@@ -26,7 +28,7 @@ export function SidebarHeader({ onLogout }: SidebarHeaderProps) {
         <div
           role="link"
           tabIndex={0}
-          aria-label="Go to feed"
+          aria-label={t("goToFeed")}
           onClick={() => nav.push("/")}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
@@ -43,7 +45,7 @@ export function SidebarHeader({ onLogout }: SidebarHeaderProps) {
           <span className="text-[22px] font-extrabold text-white">f</span>
         </div>
         <Text className="!text-[22px] !font-bold !text-[var(--color-text)]">
-          Chats
+          {t("title")}
         </Text>
       </div>
       <div className="flex items-center gap-2">
@@ -59,13 +61,13 @@ export function SidebarHeader({ onLogout }: SidebarHeaderProps) {
               {
                 key: "profile",
                 icon: <UserOutlined />,
-                label: "Profile",
+                label: t("profile"),
                 onClick: () => nav.push("/profile"),
               },
               {
                 key: "logout",
                 icon: <LogoutOutlined />,
-                label: "Log out",
+                label: t("logout"),
                 danger: true,
                 onClick: onLogout,
               },

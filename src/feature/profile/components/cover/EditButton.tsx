@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Flex, Typography } from "antd";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Icon } from "../Icon";
 import { gradientBg } from "../../data/mock";
@@ -8,6 +9,7 @@ import { gradientBg } from "../../data/mock";
 const { Text } = Typography;
 
 export function EditButton() {
+  const t = useTranslations("Profile.actions");
   return (
     <Link href="/profile/edit">
       <Button
@@ -21,7 +23,7 @@ export function EditButton() {
         <Flex align="center" gap={8}>
           <Icon name="edit" size={18} color="#FFFFFF" />
           <Text className="!text-sm !font-semibold !text-white">
-            Edit Profile
+            {t("editProfile")}
           </Text>
         </Flex>
       </Button>

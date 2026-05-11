@@ -1,6 +1,7 @@
 "use client";
 
 import { Typography } from "antd";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import type { ReplyContext } from "../../types";
 
@@ -17,10 +18,11 @@ export function MessageReplyQuote({
   mine,
   senderName,
 }: MessageReplyQuoteProps) {
+  const t = useTranslations("Chat.replyQuote");
   const isImg = replyTo.type === "image";
   const label = mine
-    ? `You replied to ${replyTo.senderName}`
-    : `${senderName} replied to ${replyTo.senderName}`;
+    ? `${t("youRepliedTo")} ${replyTo.senderName}`
+    : `${senderName} → ${replyTo.senderName}`;
 
   return (
     <div
