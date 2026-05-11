@@ -59,8 +59,10 @@
       "options": "Tùy chọn",
       "new": "Cuộc trò chuyện mới",
       "noOne": "Hiện không có ai trực tuyến.",
+      "noUsers": "Chưa có liên hệ",
       "newMessage": "Tin nhắn mới",
       "activeNow": "Đang hoạt động",
+      "offline": "Ngoại tuyến",
       "seeAll": "Xem tất cả trong Messenger"
     },
     "notifications": {

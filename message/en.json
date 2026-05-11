@@ -59,8 +59,10 @@
       "options": "Options",
       "new": "New chat",
       "noOne": "No one online right now.",
+      "noUsers": "No contacts yet",
       "newMessage": "New message",
       "activeNow": "Active now",
+      "offline": "Offline",
       "seeAll": "See all in Messenger"
     },
     "notifications": {

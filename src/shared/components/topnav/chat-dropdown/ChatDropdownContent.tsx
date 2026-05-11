@@ -2,6 +2,7 @@
 
 import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import { useNavigation } from "@/shared/hooks/useNavigation";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { usePresenceStore } from "@/feature/presence/stores/presence.store";
@@ -18,23 +19,36 @@ interface ChatDropdownContentProps {
   onClose: () => void;
 }
 
+interface ContactEntry {
+  user: OnlineUserDto;
+  online: boolean;
+}
+
 export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
   const t = useTranslations("Topnav.chat");
   const nav = useNavigation();
   const onlineUsers = usePresenceStore((s) => s.onlineUsers);
+  const knownUsers = usePresenceStore((s) => s.knownUsers);
   const openChat = useChatBoxesStore((s) => s.openChat);
   const unreadMap = useChatRoomUnreadStore((s) => s.unread);
   const markRead = useChatRoomUnreadStore((s) => s.markRead);
 
-  function handleItemClick(user: OnlineUserDto) {
-    markRead(user.id);
+  const contacts = useMemo<ContactEntry[]>(() => {
+    const onlineIds = new Set(onlineUsers.map((u) => u.id));
+    return knownUsers
+      .map((u) => ({ user: u, online: onlineIds.has(u.id) }))
+      .sort((a, b) => Number(b.online) - Number(a.online));
+  }, [onlineUsers, knownUsers]);
+
+  function handleItemClick(entry: ContactEntry) {
+    markRead(entry.user.id);
     openChat({
-      id: user.id,
-      name: user.name,
+      id: entry.user.id,
+      name: entry.user.name,
       lastMessage: "",
       time: "",
-      online: true,
-      gradient: pickGradient(user.id),
+      online: entry.online,
+      gradient: pickGradient(entry.user.id),
     });
     onClose();
   }
@@ -67,31 +81,39 @@ export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
           overflowY: "auto",
         }}
       >
-        {onlineUsers.length === 0 ? (
+        {contacts.length === 0 ? (
           <div style={{ padding: "24px 12px", textAlign: "center" }}>
             <Text
               className="!text-[13px]"
               style={{ color: "var(--color-text-muted)" }}
             >
-              {t("noOne")}
+              {t("noUsers")}
             </Text>
           </div>
         ) : (
-          onlineUsers.map((u) => (
-            <ChatDropdownItem
-              key={u.id}
-              chat={{
-                id: u.id,
-                name: u.name,
-                lastMessage: unreadMap[u.id] ? t("newMessage") : t("activeNow"),
-                time: "",
-                online: true,
-                unread: !!unreadMap[u.id],
-                gradient: pickGradient(u.id),
-              }}
-              onClick={() => handleItemClick(u)}
-            />
-          ))
+          contacts.map((c) => {
+            const unread = !!unreadMap[c.user.id];
+            const lastMessage = unread
+              ? t("newMessage")
+              : c.online
+                ? t("activeNow")
+                : t("offline");
+            return (
+              <ChatDropdownItem
+                key={c.user.id}
+                chat={{
+                  id: c.user.id,
+                  name: c.user.name,
+                  lastMessage,
+                  time: "",
+                  online: c.online,
+                  unread,
+                  gradient: pickGradient(c.user.id),
+                }}
+                onClick={() => handleItemClick(c)}
+              />
+            );
+          })
         )}
       </Flex>
       <ChatDropdownFooter onSeeAll={goSeeAll} />
