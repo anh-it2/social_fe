@@ -6,7 +6,6 @@ import { ChatNavBtn } from "./ChatNavBtn";
 import { Logo } from "./Logo";
 import { NavSearch } from "./NavSearch";
 import { NotificationNavBtn } from "./NotificationNavBtn";
-import { ThemeNavBtn } from "./ThemeNavBtn";
 import { UserAvatarBtn } from "./UserAvatarBtn";
 
 interface TopNavProps {
@@ -43,7 +42,6 @@ export function TopNav({ onMenuClick }: TopNavProps) {
       <Flex align="center" className="!gap-2 sm:!gap-3 lg:!gap-4">
         <ChatNavBtn />
         <NotificationNavBtn />
-        <ThemeNavBtn />
         <UserAvatarBtn />
       </Flex>
     </Flex>

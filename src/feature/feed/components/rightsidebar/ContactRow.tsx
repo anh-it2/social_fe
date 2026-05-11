@@ -8,14 +8,16 @@ const { Text } = Typography;
 
 interface ContactRowProps {
   contact: ContactRowData;
+  onClick?: () => void;
 }
 
-export function ContactRow({ contact }: ContactRowProps) {
+export function ContactRow({ contact, onClick }: ContactRowProps) {
   return (
     <Flex
       align="center"
       gap={12}
-      className="!h-11 !w-full !cursor-pointer !rounded-lg !px-1"
+      onClick={onClick}
+      className="!h-11 !w-full !cursor-pointer !rounded-lg !px-1 hover:!bg-[var(--color-bg-tertiary)]"
     >
       <div className="!relative !h-9 !w-9 !shrink-0">
         <Flex
