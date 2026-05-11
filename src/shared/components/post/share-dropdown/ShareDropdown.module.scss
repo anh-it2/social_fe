@@ -1,0 +1,16 @@
+.shareDropdownRoot {
+  :global(.ant-dropdown-menu) {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 16px !important;
+  }
+}
+
+.row {
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: var(--color-bg-tertiary) !important;
+  }
+}

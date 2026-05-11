@@ -1,9 +1,14 @@
 "use client";
 
 import { Button, Dropdown, Typography, message } from "antd";
-import type { MenuProps } from "antd";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { Icon } from "../Icon";
+import {
+  ShareDropdownContent,
+  type ShareAction,
+} from "./share-dropdown/ShareDropdownContent";
+import styles from "./share-dropdown/ShareDropdown.module.scss";
 
 const { Text } = Typography;
 
@@ -32,13 +37,19 @@ export function ShareMenu({
 }: ShareMenuProps) {
   const t = useTranslations("Post");
   const [api, contextHolder] = message.useMessage();
+  const [open, setOpen] = useState(false);
 
-  function handleAction(action: string, label: string) {
+  function handleAction(action: ShareAction, label: string) {
     if (action === "copy") {
       const url = `${window.location.origin}/posts/${postId}`;
       void navigator.clipboard.writeText(url);
       api.success(t("linkCopied"));
-    } else if (action === "feed" && onShareToReel && source?.mediaUrl && source.mediaType) {
+    } else if (
+      action === "feed" &&
+      onShareToReel &&
+      source?.mediaUrl &&
+      source.mediaType
+    ) {
       onShareToReel({
         mediaUrl: source.mediaUrl,
         mediaType: source.mediaType,
@@ -49,46 +60,22 @@ export function ShareMenu({
       api.success(`${t("sharedVia")}${label}`);
     }
     onShared();
+    setOpen(false);
   }
-
-  const items: MenuProps["items"] = [
-    {
-      key: "now",
-      label: t("shareNow"),
-      icon: <Icon name="public" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("now", t("shareNow")),
-    },
-    {
-      key: "feed",
-      label: t("shareToFeed"),
-      icon: <Icon name="post_add" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("feed", t("shareToFeed")),
-    },
-    {
-      key: "messenger",
-      label: t("sendMessenger"),
-      icon: <Icon name="chat_bubble" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("messenger", t("sendMessenger")),
-    },
-    {
-      key: "story",
-      label: t("shareToStory"),
-      icon: <Icon name="auto_stories" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("story", t("shareToStory")),
-    },
-    { type: "divider" },
-    {
-      key: "copy",
-      label: t("copyLink"),
-      icon: <Icon name="link" size={16} color="var(--color-text-muted)" />,
-      onClick: () => handleAction("copy", t("copyLink")),
-    },
-  ];
 
   return (
     <>
       {contextHolder}
-      <Dropdown menu={{ items }} trigger={["click"]} placement="topRight">
+      <Dropdown
+        trigger={["click"]}
+        placement="topRight"
+        open={open}
+        onOpenChange={setOpen}
+        rootClassName={styles.shareDropdownRoot}
+        popupRender={() => (
+          <ShareDropdownContent onSelect={handleAction} />
+        )}
+      >
         <Button
           type="text"
           className={

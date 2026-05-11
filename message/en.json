@@ -41,6 +41,19 @@
     "toggleTheme": "Toggle theme",
     "accountMenu": "Account menu",
     "language": "Language",
+    "languageDropdown": {
+      "header": "Select language",
+      "description": "Choose the language you read and post in.",
+      "currentTag": "Current",
+      "names": {
+        "en": "English",
+        "vi": "Tiếng Việt"
+      },
+      "regions": {
+        "en": "English (US)",
+        "vi": "Vietnamese"
+      }
+    },
     "chat": {
       "header": "Chats",
       "options": "Options",
@@ -107,6 +120,14 @@
     "copyLink": "Copy link",
     "linkCopied": "Link copied",
     "sharedVia": "Shared via ",
+    "shareDropdown": {
+      "header": "Share to",
+      "shareNowDesc": "Post publicly on your feed",
+      "shareToFeedDesc": "Reshare to your timeline",
+      "sendMessengerDesc": "Privately to friends",
+      "shareToStoryDesc": "Visible for 24 hours",
+      "copyLinkDesc": "Paste anywhere you like"
+    },
     "firstToComment": "Be the first to comment.",
     "writeComment": "Write a comment...",
     "send": "Send"

@@ -41,6 +41,19 @@
     "toggleTheme": "Chuyển chế độ sáng/tối",
     "accountMenu": "Menu tài khoản",
     "language": "Ngôn ngữ",
+    "languageDropdown": {
+      "header": "Chọn ngôn ngữ",
+      "description": "Chọn ngôn ngữ bạn dùng để đọc và đăng bài.",
+      "currentTag": "Hiện tại",
+      "names": {
+        "en": "English",
+        "vi": "Tiếng Việt"
+      },
+      "regions": {
+        "en": "Tiếng Anh (Mỹ)",
+        "vi": "Tiếng Việt"
+      }
+    },
     "chat": {
       "header": "Tin nhắn",
       "options": "Tùy chọn",
@@ -107,6 +120,14 @@
     "copyLink": "Sao chép liên kết",
     "linkCopied": "Đã sao chép liên kết",
     "sharedVia": "Đã chia sẻ qua ",
+    "shareDropdown": {
+      "header": "Chia sẻ đến",
+      "shareNowDesc": "Đăng công khai trên bảng tin",
+      "shareToFeedDesc": "Chia sẻ lại lên dòng thời gian",
+      "sendMessengerDesc": "Gửi riêng cho bạn bè",
+      "shareToStoryDesc": "Hiển thị trong 24 giờ",
+      "copyLinkDesc": "Dán bất kỳ nơi nào bạn muốn"
+    },
     "firstToComment": "Hãy là người đầu tiên bình luận.",
     "writeComment": "Viết bình luận...",
     "send": "Gửi"
