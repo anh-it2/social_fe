@@ -5,10 +5,10 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
-import { buildDmId } from "../../lib/conversation";
-import { useChatStore } from "../../stores/chat.store";
-import type { ChatMessage, ReplyContext } from "../../types";
-import { MessageBubble } from "./MessageBubble";
+import { buildDmId } from "../../../lib/conversation";
+import { useChatStore } from "../../../stores/chat.store";
+import type { ChatMessage, ReplyContext } from "../../../types";
+import { MessageBubble } from "./bubble/MessageBubble";
 import { TypingIndicator } from "./TypingIndicator";
 
 const { Text } = Typography;

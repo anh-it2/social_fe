@@ -3,7 +3,7 @@
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import type { ReplyContext } from "../../types";
+import type { ReplyContext } from "../../../../types";
 
 const { Text } = Typography;
 

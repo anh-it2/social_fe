@@ -3,9 +3,9 @@
 import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import type { ReplyContext } from "../../types";
-import { Avatar } from "../Avatar";
-import { MessageActionMenu } from "./MessageActionMenu";
+import type { ReplyContext } from "../../../../types";
+import { Avatar } from "../../../Avatar";
+import { MessageActionMenu } from "../menu/MessageActionMenu";
 import { MessageImage } from "./MessageImage";
 import { MessageInlineEditor } from "./MessageInlineEditor";
 import { MessageReplyQuote } from "./MessageReplyQuote";

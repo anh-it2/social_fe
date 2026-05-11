@@ -3,7 +3,7 @@
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
-import { Avatar } from "../Avatar";
+import { Avatar } from "../../Avatar";
 
 const { Text } = Typography;
 

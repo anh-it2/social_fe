@@ -11,7 +11,7 @@ import type { MenuProps } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ConfirmModal } from "@/shared/components/modal/ConfirmModal";
-import type { ReplyContext } from "../../types";
+import type { ReplyContext } from "../../../../types";
 import styles from "./MessageActionMenu.module.scss";
 
 interface MessageActionMenuProps {

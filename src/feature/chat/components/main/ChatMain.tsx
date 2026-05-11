@@ -10,8 +10,8 @@ import { buildDmId } from "../../lib/conversation";
 import type { ReplyContext } from "../../types";
 import { ChatHeader } from "./ChatHeader";
 import { EmptyChat } from "./EmptyChat";
-import { MessageInput } from "./MessageInput";
-import { MessageList } from "./MessageList";
+import { MessageInput } from "./input/MessageInput";
+import { MessageList } from "./message/MessageList";
 
 interface ChatMainProps {
   user: OnlineUserDto | null;

@@ -1,10 +1,10 @@
 "use client";
 
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
-import { ConversationList } from "./ConversationList";
-import { SidebarFilters } from "./SidebarFilters";
-import { SidebarHeader } from "./SidebarHeader";
-import { SidebarSearch } from "./SidebarSearch";
+import { ConversationList } from "./list/ConversationList";
+import { SidebarFilters } from "./header/SidebarFilters";
+import { SidebarHeader } from "./header/SidebarHeader";
+import { SidebarSearch } from "./header/SidebarSearch";
 
 interface ChatSidebarProps {
   users: OnlineUserDto[];

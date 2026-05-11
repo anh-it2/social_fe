@@ -3,8 +3,8 @@
 import { Button, Flex, Image as AntImage, Input, Popover, Upload, message as antdMessage } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { EmojiPicker } from "@/feature/chat/components/main/EmojiPicker";
-import { GifPicker } from "@/feature/chat/components/main/GifPicker";
+import { EmojiPicker } from "@/feature/chat/components/main/input/EmojiPicker";
+import { GifPicker } from "@/feature/chat/components/main/input/GifPicker";
 import { CHAT_IMAGE_MAX_BYTES, uploadChatImage } from "@/feature/chat/lib/upload";
 import type { CommentInputPayload } from "../../data/reactions";
 import { Icon } from "../Icon";

@@ -1,7 +1,7 @@
 "use client";
 
 import { Tabs } from "antd";
-import { EMOJI_CATEGORIES } from "../../lib/emojis";
+import { EMOJI_CATEGORIES } from "../../../lib/emojis";
 
 interface EmojiPickerProps {
   onPick: (emoji: string) => void;

@@ -12,8 +12,8 @@ import { Button, Flex, Input, Popover, Typography, Upload, message as antdMessag
 import type { InputRef } from "antd";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { CHAT_IMAGE_MAX_BYTES, uploadChatImage } from "../../lib/upload";
-import type { ReplyContext } from "../../types";
+import { CHAT_IMAGE_MAX_BYTES, uploadChatImage } from "../../../lib/upload";
+import type { ReplyContext } from "../../../types";
 import { EmojiPicker } from "./EmojiPicker";
 import { GifPicker } from "./GifPicker";
 

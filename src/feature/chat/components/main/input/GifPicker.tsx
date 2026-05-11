@@ -8,7 +8,7 @@ import {
   HAS_GIPHY_KEY,
   searchGifs,
   type GiphyGif,
-} from "../../lib/giphy";
+} from "../../../lib/giphy";
 
 interface GifPickerProps {
   onPick: (url: string) => void;

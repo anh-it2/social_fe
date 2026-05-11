@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex } from "antd";
-import { Avatar } from "../Avatar";
+import { Avatar } from "../../Avatar";
 
 interface TypingIndicatorProps {
   senderName: string;
