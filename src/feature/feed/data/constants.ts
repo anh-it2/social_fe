@@ -31,7 +31,7 @@ export const CENTER_TABS: CenterTab[] = [
 export const NAV_ROWS: NavRow[] = [
   { id: "friends", icon: "group", label: "Friends", iconBg: "#2374e1", href: "/friends" },
   { id: "memories", icon: "history", label: "Memories", iconBg: "#3578e5" },
-  { id: "saved", icon: "bookmark", label: "Saved", iconBg: "#a855f7" },
+  { id: "saved", icon: "bookmark", label: "Saved", iconBg: "#a855f7", href: "/saved" },
   { id: "groups", icon: "groups", label: "Groups", iconBg: "#2374e1" },
   { id: "video", icon: "smart_display", label: "Video", iconBg: "#2374e1" },
   { id: "marketplace", icon: "storefront", label: "Marketplace", iconBg: "#3578e5" },

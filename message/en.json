@@ -286,8 +286,23 @@
       "like": "Like",
       "comment": "Comment",
       "share": "Share",
+      "save": "Save",
+      "saved": "Saved",
+      "savedToast": "Reel saved",
+      "unsaved": "Reel removed from saved",
       "viewsSuffix": "views",
       "empty": "No reels yet. Tap Upload reel to share one."
+    },
+    "savedPage": {
+      "title": "Saved",
+      "back": "Back",
+      "savedReels": "Saved reels",
+      "empty": "Nothing saved yet. Tap the bookmark on a reel to save it.",
+      "openReels": "Browse reels",
+      "remove": "Remove",
+      "removed": "Removed from saved",
+      "viewsSuffix": "views",
+      "savedAt": "Saved {date}"
     },
     "peopleYouMayKnow": {
       "title": "People you may know",

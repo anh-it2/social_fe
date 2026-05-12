@@ -12,6 +12,8 @@ const { Text } = Typography;
 interface CommonAction {
   liked: boolean;
   onLikeToggle: () => void;
+  saved: boolean;
+  onSaveToggle: () => void;
 }
 
 interface RecommendCardProps extends CommonAction {
@@ -189,6 +191,26 @@ export function ReelFullCard(props: Props) {
               />
               <Text className="!text-[11px] !font-semibold !text-white">
                 {t("share")}
+              </Text>
+            </Flex>
+            <Flex vertical align="center" gap={2}>
+              <Button
+                type="text"
+                shape="circle"
+                aria-label={t("save")}
+                onClick={props.onSaveToggle}
+                icon={
+                  <Icon
+                    name={props.saved ? "bookmark" : "bookmark_border"}
+                    size={26}
+                    color={props.saved ? "#fbbf24" : "#fff"}
+                  />
+                }
+                className="!h-12 !w-12"
+                style={{ background: "rgba(0,0,0,0.45)" }}
+              />
+              <Text className="!text-[11px] !font-semibold !text-white">
+                {props.saved ? t("saved") : t("save")}
               </Text>
             </Flex>
           </Flex>

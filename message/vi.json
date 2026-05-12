@@ -286,8 +286,23 @@
       "like": "Thích",
       "comment": "Bình luận",
       "share": "Chia sẻ",
+      "save": "Lưu",
+      "saved": "Đã lưu",
+      "savedToast": "Đã lưu reel",
+      "unsaved": "Đã bỏ lưu reel",
       "viewsSuffix": "lượt xem",
       "empty": "Chưa có reel nào. Nhấn Đăng reel để chia sẻ."
+    },
+    "savedPage": {
+      "title": "Đã lưu",
+      "back": "Quay lại",
+      "savedReels": "Reel đã lưu",
+      "empty": "Chưa có nội dung đã lưu. Nhấn dấu lưu trên reel để lưu lại.",
+      "openReels": "Xem reels",
+      "remove": "Bỏ lưu",
+      "removed": "Đã bỏ khỏi mục đã lưu",
+      "viewsSuffix": "lượt xem",
+      "savedAt": "Đã lưu {date}"
     },
     "peopleYouMayKnow": {
       "title": "Những người bạn có thể biết",

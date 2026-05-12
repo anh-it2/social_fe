@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { REEL_RECOMMENDS } from "@/feature/feed/data/constants";
 import type { ReelData } from "@/feature/feed/data/types";
+import { useSavedReels } from "@/feature/feed/data/useSavedReels";
 import { useUserReels } from "@/feature/feed/data/useUserReels";
 import { ReelComposerModal } from "@/feature/feed/components/center/reels/ReelComposerModal";
 import {
@@ -22,6 +23,7 @@ function ReelsPageInner() {
   const nav = useNavigation();
   const reelComposer = useReelComposer();
   const { reels: userReels, addReel } = useUserReels();
+  const { isSaved, toggleSaved } = useSavedReels();
   const { message } = App.useApp();
   const [liked, setLiked] = useState<Set<string>>(new Set());
 
@@ -115,6 +117,12 @@ function ReelsPageInner() {
                 reel={it.reel}
                 liked={liked.has(it.reel.id)}
                 onLikeToggle={() => toggleLike(it.reel.id)}
+                saved={isSaved("user", it.reel.id)}
+                onSaveToggle={() => {
+                  const wasSaved = isSaved("user", it.reel.id);
+                  toggleSaved("user", it.reel.id);
+                  message.success(wasSaved ? t("unsaved") : t("savedToast"));
+                }}
               />
             ) : (
               <ReelFullCard
@@ -123,6 +131,12 @@ function ReelsPageInner() {
                 reel={it.reel}
                 liked={liked.has(it.reel.id)}
                 onLikeToggle={() => toggleLike(it.reel.id)}
+                saved={isSaved("recommend", it.reel.id)}
+                onSaveToggle={() => {
+                  const wasSaved = isSaved("recommend", it.reel.id);
+                  toggleSaved("recommend", it.reel.id);
+                  message.success(wasSaved ? t("unsaved") : t("savedToast"));
+                }}
               />
             )
           )
