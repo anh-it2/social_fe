@@ -1,7 +1,7 @@
 "use client";
 
 import { Typography } from "antd";
-import { Link } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { extractInternalPostId } from "@/shared/lib/findPost";
 import { isInternalUrl, splitMessageSegments } from "../../../../lib/messageLinks";
 
@@ -13,6 +13,7 @@ interface MessageTextProps {
 }
 
 export function MessageText({ content, mine }: MessageTextProps) {
+  const router = useRouter();
   const color = mine ? "var(--color-on-primary)" : "var(--color-text)";
   const linkColor = mine ? "var(--color-on-primary)" : "var(--color-primary)";
   const segments = splitMessageSegments(content);
@@ -25,19 +26,22 @@ export function MessageText({ content, mine }: MessageTextProps) {
       {segments.map((seg, i) => {
         if (seg.kind === "text") return <span key={i}>{seg.value}</span>;
         const postId = extractInternalPostId(seg.value);
-        if (postId && isInternalUrl(seg.value)) {
+        const isInternalPost = postId && isInternalUrl(seg.value);
+        if (isInternalPost) {
           return (
-            <Link
+            <a
               key={i}
               href={`/posts/${postId}`}
-              style={{
-                color: linkColor,
-                textDecoration: "underline",
-                fontWeight: 600,
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                router.push(`/posts/${postId}`);
               }}
+              className="!cursor-pointer !font-semibold !underline"
+              style={{ color: linkColor }}
             >
               {seg.value}
-            </Link>
+            </a>
           );
         }
         return (
@@ -46,11 +50,8 @@ export function MessageText({ content, mine }: MessageTextProps) {
             href={seg.value}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              color: linkColor,
-              textDecoration: "underline",
-              fontWeight: 600,
-            }}
+            className="!cursor-pointer !font-semibold !underline"
+            style={{ color: linkColor }}
           >
             {seg.value}
           </a>

@@ -122,6 +122,7 @@ export function MessageList({
         "flex-1 overflow-y-auto bg-[#fafbfc] dark:bg-[#0a0a0a] " +
         (compact ? "px-3 py-3" : "px-3 py-4 sm:px-8 sm:py-6")
       }
+      style={{ overscrollBehavior: "contain" }}
     >
       <Flex vertical gap={compact ? 8 : 12}>
         {messages.length === 0 ? (

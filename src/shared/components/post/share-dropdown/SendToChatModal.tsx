@@ -239,6 +239,7 @@ export function SendToChatModal({
       borderColor="var(--color-border)"
       rootClassName={styles.modal}
       width={520}
+      centered
     >
       {open ? (
         <SendToChatBody postId={postId} onClose={onClose} onSent={onSent} />

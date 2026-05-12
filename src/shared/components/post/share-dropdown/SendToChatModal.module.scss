@@ -27,6 +27,7 @@
   padding: 4px 0;
   border-top: 1px solid var(--color-border-light);
   border-bottom: 1px solid var(--color-border-light);
+  overscroll-behavior: contain;
 }
 
 .caption {

@@ -2,7 +2,7 @@
 
 import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { Icon } from "@/shared/components/Icon";
 import { useFoundPost } from "@/shared/hooks/useFoundPost";
 import styles from "./PostLinkPreview.module.scss";
@@ -15,6 +15,7 @@ interface PostLinkPreviewProps {
 
 export function PostLinkPreview({ postId }: PostLinkPreviewProps) {
   const t = useTranslations("PostDetail");
+  const router = useRouter();
   const { post, ready } = useFoundPost(postId);
 
   if (!ready || !post) return null;
@@ -23,9 +24,14 @@ export function PostLinkPreview({ postId }: PostLinkPreviewProps) {
   const [g1, g2] = post.author.gradient;
 
   return (
-    <Link
+    <a
       href={`/posts/${postId}`}
-      className={`${styles.card} !mt-1 !block !w-full !overflow-hidden`}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        router.push(`/posts/${postId}`);
+      }}
+      className={`${styles.card} !mt-1 !block !w-full !cursor-pointer !overflow-hidden`}
       style={{
         background: "var(--color-bg)",
         border: "1px solid var(--color-border)",
@@ -73,6 +79,6 @@ export function PostLinkPreview({ postId }: PostLinkPreviewProps) {
           </Text>
         </Flex>
       </Flex>
-    </Link>
+    </a>
   );
 }

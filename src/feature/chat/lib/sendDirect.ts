@@ -32,8 +32,14 @@ export function sendDirectMessage(
     const conversationId = buildDmId(senderId, toUserId);
     const socket = getChatSocket();
     const { addOptimisticMessage, reconcileAck } = useChatStore.getState();
+    const connected = Boolean(socket && socket.connected);
 
     const tempId = crypto.randomUUID().slice(0, 10);
+    // If socket is connected we emit right now, so the optimistic record is
+    // marked "sent" up-front. This prevents `useChat`'s flush-pending effect
+    // (which scans for status === "pending") from re-emitting this message
+    // when a ChatMain mounts shortly after (e.g. via openChat) and the ack
+    // hasn't returned yet — that race produced duplicate messages.
     const optimistic: ChatMessage = {
       tempId,
       queueAt: Date.now(),
@@ -42,11 +48,11 @@ export function sendDirectMessage(
       senderId,
       senderName,
       conversationId,
-      status: "pending",
+      status: connected ? "sent" : "pending",
     };
     addOptimisticMessage(conversationId, optimistic);
 
-    if (!socket || !socket.connected) {
+    if (!connected || !socket) {
       resolve({ conversationId, tempId, status: "queued" });
       return;
     }
