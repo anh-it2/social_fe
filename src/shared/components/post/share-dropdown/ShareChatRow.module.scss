@@ -1,0 +1,12 @@
+.row {
+  transition: background 120ms ease;
+
+  &:hover:not([aria-disabled="true"]) {
+    background: var(--color-bg-tertiary) !important;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+}

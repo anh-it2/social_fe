@@ -42,6 +42,30 @@ export interface AboutItem {
 export interface Friend {
   id: string;
   name: string;
+  mutualFriends?: number;
+  location?: string;
+  mockOnline?: boolean;
+}
+
+export interface FriendRequest {
+  id: string;
+  name: string;
+  mutualFriends: number;
+  time: string;
+}
+
+export interface FriendSuggestion {
+  id: string;
+  name: string;
+  mutualFriends: number;
+  reason?: string;
+}
+
+export interface BirthdayEntry {
+  id: string;
+  name: string;
+  when: "today" | "tomorrow" | "this_week";
+  date?: string;
 }
 
 export interface PhotoTile {
@@ -544,12 +568,37 @@ export const ABOUT_ITEMS: AboutItem[] = [
 ];
 
 export const FRIENDS: Friend[] = [
-  { id: "f1", name: "Alex Chen" },
-  { id: "f2", name: "Mia Lopez" },
-  { id: "f3", name: "James Wu" },
-  { id: "f4", name: "Emma Park" },
-  { id: "f5", name: "David Kim" },
-  { id: "f6", name: "Lily Zhang" },
+  { id: "f1", name: "Alex Chen", mutualFriends: 24, location: "San Francisco, CA", mockOnline: true },
+  { id: "f2", name: "Mia Lopez", mutualFriends: 18, location: "New York, NY", mockOnline: true },
+  { id: "f3", name: "James Wu", mutualFriends: 31, location: "Seattle, WA" },
+  { id: "f4", name: "Emma Park", mutualFriends: 12, location: "Los Angeles, CA" },
+  { id: "f5", name: "David Kim", mutualFriends: 9, location: "Austin, TX" },
+  { id: "f6", name: "Lily Zhang", mutualFriends: 27, location: "Boston, MA" },
+  { id: "f7", name: "Mai Linh", mutualFriends: 14, location: "Hà Nội, VN", mockOnline: true },
+  { id: "f8", name: "Tuấn Anh", mutualFriends: 22, location: "Hồ Chí Minh, VN", mockOnline: true },
+  { id: "f9", name: "Hà My", mutualFriends: 7, location: "Đà Nẵng, VN", mockOnline: true },
+  { id: "f10", name: "Lan Phương", mutualFriends: 19, location: "Hà Nội, VN", mockOnline: true },
+  { id: "f11", name: "Phương Thảo", mutualFriends: 11, location: "Hồ Chí Minh, VN", mockOnline: true },
+  { id: "f12", name: "Sophia Rivera", mutualFriends: 5, location: "Miami, FL" },
+];
+
+export const FRIEND_REQUESTS: FriendRequest[] = [
+  { id: "r1", name: "Noah Patel", mutualFriends: 8, time: "2d" },
+  { id: "r2", name: "Olivia Brooks", mutualFriends: 3, time: "5d" },
+  { id: "r3", name: "Hiroshi Tanaka", mutualFriends: 12, time: "1w" },
+];
+
+export const FRIEND_SUGGESTIONS: FriendSuggestion[] = [
+  { id: "s1", name: "Ava Müller", mutualFriends: 6, reason: "Works at Meta" },
+  { id: "s2", name: "Lucas Silva", mutualFriends: 4, reason: "From San Francisco" },
+  { id: "s3", name: "Isabella Rossi", mutualFriends: 9, reason: "Stanford University" },
+  { id: "s4", name: "Minh Khoa", mutualFriends: 2, reason: "Friend of Mai Linh" },
+];
+
+export const BIRTHDAYS: BirthdayEntry[] = [
+  { id: "b1", name: "Emma Park", when: "today" },
+  { id: "b2", name: "James Wu", when: "tomorrow", date: "May 13" },
+  { id: "b3", name: "Sophia Rivera", when: "this_week", date: "May 15" },
 ];
 
 export const PHOTOS: PhotoTile[] = [

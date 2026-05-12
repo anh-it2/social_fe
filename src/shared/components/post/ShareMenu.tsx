@@ -4,6 +4,7 @@ import { Button, Dropdown, Typography, message } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "../Icon";
+import { SendToChatModal } from "./share-dropdown/SendToChatModal";
 import {
   ShareDropdownContent,
   type ShareAction,
@@ -38,13 +39,23 @@ export function ShareMenu({
   const t = useTranslations("Post");
   const [api, contextHolder] = message.useMessage();
   const [open, setOpen] = useState(false);
+  const [sendModalOpen, setSendModalOpen] = useState(false);
 
   function handleAction(action: ShareAction, label: string) {
     if (action === "copy") {
       const url = `${window.location.origin}/posts/${postId}`;
       void navigator.clipboard.writeText(url);
       api.success(t("linkCopied"));
-    } else if (
+      onShared();
+      setOpen(false);
+      return;
+    }
+    if (action === "messenger") {
+      setOpen(false);
+      setSendModalOpen(true);
+      return;
+    }
+    if (
       action === "feed" &&
       onShareToReel &&
       source?.mediaUrl &&
@@ -61,6 +72,11 @@ export function ShareMenu({
     }
     onShared();
     setOpen(false);
+  }
+
+  function handleSent(recipientIds: string[]) {
+    api.success(t("shareDropdown.sendModal.sentTo", { count: recipientIds.length }));
+    onShared();
   }
 
   return (
@@ -92,6 +108,12 @@ export function ShareMenu({
           </Text>
         </Button>
       </Dropdown>
+      <SendToChatModal
+        open={sendModalOpen}
+        onClose={() => setSendModalOpen(false)}
+        onSent={handleSent}
+        postId={postId}
+      />
     </>
   );
 }

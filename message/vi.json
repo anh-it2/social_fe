@@ -128,7 +128,21 @@
       "shareToFeedDesc": "Chia sẻ lại lên dòng thời gian",
       "sendMessengerDesc": "Gửi riêng cho bạn bè",
       "shareToStoryDesc": "Hiển thị trong 24 giờ",
-      "copyLinkDesc": "Dán bất kỳ nơi nào bạn muốn"
+      "copyLinkDesc": "Dán bất kỳ nơi nào bạn muốn",
+      "sendModal": {
+        "title": "Gửi đến...",
+        "subtitle": "Chọn người hoặc nhóm để chia sẻ bài viết.",
+        "searchPlaceholder": "Tìm kiếm",
+        "messagePlaceholder": "Viết tin nhắn...",
+        "send": "Gửi",
+        "sent": "Đã gửi",
+        "sendCount": "Gửi tới {count}",
+        "sentTo": "Đã gửi tới {count} người",
+        "cancel": "Hủy",
+        "emptyResults": "Không tìm thấy người dùng",
+        "activeNow": "Đang hoạt động",
+        "postRef": "Bài #{postId}"
+      }
     },
     "firstToComment": "Hãy là người đầu tiên bình luận.",
     "writeComment": "Viết bình luận...",
@@ -353,6 +367,14 @@
       "wasLiveTitle": "Đã phát trực tiếp"
     }
   },
+  "PostDetail": {
+    "backToFeed": "Quay lại bảng tin",
+    "postRef": "Bài #{postId}",
+    "postRefShort": "Bài viết",
+    "viewPost": "Xem bài viết",
+    "notFoundTitle": "Không tìm thấy bài viết",
+    "notFoundDesc": "Bài viết có thể đã bị xóa hoặc liên kết không hợp lệ."
+  },
   "Profile": {
     "cover": {
       "verified": "Đã xác minh",
@@ -383,6 +405,45 @@
       "friends": "Bạn bè",
       "photos": "Ảnh",
       "videos": "Video"
+    },
+    "friendsTab": {
+      "searchPlaceholder": "Tìm bạn bè",
+      "filters": {
+        "all": "Tất cả bạn bè",
+        "online": "Đang hoạt động",
+        "requests": "Lời mời",
+        "suggestions": "Gợi ý",
+        "birthdays": "Sinh nhật"
+      },
+      "sections": {
+        "online": "Đang hoạt động",
+        "requests": "Lời mời kết bạn",
+        "birthdays": "Sinh nhật",
+        "suggestions": "Những người bạn có thể biết",
+        "all": "Tất cả bạn bè"
+      },
+      "actions": {
+        "seeAll": "Xem tất cả",
+        "message": "Nhắn tin",
+        "more": "Thêm",
+        "confirm": "Xác nhận",
+        "delete": "Xóa",
+        "addFriend": "Thêm bạn bè",
+        "remove": "Gỡ",
+        "write": "Viết",
+        "wave": "Vẫy chào"
+      },
+      "empty": {
+        "noOnline": "Không có bạn nào trực tuyến",
+        "noFriends": "Không tìm thấy bạn bè"
+      },
+      "meta": {
+        "mutual": "{count} bạn chung",
+        "today": "🎂 Hôm nay",
+        "tomorrow": "Ngày mai",
+        "thisWeek": "Tuần này",
+        "activeNow": "Đang hoạt động"
+      }
     },
     "about": {
       "overview": "Tổng quan",

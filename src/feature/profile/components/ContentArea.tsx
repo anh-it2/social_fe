@@ -4,6 +4,7 @@ import { Flex } from "antd";
 import type { TabId } from "../data/mock";
 import { AboutTab } from "./about/AboutTab";
 import { MainFeed } from "./feed/MainFeed";
+import { FriendsTab } from "./friends-tab/FriendsTab";
 import { Sidebar } from "./sidebar/Sidebar";
 
 interface ContentAreaProps {
@@ -13,6 +14,10 @@ interface ContentAreaProps {
 export function ContentArea({ tab }: ContentAreaProps) {
   if (tab === "About") {
     return <AboutTab />;
+  }
+
+  if (tab === "Friends") {
+    return <FriendsTab />;
   }
 
   return (

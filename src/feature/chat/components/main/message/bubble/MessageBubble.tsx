@@ -3,12 +3,15 @@
 import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { extractFirstInternalPostId } from "../../../../lib/messageLinks";
 import type { ReplyContext } from "../../../../types";
 import { Avatar } from "../../../Avatar";
 import { MessageActionMenu } from "../menu/MessageActionMenu";
 import { MessageImage } from "./MessageImage";
 import { MessageInlineEditor } from "./MessageInlineEditor";
+import { MessageText } from "./MessageText";
 import { MessageReplyQuote } from "./MessageReplyQuote";
+import { PostLinkPreview } from "./PostLinkPreview";
 
 const { Text } = Typography;
 
@@ -126,6 +129,8 @@ export function MessageBubble({
       : { borderBottomLeftRadius: 6, ...(hasReply ? { borderTopLeftRadius: 4 } : {}) }),
   } as const;
 
+  const sharedPostId = !isImage ? extractFirstInternalPostId(content) : null;
+
   const body = isImage ? (
     <div
       className="overflow-hidden"
@@ -134,34 +139,30 @@ export function MessageBubble({
       <MessageImage src={content} />
     </div>
   ) : (
-    <div
-      className={TEXT_PADDING + (mine ? " shadow-sm" : " border")}
-      style={
-        mine
-          ? {
-              ...bubbleRadius,
-              background:
-                "linear-gradient(90deg, var(--color-primary-dark), var(--color-primary))",
-              color: "var(--color-on-primary)",
-              position: "relative",
-            }
-          : {
-              ...bubbleRadius,
-              background: "var(--color-bg-secondary)",
-              borderColor: "var(--color-border)",
-              position: "relative",
-            }
-      }
-    >
-      <Text
-        className="!text-[14px] !leading-[1.5] !whitespace-pre-wrap"
-        style={{
-          color: mine ? "var(--color-on-primary)" : "var(--color-text)",
-        }}
+    <Flex vertical gap={6} className="!w-full">
+      <div
+        className={TEXT_PADDING + (mine ? " shadow-sm" : " border")}
+        style={
+          mine
+            ? {
+                ...bubbleRadius,
+                background:
+                  "linear-gradient(90deg, var(--color-primary-dark), var(--color-primary))",
+                color: "var(--color-on-primary)",
+                position: "relative",
+              }
+            : {
+                ...bubbleRadius,
+                background: "var(--color-bg-secondary)",
+                borderColor: "var(--color-border)",
+                position: "relative",
+              }
+        }
       >
-        {content}
-      </Text>
-    </div>
+        <MessageText content={content} mine={mine} />
+      </div>
+      {sharedPostId ? <PostLinkPreview postId={sharedPostId} /> : null}
+    </Flex>
   );
 
   if (mine) {

@@ -128,7 +128,21 @@
       "shareToFeedDesc": "Reshare to your timeline",
       "sendMessengerDesc": "Privately to friends",
       "shareToStoryDesc": "Visible for 24 hours",
-      "copyLinkDesc": "Paste anywhere you like"
+      "copyLinkDesc": "Paste anywhere you like",
+      "sendModal": {
+        "title": "Send to...",
+        "subtitle": "Pick people or a group to share this post with.",
+        "searchPlaceholder": "Search",
+        "messagePlaceholder": "Write a message...",
+        "send": "Send",
+        "sent": "Sent",
+        "sendCount": "Send to {count}",
+        "sentTo": "Sent to {count} {count, plural, one {person} other {people}}",
+        "cancel": "Cancel",
+        "emptyResults": "No people found",
+        "activeNow": "Active now",
+        "postRef": "Post #{postId}"
+      }
     },
     "firstToComment": "Be the first to comment.",
     "writeComment": "Write a comment...",
@@ -353,6 +367,14 @@
       "wasLiveTitle": "Was live"
     }
   },
+  "PostDetail": {
+    "backToFeed": "Back to feed",
+    "postRef": "Post #{postId}",
+    "postRefShort": "Shared post",
+    "viewPost": "View post",
+    "notFoundTitle": "Post not found",
+    "notFoundDesc": "This post may have been removed or the link is invalid."
+  },
   "Profile": {
     "cover": {
       "verified": "Verified",
@@ -383,6 +405,45 @@
       "friends": "Friends",
       "photos": "Photos",
       "videos": "Videos"
+    },
+    "friendsTab": {
+      "searchPlaceholder": "Search friends",
+      "filters": {
+        "all": "All Friends",
+        "online": "Online",
+        "requests": "Requests",
+        "suggestions": "Suggestions",
+        "birthdays": "Birthdays"
+      },
+      "sections": {
+        "online": "Online Now",
+        "requests": "Friend Requests",
+        "birthdays": "Birthdays",
+        "suggestions": "People You May Know",
+        "all": "All Friends"
+      },
+      "actions": {
+        "seeAll": "See all",
+        "message": "Message",
+        "more": "More",
+        "confirm": "Confirm",
+        "delete": "Delete",
+        "addFriend": "Add Friend",
+        "remove": "Remove",
+        "write": "Write",
+        "wave": "Wave"
+      },
+      "empty": {
+        "noOnline": "No friends online",
+        "noFriends": "No friends found"
+      },
+      "meta": {
+        "mutual": "{count} mutual friends",
+        "today": "🎂 Today",
+        "tomorrow": "Tomorrow",
+        "thisWeek": "This week",
+        "activeNow": "Active now"
+      }
     },
     "about": {
       "overview": "Overview",

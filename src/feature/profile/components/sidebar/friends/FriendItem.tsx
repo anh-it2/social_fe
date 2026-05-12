@@ -1,8 +1,9 @@
 "use client";
 
 import { Flex, Typography } from "antd";
-import { Icon } from "../../Icon";
 import type { Friend } from "../../../data/mock";
+import { FriendAvatar } from "../../friends-tab/FriendAvatar";
+import { useIsFriendOnline } from "../../../hooks/useFriendOnline";
 
 const { Text } = Typography;
 
@@ -11,6 +12,8 @@ interface FriendItemProps {
 }
 
 export function FriendItem({ friend }: FriendItemProps) {
+  const online = useIsFriendOnline(friend);
+
   return (
     <Flex vertical align="center" gap={8} className="!flex-1">
       <Flex
@@ -23,9 +26,18 @@ export function FriendItem({ friend }: FriendItemProps) {
           borderRadius: 12,
         }}
       >
-        <Icon name="person" size={36} color="var(--color-text-muted)" />
+        <FriendAvatar
+          name={friend.name}
+          size={72}
+          online={online}
+          square
+          ringColor="var(--color-bg-tertiary)"
+        />
       </Flex>
-      <Text className="!text-xs !font-medium" style={{ color: "var(--color-text-secondary)" }}>
+      <Text
+        className="!truncate !text-xs !font-medium"
+        style={{ color: "var(--color-text-secondary)" }}
+      >
         {friend.name}
       </Text>
     </Flex>
