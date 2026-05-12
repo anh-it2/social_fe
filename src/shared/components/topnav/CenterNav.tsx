@@ -67,7 +67,13 @@ export function CenterNav() {
               type="text"
               aria-label={label}
               aria-current={active ? "page" : undefined}
-              onClick={() => nav.push(tab.href)}
+              onClick={() => {
+                if (active) {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  nav.push(tab.href);
+                }
+              }}
               className={`${styles.tab} ${active ? styles.active : ""}`}
               icon={
                 <Icon
