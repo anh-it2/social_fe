@@ -8,6 +8,7 @@ import type { Comment, ReactionId } from "@/shared/data/reactions";
 import { emitNotification } from "@/feature/notification/lib/emit";
 import { getFirstUserId } from "@/shared/lib/firstUser";
 import { CURRENT_USER } from "../../../data/constants";
+import { useSavedPosts } from "../../../data/useSavedReels";
 import { useReelComposer } from "../../../lib/reelComposer";
 import { buildSharedPost } from "../../../lib/sharedPost";
 import type { FeedPostData } from "../../../data/types";
@@ -25,13 +26,23 @@ interface FeedPostProps {
   onRemove?: (id: string) => void;
   onUpdate?: (post: FeedPostData) => void;
   onShareToProfile?: (post: FeedPostData) => void;
+  onPinToggle?: (id: string) => void;
 }
 
-export function FeedPost({ post, onRemove, onUpdate, onShareToProfile }: FeedPostProps) {
+export function FeedPost({
+  post,
+  onRemove,
+  onUpdate,
+  onShareToProfile,
+  onPinToggle,
+}: FeedPostProps) {
   const t = useTranslations("Feed.reelViewer");
   const tShare = useTranslations("Feed.shareToFeed");
+  const tPost = useTranslations("Feed.post");
   const { message } = App.useApp();
   const reelComposer = useReelComposer();
+  const { isSaved, toggleSaved } = useSavedPosts();
+  const postSaved = isSaved(post.id);
   const [editOpen, setEditOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [reaction, setReaction] = useState<ReactionId | null>(null);
@@ -117,8 +128,26 @@ export function FeedPost({ post, onRemove, onUpdate, onShareToProfile }: FeedPos
         feeling={post.feeling}
         isLive={post.isLive}
         isOwn={post.author.name === CURRENT_USER.name}
+        isSaved={postSaved}
+        isPinned={!!post.pinnedAt}
         onRemove={onRemove ? () => onRemove(post.id) : undefined}
         onEdit={onUpdate ? () => setEditOpen(true) : undefined}
+        onSaveToggle={() => {
+          const willSave = !postSaved;
+          toggleSaved(post);
+          message.success(willSave ? tPost("savedToast") : tPost("unsavedToast"));
+        }}
+        onPinToggle={
+          onPinToggle
+            ? () => {
+                const willPin = !post.pinnedAt;
+                onPinToggle(post.id);
+                message.success(
+                  willPin ? tPost("pinnedToast") : tPost("unpinnedToast"),
+                );
+              }
+            : undefined
+        }
       />
       {post.text ? <PostText text={post.text} /> : null}
       {post.sharedFrom ? (

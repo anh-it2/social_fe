@@ -20,8 +20,12 @@ interface PostHeaderProps {
   feeling?: Feeling;
   isLive?: boolean;
   isOwn?: boolean;
+  isSaved?: boolean;
+  isPinned?: boolean;
   onRemove?: () => void;
   onEdit?: () => void;
+  onSaveToggle?: () => void;
+  onPinToggle?: () => void;
 }
 
 export function PostHeader({
@@ -31,12 +35,21 @@ export function PostHeader({
   feeling,
   isLive,
   isOwn = false,
+  isSaved = false,
+  isPinned = false,
   onRemove,
   onEdit,
+  onSaveToggle,
+  onPinToggle,
 }: PostHeaderProps) {
   const t = useTranslations("Feed.post");
   const tTime = useTranslations("Notification.time");
-  const menuItems = usePostHeaderMenuItems(author.name, isOwn);
+  const menuItems = usePostHeaderMenuItems(
+    author.name,
+    isOwn,
+    isSaved,
+    isPinned,
+  );
   const timeLabel =
     createdAt !== undefined ? relativeTime(tTime, createdAt) : time;
   const { message } = App.useApp();
@@ -49,12 +62,32 @@ export function PostHeader({
   };
 
   return (
-    <Flex
-      align="center"
-      justify="space-between"
-      gap={12}
-      className="!h-14 !w-full !px-4 !py-2"
-    >
+    <Flex vertical className="!w-full">
+      {isPinned ? (
+        <Flex
+          align="center"
+          gap={6}
+          className="!w-full !px-4 !pt-2"
+        >
+          <Icon
+            name="push_pin"
+            size={14}
+            color="var(--color-text-secondary)"
+          />
+          <Text
+            className="!text-xs !font-semibold"
+            style={{ color: "var(--color-text-secondary)" }}
+          >
+            {t("pinnedLabel")}
+          </Text>
+        </Flex>
+      ) : null}
+      <Flex
+        align="center"
+        justify="space-between"
+        gap={12}
+        className="!h-14 !w-full !px-4 !py-2"
+      >
       <Flex align="center" gap={12}>
         <Flex
           align="center"
@@ -113,6 +146,8 @@ export function PostHeader({
             domEvent.stopPropagation();
             if (key === "remove" && onRemove) setConfirmOpen(true);
             if (key === "edit" && onEdit) onEdit();
+            if (key === "save" && onSaveToggle) onSaveToggle();
+            if (key === "pin" && onPinToggle) onPinToggle();
           },
         }}
       >
@@ -130,6 +165,7 @@ export function PostHeader({
           }
         />
       </Dropdown>
+      </Flex>
       <ConfirmModal
         open={confirmOpen}
         title={t("removeTitle")}

@@ -70,6 +70,7 @@ export interface FeedPostData {
   comments: number;
   shares: number;
   sharedFrom?: SharedPostRef;
+  pinnedAt?: number;
 }
 
 export interface ContactRowData {

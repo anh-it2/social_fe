@@ -17,6 +17,8 @@ function menuLabel(text: string) {
 export function usePostHeaderMenuItems(
   authorName: string,
   isOwn = false,
+  isSaved = false,
+  isPinned = false,
 ): MenuProps["items"] {
   const t = useTranslations("Feed.post");
   if (isOwn) {
@@ -28,13 +30,13 @@ export function usePostHeaderMenuItems(
       },
       {
         key: "save",
-        icon: menuIcon("bookmark_border"),
-        label: menuLabel(t("menuSave")),
+        icon: menuIcon(isSaved ? "bookmark" : "bookmark_border"),
+        label: menuLabel(isSaved ? t("menuUnsave") : t("menuSave")),
       },
       {
         key: "pin",
         icon: menuIcon("push_pin"),
-        label: menuLabel(t("menuPin")),
+        label: menuLabel(isPinned ? t("menuUnpin") : t("menuPin")),
       },
       { type: "divider" },
       {
@@ -48,8 +50,8 @@ export function usePostHeaderMenuItems(
   return [
     {
       key: "save",
-      icon: menuIcon("bookmark_border"),
-      label: menuLabel(t("menuSave")),
+      icon: menuIcon(isSaved ? "bookmark" : "bookmark_border"),
+      label: menuLabel(isSaved ? t("menuUnsave") : t("menuSave")),
     },
     {
       key: "hide",

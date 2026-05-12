@@ -5,7 +5,11 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { REEL_RECOMMENDS } from "@/feature/feed/data/constants";
-import { useSavedReels } from "@/feature/feed/data/useSavedReels";
+import { FeedPost } from "@/feature/feed/components/center/post/FeedPost";
+import {
+  useSavedPosts,
+  useSavedReels,
+} from "@/feature/feed/data/useSavedReels";
 import { useUserReels } from "@/feature/feed/data/useUserReels";
 import { Icon } from "@/shared/components/Icon";
 import { TopNav } from "@/shared/components/topnav/TopNav";
@@ -18,6 +22,7 @@ export function SavedPage() {
   const locale = useLocale();
   const { message } = App.useApp();
   const { entries, removeSaved } = useSavedReels();
+  const { entries: savedPosts } = useSavedPosts();
   const { reels: userReels } = useUserReels();
 
   const resolved = useMemo(() => {
@@ -56,6 +61,61 @@ export function SavedPage() {
           >
             {t("title")}
           </Title>
+        </Flex>
+
+        <Flex
+          vertical
+          gap={12}
+          className="!w-full !rounded-xl !p-4"
+          style={{
+            background: "var(--color-bg-secondary)",
+            border: "1px solid var(--color-border)",
+          }}
+        >
+          <Flex align="center" justify="space-between" className="!w-full">
+            <Text
+              className="!text-[16px] !font-semibold"
+              style={{ color: "var(--color-text)" }}
+            >
+              {t("savedPosts")}
+            </Text>
+            <Link href={`/${locale}`}>
+              <Text
+                className="!text-[13px] !font-semibold"
+                style={{ color: "var(--color-primary)" }}
+              >
+                {t("openFeed")}
+              </Text>
+            </Link>
+          </Flex>
+
+          {savedPosts.length === 0 ? (
+            <Flex
+              vertical
+              align="center"
+              justify="center"
+              gap={12}
+              className="!w-full !py-12"
+            >
+              <Icon
+                name="bookmark_border"
+                size={48}
+                color="var(--color-text-muted)"
+              />
+              <Text
+                className="!text-[14px] !text-center"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                {t("emptyPosts")}
+              </Text>
+            </Flex>
+          ) : (
+            <Flex vertical gap={16} className="!w-full">
+              {savedPosts.map((e) => (
+                <FeedPost key={e.post.id} post={e.post} />
+              ))}
+            </Flex>
+          )}
         </Flex>
 
         <Flex

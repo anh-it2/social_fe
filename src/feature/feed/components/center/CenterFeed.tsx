@@ -34,10 +34,14 @@ export function CenterFeed() {
   const { posts: userPosts, addPost, removePost, updatePost } = useUserPosts();
   const [mockPosts, setMockPosts] = useState<FeedPostData[]>(FEED_POSTS);
 
-  const allPosts = useMemo(
-    () => [...userPosts, ...mockPosts],
-    [userPosts, mockPosts]
-  );
+  const allPosts = useMemo(() => {
+    const combined = [...userPosts, ...mockPosts];
+    const pinned = combined
+      .filter((p) => p.pinnedAt)
+      .sort((a, b) => (b.pinnedAt ?? 0) - (a.pinnedAt ?? 0));
+    const rest = combined.filter((p) => !p.pinnedAt);
+    return [...pinned, ...rest];
+  }, [userPosts, mockPosts]);
 
   const [suggestionsAt, setSuggestionsAt] = useState<number | null>(null);
   useEffect(() => {
@@ -73,6 +77,17 @@ export function CenterFeed() {
     setMockPosts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
   };
 
+  const handlePinToggle = (id: string) => {
+    const flip = (p: FeedPostData): FeedPostData =>
+      p.id === id ? { ...p, pinnedAt: p.pinnedAt ? undefined : Date.now() } : p;
+    if (isUserPost(id)) {
+      const target = userPosts.find((p) => p.id === id);
+      if (target) updatePost(flip(target));
+      return;
+    }
+    setMockPosts((prev) => prev.map(flip));
+  };
+
   return (
     <ReelComposerProvider>
       <Flex
@@ -92,6 +107,7 @@ export function CenterFeed() {
               onRemove={handleRemove}
               onUpdate={handleUpdate}
               onShareToProfile={addPost}
+              onPinToggle={handlePinToggle}
             />
           </Fragment>
         ))}
