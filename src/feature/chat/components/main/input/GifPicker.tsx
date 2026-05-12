@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Empty, Image as AntImage, Input, Spin } from "antd";
+import type { InputRef } from "antd";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -21,6 +22,11 @@ export function GifPicker({ onPick }: GifPickerProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const inputRef = useRef<InputRef>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus({ preventScroll: true });
+  }, []);
 
   useEffect(() => {
     if (!HAS_GIPHY_KEY) {
@@ -53,11 +59,11 @@ export function GifPicker({ onPick }: GifPickerProps) {
   return (
     <div className="flex w-[340px] flex-col gap-3 p-3">
       <Input
+        ref={inputRef}
         placeholder={t("placeholder")}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         allowClear
-        autoFocus
       />
       <div className="h-[320px] overflow-y-auto">
         {error ? (

@@ -32,12 +32,12 @@ export function Logo() {
           handleClick();
         }
       }}
-      className="!cursor-pointer"
+      className="!shrink-0 !cursor-pointer !flex-nowrap"
     >
       <Flex
         align="center"
         justify="center"
-        className="!h-10 !w-10 !rounded-xl"
+        className="!h-10 !w-10 !shrink-0 !rounded-xl"
         style={{ background: gradientBg(["#4096ff", "#a855f7"]) }}
       >
         <Text className="!text-[24px] !font-extrabold !leading-none !text-white">
@@ -45,7 +45,7 @@ export function Logo() {
         </Text>
       </Flex>
       <Text
-        className="!hidden !text-[22px] !font-bold md:!inline"
+        className="!hidden !whitespace-nowrap !text-[22px] !font-bold md:!inline"
         style={{ color: "var(--color-text)" }}
       >
         facebook

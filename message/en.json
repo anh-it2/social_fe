@@ -41,6 +41,13 @@
     "toggleTheme": "Toggle theme",
     "accountMenu": "Account menu",
     "language": "Language",
+    "center": {
+      "home": "Home",
+      "reels": "Reels",
+      "friends": "Friends",
+      "saved": "Saved",
+      "profile": "Profile"
+    },
     "languageDropdown": {
       "header": "Select language",
       "description": "Choose the language you read and post in.",
@@ -283,7 +290,8 @@
       "waiting": "Waiting for others to come online…"
     },
     "header": {
-      "activeNow": "Active now"
+      "activeNow": "Active now",
+      "offline": "Offline"
     },
     "empty": {
       "title": "Your messages",

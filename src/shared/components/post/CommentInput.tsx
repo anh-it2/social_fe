@@ -88,8 +88,8 @@ export function CommentInput({
             onPressEnter={handleSend}
             placeholder={t("writeComment")}
             variant="borderless"
-            className="!flex-1 !p-0 !text-sm"
-            style={{ background: "transparent", color: "var(--color-text)" }}
+            className="!flex-1 !p-0 !text-sm !text-[var(--color-text)] !caret-[var(--color-text)] placeholder:!text-[var(--color-text-placeholder)] placeholder:!opacity-100"
+            style={{ background: "transparent" }}
           />
           <Popover
             open={emojiOpen}

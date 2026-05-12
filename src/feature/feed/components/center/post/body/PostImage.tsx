@@ -1,6 +1,7 @@
 "use client";
 
-import { Flex, Typography } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import { Flex, Image as AntImage, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
@@ -47,12 +48,23 @@ export function PostImage({ gradient, imageUrl, videoUrl, isLive }: PostImagePro
   if (imageUrl) {
     return (
       <div className="!relative !w-full" style={{ background: "#000" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <AntImage
           src={imageUrl}
           alt="post media"
-          className="!w-full"
-          style={{ maxHeight: 520, objectFit: "cover" }}
+          preview={{
+            mask: { blur: true },
+            closeIcon: (
+              <CloseOutlined style={{ fontSize: 20, color: "#fff" }} />
+            ),
+          }}
+          classNames={{
+            root: "!block !w-full",
+            image: "!block !w-full !max-h-[520px] !object-cover !cursor-zoom-in",
+            cover: "!hidden",
+            popup: {
+              mask: "chat-image-preview-mask",
+            },
+          }}
         />
         {isLive && (
           <Flex

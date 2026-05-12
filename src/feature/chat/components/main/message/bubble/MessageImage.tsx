@@ -16,7 +16,7 @@ export function MessageImage({ src, alt }: MessageImageProps) {
       src={src}
       alt={alt ?? t("imageAlt")}
       preview={{
-        mask: false,
+        mask: { blur: true },
         closeIcon: <CloseOutlined style={{ fontSize: 20, color: "#fff" }} />,
         actionsRender: () => null,
       }}
@@ -24,6 +24,7 @@ export function MessageImage({ src, alt }: MessageImageProps) {
         root: "!block",
         image:
           "!block !max-h-[320px] !w-auto !max-w-full !rounded-[16px] !object-cover",
+        cover: "!hidden",
         popup: {
           root: "chat-image-preview-root",
           mask: "chat-image-preview-mask",

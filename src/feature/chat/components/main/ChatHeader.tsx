@@ -9,6 +9,7 @@ import {
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
+import { usePresenceStore } from "@/feature/presence/stores/presence.store";
 import { Avatar } from "../Avatar";
 import { ChatMenu } from "../menu/ChatMenu";
 
@@ -39,6 +40,9 @@ export function ChatHeader({
   onBack,
 }: ChatHeaderProps) {
   const t = useTranslations("Chat.header");
+  const isOnline = usePresenceStore((s) =>
+    s.onlineUsers.some((u) => u.id === user.id),
+  );
   return (
     <div className="flex h-[72px] items-center justify-between border-b border-[var(--color-border)] bg-white px-3 sm:px-6 dark:bg-[#141414]">
       <Flex align="center" gap={8} className="min-w-0">
@@ -50,7 +54,7 @@ export function ChatHeader({
             className={ACTION_BTN_CLASS + " md:!hidden"}
           />
         )}
-        <Avatar name={user.name} seed={user.id} size={44} online />
+        <Avatar name={user.name} seed={user.id} size={44} online={isOnline} />
         <Flex vertical gap={2} className="min-w-0">
           <Text
             ellipsis
@@ -59,9 +63,11 @@ export function ChatHeader({
             {user.name}
           </Text>
           <Flex align="center" gap={6}>
-            <span className="h-2 w-2 rounded-full bg-[#22c55e]" />
+            {isOnline ? (
+              <span className="h-2 w-2 rounded-full bg-[#22c55e]" />
+            ) : null}
             <Text className="!text-[12px] !text-[var(--color-text-muted)]">
-              {t("activeNow")}
+              {isOnline ? t("activeNow") : t("offline")}
             </Text>
           </Flex>
         </Flex>

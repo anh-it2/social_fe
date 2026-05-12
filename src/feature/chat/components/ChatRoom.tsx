@@ -78,12 +78,24 @@ export function ChatRoom() {
             onBack={() => setSelected(null)}
           />
         </main>
+
+        {/* right panel (md+): inline column, width animates so main shrinks */}
+        <div
+          className={
+            "hidden md:block md:shrink-0 overflow-hidden transition-[width] duration-300 ease-out " +
+            (showRightPanel ? "md:w-[340px]" : "md:w-0")
+          }
+        >
+          <div className="h-full w-[340px]">
+            <ChatRightPanel user={selected} />
+          </div>
+        </div>
       </div>
 
-      {/* right panel: slide-in drawer with backdrop on all sizes */}
+      {/* right panel (mobile): overlay drawer with backdrop */}
       <div
         className={
-          "fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 " +
+          "fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 md:hidden " +
           (showRightPanel
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0")
@@ -92,7 +104,7 @@ export function ChatRoom() {
       />
       <div
         className={
-          "fixed inset-y-0 right-0 z-50 w-[340px] max-w-[85vw] transform transition-transform duration-300 ease-out " +
+          "fixed inset-y-0 right-0 z-50 w-[340px] max-w-[85vw] transform transition-transform duration-300 ease-out md:hidden " +
           (showRightPanel ? "translate-x-0" : "translate-x-full")
         }
       >

@@ -3,6 +3,7 @@
 import { Button, Flex } from "antd";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
+import { CenterNav } from "./CenterNav";
 import { ChatNavBtn } from "./ChatNavBtn";
 import { LanguageNavBtn } from "./LanguageNavBtn";
 import { Logo } from "./Logo";
@@ -26,7 +27,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
         borderColor: "var(--color-border)",
       }}
     >
-      <Flex align="center" className="!min-w-0 !gap-2 sm:!gap-3 lg:!gap-6">
+      <Flex align="center" className="!shrink-0 !gap-2 sm:!gap-3 lg:!gap-4">
         {onMenuClick && (
           <Button
             type="text"
@@ -42,7 +43,8 @@ export function TopNav({ onMenuClick }: TopNavProps) {
         <Logo />
         <NavSearch />
       </Flex>
-      <Flex align="center" className="!gap-2 sm:!gap-3 lg:!gap-4">
+      <CenterNav />
+      <Flex align="center" justify="end" className="!shrink-0 !gap-2 sm:!gap-3 lg:!gap-4">
         <LanguageNavBtn />
         <ChatNavBtn />
         <NotificationNavBtn />
