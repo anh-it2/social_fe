@@ -4,6 +4,7 @@ export interface NavRow {
   label: string;
   iconBg: string;
   active?: boolean;
+  href?: string;
 }
 
 export interface ShortcutRow {

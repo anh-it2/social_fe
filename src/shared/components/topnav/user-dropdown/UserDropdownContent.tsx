@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
-import { useRouter } from "@/i18n/navigation";
+import { useNavigation } from "@/shared/hooks/useNavigation";
 import { gradientBg } from "@/shared/utils/gradient";
 import { CURRENT_USER } from "@/feature/feed/data/constants";
 import { DisplayPanel } from "./DisplayPanel";
@@ -22,7 +22,7 @@ interface UserDropdownContentProps {
 export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
   const t = useTranslations("Topnav.userMenu");
   const { message } = App.useApp();
-  const router = useRouter();
+  const router = useNavigation();
   const userName = useAuthStore((s) => s.userName);
   const removeLogginedUser = useAuthStore((s) => s.removeLogginedUser);
   const [panel, setPanel] = useState<Panel>("main");

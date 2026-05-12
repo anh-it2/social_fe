@@ -383,6 +383,44 @@
     "notFoundTitle": "Post not found",
     "notFoundDesc": "This post may have been removed or the link is invalid."
   },
+  "Friends": {
+    "title": "Friends",
+    "settings": "Friends settings",
+    "searchPlaceholder": "Search friends",
+    "subnav": {
+      "home": "Home",
+      "requests": "Friend requests",
+      "suggestions": "Suggestions",
+      "all": "All friends",
+      "birthdays": "Birthdays",
+      "lists": "Custom lists"
+    },
+    "section": {
+      "requests": "Friend requests",
+      "suggestions": "People you may know",
+      "all": "All friends",
+      "birthdays": "Birthdays",
+      "seeAll": "See all",
+      "mutual": "{count} mutual friends",
+      "noRequests": "No new friend requests",
+      "requestAccepted": "Friends",
+      "requestDeleted": "Request deleted",
+      "added": "Request sent",
+      "removed": "Removed",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "thisWeek": "This week",
+      "listsEmpty": "You haven't created any lists yet."
+    },
+    "action": {
+      "confirm": "Confirm",
+      "delete": "Delete",
+      "addFriend": "Add friend",
+      "remove": "Remove",
+      "message": "Message",
+      "friends": "Friends"
+    }
+  },
   "Profile": {
     "cover": {
       "verified": "Verified",

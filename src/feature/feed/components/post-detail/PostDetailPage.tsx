@@ -4,7 +4,7 @@ import { Button, Flex, Skeleton, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import { TopNav } from "@/shared/components/topnav/TopNav";
-import { Link } from "@/i18n/navigation";
+import { NavLink } from "@/shared/components/NavLink";
 import { useFoundPost } from "@/shared/hooks/useFoundPost";
 import { FeedPost } from "../center/post/FeedPost";
 
@@ -31,7 +31,7 @@ export function PostDetailPage({ postId }: PostDetailPageProps) {
         className="!mx-auto !w-full !max-w-[680px] !px-4 !py-6"
       >
         <Flex align="center" justify="space-between" gap={12}>
-          <Link href="/">
+          <NavLink href="/">
             <Button
               type="text"
               className="!flex !items-center !gap-2 !rounded-full !px-3 !text-[14px] !font-semibold"
@@ -40,7 +40,7 @@ export function PostDetailPage({ postId }: PostDetailPageProps) {
               <Icon name="arrow_back" size={18} color="var(--color-text-secondary)" />
               {t("backToFeed")}
             </Button>
-          </Link>
+          </NavLink>
           <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
             {t("postRef", { postId })}
           </Text>
@@ -76,11 +76,11 @@ export function PostDetailPage({ postId }: PostDetailPageProps) {
             <Text className="!text-[14px]" style={{ color: "var(--color-text-muted)" }}>
               {t("notFoundDesc")}
             </Text>
-            <Link href="/">
+            <NavLink href="/">
               <Button type="primary" className="!h-10 !rounded-full !px-5">
                 {t("backToFeed")}
               </Button>
-            </Link>
+            </NavLink>
           </Flex>
         )}
       </Flex>

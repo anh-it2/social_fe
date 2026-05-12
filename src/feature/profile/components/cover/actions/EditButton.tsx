@@ -2,7 +2,7 @@
 
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { NavLink } from "@/shared/components/NavLink";
 import { Icon } from "../../Icon";
 import { gradientBg } from "../../../data/mock";
 
@@ -11,7 +11,7 @@ const { Text } = Typography;
 export function EditButton() {
   const t = useTranslations("Profile.actions");
   return (
-    <Link href="/profile/edit">
+    <NavLink href="/profile/edit">
       <Button
         type="text"
         className="!h-9 !rounded-3xl !border-0 !px-4 md:!h-10 md:!px-6"
@@ -27,6 +27,6 @@ export function EditButton() {
           </Text>
         </Flex>
       </Button>
-    </Link>
+    </NavLink>
   );
 }

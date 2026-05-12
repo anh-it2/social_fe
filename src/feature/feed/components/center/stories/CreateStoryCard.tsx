@@ -18,7 +18,10 @@ export function CreateStoryCard({ onClick }: CreateStoryCardProps = {}) {
       vertical
       onClick={onClick}
       className="!h-[186px] !w-[130px] !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl"
-      style={{ background: "#1f1f1f", border: "1px solid #2e2e2e" }}
+      style={{
+        background: "var(--color-bg-secondary)",
+        border: "1px solid var(--color-border)",
+      }}
     >
       <div
         className="!h-[120px] !w-full"
@@ -36,16 +39,16 @@ export function CreateStoryCard({ onClick }: CreateStoryCardProps = {}) {
           justify="center"
           className="!absolute !h-9 !w-9 !rounded-full"
           style={{
-            background: "#2374e1",
-            border: "4px solid #1f1f1f",
+            background: "var(--color-primary)",
+            border: "4px solid var(--color-bg-secondary)",
             top: -18,
           }}
         >
-          <Icon name="add" size={22} color="#FFFFFF" />
+          <Icon name="add" size={22} color="var(--color-on-primary)" />
         </Flex>
         <Text
           className="!mt-5 !text-xs !font-semibold"
-          style={{ color: "#e4e6eb" }}
+          style={{ color: "var(--color-text)" }}
         >
           {t("createReel")}
         </Text>

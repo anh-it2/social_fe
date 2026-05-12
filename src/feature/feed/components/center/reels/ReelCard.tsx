@@ -32,7 +32,7 @@ export function ReelCard({ reel }: ReelCardProps) {
     <>
       <div
         className="!relative !h-[186px] !w-[130px] !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl"
-        style={{ background: "#0a0a0a", border: "1px solid #2e2e2e" }}
+        style={{ background: "#0a0a0a", border: "1px solid var(--color-border)" }}
         onClick={() => setViewerOpen(true)}
       >
         {reel.mediaType === "video" ? (

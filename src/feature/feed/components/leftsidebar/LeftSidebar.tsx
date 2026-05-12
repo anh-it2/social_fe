@@ -39,6 +39,7 @@ export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
           label={row.label}
           iconBg={row.iconBg}
           active={row.active}
+          href={row.href}
         />
       ))}
       {expanded &&
@@ -49,6 +50,7 @@ export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
             label={row.label}
             iconBg={row.iconBg}
             active={row.active}
+            href={row.href}
           />
         ))}
       <SeeMoreRow expanded={expanded} onToggle={() => setExpanded((v) => !v)} />

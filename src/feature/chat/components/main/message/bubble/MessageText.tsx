@@ -1,7 +1,7 @@
 "use client";
 
 import { Typography } from "antd";
-import { useRouter } from "@/i18n/navigation";
+import { useNavigation } from "@/shared/hooks/useNavigation";
 import { extractInternalPostId } from "@/shared/lib/findPost";
 import { isInternalUrl, splitMessageSegments } from "../../../../lib/messageLinks";
 
@@ -13,7 +13,7 @@ interface MessageTextProps {
 }
 
 export function MessageText({ content, mine }: MessageTextProps) {
-  const router = useRouter();
+  const router = useNavigation();
   const color = mine ? "var(--color-on-primary)" : "var(--color-text)";
   const linkColor = mine ? "var(--color-on-primary)" : "var(--color-primary)";
   const segments = splitMessageSegments(content);

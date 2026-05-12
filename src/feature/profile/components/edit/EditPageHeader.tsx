@@ -2,7 +2,7 @@
 
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { NavLink } from "@/shared/components/NavLink";
 import { Icon } from "../Icon";
 import { gradientText } from "../../data/mock";
 import { EDIT_PRIMARY_GRADIENT } from "./data/edit-profile.constants";
@@ -25,7 +25,7 @@ export function EditPageHeader() {
           {t("subtitle")}
         </Text>
       </Flex>
-      <Link href="/profile">
+      <NavLink href="/profile">
         <Button
           type="text"
           className="!h-10 !rounded-3xl !border !px-5"
@@ -44,7 +44,7 @@ export function EditPageHeader() {
             <span className="text-sm font-medium">{t("back")}</span>
           </Flex>
         </Button>
-      </Link>
+      </NavLink>
     </Flex>
   );
 }

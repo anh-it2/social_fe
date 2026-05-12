@@ -2,7 +2,7 @@
 
 import { Button, Flex } from "antd";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { NavLink } from "@/shared/components/NavLink";
 import { gradientBg } from "../../data/mock";
 import { EDIT_PRIMARY_GRADIENT } from "./data/edit-profile.constants";
 
@@ -20,7 +20,7 @@ export function EditActions({ submitting }: Props) {
       className="!w-full"
       style={{ paddingTop: 8 }}
     >
-      <Link href="/profile">
+      <NavLink href="/profile">
         <Button
           type="text"
           className="!h-11 !rounded-3xl !border !px-6"
@@ -32,7 +32,7 @@ export function EditActions({ submitting }: Props) {
         >
           <span className="text-sm font-semibold">{t("cancel")}</span>
         </Button>
-      </Link>
+      </NavLink>
       <Button
         htmlType="submit"
         type="text"

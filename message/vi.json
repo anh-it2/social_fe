@@ -383,6 +383,44 @@
     "notFoundTitle": "Không tìm thấy bài viết",
     "notFoundDesc": "Bài viết có thể đã bị xóa hoặc liên kết không hợp lệ."
   },
+  "Friends": {
+    "title": "Bạn bè",
+    "settings": "Cài đặt bạn bè",
+    "searchPlaceholder": "Tìm bạn bè",
+    "subnav": {
+      "home": "Trang chủ",
+      "requests": "Lời mời kết bạn",
+      "suggestions": "Gợi ý",
+      "all": "Tất cả bạn bè",
+      "birthdays": "Sinh nhật",
+      "lists": "Danh sách tùy chỉnh"
+    },
+    "section": {
+      "requests": "Lời mời kết bạn",
+      "suggestions": "Những người bạn có thể biết",
+      "all": "Tất cả bạn bè",
+      "birthdays": "Sinh nhật",
+      "seeAll": "Xem tất cả",
+      "mutual": "{count} bạn chung",
+      "noRequests": "Không có lời mời mới",
+      "requestAccepted": "Đã là bạn bè",
+      "requestDeleted": "Đã xóa lời mời",
+      "added": "Đã gửi lời mời",
+      "removed": "Đã xóa",
+      "today": "Hôm nay",
+      "tomorrow": "Ngày mai",
+      "thisWeek": "Tuần này",
+      "listsEmpty": "Bạn chưa tạo danh sách nào."
+    },
+    "action": {
+      "confirm": "Xác nhận",
+      "delete": "Xóa",
+      "addFriend": "Thêm bạn bè",
+      "remove": "Gỡ",
+      "message": "Nhắn tin",
+      "friends": "Bạn bè"
+    }
+  },
   "Profile": {
     "cover": {
       "verified": "Đã xác minh",

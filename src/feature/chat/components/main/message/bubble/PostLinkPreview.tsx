@@ -2,7 +2,7 @@
 
 import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useNavigation } from "@/shared/hooks/useNavigation";
 import { Icon } from "@/shared/components/Icon";
 import { useFoundPost } from "@/shared/hooks/useFoundPost";
 import styles from "./PostLinkPreview.module.scss";
@@ -15,7 +15,7 @@ interface PostLinkPreviewProps {
 
 export function PostLinkPreview({ postId }: PostLinkPreviewProps) {
   const t = useTranslations("PostDetail");
-  const router = useRouter();
+  const router = useNavigation();
   const { post, ready } = useFoundPost(postId);
 
   if (!ready || !post) return null;

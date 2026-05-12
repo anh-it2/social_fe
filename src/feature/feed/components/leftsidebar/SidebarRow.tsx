@@ -2,6 +2,8 @@
 
 import { Flex, Typography } from "antd";
 import { Icon } from "@/shared/components/Icon";
+import { usePathname } from "@/i18n/navigation";
+import { NavLink } from "@/shared/components/NavLink";
 
 const { Text } = Typography;
 
@@ -10,17 +12,22 @@ interface SidebarRowProps {
   icon: string;
   label: string;
   active?: boolean;
+  href?: string;
 }
 
-export function SidebarRow({ iconBg, icon, label, active }: SidebarRowProps) {
-  return (
+export function SidebarRow({ iconBg, icon, label, active, href }: SidebarRowProps) {
+  const pathname = usePathname();
+  const isActive =
+    active ?? (href ? pathname === href || pathname.startsWith(`${href}/`) : false);
+
+  const content = (
     <Flex
       align="center"
       gap={12}
       className={`!h-11 !w-full !cursor-pointer !rounded-lg !px-2 ${
-        active ? "" : "hover:!bg-[var(--color-bg-tertiary)]"
+        isActive ? "" : "hover:!bg-[var(--color-bg-tertiary)]"
       }`}
-      style={{ background: active ? "var(--color-primary-bg)" : "transparent" }}
+      style={{ background: isActive ? "var(--color-primary-bg)" : "transparent" }}
     >
       <Flex
         align="center"
@@ -33,12 +40,19 @@ export function SidebarRow({ iconBg, icon, label, active }: SidebarRowProps) {
       <Text
         className="!text-[15px] !leading-tight"
         style={{
-          color: active ? "var(--color-primary)" : "var(--color-text)",
-          fontWeight: active ? 600 : 500,
+          color: isActive ? "var(--color-primary)" : "var(--color-text)",
+          fontWeight: isActive ? 600 : 500,
         }}
       >
         {label}
       </Text>
     </Flex>
+  );
+
+  if (!href) return content;
+  return (
+    <NavLink href={href} className="!block !w-full !no-underline">
+      {content}
+    </NavLink>
   );
 }
