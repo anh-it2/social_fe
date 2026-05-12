@@ -7,7 +7,8 @@ import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { gradientBg } from "@/shared/utils/gradient";
 import { CURRENT_USER } from "../../../../data/constants";
-import type { FeedPostData, SharedPostRef } from "../../../../data/types";
+import { buildSharedPost, rootSnapshot } from "../../../../lib/sharedPost";
+import type { FeedPostData } from "../../../../data/types";
 import { SharedPostPreview } from "../body/SharedPostPreview";
 import styles from "../../composer/modals/PostComposerModal.module.scss";
 
@@ -18,22 +19,6 @@ interface ShareToFeedModalProps {
   originalPost: FeedPostData;
   onClose: () => void;
   onSubmit: (post: FeedPostData) => void;
-}
-
-function rootSnapshot(post: FeedPostData): SharedPostRef {
-  return (
-    post.sharedFrom ?? {
-      id: post.id,
-      author: post.author,
-      time: post.time,
-      text: post.text,
-      imageGradient: post.imageGradient,
-      imageUrl: post.imageUrl,
-      videoUrl: post.videoUrl,
-      feeling: post.feeling,
-      isLive: post.isLive,
-    }
-  );
 }
 
 export function ShareToFeedModal({
@@ -57,21 +42,7 @@ export function ShareToFeedModal({
 
   const handleSubmit = () => {
     submittedRef.current = true;
-    const snapshot = rootSnapshot(originalPost);
-    onSubmit({
-      id: `fp-share-${Date.now()}`,
-      author: {
-        name: CURRENT_USER.name,
-        initial: CURRENT_USER.initial,
-        gradient: CURRENT_USER.gradient,
-      },
-      time: tReel("justNow"),
-      text: caption.trim(),
-      likes: "0",
-      comments: 0,
-      shares: 0,
-      sharedFrom: snapshot,
-    });
+    onSubmit(buildSharedPost(originalPost, caption, tReel("justNow")));
     message.success(t("shared"));
     onClose();
   };

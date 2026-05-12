@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex } from "antd";
+import { App, Flex } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CommentSection } from "@/shared/components/post/CommentSection";
@@ -9,6 +9,7 @@ import { emitNotification } from "@/feature/notification/lib/emit";
 import { getFirstUserId } from "@/shared/lib/firstUser";
 import { CURRENT_USER } from "../../../data/constants";
 import { useReelComposer } from "../../../lib/reelComposer";
+import { buildSharedPost } from "../../../lib/sharedPost";
 import type { FeedPostData } from "../../../data/types";
 import { PostActions } from "./footer/PostActions";
 import { PostComposerModal } from "../composer/modals/PostComposerModal";
@@ -28,6 +29,8 @@ interface FeedPostProps {
 
 export function FeedPost({ post, onRemove, onUpdate, onShareToProfile }: FeedPostProps) {
   const t = useTranslations("Feed.reelViewer");
+  const tShare = useTranslations("Feed.shareToFeed");
+  const { message } = App.useApp();
   const reelComposer = useReelComposer();
   const [editOpen, setEditOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
@@ -95,6 +98,12 @@ export function FeedPost({ post, onRemove, onUpdate, onShareToProfile }: FeedPos
     }
   }
 
+  function handleShareNow() {
+    if (!onShareToProfile) return;
+    onShareToProfile(buildSharedPost(post, "", t("justNow")));
+    message.success(tShare("shared"));
+  }
+
   return (
     <Flex
       vertical
@@ -141,7 +150,8 @@ export function FeedPost({ post, onRemove, onUpdate, onShareToProfile }: FeedPos
             : undefined
         }
         onShareToReel={reelComposer?.openComposer}
-        onShareNow={onShareToProfile ? () => setShareOpen(true) : undefined}
+        onShareNow={onShareToProfile ? handleShareNow : undefined}
+        onShareToFeed={onShareToProfile ? () => setShareOpen(true) : undefined}
       />
       {showComments ? (
         <CommentSection

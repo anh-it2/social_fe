@@ -23,6 +23,7 @@ interface PostActionsProps {
     caption?: string;
   }) => void;
   onShareNow?: () => void;
+  onShareToFeed?: () => void;
 }
 
 const BTN_CLASS =
@@ -37,6 +38,7 @@ export function PostActions({
   shareSource,
   onShareToReel,
   onShareNow,
+  onShareToFeed,
 }: PostActionsProps) {
   return (
     <Flex
@@ -58,6 +60,7 @@ export function PostActions({
         source={shareSource}
         onShareToReel={onShareToReel}
         onShareNow={onShareNow}
+        onShareToFeed={onShareToFeed}
       />
     </Flex>
   );

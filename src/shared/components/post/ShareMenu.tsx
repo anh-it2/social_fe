@@ -28,6 +28,7 @@ interface ShareMenuProps {
     caption?: string;
   }) => void;
   onShareNow?: () => void;
+  onShareToFeed?: () => void;
 }
 
 export function ShareMenu({
@@ -37,6 +38,7 @@ export function ShareMenu({
   source,
   onShareToReel,
   onShareNow,
+  onShareToFeed,
 }: ShareMenuProps) {
   const t = useTranslations("Post");
   const [api, contextHolder] = message.useMessage();
@@ -60,6 +62,12 @@ export function ShareMenu({
     if (action === "now" && onShareNow) {
       setOpen(false);
       onShareNow();
+      onShared();
+      return;
+    }
+    if (action === "feed" && onShareToFeed) {
+      setOpen(false);
+      onShareToFeed();
       return;
     }
     if (
