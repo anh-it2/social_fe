@@ -50,7 +50,7 @@ export function CreateStoryCard({ onClick }: CreateStoryCardProps = {}) {
           className="!mt-5 !text-xs !font-semibold"
           style={{ color: "var(--color-text)" }}
         >
-          {t("createReel")}
+          {t("createStory")}
         </Text>
       </Flex>
     </Flex>

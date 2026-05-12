@@ -107,6 +107,20 @@ export interface ReelData {
   caption?: string;
 }
 
+export interface RecommendedReel {
+  id: string;
+  thumbnailUrl: string;
+  videoUrl?: string;
+  caption: string;
+  author: {
+    name: string;
+    gradient: [string, string];
+  };
+  views: string;
+  likes: string;
+  musicTitle?: string;
+}
+
 export type {
   Reaction,
   ReactionId,

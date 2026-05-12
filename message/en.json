@@ -265,9 +265,46 @@
       "birthdayText": "It's Hà My's birthday today. Wish them a happy birthday! 🎉"
     },
     "story": {
-      "createReel": "Create reel",
+      "createStory": "Create story",
       "scrollLeft": "Scroll left",
-      "scrollRight": "Scroll right"
+      "scrollRight": "Scroll right",
+      "soon": "Story creation coming soon"
+    },
+    "reelsForYou": {
+      "title": "Reels for you",
+      "seeAll": "See all",
+      "scrollLeft": "Scroll left",
+      "scrollRight": "Scroll right",
+      "viewsSuffix": "views"
+    },
+    "reelsPage": {
+      "title": "Reels",
+      "back": "Back",
+      "upload": "Upload reel",
+      "follow": "Follow",
+      "following": "Following",
+      "like": "Like",
+      "comment": "Comment",
+      "share": "Share",
+      "viewsSuffix": "views",
+      "empty": "No reels yet. Tap Upload reel to share one."
+    },
+    "peopleYouMayKnow": {
+      "title": "People you may know",
+      "more": "More options",
+      "dismiss": "Dismiss",
+      "addFriend": "Add Friend",
+      "remove": "Remove",
+      "mutual": "{count, plural, =0 {No mutual friends} one {# mutual friend} other {# mutual friends}}",
+      "scrollLeft": "Scroll left",
+      "scrollRight": "Scroll right",
+      "added": "Friend request sent",
+      "removed": "Suggestion removed",
+      "whyTitle": "Why am I seeing these friend suggestions?",
+      "whyDesc": "These people may have things in common with you, such as mutual friends, schools, or workplaces.",
+      "hideTitle": "Hide People You May Know",
+      "hideDesc": "See fewer People You May Know.",
+      "hidden": "People You May Know hidden"
     },
     "composer": {
       "placeholder": "What's on your mind, {name}?",
@@ -437,7 +474,8 @@
       "friendsCount": "4,832 friends",
       "seeAll": "See all",
       "photos": "Photos",
-      "photosCount": "892 photos"
+      "photosCount": "{count, plural, =0 {No photos yet} one {# photo} other {# photos}}",
+      "noPhotos": "Add a photo to your first post to see it here."
     },
     "stats": {
       "posts": "Posts",

@@ -6,6 +6,7 @@ import type {
   FeedPostData,
   MusicTrack,
   NavRow,
+  RecommendedReel,
   ShortcutRow,
   SponsoredAd,
   StoryCardData,
@@ -38,7 +39,7 @@ export const NAV_ROWS: NavRow[] = [
 ];
 
 export const NAV_ROWS_MORE: NavRow[] = [
-  { id: "reels", icon: "movie", label: "Reels", iconBg: "#ec4899" },
+  { id: "reels", icon: "movie", label: "Reels", iconBg: "#ec4899", href: "/reels" },
   { id: "events", icon: "event", label: "Events", iconBg: "#f02849" },
   { id: "ads", icon: "ads_click", label: "Ads Manager", iconBg: "#0ea5e9" },
   { id: "pages", icon: "flag", label: "Pages", iconBg: "#f7b928" },
@@ -125,6 +126,69 @@ export const FEELINGS: Feeling[] = [
   { id: "a-celebrating", emoji: "🎉", label: "celebrating", kind: "activity" },
   { id: "a-working-out", emoji: "💪", label: "working out", kind: "activity" },
   { id: "a-relaxing", emoji: "🌴", label: "relaxing", kind: "activity" },
+];
+
+export const REEL_RECOMMENDS: RecommendedReel[] = [
+  {
+    id: "rr1",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1493238792000-8113da705763?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=720",
+    caption: "Sunrise hike above the clouds 🌄",
+    author: { name: "Linh Trần", gradient: ["#7c3aed", "#ec4899"] },
+    views: "1.2M",
+    likes: "84K",
+    musicTitle: "Sunset Drive",
+  },
+  {
+    id: "rr2",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1511081692775-05d0f180a065?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=720",
+    caption: "POV: street food tour in Hanoi 🍜",
+    author: { name: "Khoa Phạm", gradient: ["#f59e0b", "#ef4444"] },
+    views: "842K",
+    likes: "61K",
+    musicTitle: "Cyber Saigon",
+  },
+  {
+    id: "rr3",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1574854985846-97f10ecc922c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=720",
+    caption: "Behind the scenes of our launch day 🚀",
+    author: { name: "Mai Linh", gradient: ["#22c55e", "#10b981"] },
+    views: "512K",
+    likes: "32K",
+    musicTitle: "Neon Dreams",
+  },
+  {
+    id: "rr4",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1730034374649-924a9507089e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=720",
+    caption: "Trying the new ramen spot 😋",
+    author: { name: "Tuấn Anh", gradient: ["#a855f7", "#7c3aed"] },
+    views: "318K",
+    likes: "21K",
+    musicTitle: "Midnight Loop",
+  },
+  {
+    id: "rr5",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=720",
+    caption: "Design sprint, day 3 ✨",
+    author: { name: "Hà My", gradient: ["#ec4899", "#be185d"] },
+    views: "204K",
+    likes: "15K",
+    musicTitle: "Pixel Hearts",
+  },
+  {
+    id: "rr6",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=720",
+    caption: "Building our first robot 🤖",
+    author: { name: "Đức Minh", gradient: ["#3b82f6", "#1e40af"] },
+    views: "98K",
+    likes: "7.4K",
+    musicTitle: "Echo Chamber",
+  },
 ];
 
 export const CONTACTS: ContactRowData[] = [

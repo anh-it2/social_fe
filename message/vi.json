@@ -265,9 +265,46 @@
       "birthdayText": "Hôm nay là sinh nhật của Hà My. Chúc mừng sinh nhật nhé! 🎉"
     },
     "story": {
-      "createReel": "Tạo reel",
+      "createStory": "Tạo tin",
       "scrollLeft": "Cuộn trái",
-      "scrollRight": "Cuộn phải"
+      "scrollRight": "Cuộn phải",
+      "soon": "Tính năng tạo tin sắp ra mắt"
+    },
+    "reelsForYou": {
+      "title": "Reels dành cho bạn",
+      "seeAll": "Xem tất cả",
+      "scrollLeft": "Cuộn trái",
+      "scrollRight": "Cuộn phải",
+      "viewsSuffix": "lượt xem"
+    },
+    "reelsPage": {
+      "title": "Reels",
+      "back": "Quay lại",
+      "upload": "Đăng reel",
+      "follow": "Theo dõi",
+      "following": "Đang theo dõi",
+      "like": "Thích",
+      "comment": "Bình luận",
+      "share": "Chia sẻ",
+      "viewsSuffix": "lượt xem",
+      "empty": "Chưa có reel nào. Nhấn Đăng reel để chia sẻ."
+    },
+    "peopleYouMayKnow": {
+      "title": "Những người bạn có thể biết",
+      "more": "Tùy chọn khác",
+      "dismiss": "Bỏ qua",
+      "addFriend": "Thêm bạn bè",
+      "remove": "Gỡ",
+      "mutual": "{count, plural, =0 {Không có bạn chung} other {# bạn chung}}",
+      "scrollLeft": "Cuộn trái",
+      "scrollRight": "Cuộn phải",
+      "added": "Đã gửi lời mời kết bạn",
+      "removed": "Đã bỏ qua gợi ý",
+      "whyTitle": "Tại sao tôi nhìn thấy những gợi ý kết bạn này?",
+      "whyDesc": "Các bạn có thể có điểm chung, chẳng hạn như chung bạn bè, chung trường hoặc chung nơi làm việc.",
+      "hideTitle": "Ẩn những người bạn có thể biết",
+      "hideDesc": "Ẩn bớt những người bạn có thể biết.",
+      "hidden": "Đã ẩn Những người bạn có thể biết"
     },
     "composer": {
       "placeholder": "Bạn đang nghĩ gì, {name}?",
@@ -437,7 +474,8 @@
       "friendsCount": "4.832 bạn bè",
       "seeAll": "Xem tất cả",
       "photos": "Ảnh",
-      "photosCount": "892 ảnh"
+      "photosCount": "{count, plural, =0 {Chưa có ảnh} other {# ảnh}}",
+      "noPhotos": "Thêm ảnh vào bài đăng đầu tiên để xem ở đây."
     },
     "stats": {
       "posts": "Bài viết",
