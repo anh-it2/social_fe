@@ -57,20 +57,42 @@
     "chat": {
       "header": "Chats",
       "options": "Options",
+      "expand": "Open Messenger",
       "new": "New chat",
       "noOne": "No one online right now.",
       "noUsers": "No contacts yet",
+      "noUnread": "No unread chats",
+      "noRead": "No read chats",
       "newMessage": "New message",
       "activeNow": "Active now",
       "offline": "Offline",
-      "seeAll": "See all in Messenger"
+      "seeAll": "See all in Messenger",
+      "tabs": {
+        "all": "All",
+        "unread": "Unread",
+        "read": "Read"
+      },
+      "compose": {
+        "title": "New message",
+        "placeholder": "Search people",
+        "empty": "No matches",
+        "active": "Active now",
+        "offline": "Offline"
+      }
     },
     "notifications": {
       "header": "Notifications",
       "options": "Options",
       "markAllRead": "Mark all read",
       "noNotifications": "No notifications yet",
-      "seeAll": "See all notifications"
+      "noUnread": "No unread notifications",
+      "noRead": "No read notifications",
+      "seeAll": "See all notifications",
+      "tabs": {
+        "all": "All",
+        "unread": "Unread",
+        "read": "Read"
+      }
     },
     "userMenu": {
       "profile": "See your profile",
@@ -253,6 +275,8 @@
       "searchPlaceholder": "Search Messenger",
       "newMessage": "New message",
       "tapToStart": "Tap to start chatting",
+      "activeNow": "Active now",
+      "offline": "Offline",
       "unreadLabel": "Unread",
       "signedInAs": "Signed in as",
       "you": "you",

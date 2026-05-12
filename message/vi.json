@@ -57,20 +57,42 @@
     "chat": {
       "header": "Tin nhắn",
       "options": "Tùy chọn",
+      "expand": "Mở Messenger",
       "new": "Cuộc trò chuyện mới",
       "noOne": "Hiện không có ai trực tuyến.",
       "noUsers": "Chưa có liên hệ",
+      "noUnread": "Không có tin nhắn chưa đọc",
+      "noRead": "Không có tin nhắn đã đọc",
       "newMessage": "Tin nhắn mới",
       "activeNow": "Đang hoạt động",
       "offline": "Ngoại tuyến",
-      "seeAll": "Xem tất cả trong Messenger"
+      "seeAll": "Xem tất cả trong Messenger",
+      "tabs": {
+        "all": "Tất cả",
+        "unread": "Chưa đọc",
+        "read": "Đã đọc"
+      },
+      "compose": {
+        "title": "Tin nhắn mới",
+        "placeholder": "Tìm người",
+        "empty": "Không có kết quả",
+        "active": "Đang hoạt động",
+        "offline": "Ngoại tuyến"
+      }
     },
     "notifications": {
       "header": "Thông báo",
       "options": "Tùy chọn",
       "markAllRead": "Đánh dấu tất cả đã đọc",
       "noNotifications": "Chưa có thông báo nào",
-      "seeAll": "Xem tất cả thông báo"
+      "noUnread": "Không có thông báo chưa đọc",
+      "noRead": "Không có thông báo đã đọc",
+      "seeAll": "Xem tất cả thông báo",
+      "tabs": {
+        "all": "Tất cả",
+        "unread": "Chưa đọc",
+        "read": "Đã đọc"
+      }
     },
     "userMenu": {
       "profile": "Xem hồ sơ của bạn",
@@ -253,6 +275,8 @@
       "searchPlaceholder": "Tìm trên Messenger",
       "newMessage": "Tin nhắn mới",
       "tapToStart": "Nhấn để bắt đầu trò chuyện",
+      "activeNow": "Đang hoạt động",
+      "offline": "Ngoại tuyến",
       "unreadLabel": "Chưa đọc",
       "signedInAs": "Đã đăng nhập với",
       "you": "bạn",

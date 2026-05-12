@@ -1,13 +1,13 @@
 "use client";
 
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
-import { ConversationList } from "./list/ConversationList";
+import { ConversationList, type ConversationEntry } from "./list/ConversationList";
 import { SidebarFilters } from "./header/SidebarFilters";
 import { SidebarHeader } from "./header/SidebarHeader";
 import { SidebarSearch } from "./header/SidebarSearch";
 
 interface ChatSidebarProps {
-  users: OnlineUserDto[];
+  contacts: ConversationEntry[];
   selectedUserId: string | null;
   currentUserName: string;
   onSelect: (user: OnlineUserDto) => void;
@@ -16,7 +16,7 @@ interface ChatSidebarProps {
 }
 
 export function ChatSidebar({
-  users,
+  contacts,
   selectedUserId,
   currentUserName,
   onSelect,
@@ -29,7 +29,7 @@ export function ChatSidebar({
       <SidebarSearch />
       <SidebarFilters />
       <ConversationList
-        users={users}
+        contacts={contacts}
         selectedUserId={selectedUserId}
         currentUserName={currentUserName}
         onSelect={onSelect}

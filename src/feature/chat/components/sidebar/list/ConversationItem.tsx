@@ -1,15 +1,18 @@
 "use client";
 
-import { Button, Flex, Typography } from "antd";
+import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
+import { Icon } from "@/shared/components/Icon";
+import { pickGradient } from "@/feature/chat/lib/avatar";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
-import { Avatar } from "../../Avatar";
+import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
 
 interface ConversationItemProps {
   user: OnlineUserDto;
   active: boolean;
+  online?: boolean;
   unread?: boolean;
   onClick: () => void;
 }
@@ -17,58 +20,92 @@ interface ConversationItemProps {
 export function ConversationItem({
   user,
   active,
+  online = true,
   unread = false,
   onClick,
 }: ConversationItemProps) {
   const t = useTranslations("Chat.sidebar");
-  const baseCls =
-    "!h-[72px] !w-full !rounded-xl !px-3 !text-left !justify-start !border-0 !shadow-none";
-  const stateCls = active
-    ? "!bg-[#e6f4ff] dark:!bg-[#1c2942]"
-    : "!bg-transparent hover:!bg-[#f0f2f5] dark:hover:!bg-[#1f1f1f]";
+  const lastMessage = unread
+    ? t("newMessage")
+    : online
+      ? t("activeNow")
+      : t("offline");
 
   return (
-    <Button
-      type="text"
+    <Flex
+      align="center"
+      gap={12}
       onClick={onClick}
-      className={baseCls + " " + stateCls}
+      className="chat-dd-item !w-full"
+      style={{
+        padding: "8px 12px",
+        borderRadius: 10,
+        cursor: "pointer",
+        background: active ? "var(--color-primary-bg)" : "transparent",
+      }}
     >
-      <Flex align="center" gap={12} className="h-full w-full">
-        <Avatar name={user.name} seed={user.id} size={52} online />
-        <Flex vertical gap={4} className="min-w-0 flex-1">
-          <Text
-            ellipsis
-            className="!text-[15px] !text-[var(--color-text)]"
-            style={{ fontWeight: unread ? 700 : active ? 600 : 500 }}
-          >
-            {user.name}
-          </Text>
-          <Text
-            ellipsis
-            className="!text-[13px]"
-            style={{
-              color: unread
-                ? "var(--color-text)"
-                : "var(--color-text-muted)",
-              fontWeight: unread ? 600 : 400,
-            }}
-          >
-            {unread ? t("newMessage") : t("tapToStart")}
-          </Text>
+      <div className="relative shrink-0">
+        <Flex
+          align="center"
+          justify="center"
+          className="!rounded-full"
+          style={{
+            width: 52,
+            height: 52,
+            background: gradientBg([...pickGradient(user.id)]),
+          }}
+        >
+          <Icon name="person" size={28} color="#FFFFFF" />
         </Flex>
-        {unread ? (
+        {online ? (
           <span
-            aria-label={t("unreadLabel")}
+            className="absolute"
             style={{
-              width: 10,
-              height: 10,
+              right: 0,
+              bottom: 0,
+              width: 14,
+              height: 14,
               borderRadius: "50%",
-              background: "var(--color-primary)",
-              flexShrink: 0,
+              background: "#22c55e",
+              border: "2px solid var(--color-bg-secondary)",
             }}
           />
         ) : null}
+      </div>
+      <Flex vertical gap={2} className="!min-w-0 !flex-1">
+        <Text
+          ellipsis
+          className="!text-sm"
+          style={{
+            color: "var(--color-text)",
+            fontWeight: unread ? 700 : active ? 600 : 500,
+          }}
+        >
+          {user.name}
+        </Text>
+        <Text
+          ellipsis
+          className="!text-[13px]"
+          style={{
+            color: unread ? "var(--color-text)" : "var(--color-text-muted)",
+            fontWeight: unread ? 600 : 400,
+          }}
+        >
+          {lastMessage}
+        </Text>
       </Flex>
-    </Button>
+      {unread ? (
+        <span
+          aria-label={t("unreadLabel")}
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: "#4096ff",
+            flexShrink: 0,
+          }}
+        />
+      ) : null}
+    </Flex>
   );
 }

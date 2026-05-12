@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { usePresenceStore } from "@/feature/presence/stores/presence.store";
@@ -14,13 +14,21 @@ import { ChatSidebar } from "./sidebar/ChatSidebar";
 export function ChatRoom() {
   const router = useRouter();
   const { userName, removeLogginedUser } = useAuthStore();
-  const users = usePresenceStore((s) => s.onlineUsers);
+  const onlineUsers = usePresenceStore((s) => s.onlineUsers);
+  const knownUsers = usePresenceStore((s) => s.knownUsers);
   const closeAllChatBoxes = useChatBoxesStore((s) => s.closeAll);
   const setActivePeer = useChatRoomUnreadStore((s) => s.setActivePeer);
   const unreadMap = useChatRoomUnreadStore((s) => s.unread);
 
   const [selected, setSelected] = useState<OnlineUserDto | null>(null);
   const [showRightPanel, setShowRightPanel] = useState(false);
+
+  const contacts = useMemo(() => {
+    const onlineIds = new Set(onlineUsers.map((u) => u.id));
+    return knownUsers
+      .map((u) => ({ user: u, online: onlineIds.has(u.id) }))
+      .sort((a, b) => Number(b.online) - Number(a.online));
+  }, [onlineUsers, knownUsers]);
 
   useEffect(() => {
     closeAllChatBoxes();
@@ -49,7 +57,7 @@ export function ChatRoom() {
           }
         >
           <ChatSidebar
-            users={users}
+            contacts={contacts}
             selectedUserId={selected?.id ?? null}
             currentUserName={userName}
             onSelect={setSelected}

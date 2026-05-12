@@ -7,8 +7,13 @@ import { ConversationItem } from "./ConversationItem";
 
 const { Text } = Typography;
 
+export interface ConversationEntry {
+  user: OnlineUserDto;
+  online: boolean;
+}
+
 interface ConversationListProps {
-  users: OnlineUserDto[];
+  contacts: ConversationEntry[];
   selectedUserId: string | null;
   currentUserName: string;
   onSelect: (user: OnlineUserDto) => void;
@@ -16,14 +21,14 @@ interface ConversationListProps {
 }
 
 export function ConversationList({
-  users,
+  contacts,
   selectedUserId,
   currentUserName,
   onSelect,
   unreadMap,
 }: ConversationListProps) {
   const t = useTranslations("Chat.sidebar");
-  if (users.length === 0) {
+  if (contacts.length === 0) {
     return (
       <div className="flex-1 px-4 py-6 text-center">
         <Text className="!text-[13px] !text-[var(--color-text-muted)]">
@@ -39,13 +44,14 @@ export function ConversationList({
 
   return (
     <div className="flex-1 overflow-y-auto px-2 pb-2">
-      {users.map((u) => (
-        <div key={u.id} className="mb-0.5">
+      {contacts.map((c) => (
+        <div key={c.user.id} className="mb-0.5">
           <ConversationItem
-            user={u}
-            active={selectedUserId === u.id}
-            unread={!!unreadMap?.[u.id]}
-            onClick={() => onSelect(u)}
+            user={c.user}
+            active={selectedUserId === c.user.id}
+            online={c.online}
+            unread={!!unreadMap?.[c.user.id]}
+            onClick={() => onSelect(c.user)}
           />
         </div>
       ))}
