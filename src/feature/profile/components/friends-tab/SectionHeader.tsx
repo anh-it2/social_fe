@@ -13,17 +13,17 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ title, count, action, onAction }: SectionHeaderProps) {
   return (
-    <Flex align="center" justify="space-between" className="!mb-4 !w-full">
-      <Flex align="baseline" gap={8}>
+    <Flex align="center" justify="space-between" gap={8} className="!mb-3 !w-full sm:!mb-4">
+      <Flex align="baseline" gap={8} className="!min-w-0 !flex-1">
         <Text
-          className="!text-[20px] !font-bold !leading-tight"
+          className="!truncate !text-[17px] !font-bold !leading-tight sm:!text-[20px]"
           style={{ color: "var(--color-text)" }}
         >
           {title}
         </Text>
         {typeof count === "number" ? (
           <Text
-            className="!text-[14px] !font-medium"
+            className="!shrink-0 !text-[13px] !font-medium sm:!text-[14px]"
             style={{ color: "var(--color-text-muted)" }}
           >
             {count}
@@ -34,7 +34,7 @@ export function SectionHeader({ title, count, action, onAction }: SectionHeaderP
         <Button
           type="link"
           onClick={onAction}
-          className="!px-0 !text-[14px] !font-semibold"
+          className="!shrink-0 !px-0 !text-[13px] !font-semibold sm:!text-[14px]"
           style={{ color: "var(--color-primary)" }}
         >
           {action}

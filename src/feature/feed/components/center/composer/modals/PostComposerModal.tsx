@@ -175,6 +175,7 @@ export function PostComposerModal({
         gradient: CURRENT_USER.gradient,
       },
       time: tReel("justNow"),
+      createdAt: Date.now(),
       text: text.trim(),
       imageUrl: imageField,
       videoUrl: videoField,

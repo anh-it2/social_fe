@@ -209,6 +209,7 @@ export function ReelComposerModal({
       open={open}
       onCancel={onClose}
       width={960}
+      style={{ maxWidth: "calc(100vw - 16px)", top: 16 }}
     >
       <div className="!relative !overflow-hidden">
         <div
@@ -224,7 +225,7 @@ export function ReelComposerModal({
         <Flex
           align="center"
           justify="space-between"
-          className="!relative !px-6 !py-4"
+          className="!relative !px-4 !py-3 md:!px-6 md:!py-4"
           style={{ borderBottom: "1px solid #2e2e2e", zIndex: 1 }}
         >
           <Flex align="center" gap={10}>
@@ -253,13 +254,18 @@ export function ReelComposerModal({
           </Flex>
         </Flex>
 
-        <Flex gap={20} className="!relative !px-6 !py-5" style={{ zIndex: 1 }}>
-          <Flex vertical align="center" gap={10}>
+        <Flex
+          gap={20}
+          className="!relative !flex-col !px-4 !py-4 md:!flex-row md:!px-6 md:!py-5"
+          style={{ zIndex: 1 }}
+        >
+          <Flex vertical align="center" gap={10} className="!w-full md:!w-auto">
             <div
-              className="!relative !overflow-hidden"
+              className="!relative !overflow-hidden !mx-auto"
               style={{
-                width: 300,
-                height: 534,
+                width: "min(300px, 100%)",
+                aspectRatio: "9 / 16",
+                maxHeight: "70vh",
                 borderRadius: 24,
                 background: "#0a0a0a",
                 border: "1px solid #2e2e2e",
@@ -704,7 +710,9 @@ export function ReelComposerModal({
         <Flex
           align="center"
           justify="space-between"
-          className="!relative !px-6 !py-3"
+          gap={8}
+          wrap="wrap"
+          className="!relative !px-4 !py-3 md:!px-6"
           style={{
             borderTop: "1px solid #2e2e2e",
             background: "#161616",
@@ -729,16 +737,14 @@ export function ReelComposerModal({
               {t("cancel")}
             </Button>
             <Button
-              type="primary"
               onClick={handleSubmit}
               disabled={!mediaUrl}
+              className="!h-9 !rounded-full !px-6 !font-semibold !border-0 !shadow-none disabled:!opacity-50 disabled:!cursor-not-allowed"
               style={{
                 background: mediaUrl
                   ? gradientBg(["#7c3aed", "#ec4899"])
                   : "#252525",
-                border: "none",
-                fontWeight: 600,
-                paddingInline: 24,
+                color: "#fff",
               }}
             >
               {t("submit")}

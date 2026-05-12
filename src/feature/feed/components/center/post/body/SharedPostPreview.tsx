@@ -3,6 +3,7 @@
 import { Flex, Image, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
+import { relativeTime } from "@/shared/data/notifications";
 import { gradientBg } from "@/shared/utils/gradient";
 import type { SharedPostRef } from "../../../../data/types";
 
@@ -15,8 +16,11 @@ interface SharedPostPreviewProps {
 
 export function SharedPostPreview({ post, compact = false }: SharedPostPreviewProps) {
   const t = useTranslations("Feed.post");
+  const tTime = useTranslations("Notification.time");
   const hasMedia = !!(post.imageUrl || post.videoUrl || post.imageGradient);
   const mediaMaxHeight = compact ? 220 : 360;
+  const timeLabel =
+    post.createdAt !== undefined ? relativeTime(tTime, post.createdAt) : post.time;
 
   return (
     <Flex
@@ -62,7 +66,7 @@ export function SharedPostPreview({ post, compact = false }: SharedPostPreviewPr
               className="!text-[11px]"
               style={{ color: "var(--color-text-secondary)" }}
             >
-              {post.time}
+              {timeLabel}
             </Text>
             <Text
               className="!text-[11px]"

@@ -31,15 +31,17 @@ export function OnlineFriendCard({ chat }: OnlineFriendCardProps) {
         className="!h-2 !w-full"
         style={{ background: `linear-gradient(90deg, ${c1}, ${c2})` }}
       />
-      <Flex vertical gap={12} className="!p-4">
-        <Flex gap={12} align="flex-start">
-          <FriendAvatar
-            name={chat.name}
-            size={64}
-            online
-            gradient={chat.gradient}
-            square
-          />
+      <Flex vertical gap={12} className="!p-3 sm:!p-4">
+        <Flex gap={12} align="flex-start" className="!min-w-0">
+          <div className="!shrink-0">
+            <FriendAvatar
+              name={chat.name}
+              size={64}
+              online
+              gradient={chat.gradient}
+              square
+            />
+          </div>
           <Flex vertical gap={4} className="!min-w-0 !flex-1">
             <Flex align="center" gap={8} className="!min-w-0">
               <Text
@@ -85,29 +87,29 @@ export function OnlineFriendCard({ chat }: OnlineFriendCardProps) {
         <Flex gap={8} className="!w-full">
           <Button
             type="primary"
-            className="!h-9 !flex-1 !rounded-[10px] !text-[13px] !font-semibold"
+            className="!h-9 !min-w-0 !flex-1 !rounded-[10px] !text-[12px] !font-semibold sm:!text-[13px]"
           >
-            <Flex align="center" gap={6}>
+            <Flex align="center" gap={6} className="!min-w-0">
               <Icon name="chat_bubble" size={16} color="var(--color-on-primary, #fff)" />
-              {t("actions.message")}
+              <span className="!truncate">{t("actions.message")}</span>
             </Flex>
           </Button>
           <Button
-            className={`${styles.waveBtn} !h-9 !flex-1 !rounded-[10px] !text-[13px] !font-semibold`}
+            className={`${styles.waveBtn} !h-9 !min-w-0 !flex-1 !rounded-[10px] !text-[12px] !font-semibold sm:!text-[13px]`}
             style={{
               background: "var(--color-bg-tertiary)",
               color: "var(--color-text)",
               borderColor: "var(--color-border)",
             }}
           >
-            <Flex align="center" gap={6}>
+            <Flex align="center" gap={6} className="!min-w-0">
               <Icon name="waving_hand" size={16} color="var(--color-warning, #f59e0b)" />
-              {t("actions.wave")}
+              <span className="!hidden !truncate sm:!inline">{t("actions.wave")}</span>
             </Flex>
           </Button>
           <Tooltip title={t("actions.more")}>
             <Button
-              className="!h-9 !w-9 !rounded-[10px] !p-0"
+              className="!h-9 !w-9 !shrink-0 !rounded-[10px] !p-0"
               style={{
                 background: "var(--color-bg-tertiary)",
                 color: "var(--color-text)",

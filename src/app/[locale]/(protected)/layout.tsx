@@ -4,6 +4,7 @@ import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useGlobalChatUnread } from "@/feature/chat/hooks/useGlobalChatUnread";
 import { useRouter } from "@/i18n/navigation";
 import { ChatBoxes } from "@/shared/components/chatbox/ChatBoxes";
+import { LeftSidebarDrawer } from "@/shared/components/sidebar/LeftSidebarDrawer";
 import { NavigationProgressBar } from "@/shared/components/NavigationProgressBar";
 import { useEffect, useSyncExternalStore } from "react";
 
@@ -35,6 +36,7 @@ export default function ProtectedLayout({
     <>
       <NavigationProgressBar />
       {children}
+      <LeftSidebarDrawer />
       <ChatBoxes />
     </>
   );

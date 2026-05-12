@@ -113,6 +113,7 @@ export function FeedPost({ post, onRemove, onUpdate, onShareToProfile }: FeedPos
       <PostHeader
         author={post.author}
         time={post.time}
+        createdAt={post.createdAt}
         feeling={post.feeling}
         isLive={post.isLive}
         isOwn={post.author.name === CURRENT_USER.name}

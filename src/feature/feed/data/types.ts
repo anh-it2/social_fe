@@ -45,6 +45,7 @@ export interface SharedPostRef {
   id: string;
   author: FeedAuthor;
   time: string;
+  createdAt?: number;
   text: string;
   imageGradient?: [string, string, string];
   imageUrl?: string;
@@ -58,6 +59,7 @@ export interface FeedPostData {
   ownerId?: string;
   author: FeedAuthor;
   time: string;
+  createdAt?: number;
   text: string;
   imageGradient?: [string, string, string];
   imageUrl?: string;

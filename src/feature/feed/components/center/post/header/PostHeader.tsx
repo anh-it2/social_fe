@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { ConfirmModal } from "@/shared/components/modal/ConfirmModal";
+import { relativeTime } from "@/shared/data/notifications";
 import type { FeedAuthor, Feeling } from "../../../../data/types";
 import { gradientBg } from "@/shared/utils/gradient";
 import styles from "./PostHeader.module.scss";
@@ -15,6 +16,7 @@ const { Text } = Typography;
 interface PostHeaderProps {
   author: FeedAuthor;
   time: string;
+  createdAt?: number;
   feeling?: Feeling;
   isLive?: boolean;
   isOwn?: boolean;
@@ -25,6 +27,7 @@ interface PostHeaderProps {
 export function PostHeader({
   author,
   time,
+  createdAt,
   feeling,
   isLive,
   isOwn = false,
@@ -32,7 +35,10 @@ export function PostHeader({
   onEdit,
 }: PostHeaderProps) {
   const t = useTranslations("Feed.post");
+  const tTime = useTranslations("Notification.time");
   const menuItems = usePostHeaderMenuItems(author.name, isOwn);
+  const timeLabel =
+    createdAt !== undefined ? relativeTime(tTime, createdAt) : time;
   const { message } = App.useApp();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -88,7 +94,7 @@ export function PostHeader({
           </Text>
           <Flex align="center" gap={4}>
             <Text className="!text-xs" style={{ color: "var(--color-text-secondary)" }}>
-              {time}
+              {timeLabel}
             </Text>
             <Text className="!text-xs" style={{ color: "var(--color-text-secondary)" }}>
               ·

@@ -33,20 +33,22 @@ export function BirthdayItem({ entry, online }: BirthdayItemProps) {
         borderRadius: 14,
       }}
     >
-      <FriendAvatar name={entry.name} size={48} online={online} />
+      <div className="!shrink-0">
+        <FriendAvatar name={entry.name} size={48} online={online} />
+      </div>
       <Flex vertical gap={2} className="!min-w-0 !flex-1">
         <Text
-          className="!truncate !text-[15px] !font-semibold !leading-tight"
+          className="!truncate !text-[14px] !font-semibold !leading-tight sm:!text-[15px]"
           style={{ color: "var(--color-text)" }}
         >
           {entry.name}
         </Text>
-        <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+        <Text className="!truncate !text-[12px]" style={{ color: "var(--color-text-muted)" }}>
           {whenLabel}
         </Text>
       </Flex>
       <Button
-        className="!h-9 !rounded-[10px] !px-3 !text-[13px] !font-semibold"
+        className="!h-9 !shrink-0 !rounded-[10px] !px-2 !text-[12px] !font-semibold sm:!px-3 sm:!text-[13px]"
         style={{
           background: "var(--color-primary-bg)",
           color: "var(--color-primary)",
@@ -55,7 +57,7 @@ export function BirthdayItem({ entry, online }: BirthdayItemProps) {
       >
         <Flex align="center" gap={6}>
           <Icon name="edit" size={14} color="var(--color-primary)" />
-          {t("actions.write")}
+          <span className="!hidden sm:!inline">{t("actions.write")}</span>
         </Flex>
       </Button>
     </Flex>

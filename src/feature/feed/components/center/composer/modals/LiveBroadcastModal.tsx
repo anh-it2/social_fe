@@ -223,6 +223,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
         gradient: CURRENT_USER.gradient,
       },
       time: tReel("justNow"),
+      createdAt: Date.now(),
       text: title.trim() || t("wasLiveTitle"),
       imageUrl: frame ?? undefined,
       videoUrl,
@@ -422,11 +423,10 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
           autoSize={{ minRows: 2, maxRows: 4 }}
           maxLength={150}
           disabled={phase === "live"}
-          className="[&_textarea]:!text-[var(--color-text)] [&_textarea::placeholder]:!text-[var(--color-text-placeholder)] [&_textarea::placeholder]:!opacity-100 [&_.ant-input::placeholder]:!text-[var(--color-text-placeholder)] [&_.ant-input::placeholder]:!opacity-100"
+          className="!text-[var(--color-text)] !caret-[var(--color-text)] placeholder:!text-[var(--color-text-placeholder)] placeholder:!opacity-100"
           style={{
             background: "var(--color-bg-tertiary)",
             border: "1px solid var(--color-border)",
-            color: "var(--color-text)",
             resize: "none",
           }}
         />

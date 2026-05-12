@@ -50,14 +50,14 @@ export function FriendsTab() {
   return (
     <Flex
       vertical
-      gap={24}
-      className="!w-full !px-4 !py-4 sm:!px-6 lg:!px-12 lg:!py-6"
+      gap={20}
+      className="!w-full !px-3 !py-4 sm:!gap-6 sm:!px-6 sm:!py-5 lg:!px-12 lg:!py-6"
       style={{ background: "var(--color-bg)" }}
     >
       <Flex
         vertical
         gap={12}
-        className="!w-full !p-5"
+        className="!w-full !p-4 sm:!p-5"
         style={{
           background: "var(--color-bg-secondary)",
           border: "1px solid var(--color-border)",
@@ -94,7 +94,7 @@ export function FriendsTab() {
               }
             />
           ) : (
-            <div className="!grid !w-full !gap-3 sm:!grid-cols-2 lg:!grid-cols-3 xl:!grid-cols-4">
+            <div className="!grid !w-full !grid-cols-1 !gap-3 sm:!gap-4 md:!grid-cols-2 xl:!grid-cols-3">
               {onlineChats.map((c) => (
                 <OnlineFriendCard key={c.id} chat={c} />
               ))}
@@ -110,7 +110,7 @@ export function FriendsTab() {
             count={FRIEND_REQUESTS.length}
             action={seeAll}
           />
-          <div className="!grid !w-full !gap-3 sm:!grid-cols-2 lg:!grid-cols-3 xl:!grid-cols-4">
+          <div className="!grid !w-full !grid-cols-1 !gap-3 sm:!grid-cols-2 sm:!gap-4 md:!grid-cols-3 xl:!grid-cols-4 2xl:!grid-cols-5">
             {FRIEND_REQUESTS.map((r) => (
               <RequestCard key={r.id} request={r} online={isOnline(r.name)} />
             ))}
@@ -125,7 +125,7 @@ export function FriendsTab() {
             count={BIRTHDAYS.length}
             action={seeAll}
           />
-          <div className="!grid !w-full !gap-3 sm:!grid-cols-2 lg:!grid-cols-3">
+          <div className="!grid !w-full !grid-cols-1 !gap-3 sm:!grid-cols-2 sm:!gap-4 xl:!grid-cols-3">
             {BIRTHDAYS.map((b) => (
               <BirthdayItem key={b.id} entry={b} online={isOnline(b.name)} />
             ))}
@@ -140,7 +140,7 @@ export function FriendsTab() {
             count={FRIEND_SUGGESTIONS.length}
             action={seeAll}
           />
-          <div className="!grid !w-full !gap-3 sm:!grid-cols-2 lg:!grid-cols-3 xl:!grid-cols-4">
+          <div className="!grid !w-full !grid-cols-1 !gap-3 sm:!grid-cols-2 sm:!gap-4 md:!grid-cols-3 xl:!grid-cols-4 2xl:!grid-cols-5">
             {FRIEND_SUGGESTIONS.map((s) => (
               <SuggestionCard key={s.id} suggestion={s} />
             ))}
@@ -158,7 +158,7 @@ export function FriendsTab() {
               }
             />
           ) : (
-            <div className="!grid !w-full !gap-3 sm:!grid-cols-2 lg:!grid-cols-3 xl:!grid-cols-4">
+            <div className="!grid !w-full !grid-cols-1 !gap-3 sm:!grid-cols-2 sm:!gap-4 md:!grid-cols-3 xl:!grid-cols-4 2xl:!grid-cols-5">
               {filteredFriends.map((f) => (
                 <FriendCard
                   key={f.id}
