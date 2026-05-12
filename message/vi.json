@@ -407,6 +407,18 @@
       "photos": "Ảnh",
       "videos": "Video"
     },
+    "photosTab": {
+      "title": "Ảnh",
+      "count": "{count, plural, =0 {Chưa có ảnh nào} other {# ảnh}}",
+      "addPhotos": "Thêm ảnh",
+      "empty": "Bạn chưa thêm ảnh nào. Nhấn Thêm ảnh để chia sẻ."
+    },
+    "videosTab": {
+      "title": "Video",
+      "count": "{count, plural, =0 {Chưa có video nào} other {# video}}",
+      "addVideo": "Thêm video",
+      "empty": "Bạn chưa thêm video nào. Nhấn Thêm video để chia sẻ."
+    },
     "friendsTab": {
       "searchPlaceholder": "Tìm bạn bè",
       "filters": {

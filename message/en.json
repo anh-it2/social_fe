@@ -407,6 +407,18 @@
       "photos": "Photos",
       "videos": "Videos"
     },
+    "photosTab": {
+      "title": "Photos",
+      "count": "{count, plural, =0 {No photos yet} one {# photo} other {# photos}}",
+      "addPhotos": "Add Photos",
+      "empty": "You haven't added any photos yet. Tap Add Photos to share one."
+    },
+    "videosTab": {
+      "title": "Videos",
+      "count": "{count, plural, =0 {No videos yet} one {# video} other {# videos}}",
+      "addVideo": "Add Video",
+      "empty": "You haven't added any videos yet. Tap Add Video to share one."
+    },
     "friendsTab": {
       "searchPlaceholder": "Search friends",
       "filters": {
