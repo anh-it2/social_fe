@@ -1,28 +1,24 @@
 "use client";
 
 import { App, Button, Flex, Typography } from "antd";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { REEL_RECOMMENDS } from "@/feature/feed/data/constants";
-import type { ReelData } from "@/feature/feed/data/types";
 import { useSavedReels } from "@/feature/feed/data/useSavedReels";
 import { useUserReels } from "@/feature/feed/data/useUserReels";
-import { ReelComposerModal } from "@/feature/feed/components/center/reels/ReelComposerModal";
-import {
-  ReelComposerProvider,
-  useReelComposer,
-} from "@/feature/feed/lib/reelComposer";
 import { Icon } from "@/shared/components/Icon";
 import { useNavigation } from "@/shared/hooks/useNavigation";
 import { ReelFullCard } from "./ReelFullCard";
 
 const { Title } = Typography;
 
-function ReelsPageInner() {
+export function ReelsPage() {
   const t = useTranslations("Feed.reelsPage");
   const nav = useNavigation();
-  const reelComposer = useReelComposer();
-  const { reels: userReels, addReel } = useUserReels();
+  const searchParams = useSearchParams();
+  const focusId = searchParams.get("id");
+  const { reels: userReels } = useUserReels();
   const { isSaved, toggleSaved } = useSavedReels();
   const { message } = App.useApp();
   const [liked, setLiked] = useState<Set<string>>(new Set());
@@ -33,8 +29,12 @@ function ReelsPageInner() {
       kind: "recommend" as const,
       reel: r,
     }));
-    return [...userItems, ...recItems];
-  }, [userReels]);
+    const all = [...userItems, ...recItems];
+    if (!focusId) return all;
+    const idx = all.findIndex((it) => it.reel.id === focusId);
+    if (idx <= 0) return all;
+    return [all[idx], ...all.slice(0, idx), ...all.slice(idx + 1)];
+  }, [userReels, focusId]);
 
   const toggleLike = (id: string) => {
     setLiked((prev) => {
@@ -43,11 +43,6 @@ function ReelsPageInner() {
       else next.add(id);
       return next;
     });
-  };
-
-  const handleSubmit = (reel: ReelData) => {
-    addReel(reel);
-    message.success(t("upload"));
   };
 
   return (
@@ -81,14 +76,6 @@ function ReelsPageInner() {
             {t("title")}
           </Title>
         </Flex>
-        <Button
-          type="primary"
-          onClick={() => reelComposer?.openComposer(undefined)}
-          icon={<Icon name="add" size={18} color="var(--color-on-primary)" />}
-          className="!h-9 !rounded-[10px] !font-semibold"
-        >
-          {t("upload")}
-        </Button>
       </Flex>
 
       <div
@@ -142,21 +129,6 @@ function ReelsPageInner() {
           )
         )}
       </div>
-
-      <ReelComposerModal
-        open={reelComposer?.open ?? false}
-        onClose={() => reelComposer?.closeComposer()}
-        onSubmit={handleSubmit}
-        initial={reelComposer?.initial}
-      />
     </div>
-  );
-}
-
-export function ReelsPage() {
-  return (
-    <ReelComposerProvider>
-      <ReelsPageInner />
-    </ReelComposerProvider>
   );
 }

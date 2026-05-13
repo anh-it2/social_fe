@@ -5,14 +5,20 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { REEL_RECOMMENDS } from "../../../data/constants";
+import { useUserReels } from "../../../data/useUserReels";
+import { useReelComposer } from "../../../lib/reelComposer";
 import { Icon } from "@/shared/components/Icon";
+import { CreateReelTile } from "./CreateReelTile";
 import { ReelRecommendTile } from "./ReelRecommendTile";
+import { UserReelTile } from "./UserReelTile";
 
 const { Text } = Typography;
 
 export function ReelsForYouCard() {
   const t = useTranslations("Feed.reelsForYou");
   const locale = useLocale();
+  const reelComposer = useReelComposer();
+  const { reels: userReels } = useUserReels();
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(false);
@@ -86,6 +92,12 @@ export function ReelsForYouCard() {
           ref={scrollerRef}
           className="no-scrollbar !w-full !overflow-x-auto !px-3 !pb-3"
         >
+          <CreateReelTile
+            onClick={() => reelComposer?.openComposer(undefined)}
+          />
+          {userReels.map((r) => (
+            <UserReelTile key={r.id} reel={r} />
+          ))}
           {REEL_RECOMMENDS.map((r) => (
             <ReelRecommendTile key={r.id} reel={r} />
           ))}

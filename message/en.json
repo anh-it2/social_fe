@@ -439,12 +439,17 @@
       "scrollRight": "Scroll right",
       "soon": "Story creation coming soon"
     },
+    "storyViewer": {
+      "close": "Close"
+    },
     "reelsForYou": {
       "title": "Reels for you",
       "seeAll": "See all",
       "scrollLeft": "Scroll left",
       "scrollRight": "Scroll right",
-      "viewsSuffix": "views"
+      "viewsSuffix": "views",
+      "createReel": "Create reel",
+      "createReelHint": "Share a moment"
     },
     "reelsPage": {
       "title": "Reels",

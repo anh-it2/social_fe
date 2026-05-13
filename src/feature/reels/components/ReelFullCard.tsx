@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
+import { MUSIC_TRACKS } from "@/feature/feed/data/constants";
 import type { RecommendedReel, ReelData } from "@/feature/feed/data/types";
 
 const { Text } = Typography;
@@ -32,8 +33,14 @@ export function ReelFullCard(props: Props) {
   const t = useTranslations("Feed.reelsPage");
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [muted, setMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [muted, setMuted] = useState(false);
   const [visible, setVisible] = useState(false);
+
+  const musicId = props.kind === "user" ? props.reel.musicId : undefined;
+  const track = musicId
+    ? MUSIC_TRACKS.find((m) => m.id === musicId) ?? null
+    : null;
 
   useEffect(() => {
     const el = containerRef.current;
@@ -53,10 +60,43 @@ export function ReelFullCard(props: Props) {
     else v.pause();
   }, [visible]);
 
+  useEffect(() => {
+    if (!track) {
+      audioRef.current?.pause();
+      audioRef.current = null;
+      return;
+    }
+    if (!audioRef.current) {
+      const audio = new Audio(track.url);
+      audio.loop = true;
+      audio.muted = muted;
+      audioRef.current = audio;
+    }
+    const audio = audioRef.current;
+    if (visible) audio.play().catch(() => undefined);
+    else audio.pause();
+    return () => {
+      audio.pause();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, track?.id]);
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.muted = muted;
+  }, [muted]);
+
+  useEffect(() => {
+    return () => {
+      audioRef.current?.pause();
+      audioRef.current = null;
+    };
+  }, []);
+
   const isUserVideo =
     props.kind === "user" && props.reel.mediaType === "video";
   const isUserImage =
     props.kind === "user" && props.reel.mediaType === "image";
+  const hasMusic = !!track;
 
   const caption =
     props.kind === "recommend"
@@ -122,7 +162,7 @@ export function ReelFullCard(props: Props) {
             }}
           />
 
-          {isUserVideo ? (
+          {isUserVideo || hasMusic ? (
             <Button
               type="text"
               shape="circle"
@@ -255,6 +295,27 @@ export function ReelFullCard(props: Props) {
               <Text className="!text-[12px] !text-white/80">
                 {views} {t("viewsSuffix")}
               </Text>
+            ) : null}
+            {track ? (
+              <Flex
+                align="center"
+                gap={6}
+                className="!rounded-full !px-2 !py-1 !w-fit"
+                style={{
+                  background: "rgba(0,0,0,0.5)",
+                  backdropFilter: "blur(8px)",
+                  maxWidth: "100%",
+                }}
+              >
+                <Icon name="music_note" size={12} color="#fff" />
+                <Text
+                  ellipsis
+                  className="!text-[11px] !font-semibold !text-white"
+                  style={{ maxWidth: 220 }}
+                >
+                  {track.title} · {track.artist}
+                </Text>
+              </Flex>
             ) : null}
           </Flex>
         </div>

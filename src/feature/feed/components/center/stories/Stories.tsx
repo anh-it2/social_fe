@@ -4,14 +4,17 @@ import { Button, Flex } from "antd";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
-import { STORIES } from "../../../data/constants";
-import { useReelComposer } from "../../../lib/reelComposer";
+import { CURRENT_USER, STORIES } from "../../../data/constants";
+import type { ReelData } from "../../../data/types";
+import { useUserStories } from "../../../data/useUserStories";
+import { ReelComposerModal } from "../reels/ReelComposerModal";
 import { CreateStoryCard } from "./CreateStoryCard";
 import { StoryCard } from "./StoryCard";
 
 export function Stories() {
   const t = useTranslations("Feed.story");
-  const reelComposer = useReelComposer();
+  const { stories: userStories, addStory } = useUserStories();
+  const [composerOpen, setComposerOpen] = useState(false);
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(false);
@@ -41,6 +44,25 @@ export function Stories() {
     el.scrollBy({ left: dir * Math.max(280, el.clientWidth * 0.8), behavior: "smooth" });
   };
 
+  const handleCreateStory = (reel: ReelData) => {
+    addStory({
+      id: `us-${reel.id}`,
+      initial: CURRENT_USER.initial,
+      name: CURRENT_USER.name,
+      bgGradient: CURRENT_USER.gradient,
+      avatarColor: CURRENT_USER.gradient[1],
+      mediaUrl: reel.mediaUrl,
+      mediaType: reel.mediaType,
+      musicId: reel.musicId,
+      caption: reel.caption,
+      createdAt: Date.now(),
+    });
+    requestAnimationFrame(() => {
+      scrollerRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+      updateArrows();
+    });
+  };
+
   return (
     <div
       className="!relative !w-full !rounded-xl"
@@ -55,7 +77,10 @@ export function Stories() {
         ref={scrollerRef}
         className="no-scrollbar !h-full !w-full !overflow-x-auto !p-2"
       >
-        <CreateStoryCard onClick={() => reelComposer?.openComposer(undefined)} />
+        <CreateStoryCard onClick={() => setComposerOpen(true)} />
+        {userStories.map((s) => (
+          <StoryCard key={s.id} story={s} />
+        ))}
         {STORIES.map((s) => (
           <StoryCard key={s.id} story={s} />
         ))}
@@ -87,6 +112,11 @@ export function Stories() {
           background: "var(--color-bg-secondary)",
           border: "1px solid var(--color-border)",
         }}
+      />
+      <ReelComposerModal
+        open={composerOpen}
+        onClose={() => setComposerOpen(false)}
+        onSubmit={handleCreateStory}
       />
     </div>
   );

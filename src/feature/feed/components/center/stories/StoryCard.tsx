@@ -1,8 +1,10 @@
 "use client";
 
-import { Flex, Typography } from "antd";
+import { Flex, Image, Typography } from "antd";
+import { useState } from "react";
 import type { StoryCardData } from "../../../data/types";
 import { gradientBg } from "@/shared/utils/gradient";
+import { StoryViewerModal } from "./StoryViewerModal";
 
 const { Text } = Typography;
 
@@ -11,11 +13,49 @@ interface StoryCardProps {
 }
 
 export function StoryCard({ story }: StoryCardProps) {
+  const [viewerOpen, setViewerOpen] = useState(false);
   return (
+    <>
     <div
+      role="button"
+      tabIndex={0}
+      onClick={() => setViewerOpen(true)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") setViewerOpen(true);
+      }}
       className="!relative !h-[186px] !w-[130px] !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl"
       style={{ background: gradientBg(story.bgGradient) }}
     >
+      {story.mediaUrl && story.mediaType === "image" && (
+        <Image
+          src={story.mediaUrl}
+          alt={story.name}
+          preview={false}
+          width="100%"
+          height="100%"
+          rootClassName="!absolute !inset-0 !h-full !w-full"
+          className="!h-full !w-full !object-cover"
+        />
+      )}
+      {story.mediaUrl && story.mediaType === "video" && (
+        <video
+          src={story.mediaUrl}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="!absolute !inset-0 !h-full !w-full !object-cover"
+        />
+      )}
+      {story.mediaUrl && (
+        <div
+          className="!absolute !inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.75) 100%)",
+          }}
+        />
+      )}
       <Flex
         align="center"
         justify="center"
@@ -25,6 +65,7 @@ export function StoryCard({ story }: StoryCardProps) {
           border: "3px solid #2374e1",
           top: 12,
           left: 12,
+          zIndex: 1,
         }}
       >
         <Text className="!text-sm !font-bold !leading-none !text-white">
@@ -33,10 +74,16 @@ export function StoryCard({ story }: StoryCardProps) {
       </Flex>
       <Text
         className="!absolute !text-xs !font-semibold !text-white"
-        style={{ left: 12, top: 156 }}
+        style={{ left: 12, top: 156, zIndex: 1 }}
       >
         {story.name}
       </Text>
     </div>
+    <StoryViewerModal
+      open={viewerOpen}
+      onClose={() => setViewerOpen(false)}
+      story={story}
+    />
+    </>
   );
 }

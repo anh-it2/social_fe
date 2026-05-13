@@ -1,52 +1,57 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import type { ReelData } from "./types";
+import { readFeedSlice, writeFeedSlice } from "./feedStorage";
 
-const REELS_STORAGE_KEY = "feed.reels";
+let state: ReelData[] | null = null;
+const listeners = new Set<() => void>();
 
-function load(): ReelData[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(REELS_STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as ReelData[];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
+function ensureLoaded() {
+  if (state !== null) return;
+  if (typeof window === "undefined") {
+    state = [];
+    return;
   }
+  state = readFeedSlice("reels") as ReelData[];
 }
 
-function save(reels: ReelData[]) {
-  if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(REELS_STORAGE_KEY, JSON.stringify(reels));
-  } catch {
-    // quota exceeded — large media won't persist
-  }
+function emit() {
+  for (const l of listeners) l();
+}
+
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  return () => {
+    listeners.delete(cb);
+  };
+}
+
+function getSnapshot(): ReelData[] {
+  ensureLoaded();
+  return state as ReelData[];
+}
+
+function getServerSnapshot(): ReelData[] {
+  return [];
 }
 
 export function useUserReels() {
-  const [reels, setReels] = useState<ReelData[]>([]);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setReels(load());
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (hydrated) save(reels);
-  }, [reels, hydrated]);
+  const reels = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const addReel = useCallback((reel: ReelData) => {
-    setReels((prev) => [reel, ...prev]);
+    ensureLoaded();
+    state = [reel, ...(state as ReelData[])];
+    writeFeedSlice("reels", state);
+    emit();
   }, []);
 
   const removeReel = useCallback((id: string) => {
-    setReels((prev) => prev.filter((r) => r.id !== id));
+    ensureLoaded();
+    state = (state as ReelData[]).filter((r) => r.id !== id);
+    writeFeedSlice("reels", state);
+    emit();
   }, []);
 
-  return { reels, hydrated, addReel, removeReel };
+  return { reels, hydrated: true, addReel, removeReel };
 }

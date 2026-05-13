@@ -20,26 +20,17 @@ interface SavedStore {
 }
 
 const STORAGE_KEY = "feed.saved";
-const LEGACY_REELS_KEY = "feed.savedReels";
 
 function readStore(): SavedStore {
   if (typeof window === "undefined") return { reels: [], posts: [] };
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw) as Partial<SavedStore>;
-      return {
-        reels: Array.isArray(parsed.reels) ? parsed.reels : [],
-        posts: Array.isArray(parsed.posts) ? parsed.posts : [],
-      };
-    }
-    const legacy = localStorage.getItem(LEGACY_REELS_KEY);
-    if (legacy) {
-      const parsed = JSON.parse(legacy) as SavedReelEntry[];
-      const reels = Array.isArray(parsed) ? parsed : [];
-      return { reels, posts: [] };
-    }
-    return { reels: [], posts: [] };
+    if (!raw) return { reels: [], posts: [] };
+    const parsed = JSON.parse(raw) as Partial<SavedStore>;
+    return {
+      reels: Array.isArray(parsed.reels) ? parsed.reels : [],
+      posts: Array.isArray(parsed.posts) ? parsed.posts : [],
+    };
   } catch {
     return { reels: [], posts: [] };
   }

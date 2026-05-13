@@ -439,12 +439,17 @@
       "scrollRight": "Cuộn phải",
       "soon": "Tính năng tạo tin sắp ra mắt"
     },
+    "storyViewer": {
+      "close": "Đóng"
+    },
     "reelsForYou": {
       "title": "Reels dành cho bạn",
       "seeAll": "Xem tất cả",
       "scrollLeft": "Cuộn trái",
       "scrollRight": "Cuộn phải",
-      "viewsSuffix": "lượt xem"
+      "viewsSuffix": "lượt xem",
+      "createReel": "Tạo reel",
+      "createReelHint": "Chia sẻ khoảnh khắc"
     },
     "reelsPage": {
       "title": "Reels",

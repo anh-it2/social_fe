@@ -25,6 +25,11 @@ export interface StoryCardData {
   name: string;
   bgGradient: [string, string];
   avatarColor: string;
+  mediaUrl?: string;
+  mediaType?: "image" | "video";
+  musicId?: string;
+  caption?: string;
+  createdAt?: number;
 }
 
 export interface FeedAuthor {
