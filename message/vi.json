@@ -110,6 +110,7 @@
       "newMessage": "Tin nhắn mới",
       "activeNow": "Đang hoạt động",
       "offline": "Ngoại tuyến",
+      "memberCount": "{count} thành viên",
       "seeAll": "Xem tất cả trong Messenger",
       "tabs": {
         "all": "Tất cả",

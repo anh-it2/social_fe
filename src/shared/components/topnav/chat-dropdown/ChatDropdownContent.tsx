@@ -8,6 +8,9 @@ import { useNavigation } from "@/shared/hooks/useNavigation";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { usePresenceStore } from "@/feature/presence/stores/presence.store";
 import { pickGradient } from "@/feature/chat/lib/avatar";
+import { useChatStore } from "@/feature/chat/stores/chat.store";
+import type { GroupInfo } from "@/feature/chat/stores/chat.store.type";
+import { usePendingChatSelectionStore } from "@/feature/chat/stores/pending-selection.store";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
 import { DropdownTabs, type DropdownTabKey } from "../DropdownTabs";
@@ -31,11 +34,42 @@ export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
   const nav = useNavigation();
   const onlineUsers = usePresenceStore((s) => s.onlineUsers);
   const knownUsers = usePresenceStore((s) => s.knownUsers);
+  const groupsMap = useChatStore((s) => s.groups);
   const openChat = useChatBoxesStore((s) => s.openChat);
   const unreadMap = useChatRoomUnreadStore((s) => s.unread);
   const markRead = useChatRoomUnreadStore((s) => s.markRead);
+  const setPendingGroup = usePendingChatSelectionStore(
+    (s) => s.setPendingGroup,
+  );
   const [tab, setTab] = useState<DropdownTabKey>("all");
   const [query, setQuery] = useState("");
+
+  const groups = useMemo<GroupInfo[]>(
+    () =>
+      Object.values(groupsMap).sort((a, b) => b.createdAt - a.createdAt),
+    [groupsMap],
+  );
+
+  const visibleGroups = useMemo(() => {
+    const byTab =
+      tab === "all"
+        ? groups
+        : groups.filter((g) =>
+            tab === "unread"
+              ? !!unreadMap[g.conversationId]
+              : !unreadMap[g.conversationId],
+          );
+    const q = query.trim().toLowerCase();
+    if (!q) return byTab;
+    return byTab.filter((g) => g.name.toLowerCase().includes(q));
+  }, [groups, unreadMap, tab, query]);
+
+  function handleGroupClick(group: GroupInfo) {
+    markRead(group.conversationId);
+    setPendingGroup(group.conversationId);
+    nav.push("/chat");
+    onClose();
+  }
 
   const contacts = useMemo<ContactEntry[]>(() => {
     const onlineIds = new Set(onlineUsers.map((u) => u.id));
@@ -125,7 +159,29 @@ export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
           overflowY: "auto",
         }}
       >
-        {visibleContacts.length === 0 ? (
+        {visibleGroups.map((g) => {
+          const unread = !!unreadMap[g.conversationId];
+          const lastMessage = unread
+            ? t("newMessage")
+            : t("memberCount", { count: g.memberIds.length });
+          return (
+            <ChatDropdownItem
+              key={g.conversationId}
+              chat={{
+                id: g.conversationId,
+                name: g.name,
+                lastMessage,
+                time: "",
+                online: false,
+                unread,
+                gradient: pickGradient(g.conversationId),
+              }}
+              isGroup
+              onClick={() => handleGroupClick(g)}
+            />
+          );
+        })}
+        {visibleContacts.length === 0 && visibleGroups.length === 0 ? (
           <div style={{ padding: "24px 12px", textAlign: "center" }}>
             <Text
               className="!text-[13px]"

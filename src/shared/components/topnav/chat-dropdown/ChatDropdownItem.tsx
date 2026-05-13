@@ -10,9 +10,14 @@ const { Text } = Typography;
 interface ChatDropdownItemProps {
   chat: ChatPreview;
   onClick: () => void;
+  isGroup?: boolean;
 }
 
-export function ChatDropdownItem({ chat, onClick }: ChatDropdownItemProps) {
+export function ChatDropdownItem({
+  chat,
+  onClick,
+  isGroup = false,
+}: ChatDropdownItemProps) {
   return (
     <Flex
       align="center"
@@ -36,9 +41,9 @@ export function ChatDropdownItem({ chat, onClick }: ChatDropdownItemProps) {
             background: gradientBg([...chat.gradient]),
           }}
         >
-          <Icon name="person" size={28} color="#FFFFFF" />
+          <Icon name={isGroup ? "group" : "person"} size={28} color="#FFFFFF" />
         </Flex>
-        {chat.online ? (
+        {!isGroup && chat.online ? (
           <span
             className="absolute"
             style={{

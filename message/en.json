@@ -110,6 +110,7 @@
       "newMessage": "New message",
       "activeNow": "Active now",
       "offline": "Offline",
+      "memberCount": "{count} members",
       "seeAll": "See all in Messenger",
       "tabs": {
         "all": "All",

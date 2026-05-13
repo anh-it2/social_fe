@@ -7,6 +7,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
 import { useChatStore } from "../stores/chat.store";
+import { usePendingChatSelectionStore } from "../stores/pending-selection.store";
 import type { SelectedConversation } from "../types/conversation";
 import { ChatMain } from "./main/ChatMain";
 import { ChatRightPanel } from "./right/ChatRightPanel";
@@ -59,6 +60,17 @@ export function ChatRoom() {
       setSelected(null);
     }
   }, [selected, groupsMap]);
+
+  // consume cross-page pending group selection (e.g. from topnav dropdown)
+  const pendingGroupId = usePendingChatSelectionStore((s) => s.pendingGroupId);
+  const setPendingGroup = usePendingChatSelectionStore((s) => s.setPendingGroup);
+  useEffect(() => {
+    if (!pendingGroupId) return;
+    const group = groupsMap[pendingGroupId];
+    if (!group) return;
+    setSelected({ kind: "group", group });
+    setPendingGroup(null);
+  }, [pendingGroupId, groupsMap, setPendingGroup]);
 
   // keep selected.group in sync with store updates
   useEffect(() => {
