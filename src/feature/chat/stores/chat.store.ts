@@ -13,6 +13,7 @@ interface PersistedConversation {
 interface PersistedShape {
   readCursors?: ChatState["readCursors"];
   blockedUsers?: ChatState["blockedUsers"];
+  blockedByUsers?: ChatState["blockedByUsers"];
   conversations?: Record<string, PersistedConversation>;
 }
 
@@ -31,6 +32,7 @@ export const useChatStore = create<ChatState>()(
       readCursors: {},
       settings: {},
       blockedUsers: {},
+      blockedByUsers: {},
       pinned: {},
 
       addOptimisticMessage: (conversationId, message) => {
@@ -293,6 +295,14 @@ export const useChatStore = create<ChatState>()(
           return { blockedUsers: next };
         }),
 
+      setBlockedBy: (userId, blocked) =>
+        set((state) => {
+          const next = { ...state.blockedByUsers };
+          if (blocked) next[userId] = true;
+          else delete next[userId];
+          return { blockedByUsers: next };
+        }),
+
       setE2EE: (conversationId, e2ee, publicKey) =>
         set((state) => {
           const cur = ensure(state.settings, conversationId);
@@ -309,6 +319,8 @@ export const useChatStore = create<ChatState>()(
         }),
 
       isBlocked: (userId) => !!get().blockedUsers[userId],
+
+      isBlockedBy: (userId) => !!get().blockedByUsers[userId],
 
       getSettings: (conversationId) =>
         get().settings[conversationId] ?? { conversationId },
@@ -371,6 +383,7 @@ export const useChatStore = create<ChatState>()(
         return {
           readCursors: state.readCursors,
           blockedUsers: state.blockedUsers,
+          blockedByUsers: state.blockedByUsers,
           conversations,
         } as unknown as ChatState;
       },
@@ -391,6 +404,7 @@ export const useChatStore = create<ChatState>()(
           optimisticMessages,
           readCursors: p.readCursors ?? current.readCursors,
           blockedUsers: p.blockedUsers ?? current.blockedUsers,
+          blockedByUsers: p.blockedByUsers ?? current.blockedByUsers,
           settings,
           pinned,
         };

@@ -48,6 +48,7 @@ export function ChatMenu({
   const [openModal, setOpenModal] = useState<ModalKind>(null);
   const { settings, setMuted } = useConversationSettings(conversationId);
   const isBlocked = useConversationSettingsStore((s) => s.isBlocked(peerId));
+  const isBlockedBy = useConversationSettingsStore((s) => s.isBlockedBy(peerId));
   const muted = !!settings.muted;
 
   async function handleMute() {
@@ -107,13 +108,17 @@ export function ChatMenu({
       ),
       onClick: handleMute,
     },
-    {
-      key: "block",
-      label: isBlocked ? t("unblock") : t("block"),
-      icon: <Icon name="block" size={18} color="var(--color-error)" />,
-      danger: true,
-      onClick: () => setOpenModal("block"),
-    },
+    ...(isBlockedBy
+      ? []
+      : [
+          {
+            key: "block",
+            label: isBlocked ? t("unblock") : t("block"),
+            icon: <Icon name="block" size={18} color="var(--color-error)" />,
+            danger: true,
+            onClick: () => setOpenModal("block"),
+          },
+        ]),
   ];
 
   return (

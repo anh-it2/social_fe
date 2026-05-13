@@ -52,6 +52,7 @@ function ActiveChat({
     (s) => s.settings[conversationId],
   );
   const isBlocked = useConversationSettingsStore((s) => s.isBlocked(user.id));
+  const isBlockedBy = useConversationSettingsStore((s) => s.isBlockedBy(user.id));
   const peerNickname = settings?.nicknames?.[user.id];
   const displayName = peerNickname ?? user.name;
   const goToEmoji = settings?.emoji ?? DEFAULT_EMOJI;
@@ -87,10 +88,14 @@ function ActiveChat({
         onStopTyping={stopTyping}
         replyTo={replyTo}
         onCancelReply={() => setReplyTo(null)}
-        disabled={!isConnected || isBlocked}
+        disabled={!isConnected || isBlocked || isBlockedBy}
         goToEmoji={goToEmoji}
         blockedNotice={
-          isBlocked ? t("blockedNotice", { name: displayName }) : undefined
+          isBlocked
+            ? t("blockedNotice", { name: displayName })
+            : isBlockedBy
+              ? t("blockedByNotice", { name: displayName })
+              : undefined
         }
       />
     </section>

@@ -3,8 +3,11 @@
 import { App } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { ConfirmModal } from "@/shared/components/modal/ConfirmModal";
 import { useConversationSettingsStore } from "../../stores/conversation-settings.store";
+import { buildDmId } from "../../lib/conversation";
+import { buildBlockMarker } from "../../lib/blockMarker";
 import { getChatSocket } from "../../socket";
 
 interface BlockModalProps {
@@ -19,6 +22,7 @@ export function BlockModal({ open, peerId, peerName, onClose }: BlockModalProps)
   const { message } = App.useApp();
   const blocked = useConversationSettingsStore((s) => s.isBlocked(peerId));
   const setBlocked = useConversationSettingsStore((s) => s.setBlocked);
+  const myId = useAuthStore((s) => s.userId);
   const [busy, setBusy] = useState(false);
 
   async function confirm() {
@@ -31,6 +35,17 @@ export function BlockModal({ open, peerId, peerName, onClose }: BlockModalProps)
       socket.emit(
         "settings:block",
         { targetUserId: peerId, blocked: next },
+        () => undefined,
+      );
+      const conversationId = buildDmId(myId, peerId);
+      socket.emit(
+        "chat:message",
+        {
+          conversationId,
+          tempId: crypto.randomUUID().slice(0, 10),
+          content: buildBlockMarker(next),
+          type: "text",
+        },
         () => undefined,
       );
     }

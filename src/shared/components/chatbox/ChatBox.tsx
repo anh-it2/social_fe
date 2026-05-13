@@ -49,6 +49,7 @@ export function ChatBox({ chat }: ChatBoxProps) {
     (s) => s.settings[conversationId],
   );
   const isBlocked = useConversationSettingsStore((s) => s.isBlocked(chat.id));
+  const isBlockedBy = useConversationSettingsStore((s) => s.isBlockedBy(chat.id));
   const peerNickname = settings?.nicknames?.[chat.id];
   const displayName = peerNickname ?? chat.name;
   const goToEmoji = settings?.emoji ?? DEFAULT_EMOJI;
@@ -241,11 +242,15 @@ export function ChatBox({ chat }: ChatBoxProps) {
             onStopTyping={stopTyping}
             replyTo={replyTo}
             onCancelReply={() => setReplyTo(null)}
-            disabled={!isConnected || isBlocked}
+            disabled={!isConnected || isBlocked || isBlockedBy}
             compact
             goToEmoji={goToEmoji}
             blockedNotice={
-              isBlocked ? t("blockedNotice", { name: displayName }) : undefined
+              isBlocked
+                ? t("blockedNotice", { name: displayName })
+                : isBlockedBy
+                  ? t("blockedByNotice", { name: displayName })
+                  : undefined
             }
           />
         </>

@@ -12,6 +12,8 @@ import {
 } from "../dto/chat.dto";
 import { useChatStore } from "../stores/chat.store";
 import { toMessage, toMessages } from "../dto/chat.mapper";
+import { isBlockMarker, parseBlockMarker } from "../lib/blockMarker";
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
 
 export function useMessages(conversationId: string) {
   const chatSocket = getChatSocket();
@@ -33,7 +35,24 @@ export function useMessages(conversationId: string) {
             limit: 30 as unknown as string,
           },
           (ack: ChatHistoryResponseDTO) => {
-            const messageData = toMessages(ack.messages);
+            const myId = useAuthStore.getState().userId;
+            let latestPeerBlock: { senderId: string; on: boolean; seq: number } | null = null;
+            const filtered = ack.messages.filter((dto) => {
+              if (!isBlockMarker(dto.content)) return true;
+              if (dto.senderId !== myId) {
+                const on = parseBlockMarker(dto.content) ?? false;
+                const seq = dto.seq ?? 0;
+                if (!latestPeerBlock || seq >= latestPeerBlock.seq) {
+                  latestPeerBlock = { senderId: dto.senderId, on, seq };
+                }
+              }
+              return false;
+            });
+            if (latestPeerBlock) {
+              const s: { senderId: string; on: boolean } = latestPeerBlock;
+              useChatStore.getState().setBlockedBy(s.senderId, s.on);
+            }
+            const messageData = toMessages(filtered);
 
             const cur = useChatStore.getState().getReadCursor(conversationId);
             if (cur === -1) {
@@ -106,6 +125,17 @@ export function useMessages(conversationId: string) {
 
     const handleMessage = (messageDTO: ChatMessageDTO) => {
       if (messageDTO.conversationId !== conversationId) return;
+
+      const myId = useAuthStore.getState().userId;
+      const blockSignal = parseBlockMarker(messageDTO.content);
+      if (blockSignal !== null) {
+        if (messageDTO.senderId !== myId) {
+          useChatStore.getState().setBlockedBy(messageDTO.senderId, blockSignal);
+        }
+        return;
+      }
+
+      if (useChatStore.getState().isBlocked(messageDTO.senderId)) return;
 
       const message = toMessage(messageDTO);
 

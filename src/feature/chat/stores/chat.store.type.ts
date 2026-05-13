@@ -18,6 +18,7 @@ export interface ChatState {
 
   settings: Record<string, ConversationSettingsDTO>;
   blockedUsers: Record<string, true>;
+  blockedByUsers: Record<string, true>;
   pinned: Record<string, PinnedMessageInfo[]>;
 
   addOptimisticMessage: (conversationId: string, message: ChatMessage) => void;
@@ -76,8 +77,10 @@ export interface ChatState {
     mutedUntil?: number,
   ) => void;
   setBlocked: (userId: string, blocked: boolean) => void;
+  setBlockedBy: (userId: string, blocked: boolean) => void;
   setE2EE: (conversationId: string, e2ee: boolean, publicKey?: string) => void;
   isBlocked: (userId: string) => boolean;
+  isBlockedBy: (userId: string) => boolean;
   getSettings: (conversationId: string) => ConversationSettingsDTO;
   getNickname: (conversationId: string, userId: string) => string | undefined;
   isMuted: (conversationId: string) => boolean;

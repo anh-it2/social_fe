@@ -6,6 +6,7 @@ import { usePresenceStore } from "@/feature/presence/stores/presence.store";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
 import type { ChatMessageDTO } from "../dto/chat.dto";
 import { buildDmId } from "../lib/conversation";
+import { parseBlockMarker } from "../lib/blockMarker";
 import { getChatSocket } from "../socket";
 import { useChatStore } from "../stores/chat.store";
 
@@ -21,6 +22,12 @@ export function useGlobalChatUnread() {
 
     const onMessage = (dto: ChatMessageDTO) => {
       if (dto.senderId === myId) return;
+      const blockSignal = parseBlockMarker(dto.content);
+      if (blockSignal !== null) {
+        useChatStore.getState().setBlockedBy(dto.senderId, blockSignal);
+        return;
+      }
+      if (useChatStore.getState().isBlocked(dto.senderId)) return;
       const { activePeerId, markUnread } = useChatRoomUnreadStore.getState();
       if (dto.senderId === activePeerId) return;
       const conversationId = buildDmId(myId, dto.senderId);

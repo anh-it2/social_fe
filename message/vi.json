@@ -218,7 +218,8 @@
   "ChatBox": {
     "activeNow": "Đang hoạt động",
     "offline": "Ngoại tuyến",
-    "blockedNotice": "Bạn đã chặn {name}. Bỏ chặn để gửi tin nhắn."
+    "blockedNotice": "Bạn đã chặn {name}. Bỏ chặn để gửi tin nhắn.",
+    "blockedByNotice": "{name} đã chặn bạn. Bạn không thể gửi tin nhắn."
   },
   "ChatMenu": {
     "viewProfile": "Xem trang cá nhân",
