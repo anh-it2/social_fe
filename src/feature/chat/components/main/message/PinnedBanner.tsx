@@ -5,6 +5,7 @@ import type { MenuProps } from "antd";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import { usePinnedMessagesStore } from "../../../stores/pinned-messages.store";
+import { getChatSocket } from "../../../socket";
 
 const { Text } = Typography;
 
@@ -124,7 +125,17 @@ export function PinnedBanner({ conversationId, onJump }: PinnedBannerProps) {
         size="small"
         shape="circle"
         aria-label={t("unpin")}
-        onClick={() => unpinMessage(conversationId, latest.id)}
+        onClick={() => {
+          unpinMessage(conversationId, latest.id);
+          const socket = getChatSocket();
+          if (socket?.connected) {
+            socket.emit(
+              "chat:unpin",
+              { conversationId, messageId: latest.id },
+              () => undefined,
+            );
+          }
+        }}
         icon={
           <Icon
             name="close"

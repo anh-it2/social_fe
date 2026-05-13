@@ -130,6 +130,59 @@ export interface ChatClientToServerEvents
     data: UnsendMessageDTO,
     ack: (res: MessageActionAck) => void,
   ) => void;
+  "chat:pin": (
+    data: PinRequestDTO,
+    ack: (res: PinUnpinAck) => void,
+  ) => void;
+  "chat:unpin": (
+    data: UnpinRequestDTO,
+    ack: (res: PinUnpinAck) => void,
+  ) => void;
+  "chat:pins-fetch": (
+    data: { conversationId: string },
+    ack: (res: PinnedReplayDTO) => void,
+  ) => void;
+}
+
+export interface PinnedMessageDTO {
+  id: string;
+  conversationId: string;
+  content: string;
+  type: "text" | "image" | "file" | "video";
+  senderId: string;
+  senderName: string;
+  pinnedAt: number;
+  pinnedBy: string;
+  pinnedByName: string;
+}
+
+export interface PinRequestDTO {
+  conversationId: string;
+  messageId: string;
+  content?: string;
+  type?: "text" | "image" | "file" | "video";
+  senderId?: string;
+  senderName?: string;
+}
+
+export interface UnpinRequestDTO {
+  conversationId: string;
+  messageId: string;
+}
+
+export interface PinUnpinAck {
+  ok: boolean;
+  error?: string;
+}
+
+export interface PinnedReplayDTO {
+  conversationId: string;
+  pinned: PinnedMessageDTO[];
+}
+
+export interface MessageUnpinnedBroadcastDTO {
+  conversationId: string;
+  messageId: string;
 }
 
 export interface ChatServerToClientEvents
@@ -139,4 +192,7 @@ export interface ChatServerToClientEvents
   "chat:read": (data: ReadReceiptDto) => void;
   "chat:edited": (data: MessageEditedDTO) => void;
   "chat:unsent": (data: MessageUnsentDTO) => void;
+  "chat:pinned": (data: PinnedMessageDTO) => void;
+  "chat:unpinned": (data: MessageUnpinnedBroadcastDTO) => void;
+  "chat:pins-replay": (data: PinnedReplayDTO) => void;
 }

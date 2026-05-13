@@ -10,7 +10,6 @@ import { usePresenceStore } from "@/feature/presence/stores/presence.store";
 import { pickGradient } from "@/feature/chat/lib/avatar";
 import { useChatStore } from "@/feature/chat/stores/chat.store";
 import type { GroupInfo } from "@/feature/chat/stores/chat.store.type";
-import { usePendingChatSelectionStore } from "@/feature/chat/stores/pending-selection.store";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
 import { DropdownTabs, type DropdownTabKey } from "../DropdownTabs";
@@ -38,9 +37,6 @@ export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
   const openChat = useChatBoxesStore((s) => s.openChat);
   const unreadMap = useChatRoomUnreadStore((s) => s.unread);
   const markRead = useChatRoomUnreadStore((s) => s.markRead);
-  const setPendingGroup = usePendingChatSelectionStore(
-    (s) => s.setPendingGroup,
-  );
   const [tab, setTab] = useState<DropdownTabKey>("all");
   const [query, setQuery] = useState("");
 
@@ -66,8 +62,15 @@ export function ChatDropdownContent({ onClose }: ChatDropdownContentProps) {
 
   function handleGroupClick(group: GroupInfo) {
     markRead(group.conversationId);
-    setPendingGroup(group.conversationId);
-    nav.push("/chat");
+    openChat({
+      id: group.conversationId,
+      name: group.name,
+      lastMessage: "",
+      time: "",
+      online: false,
+      gradient: pickGradient(group.conversationId),
+      kind: "group",
+    });
     onClose();
   }
 

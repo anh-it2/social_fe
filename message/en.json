@@ -264,6 +264,7 @@
   "ChatBox": {
     "activeNow": "Active now",
     "offline": "Offline",
+    "memberCount": "{count} members",
     "blockedNotice": "You blocked {name}. Unblock to send messages.",
     "blockedByNotice": "{name} blocked you. You can't send messages.",
     "groupMutedNotice": "You have been muted in this group."
@@ -411,6 +412,7 @@
       "unpin": "Unpin message",
       "pinnedToast": "Message pinned",
       "unpinnedToast": "Message unpinned",
+      "pinFailed": "Pin failed",
       "unsend": "Unsend",
       "unsendConfirmTitle": "Unsend message?",
       "unsendConfirmDesc": "This message will be removed for everyone.",

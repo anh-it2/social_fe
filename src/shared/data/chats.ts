@@ -6,6 +6,7 @@ export interface ChatPreview {
   unread?: boolean;
   online?: boolean;
   gradient: [string, string];
+  kind?: "dm" | "group";
 }
 
 export const RECENT_CHATS: ChatPreview[] = [

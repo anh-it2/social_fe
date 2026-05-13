@@ -14,6 +14,9 @@ import { useState } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { ConfirmModal } from "@/shared/components/modal/ConfirmModal";
 import { usePinnedMessagesStore } from "../../../../stores/pinned-messages.store";
+import { useChatStore } from "../../../../stores/chat.store";
+import { getChatSocket } from "../../../../socket";
+import type { PinUnpinAck } from "../../../../dto/chat.dto";
 import type { ReplyContext } from "../../../../types";
 import styles from "./MessageActionMenu.module.scss";
 
@@ -94,9 +97,44 @@ export function MessageActionMenu({
     } else if (key === "unsend") {
       setConfirmOpen(true);
     } else if (key === "pin") {
+      const socket = getChatSocket();
+      if (!socket?.connected) {
+        message.error(t("pinFailed"));
+        return;
+      }
+      const handleAckFailure = (ack: PinUnpinAck) => {
+        if (
+          ack.error === "not_found" &&
+          conversationId.startsWith("group:")
+        ) {
+          useChatStore.getState().removeGroup(conversationId);
+        }
+      };
       if (pinned) {
+        // optimistic local remove; server echo will re-apply if it disagrees
         unpinMessage(conversationId, id);
-        message.success(t("unpinnedToast"));
+        socket.emit(
+          "chat:unpin",
+          { conversationId, messageId: id },
+          (ack: PinUnpinAck) => {
+            if (!ack.ok) {
+              // rollback
+              pinMessage(conversationId, {
+                id,
+                content,
+                type,
+                senderId,
+                senderName,
+                pinnedAt: Date.now(),
+                pinnedBy: myId,
+              });
+              handleAckFailure(ack);
+              message.error(ack.error ?? t("pinFailed"));
+            } else {
+              message.success(t("unpinnedToast"));
+            }
+          },
+        );
       } else {
         pinMessage(conversationId, {
           id,
@@ -107,7 +145,26 @@ export function MessageActionMenu({
           pinnedAt: Date.now(),
           pinnedBy: myId,
         });
-        message.success(t("pinnedToast"));
+        socket.emit(
+          "chat:pin",
+          {
+            conversationId,
+            messageId: id,
+            content,
+            type,
+            senderId,
+            senderName,
+          },
+          (ack: PinUnpinAck) => {
+            if (!ack.ok) {
+              unpinMessage(conversationId, id);
+              handleAckFailure(ack);
+              message.error(ack.error ?? t("pinFailed"));
+            } else {
+              message.success(t("pinnedToast"));
+            }
+          },
+        );
       }
     }
   }

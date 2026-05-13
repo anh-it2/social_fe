@@ -264,6 +264,7 @@
   "ChatBox": {
     "activeNow": "Đang hoạt động",
     "offline": "Ngoại tuyến",
+    "memberCount": "{count} thành viên",
     "blockedNotice": "Bạn đã chặn {name}. Bỏ chặn để gửi tin nhắn.",
     "blockedByNotice": "{name} đã chặn bạn. Bạn không thể gửi tin nhắn.",
     "groupMutedNotice": "Bạn đã bị chặn gửi tin nhắn trong nhóm này."
@@ -411,6 +412,7 @@
       "unpin": "Bỏ ghim tin nhắn",
       "pinnedToast": "Đã ghim tin nhắn",
       "unpinnedToast": "Đã bỏ ghim tin nhắn",
+      "pinFailed": "Ghim thất bại",
       "unsend": "Thu hồi",
       "unsendConfirmTitle": "Thu hồi tin nhắn?",
       "unsendConfirmDesc": "Tin nhắn này sẽ bị xóa cho mọi người.",

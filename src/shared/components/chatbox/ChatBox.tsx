@@ -12,6 +12,7 @@ import { buildDmId } from "@/feature/chat/lib/conversation";
 import { MessageInput } from "@/feature/chat/components/main/input/MessageInput";
 import { MessageList } from "@/feature/chat/components/main/message/MessageList";
 import { ChatMenu } from "@/feature/chat/components/menu/ChatMenu";
+import { useChatStore } from "@/feature/chat/stores/chat.store";
 import { useConversationSettingsStore } from "@/feature/chat/stores/conversation-settings.store";
 import { DEFAULT_EMOJI } from "@/feature/chat/lib/themes";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
@@ -38,7 +39,8 @@ export function ChatBox({ chat }: ChatBoxProps) {
 
   const myId = useAuthStore((s) => s.userId);
   const myName = useAuthStore((s) => s.userName);
-  const conversationId = buildDmId(myId, chat.id);
+  const isGroup = chat.kind === "group" || chat.id.startsWith("group:");
+  const conversationId = isGroup ? chat.id : buildDmId(myId, chat.id);
   const { sendMessage, editMessage, unsendMessage, isConnected } =
     useChat(conversationId);
   const { messages, isLoading } = useMessages(conversationId);
@@ -48,9 +50,21 @@ export function ChatBox({ chat }: ChatBoxProps) {
   const settings = useConversationSettingsStore(
     (s) => s.settings[conversationId],
   );
-  const isBlocked = useConversationSettingsStore((s) => s.isBlocked(chat.id));
-  const isBlockedBy = useConversationSettingsStore((s) => s.isBlockedBy(chat.id));
-  const peerNickname = settings?.nicknames?.[chat.id];
+  const isBlocked = useConversationSettingsStore((s) =>
+    isGroup ? false : s.isBlocked(chat.id),
+  );
+  const isBlockedBy = useConversationSettingsStore((s) =>
+    isGroup ? false : s.isBlockedBy(chat.id),
+  );
+  const isMutedInGroup = useChatStore((s) =>
+    isGroup
+      ? !!s.groups[conversationId]?.mutedMembers?.includes(myId)
+      : false,
+  );
+  const groupMemberCount = useChatStore((s) =>
+    isGroup ? s.groups[conversationId]?.memberIds?.length ?? 0 : 0,
+  );
+  const peerNickname = isGroup ? undefined : settings?.nicknames?.[chat.id];
   const displayName = peerNickname ?? chat.name;
   const goToEmoji = settings?.emoji ?? DEFAULT_EMOJI;
 
@@ -143,9 +157,9 @@ export function ChatBox({ chat }: ChatBoxProps) {
                 background: gradientBg([...chat.gradient]),
               }}
             >
-              <Icon name="person" size={20} color="#FFFFFF" />
+              <Icon name={isGroup ? "group" : "person"} size={20} color="#FFFFFF" />
             </Flex>
-            {chat.online ? (
+            {!isGroup && chat.online ? (
               <span
                 style={{
                   position: "absolute",
@@ -172,7 +186,11 @@ export function ChatBox({ chat }: ChatBoxProps) {
               className="!text-[11px] !leading-tight"
               style={{ color: "var(--color-text-muted)" }}
             >
-              {chat.online ? t("activeNow") : t("offline")}
+              {isGroup
+                ? t("memberCount", { count: groupMemberCount })
+                : chat.online
+                  ? t("activeNow")
+                  : t("offline")}
             </Text>
           </Flex>
         </Flex>
@@ -185,6 +203,7 @@ export function ChatBox({ chat }: ChatBoxProps) {
               myId={myId}
               myName={myName}
               compact
+              isGroup={isGroup}
             />
           )}
           <Button
@@ -242,7 +261,9 @@ export function ChatBox({ chat }: ChatBoxProps) {
             onStopTyping={stopTyping}
             replyTo={replyTo}
             onCancelReply={() => setReplyTo(null)}
-            disabled={!isConnected || isBlocked || isBlockedBy}
+            disabled={
+              !isConnected || isBlocked || isBlockedBy || isMutedInGroup
+            }
             compact
             goToEmoji={goToEmoji}
             blockedNotice={
@@ -250,7 +271,9 @@ export function ChatBox({ chat }: ChatBoxProps) {
                 ? t("blockedNotice", { name: displayName })
                 : isBlockedBy
                   ? t("blockedByNotice", { name: displayName })
-                  : undefined
+                  : isMutedInGroup
+                    ? t("groupMutedNotice")
+                    : undefined
             }
           />
         </>

@@ -7,7 +7,10 @@ import {
   ChatHistoryResponseDTO,
   ChatMessageDTO,
   MessageEditedDTO,
+  MessageUnpinnedBroadcastDTO,
   MessageUnsentDTO,
+  PinnedMessageDTO,
+  PinnedReplayDTO,
   ReadReceiptDto,
 } from "../dto/chat.dto";
 import { useChatStore } from "../stores/chat.store";
@@ -279,16 +282,66 @@ export function useMessages(conversationId: string) {
       );
     };
 
+    const handlePinned = (dto: PinnedMessageDTO) => {
+      if (dto.conversationId !== conversationId) return;
+      useChatStore.getState().pinMessage(conversationId, {
+        id: dto.id,
+        content: dto.content,
+        type: dto.type,
+        senderId: dto.senderId,
+        senderName: dto.senderName,
+        pinnedAt: dto.pinnedAt,
+        pinnedBy: dto.pinnedBy,
+      });
+    };
+
+    const handleUnpinned = (dto: MessageUnpinnedBroadcastDTO) => {
+      if (dto.conversationId !== conversationId) return;
+      useChatStore.getState().unpinMessage(conversationId, dto.messageId);
+    };
+
+    const handlePinsReplay = (dto: PinnedReplayDTO) => {
+      if (dto.conversationId !== conversationId) return;
+      // simplest sync: unpin everything currently held for this conv, then pin server's list
+      const store = useChatStore.getState();
+      const current = store.getPinned(conversationId);
+      for (const p of current) store.unpinMessage(conversationId, p.id);
+      for (const p of dto.pinned) {
+        store.pinMessage(conversationId, {
+          id: p.id,
+          content: p.content,
+          type: p.type,
+          senderId: p.senderId,
+          senderName: p.senderName,
+          pinnedAt: p.pinnedAt,
+          pinnedBy: p.pinnedBy,
+        });
+      }
+    };
+
     chatSocket.on("chat:message", handleMessage);
     chatSocket.on("chat:read", handleRead);
     chatSocket.on("chat:edited", handleEdited);
     chatSocket.on("chat:unsent", handleUnsent);
+    chatSocket.on("chat:pinned", handlePinned);
+    chatSocket.on("chat:unpinned", handleUnpinned);
+    chatSocket.on("chat:pins-replay", handlePinsReplay);
+
+    // request authoritative pin list when entering a conversation
+    chatSocket.emit(
+      "chat:pins-fetch",
+      { conversationId },
+      handlePinsReplay,
+    );
 
     return () => {
       chatSocket.off("chat:message", handleMessage);
       chatSocket.off("chat:read", handleRead);
       chatSocket.off("chat:edited", handleEdited);
       chatSocket.off("chat:unsent", handleUnsent);
+      chatSocket.off("chat:pinned", handlePinned);
+      chatSocket.off("chat:unpinned", handleUnpinned);
+      chatSocket.off("chat:pins-replay", handlePinsReplay);
     };
   }, [chatSocket, conversationId, isConnected, queryClient]);
 
