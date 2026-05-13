@@ -33,6 +33,41 @@
       "users": "Monthly users",
       "communities": "Communities",
       "messages": "Messages daily"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Join the community in less than a minute",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Jane Doe",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "name@example.com",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "your_handle",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create a strong password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "agreeTerms": "I agree to the Terms of Service and Privacy Policy",
+      "submit": "Create account",
+      "submitLoading": "Creating account…",
+      "divider": "or",
+      "google": "Google",
+      "apple": "Apple",
+      "loginPrompt": "Already have an account?",
+      "loginLink": "Sign in",
+      "footer": "Protected by reCAPTCHA and subject to the Facebook Privacy Policy and Terms of Service.",
+      "validation": {
+        "fullNameRequired": "Full name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email",
+        "usernameRequired": "Username is required",
+        "usernameMin": "Username must be at least 3 characters",
+        "passwordRequired": "Password is required",
+        "passwordMin": "Password must be at least 8 characters",
+        "confirmRequired": "Please confirm your password",
+        "confirmMismatch": "Passwords do not match",
+        "termsRequired": "You must accept the terms"
+      }
     }
   },
   "Topnav": {

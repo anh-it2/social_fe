@@ -33,6 +33,41 @@
       "users": "Người dùng hàng tháng",
       "communities": "Cộng đồng",
       "messages": "Tin nhắn mỗi ngày"
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "subtitle": "Tham gia cộng đồng trong chưa đầy một phút",
+      "fullNameLabel": "Họ và tên",
+      "fullNamePlaceholder": "Nguyễn Văn A",
+      "emailLabel": "Địa chỉ email",
+      "emailPlaceholder": "ten@example.com",
+      "usernameLabel": "Tên người dùng",
+      "usernamePlaceholder": "ten_dang_nhap",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Tạo mật khẩu mạnh",
+      "confirmPasswordLabel": "Xác nhận mật khẩu",
+      "confirmPasswordPlaceholder": "Nhập lại mật khẩu",
+      "agreeTerms": "Tôi đồng ý với Điều khoản Dịch vụ và Chính sách Quyền riêng tư",
+      "submit": "Tạo tài khoản",
+      "submitLoading": "Đang tạo tài khoản…",
+      "divider": "hoặc",
+      "google": "Google",
+      "apple": "Apple",
+      "loginPrompt": "Đã có tài khoản?",
+      "loginLink": "Đăng nhập",
+      "footer": "Được bảo vệ bởi reCAPTCHA và tuân theo Chính sách Quyền riêng tư cùng Điều khoản Dịch vụ của Facebook.",
+      "validation": {
+        "fullNameRequired": "Họ và tên là bắt buộc",
+        "emailRequired": "Email là bắt buộc",
+        "emailInvalid": "Nhập email hợp lệ",
+        "usernameRequired": "Tên người dùng là bắt buộc",
+        "usernameMin": "Tên người dùng tối thiểu 3 ký tự",
+        "passwordRequired": "Mật khẩu là bắt buộc",
+        "passwordMin": "Mật khẩu tối thiểu 8 ký tự",
+        "confirmRequired": "Vui lòng xác nhận mật khẩu",
+        "confirmMismatch": "Mật khẩu không khớp",
+        "termsRequired": "Bạn phải chấp nhận điều khoản"
+      }
     }
   },
   "Topnav": {

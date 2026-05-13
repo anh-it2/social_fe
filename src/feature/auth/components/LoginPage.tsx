@@ -174,20 +174,21 @@ export function LoginPage() {
         </div>
       </div>
 
-      <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-[var(--color-bg-secondary)] px-6 py-10 lg:w-[41.67%] lg:px-20 lg:py-[60px]">
+      <div className="relative flex min-h-screen w-full flex-col bg-[var(--color-bg-secondary)] px-6 py-10 lg:w-[41.67%] lg:px-20 lg:py-[60px]">
         <div className="absolute right-6 top-6">
           <ThemeToggle />
         </div>
 
-        <div className="flex w-full max-w-[420px] flex-col gap-8">
+        <div className="flex flex-1 items-center justify-center py-10">
+          <div className="flex w-full max-w-[460px] flex-col gap-8">
           <div className="flex flex-col gap-2">
             <Title
               level={2}
-              className="!m-0 !text-[32px] !font-bold !text-[var(--color-text)]"
+              className="!m-0 !text-[34px] !font-bold !text-[var(--color-text)]"
             >
               {t("title")}
             </Title>
-            <Text className="!text-[15px] !text-[var(--color-text-muted)]">
+            <Text className="!text-[17px] !text-[var(--color-text-muted)]">
               {t("subtitle")}
             </Text>
           </div>
@@ -292,16 +293,17 @@ export function LoginPage() {
           </FormProvider>
 
           <div className="flex items-center justify-center gap-1.5">
-            <Text className="!text-[14px] !text-[var(--color-text-muted)]">
+            <Text className="!text-[15px] !text-[var(--color-text-muted)]">
               {t("signupPrompt")}
             </Text>
-            <Link href="/register" className="!text-[14px] !font-semibold">
+            <Link href="/register" className="!text-[15px] !font-semibold">
               {t("signupLink")}
             </Link>
           </div>
+          </div>
         </div>
 
-        <Paragraph className="absolute bottom-[60px] left-0 right-0 !m-0 px-10 text-center !text-[11px] !text-[var(--color-text-placeholder)]">
+        <Paragraph className="!m-0 px-10 pt-6 text-center !text-[13px] !text-[var(--color-text-placeholder)]">
           {t("footer")}
         </Paragraph>
       </div>
