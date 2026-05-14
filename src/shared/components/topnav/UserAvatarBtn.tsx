@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { CURRENT_USER } from "@/feature/feed/data/constants";
+import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
 import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
 import styles from "./NavBtn.module.scss";
@@ -16,6 +17,8 @@ export function UserAvatarBtn() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const userName = useAuthStore((s) => s.userName);
   const isLoggined = useAuthStore((s) => s.isLoggined);
+  const { meta, hydrated } = useProfileMeta();
+  const avatarUrl = hydrated ? meta.avatarUrl : "";
 
   const initial = (userName?.trim()[0] ?? CURRENT_USER.initial).toUpperCase();
 
@@ -48,8 +51,9 @@ export function UserAvatarBtn() {
         {isLoggined ? (
           <Avatar
             size={36}
+            src={avatarUrl || undefined}
             style={{
-              background: gradientBg(CURRENT_USER.gradient),
+              background: avatarUrl ? undefined : gradientBg(CURRENT_USER.gradient),
               fontWeight: 700,
             }}
           >

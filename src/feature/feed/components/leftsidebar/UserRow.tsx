@@ -1,14 +1,19 @@
 "use client";
 
-import { Flex, Typography } from "antd";
+import { Avatar, Flex, Typography } from "antd";
 import { useNavigation } from "@/shared/hooks/useNavigation";
-import { CURRENT_USER } from "../../data/constants";
+import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
 import { gradientBg } from "@/shared/utils/gradient";
+import { CURRENT_USER } from "../../data/constants";
 
 const { Text } = Typography;
 
 export function UserRow() {
   const nav = useNavigation();
+  const { meta, hydrated } = useProfileMeta();
+  const name = hydrated && meta.name ? meta.name : CURRENT_USER.name;
+  const avatarUrl = hydrated ? meta.avatarUrl : "";
+  const initial = (name.trim()[0] ?? CURRENT_USER.initial).toUpperCase();
 
   function go() {
     nav.push("/profile");
@@ -29,21 +34,22 @@ export function UserRow() {
       }}
       className="!h-11 !w-full !cursor-pointer !rounded-lg !px-2 hover:!bg-[var(--color-bg-tertiary)]"
     >
-      <Flex
-        align="center"
-        justify="center"
-        className="!h-9 !w-9 !shrink-0 !rounded-full"
-        style={{ background: gradientBg(CURRENT_USER.gradient) }}
+      <Avatar
+        size={36}
+        src={avatarUrl || undefined}
+        style={{
+          background: avatarUrl ? undefined : gradientBg(CURRENT_USER.gradient),
+          fontWeight: 700,
+          flexShrink: 0,
+        }}
       >
-        <Text className="!text-sm !font-bold !leading-none !text-white">
-          {CURRENT_USER.initial}
-        </Text>
-      </Flex>
+        {initial}
+      </Avatar>
       <Text
         className="!text-[15px] !font-semibold !leading-tight"
         style={{ color: "var(--color-text)" }}
       >
-        {CURRENT_USER.name}
+        {name}
       </Text>
     </Flex>
   );

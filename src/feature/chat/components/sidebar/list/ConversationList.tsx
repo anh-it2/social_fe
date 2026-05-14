@@ -2,8 +2,10 @@
 
 import { Typography } from "antd";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import type { GroupInfo } from "../../../stores/chat.store.type";
+import { useSidebarFilterStore } from "../../../stores/sidebar-filter.store";
 import type { SelectedConversation } from "../../../types/conversation";
 import { ConversationItem } from "./ConversationItem";
 
@@ -36,6 +38,25 @@ export function ConversationList({
   unreadMap,
 }: ConversationListProps) {
   const t = useTranslations("Chat.sidebar");
+  const filter = useSidebarFilterStore((s) => s.active);
+
+  const { visibleGroups, visibleContacts } = useMemo(() => {
+    switch (filter) {
+      case "filterGroups":
+        return { visibleGroups: groups, visibleContacts: [] };
+      case "filterUnread":
+        return {
+          visibleGroups: groups.filter((g) => !!unreadMap?.[g.conversationId]),
+          visibleContacts: contacts.filter((c) => !!unreadMap?.[c.user.id]),
+        };
+      case "filterRequests":
+        return { visibleGroups: [], visibleContacts: [] };
+      case "filterAll":
+      default:
+        return { visibleGroups: groups, visibleContacts: contacts };
+    }
+  }, [filter, groups, contacts, unreadMap]);
+
   if (contacts.length === 0 && groups.length === 0) {
     return (
       <div className="flex-1 px-4 py-6 text-center">
@@ -50,9 +71,19 @@ export function ConversationList({
     );
   }
 
+  if (visibleGroups.length === 0 && visibleContacts.length === 0) {
+    return (
+      <div className="flex-1 px-4 py-6 text-center">
+        <Text className="!text-[13px] !text-[var(--color-text-muted)]">
+          {t("emptyFilter")}
+        </Text>
+      </div>
+    );
+  }
+
   return (
     <div className="flex-1 overflow-y-auto px-2 pb-2">
-      {groups.map((g) => (
+      {visibleGroups.map((g) => (
         <div key={g.conversationId} className="mb-0.5">
           <ConversationItem
             kind="group"
@@ -65,7 +96,7 @@ export function ConversationList({
           />
         </div>
       ))}
-      {contacts.map((c) => (
+      {visibleContacts.map((c) => (
         <div key={c.user.id} className="mb-0.5">
           <ConversationItem
             kind="dm"

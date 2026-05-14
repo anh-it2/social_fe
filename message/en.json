@@ -381,6 +381,7 @@
       "signedInAs": "Signed in as",
       "you": "you",
       "waiting": "Waiting for others to come online…",
+      "emptyFilter": "No conversations match this filter.",
       "createGroup": "New group chat",
       "memberCount": "{count} members"
     },
@@ -395,6 +396,10 @@
     },
     "messageList": {
       "startWith": "Start the conversation with"
+    },
+    "search": {
+      "placeholder": "Search messages in this chat",
+      "count": "{count, plural, =0 {No matches} one {# match} other {# matches}}"
     },
     "message": {
       "unsent": "Message unsent",
@@ -452,6 +457,9 @@
       "audio": "Audio",
       "video": "Video",
       "mute": "Mute",
+      "unmute": "Unmute",
+      "muteOn": "Notifications muted",
+      "muteOff": "Notifications unmuted",
       "search": "Search",
       "sharedMedia": "Shared media",
       "seeAll": "See all",

@@ -61,11 +61,11 @@ export function ChatRightPanel({ selection }: ChatRightPanelProps) {
         isOnline={isOnline}
       />
       <div className="h-3" />
-      <QuickActions />
+      <QuickActions conversationId={conversationId} />
       <div className="h-3" />
       <MediaFilesLinks conversationId={conversationId} />
       <div className="h-3" />
-      <PrivacyActions recipientName={displayName} />
+      <PrivacyActions peerId={dmUser!.id} recipientName={displayName} />
     </aside>
   );
 }

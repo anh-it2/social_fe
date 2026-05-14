@@ -381,6 +381,7 @@
       "signedInAs": "Đã đăng nhập với",
       "you": "bạn",
       "waiting": "Đang chờ người khác trực tuyến…",
+      "emptyFilter": "Không có cuộc trò chuyện nào khớp bộ lọc này.",
       "createGroup": "Tạo nhóm chat",
       "memberCount": "{count} thành viên"
     },
@@ -395,6 +396,10 @@
     },
     "messageList": {
       "startWith": "Bắt đầu trò chuyện với"
+    },
+    "search": {
+      "placeholder": "Tìm tin nhắn trong cuộc trò chuyện này",
+      "count": "{count, plural, =0 {Không có kết quả} other {# kết quả}}"
     },
     "message": {
       "unsent": "Tin nhắn đã thu hồi",
@@ -452,6 +457,9 @@
       "audio": "Gọi thoại",
       "video": "Gọi video",
       "mute": "Tắt tiếng",
+      "unmute": "Bật thông báo",
+      "muteOn": "Đã tắt thông báo",
+      "muteOff": "Đã bật thông báo",
       "search": "Tìm kiếm",
       "sharedMedia": "Phương tiện đã chia sẻ",
       "seeAll": "Xem tất cả",

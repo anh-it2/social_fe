@@ -1,8 +1,9 @@
 "use client";
 
-import { Flex, Typography } from "antd";
+import { Avatar, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
 import { CURRENT_USER } from "../../../data/constants";
 import { gradientBg } from "@/shared/utils/gradient";
 import type { FeedPostData } from "../../../data/types";
@@ -21,6 +22,11 @@ export function Composer({ onCreatePost }: ComposerProps) {
   const t = useTranslations("Feed.composer");
   const [postMode, setPostMode] = useState<ComposerMode | null>(null);
   const [liveOpen, setLiveOpen] = useState(false);
+  const { meta, hydrated } = useProfileMeta();
+  const name = hydrated && meta.name ? meta.name : CURRENT_USER.name;
+  const avatarUrl = hydrated ? meta.avatarUrl : "";
+  const initial = (name.trim()[0] ?? CURRENT_USER.initial).toUpperCase();
+  const firstName = name.split(" ").pop() ?? "";
 
   const open = (mode: ComposerMode) => setPostMode(mode);
   const close = () => setPostMode(null);
@@ -33,16 +39,17 @@ export function Composer({ onCreatePost }: ComposerProps) {
         style={{ background: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
       >
         <Flex align="center" gap={12} className="!h-16 !w-full !px-4 !py-3">
-          <Flex
-            align="center"
-            justify="center"
-            className="!h-10 !w-10 !shrink-0 !rounded-full"
-            style={{ background: gradientBg(CURRENT_USER.gradient) }}
+          <Avatar
+            size={40}
+            src={avatarUrl || undefined}
+            style={{
+              background: avatarUrl ? undefined : gradientBg(CURRENT_USER.gradient),
+              fontWeight: 700,
+              flexShrink: 0,
+            }}
           >
-            <Text className="!text-[15px] !font-bold !leading-none !text-white">
-              {CURRENT_USER.initial}
-            </Text>
-          </Flex>
+            {initial}
+          </Avatar>
           <Flex
             align="center"
             onClick={() => open("default")}
@@ -50,7 +57,7 @@ export function Composer({ onCreatePost }: ComposerProps) {
             style={{ background: "var(--color-bg-tertiary)" }}
           >
             <Text className="!text-base" style={{ color: "var(--color-text-secondary)" }}>
-              {t("placeholder", { name: CURRENT_USER.name.split(" ").pop() ?? "" })}
+              {t("placeholder", { name: firstName })}
             </Text>
           </Flex>
         </Flex>

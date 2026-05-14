@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
@@ -10,10 +10,12 @@ import { useTyping } from "../../hooks/useTyping";
 import { buildDmId } from "../../lib/conversation";
 import { DEFAULT_EMOJI } from "../../lib/themes";
 import { useChatStore } from "../../stores/chat.store";
+import { useChatSearchStore } from "../../stores/chat-search.store";
 import { useConversationSettingsStore } from "../../stores/conversation-settings.store";
 import type { ReplyContext } from "../../types";
 import type { SelectedConversation } from "../../types/conversation";
 import { ChatHeader } from "./ChatHeader";
+import { ChatSearchBar } from "./ChatSearchBar";
 import { EmptyChat } from "./EmptyChat";
 import { MessageInput } from "./input/MessageInput";
 import { MessageList } from "./message/MessageList";
@@ -58,6 +60,21 @@ function ActiveChat({
   const { notifyTyping, stopTyping } = useTyping(conversationId);
   const [replyTo, setReplyTo] = useState<ReplyContext | null>(null);
 
+  const searchOpenFor = useChatSearchStore((s) => s.openFor);
+  const searchQuery = useChatSearchStore((s) => s.query);
+  const searchActive =
+    searchOpenFor === conversationId && searchQuery.trim().length > 0;
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const visibleMessages = useMemo(() => {
+    if (!searchActive) return messages;
+    return messages.filter(
+      (m) =>
+        m.type === "text" &&
+        !m.deleted &&
+        m.content.toLowerCase().includes(normalizedQuery),
+    );
+  }, [messages, searchActive, normalizedQuery]);
+
   const settings = useConversationSettingsStore(
     (s) => s.settings[conversationId],
   );
@@ -95,9 +112,13 @@ function ActiveChat({
         onToggleInfo={onToggleInfo}
         onBack={onBack}
       />
+      <ChatSearchBar
+        conversationId={conversationId}
+        matchCount={visibleMessages.length}
+      />
       <MessageList
         user={listUser}
-        messages={messages}
+        messages={visibleMessages}
         isLoading={isLoading}
         onReply={setReplyTo}
         onEdit={editMessage}
