@@ -4,6 +4,9 @@ import { App, Avatar, Button, Flex, Input, Typography, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { MentionPicker } from "@/feature/mention/components/MentionPicker";
+import { useMentionInput } from "@/feature/mention/hooks/useMentionInput";
+import { notifyMentions } from "@/feature/mention/lib/notify";
 import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { gradientBg } from "@/shared/utils/gradient";
@@ -45,6 +48,7 @@ export function PostComposerModal({
   const [feelingTab, setFeelingTab] = useState<"feeling" | "activity">("feeling");
   const [search, setSearch] = useState("");
   const submittedRef = useRef(false);
+  const mention = useMentionInput({ value: text, onChange: setText });
 
   useEffect(() => {
     if (!open) return;
@@ -167,8 +171,10 @@ export function PostComposerModal({
       onClose();
       return;
     }
+    const newId = `fp-${Date.now()}`;
+    const trimmed = text.trim();
     onSubmit({
-      id: `fp-${Date.now()}`,
+      id: newId,
       author: {
         name: CURRENT_USER.name,
         initial: CURRENT_USER.initial,
@@ -176,7 +182,7 @@ export function PostComposerModal({
       },
       time: tReel("justNow"),
       createdAt: Date.now(),
-      text: text.trim(),
+      text: trimmed,
       imageUrl: imageField,
       videoUrl: videoField,
       feeling: feeling ?? undefined,
@@ -184,6 +190,9 @@ export function PostComposerModal({
       comments: 0,
       shares: 0,
     });
+    if (trimmed) {
+      notifyMentions({ text: trimmed, postId: newId });
+    }
     message.success(t("successCreated"));
     onClose();
   };
@@ -250,22 +259,39 @@ export function PostComposerModal({
           </Flex>
         </Flex>
 
-        <Input.TextArea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={t("placeholder", { name: CURRENT_USER.name.split(" ").pop() ?? "" })}
-          autoSize={{ minRows: 4, maxRows: 8 }}
-          maxLength={500}
-          variant="borderless"
-          className="[&_textarea]:!text-[var(--color-text)] [&_textarea::placeholder]:!text-[var(--color-text-placeholder)] [&_textarea::placeholder]:!opacity-100 [&_.ant-input::placeholder]:!text-[var(--color-text-placeholder)] [&_.ant-input::placeholder]:!opacity-100"
-          style={{
-            background: "transparent",
-            color: "var(--color-text)",
-            fontSize: 18,
-            resize: "none",
-            padding: 0,
-          }}
-        />
+        <div className="!relative">
+          <Input.TextArea
+            ref={(node) => {
+              mention.inputRef.current = node?.resizableTextArea?.textArea ?? null;
+            }}
+            value={text}
+            onChange={(e) =>
+              mention.handleChange(e.target.value, e.target.selectionStart ?? undefined)
+            }
+            onSelect={mention.refresh}
+            onKeyUp={mention.refresh}
+            onClick={mention.refresh}
+            placeholder={t("placeholder", { name: CURRENT_USER.name.split(" ").pop() ?? "" })}
+            autoSize={{ minRows: 4, maxRows: 8 }}
+            maxLength={500}
+            variant="borderless"
+            className="[&_textarea]:!text-[var(--color-text)] [&_textarea::placeholder]:!text-[var(--color-text-placeholder)] [&_textarea::placeholder]:!opacity-100 [&_.ant-input::placeholder]:!text-[var(--color-text-placeholder)] [&_.ant-input::placeholder]:!opacity-100"
+            style={{
+              background: "transparent",
+              color: "var(--color-text)",
+              fontSize: 18,
+              resize: "none",
+              padding: 0,
+            }}
+          />
+          <MentionPicker
+            open={mention.pickerOpen}
+            query={mention.trigger.query}
+            onPick={mention.pick}
+            onClose={mention.closePicker}
+            className="!absolute !left-0 !top-full !z-50 !mt-1"
+          />
+        </div>
 
         {showPhotoSection && (
           <Flex

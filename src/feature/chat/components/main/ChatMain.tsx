@@ -89,6 +89,14 @@ function ActiveChat({
       ? !!s.groups[conversationId]?.mutedMembers?.includes(myId)
       : false,
   );
+  const groupMemberIds = useChatStore((s) =>
+    !isDm ? s.groups[conversationId]?.memberIds : undefined,
+  );
+  const mentionAllowedIds = isDm
+    ? peerIdForDm
+      ? [peerIdForDm]
+      : []
+    : groupMemberIds ?? [];
   const peerNickname =
     isDm && peerIdForDm ? settings?.nicknames?.[peerIdForDm] : undefined;
   const rawName = isDm ? selection.user.name : selection.group.name;
@@ -137,6 +145,7 @@ function ActiveChat({
         onCancelReply={() => setReplyTo(null)}
         disabled={!isConnected || isBlocked || isBlockedBy || isMutedInGroup}
         goToEmoji={goToEmoji}
+        mentionAllowedIds={mentionAllowedIds}
         blockedNotice={
           isBlocked
             ? t("blockedNotice", { name: displayName })

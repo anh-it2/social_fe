@@ -6,6 +6,8 @@ import { useState } from "react";
 import { EmojiPicker } from "@/feature/chat/components/main/input/EmojiPicker";
 import { GifPicker } from "@/feature/chat/components/main/input/GifPicker";
 import { CHAT_IMAGE_MAX_BYTES, uploadChatImage } from "@/feature/chat/lib/upload";
+import { MentionPicker } from "@/feature/mention/components/MentionPicker";
+import { useMentionInput } from "@/feature/mention/hooks/useMentionInput";
 import type { CommentInputPayload } from "../../data/reactions";
 import { Icon } from "../Icon";
 import { PostAvatar } from "./PostAvatar";
@@ -29,6 +31,7 @@ export function CommentInput({
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const mention = useMentionInput({ value, onChange: setValue });
 
   const canSend = !!(value.trim() || imageUrl);
 
@@ -83,15 +86,41 @@ export function CommentInput({
             minHeight: 36,
           }}
         >
-          <Input
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onPressEnter={handleSend}
-            placeholder={t("writeComment")}
-            variant="borderless"
-            className="!flex-1 !p-0 !text-sm !text-[var(--color-text)] !caret-[var(--color-text)] placeholder:!text-[var(--color-text-placeholder)] placeholder:!opacity-100"
-            style={{ background: "transparent" }}
-          />
+          <div className="!relative !flex-1">
+            <Input
+              ref={(node) => {
+                mention.inputRef.current = node?.input ?? null;
+              }}
+              value={value}
+              onChange={(e) =>
+                mention.handleChange(
+                  e.target.value,
+                  e.target.selectionStart ?? undefined,
+                )
+              }
+              onSelect={mention.refresh}
+              onKeyUp={mention.refresh}
+              onClick={mention.refresh}
+              onPressEnter={(e) => {
+                if (mention.pickerOpen) {
+                  e.preventDefault();
+                  return;
+                }
+                handleSend();
+              }}
+              placeholder={t("writeComment")}
+              variant="borderless"
+              className="!w-full !p-0 !text-sm !text-[var(--color-text)] !caret-[var(--color-text)] placeholder:!text-[var(--color-text-placeholder)] placeholder:!opacity-100"
+              style={{ background: "transparent" }}
+            />
+            <MentionPicker
+              open={mention.pickerOpen}
+              query={mention.trigger.query}
+              onPick={mention.pick}
+              onClose={mention.closePicker}
+              className="!absolute !left-0 !bottom-full !z-[1000] !mb-1"
+            />
+          </div>
           <Popover
             open={emojiOpen}
             onOpenChange={setEmojiOpen}

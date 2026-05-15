@@ -12,6 +12,9 @@ import { App, Button, Flex, Input, Popover, Typography, Upload } from "antd";
 import type { InputRef } from "antd";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { MentionPicker } from "@/feature/mention/components/MentionPicker";
+import { useSearchMentionUsers } from "@/feature/mention/data/users";
+import { useMentionInput } from "@/feature/mention/hooks/useMentionInput";
 import { CHAT_IMAGE_MAX_BYTES, uploadChatImage } from "../../../lib/upload";
 import type { ReplyContext } from "../../../types";
 import { EmojiPicker } from "./EmojiPicker";
@@ -33,6 +36,8 @@ interface MessageInputProps {
   compact?: boolean;
   goToEmoji?: string;
   blockedNotice?: string;
+  /** Restrict @mentions to these user ids (group members or DM peer). */
+  mentionAllowedIds?: readonly string[] | null;
 }
 
 const PILL_BTN =
@@ -52,6 +57,7 @@ export function MessageInput({
   compact = false,
   goToEmoji,
   blockedNotice,
+  mentionAllowedIds,
 }: MessageInputProps) {
   const t = useTranslations("Chat");
   const { message } = App.useApp();
@@ -61,6 +67,13 @@ export function MessageInput({
   const [emojiOpen, setEmojiOpen] = useState(false);
   const inputRef = useRef<InputRef>(null);
   const trimmed = draft.trim();
+  const mention = useMentionInput({ value: draft, onChange: (v) => handleChange(v) });
+  const mentionResults = useSearchMentionUsers(
+    mention.trigger.query,
+    6,
+    mentionAllowedIds,
+  );
+  const mentionBlocksEnter = mention.pickerOpen && mentionResults.length > 0;
 
   useEffect(() => {
     if (replyTo) inputRef.current?.focus();
@@ -78,6 +91,7 @@ export function MessageInput({
   async function handleSend() {
     if (!trimmed) return;
     onStopTyping?.();
+    mention.closePicker();
     await onSend(trimmed, "text");
     setDraft("");
   }
@@ -223,11 +237,29 @@ export function MessageInput({
           </Button>
         </Popover>
       </Flex>
+      <div className="!relative !flex-1">
       <Input
-        ref={inputRef}
+        ref={(node) => {
+          inputRef.current = node;
+          mention.inputRef.current = node?.input ?? null;
+        }}
         value={draft}
-        onChange={(e) => handleChange(e.target.value)}
-        onPressEnter={handleSend}
+        onChange={(e) =>
+          mention.handleChange(
+            e.target.value,
+            e.target.selectionStart ?? undefined,
+          )
+        }
+        onSelect={mention.refresh}
+        onKeyUp={mention.refresh}
+        onClick={mention.refresh}
+        onPressEnter={(e) => {
+          if (mentionBlocksEnter) {
+            e.preventDefault();
+            return;
+          }
+          handleSend();
+        }}
         placeholder={t("input.placeholder", { name: recipientName })}
         disabled={disabled}
         suffix={
@@ -267,9 +299,18 @@ export function MessageInput({
         }
         className={
           inputSize +
-          " !flex-1 !rounded-[22px] !border-0 !bg-[#f0f2f5] !px-4 dark:!bg-[#1f1f1f] [&_input]:!bg-transparent [&_input]:!text-[14px] [&_input]:!text-[var(--color-text)] [&_input::placeholder]:!text-[var(--color-text-placeholder)]"
+          " !w-full !rounded-[22px] !border-0 !bg-[#f0f2f5] !px-4 dark:!bg-[#1f1f1f] [&_input]:!bg-transparent [&_input]:!text-[14px] [&_input]:!text-[var(--color-text)] [&_input::placeholder]:!text-[var(--color-text-placeholder)]"
         }
       />
+      <MentionPicker
+        open={mention.pickerOpen}
+        query={mention.trigger.query}
+        onPick={mention.pick}
+        onClose={mention.closePicker}
+        restrictToIds={mentionAllowedIds}
+        className="!absolute !left-0 !bottom-full !z-[1000] !mb-2"
+      />
+      </div>
       {showQuickEmoji ? (
         <Button
           type="text"

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CommentSection } from "@/shared/components/post/CommentSection";
 import type { Comment, ReactionId } from "@/shared/data/reactions";
+import { notifyMentions } from "@/feature/mention/lib/notify";
 import { emitNotification } from "@/feature/notification/lib/emit";
 import { getFirstUserId } from "@/shared/lib/firstUser";
 import { CURRENT_USER } from "../../../data/constants";
@@ -81,6 +82,14 @@ export function FeedPost({
         kind: "comment",
         postId: post.id,
         preview: text || (imageUrl ? "📷" : undefined),
+      });
+    }
+    if (text) {
+      notifyMentions({
+        text,
+        postId: post.id,
+        preview: text.slice(0, 80),
+        skipRecipientIds: recipientId ? [recipientId] : [],
       });
     }
   }

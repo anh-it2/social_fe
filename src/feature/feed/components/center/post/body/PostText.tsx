@@ -1,6 +1,7 @@
 "use client";
 
 import { Typography } from "antd";
+import { RichText } from "@/feature/mention/components/RichText";
 
 const { Paragraph } = Typography;
 
@@ -15,7 +16,7 @@ export function PostText({ text }: PostTextProps) {
         className="!m-0"
         style={{ color: "var(--color-text)", fontSize: 15, lineHeight: 1.5 }}
       >
-        {text}
+        <RichText text={text} />
       </Paragraph>
     </div>
   );

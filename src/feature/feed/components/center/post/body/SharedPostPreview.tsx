@@ -3,6 +3,7 @@
 import { Flex, Image, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
+import { RichText } from "@/feature/mention/components/RichText";
 import { relativeTime } from "@/shared/data/notifications";
 import { gradientBg } from "@/shared/utils/gradient";
 import type { SharedPostRef } from "../../../../data/types";
@@ -82,9 +83,9 @@ export function SharedPostPreview({ post, compact = false }: SharedPostPreviewPr
       {post.text ? (
         <Text
           className="!px-3 !pb-2 !text-[14px]"
-          style={{ color: "var(--color-text)", whiteSpace: "pre-wrap" }}
+          style={{ color: "var(--color-text)" }}
         >
-          {post.text}
+          <RichText text={post.text} />
         </Text>
       ) : null}
 

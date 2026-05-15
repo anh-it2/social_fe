@@ -2,6 +2,7 @@
 
 import { Flex } from "antd";
 import { useEffect } from "react";
+import { TrendingSection } from "@/feature/hashtag/components/TrendingSection";
 import { useLayoutFlagsStore } from "@/shared/stores/layoutFlags.store";
 import { BirthdaysSection } from "./BirthdaysSection";
 import { ContactsSection } from "./ContactsSection";
@@ -25,6 +26,8 @@ export function RightSidebar() {
       style={{ background: "var(--color-bg)", height: "calc(100vh - 56px)" }}
     >
       <SponsoredSection />
+      <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
+      <TrendingSection />
       <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
       <BirthdaysSection />
       <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />

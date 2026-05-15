@@ -2,6 +2,7 @@
 
 import { Flex, Image as AntImage, Typography } from "antd";
 import { useTranslations } from "next-intl";
+import { RichText } from "@/feature/mention/components/RichText";
 import type { Comment } from "../../data/reactions";
 import { PostAvatar } from "./PostAvatar";
 
@@ -44,7 +45,7 @@ export function CommentItem({ comment }: CommentItemProps) {
                 className="!text-sm"
                 style={{ color: "var(--color-text-secondary)" }}
               >
-                {comment.text}
+                <RichText text={comment.text} />
               </Text>
             )}
           </Flex>

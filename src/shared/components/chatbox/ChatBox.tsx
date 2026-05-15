@@ -64,6 +64,10 @@ export function ChatBox({ chat }: ChatBoxProps) {
   const groupMemberCount = useChatStore((s) =>
     isGroup ? s.groups[conversationId]?.memberIds?.length ?? 0 : 0,
   );
+  const groupMemberIds = useChatStore((s) =>
+    isGroup ? s.groups[conversationId]?.memberIds : undefined,
+  );
+  const mentionAllowedIds = isGroup ? groupMemberIds ?? [] : [chat.id];
   const peerNickname = isGroup ? undefined : settings?.nicknames?.[chat.id];
   const displayName = peerNickname ?? chat.name;
   const goToEmoji = settings?.emoji ?? DEFAULT_EMOJI;
@@ -266,6 +270,7 @@ export function ChatBox({ chat }: ChatBoxProps) {
             }
             compact
             goToEmoji={goToEmoji}
+            mentionAllowedIds={mentionAllowedIds}
             blockedNotice={
               isBlocked
                 ? t("blockedNotice", { name: displayName })
