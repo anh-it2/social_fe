@@ -17,9 +17,7 @@ import { useRouter } from "@/i18n/navigation";
 import { RHFPasswordField } from "@/shared/components/form-fields/RHFPasswordField";
 import { RHFTextField } from "@/shared/components/form-fields/RHFTextField";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
-import { toAuthSession, toLoginRequestDto } from "../dto/auth.mapper";
-import { login } from "../services/auth.service";
-import { useAuthStore } from "../stores/auth.store";
+import { useLogin } from "../hooks/useLogin";
 import {
   HERO_AVATAR_CLASSES,
   HERO_DOT_POSITIONS,
@@ -36,7 +34,7 @@ export function LoginPage() {
   const tHero = useTranslations("Auth.hero");
   const router = useRouter();
   const { message } = App.useApp();
-  const saveLoginnedUser = useAuthStore((s) => s.saveLoginnedUser);
+  const loginMutation = useLogin();
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
@@ -44,7 +42,10 @@ export function LoginPage() {
   const loginSchema = useMemo(
     () =>
       z.object({
-        username: z.string().min(1, t("validation.emailRequired")),
+        email: z
+          .string()
+          .min(1, t("validation.emailRequired"))
+          .email(t("validation.emailInvalid")),
         password: z.string().min(1, t("validation.passwordRequired")),
         remember: z.boolean().optional(),
       }),
@@ -55,14 +56,14 @@ export function LoginPage() {
 
   const methods = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { username: "", password: "", remember: false },
+    defaultValues: { email: "", password: "", remember: false },
     mode: "onSubmit",
   });
 
   const {
     handleSubmit,
     register,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = methods;
 
   const heroTitleLines = tHero("title").split(", ");
@@ -72,27 +73,15 @@ export function LoginPage() {
     setSubmitError(null);
     setSubmitSuccess(null);
     try {
-      const res = await login(
-        toLoginRequestDto({
-          username: values.username,
-          password: values.password,
-        }),
-      );
-      if (res.status === 200) {
-        const session = toAuthSession(res);
-        saveLoginnedUser({
-          userId: session?.userId || "",
-          userName: session?.username || "",
-        });
-        setSubmitSuccess(`Welcome, ${session?.username ?? "user"}!`);
-        message.success(`Welcome back, ${session?.username ?? "user"}!`);
-        router.push("/");
-      } else {
-        setSubmitError(res.message || "Login failed");
-        message.error(res.message || "Login failed");
-      }
+      const { user } = await loginMutation.mutateAsync({
+        email: values.email,
+        password: values.password,
+      });
+      setSubmitSuccess(t("welcome", { name: user.name }));
+      message.success(t("welcomeBack", { name: user.name }));
+      router.push("/");
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Unknown error";
+      const msg = err instanceof Error ? err.message : t("genericError");
       setSubmitError(msg);
       message.error(msg);
     }
@@ -200,10 +189,10 @@ export function LoginPage() {
             >
               <div className="flex flex-col gap-5">
                 <RHFTextField
-                  name="username"
+                  name="email"
                   label={t("emailLabel")}
                   placeholder={t("emailPlaceholder")}
-                  autoComplete="username"
+                  autoComplete="email"
                   isRequire
                   prefixIcon={<MailOutlined />}
                 />
@@ -240,6 +229,11 @@ export function LoginPage() {
                   </span>
                 </Checkbox>
 
+                {Object.keys(errors).length > 0 && (
+                  <Text type="danger" className="!text-[13px]">
+                    {t("requiredBanner")}
+                  </Text>
+                )}
                 {submitError && (
                   <Text type="danger" className="!text-[13px]">
                     {submitError}

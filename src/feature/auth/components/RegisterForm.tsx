@@ -9,16 +9,15 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { App, Button, Checkbox, Divider, Typography } from "antd";
+import { App, Button, Divider, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "@/i18n/navigation";
+import { RHFCheckbox } from "@/shared/components/form-fields/RHFCheckbox";
 import { RHFPasswordField } from "@/shared/components/form-fields/RHFPasswordField";
 import { RHFTextField } from "@/shared/components/form-fields/RHFTextField";
-import { toAuthSession, toRegisterRequestDto } from "../dto/auth.mapper";
-import { register as registerUser } from "../services/auth.service";
-import { useAuthStore } from "../stores/auth.store";
+import { useRegister } from "../hooks/useRegister";
 import { SIGN_IN_BUTTON_CLASS } from "./login.constants";
 import {
   REGISTER_DEFAULT_VALUES,
@@ -32,7 +31,7 @@ export function RegisterForm() {
   const t = useTranslations("Auth.register");
   const router = useRouter();
   const { message } = App.useApp();
-  const saveLoginnedUser = useAuthStore((s) => s.saveLoginnedUser);
+  const registerMutation = useRegister();
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
@@ -47,7 +46,6 @@ export function RegisterForm() {
 
   const {
     handleSubmit,
-    register,
     watch,
     formState: { isSubmitting, errors },
   } = methods;
@@ -65,29 +63,16 @@ export function RegisterForm() {
     setSubmitError(null);
     setSubmitSuccess(null);
     try {
-      const res = await registerUser(
-        toRegisterRequestDto({
-          fullName: values.fullName,
-          email: values.email,
-          username: values.username,
-          password: values.password,
-        }),
-      );
-      if (res.status === 200) {
-        const session = toAuthSession(res);
-        saveLoginnedUser({
-          userId: session?.userId || "",
-          userName: session?.username || "",
-        });
-        setSubmitSuccess(`Welcome, ${session?.username ?? "user"}!`);
-        message.success(`Welcome, ${session?.username ?? "user"}!`);
-        router.push("/");
-      } else {
-        setSubmitError(res.message || "Register failed");
-        message.error(res.message || "Register failed");
-      }
+      const { user } = await registerMutation.mutateAsync({
+        name: values.fullName,
+        email: values.email,
+        password: values.password,
+      });
+      setSubmitSuccess(t("welcome", { name: user.name }));
+      message.success(t("welcome", { name: user.name }));
+      router.push("/");
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Unknown error";
+      const msg = err instanceof Error ? err.message : t("genericError");
       setSubmitError(msg);
       message.error(msg);
     }
@@ -145,19 +130,20 @@ export function RegisterForm() {
             prefixIcon={<LockOutlined />}
           />
 
-          <div className="flex flex-col gap-1">
-            <Checkbox {...register("agreeTerms")}>
+          <RHFCheckbox
+            name="agreeTerms"
+            label={
               <span className="text-[13px] text-[var(--color-text-muted)]">
                 {t("agreeTerms")}
               </span>
-            </Checkbox>
-            {errors.agreeTerms?.message && (
-              <Text type="danger" className="!text-[12px]">
-                {errors.agreeTerms.message}
-              </Text>
-            )}
-          </div>
+            }
+          />
 
+          {Object.keys(errors).length > 0 && (
+            <Text type="danger" className="!text-[13px]">
+              {t("requiredBanner")}
+            </Text>
+          )}
           {submitError && (
             <Text type="danger" className="!text-[13px]">
               {submitError}

@@ -1,25 +1,37 @@
+// Domain models. The JWT lives in an httpOnly cookie set by the Next
+// route handlers — it is intentionally NOT part of any client-side model.
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+}
+
 export interface LoginCredentials {
-  username: string;
+  email: string;
   password: string;
 }
 
 export interface RegisterCredentials {
-  fullName: string;
+  name: string;
   email: string;
-  username: string;
   password: string;
 }
 
 export interface AuthSession {
-  userId: string;
-  username: string;
-  token: string;
+  user: AuthUser;
 }
 
-export interface AuthState{
+export interface AuthState {
   userId: string;
   userName: string;
+  email: string;
   isLoggined: boolean;
-  saveLoginnedUser: (user: { userName: string; userId: string }) => void;
+  saveLoginnedUser: (user: {
+    userId: string;
+    userName: string;
+    email: string;
+  }) => void;
   removeLogginedUser: () => void;
 }

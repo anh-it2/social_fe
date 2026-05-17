@@ -21,8 +21,13 @@
       "signupLink": "Đăng ký miễn phí",
       "footer": "Được bảo vệ bởi reCAPTCHA và tuân theo Chính sách Quyền riêng tư cùng Điều khoản Dịch vụ của Facebook.",
       "usernameLabel": "Tên người dùng",
+      "welcome": "Chào mừng, {name}!",
+      "welcomeBack": "Chào mừng trở lại, {name}!",
+      "genericError": "Đã xảy ra lỗi. Vui lòng thử lại.",
+      "requiredBanner": "Vui lòng điền các trường bắt buộc được đánh dấu *.",
       "validation": {
         "emailRequired": "Email là bắt buộc",
+        "emailInvalid": "Nhập email hợp lệ",
         "passwordRequired": "Mật khẩu là bắt buộc"
       }
     },
@@ -56,6 +61,9 @@
       "loginPrompt": "Đã có tài khoản?",
       "loginLink": "Đăng nhập",
       "footer": "Được bảo vệ bởi reCAPTCHA và tuân theo Chính sách Quyền riêng tư cùng Điều khoản Dịch vụ của Facebook.",
+      "welcome": "Chào mừng, {name}!",
+      "genericError": "Đã xảy ra lỗi. Vui lòng thử lại.",
+      "requiredBanner": "Vui lòng điền các trường bắt buộc được đánh dấu *.",
       "validation": {
         "fullNameRequired": "Họ và tên là bắt buộc",
         "emailRequired": "Email là bắt buộc",

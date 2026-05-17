@@ -13,6 +13,10 @@ function getManager() {
     reconnectionDelay: 1000,
     reconnectionDelayMax: 5000,
     transports: ["websocket", "polling"],
+    // Send the httpOnly `token` cookie on the engine.io handshake so the
+    // socket server can verify the JWT. localhost:3000 and :3002 are the
+    // same site (host `localhost`), so the SameSite=Lax cookie is sent.
+    withCredentials: true,
   });
 
   return manager;

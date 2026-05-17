@@ -21,8 +21,13 @@
       "signupLink": "Sign up for free",
       "footer": "Protected by reCAPTCHA and subject to the Facebook Privacy Policy and Terms of Service.",
       "usernameLabel": "Username",
+      "welcome": "Welcome, {name}!",
+      "welcomeBack": "Welcome back, {name}!",
+      "genericError": "Something went wrong. Please try again.",
+      "requiredBanner": "Please fill out the required fields marked with *.",
       "validation": {
         "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email",
         "passwordRequired": "Password is required"
       }
     },
@@ -56,6 +61,9 @@
       "loginPrompt": "Already have an account?",
       "loginLink": "Sign in",
       "footer": "Protected by reCAPTCHA and subject to the Facebook Privacy Policy and Terms of Service.",
+      "welcome": "Welcome, {name}!",
+      "genericError": "Something went wrong. Please try again.",
+      "requiredBanner": "Please fill out the required fields marked with *.",
       "validation": {
         "fullNameRequired": "Full name is required",
         "emailRequired": "Email is required",
