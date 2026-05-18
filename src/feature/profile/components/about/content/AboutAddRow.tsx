@@ -22,9 +22,7 @@ export function AboutAddRow({ label, onClick }: AboutAddRowProps) {
       <Flex
         align="center"
         justify="center"
-        className="!h-9 !w-9 !shrink-0 !rounded-full"
-        style={{ background: "var(--color-bg-tertiary)" }}
-      >
+        className="!h-9 !w-9 !shrink-0 !rounded-full bg-[var(--color-bg-tertiary)]"  >
         <Icon
           name="add"
           size={20}

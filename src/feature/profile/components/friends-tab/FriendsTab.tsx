@@ -63,20 +63,11 @@ export function FriendsTab() {
     <Flex
       vertical
       gap={20}
-      className="!w-full !px-3 !py-4 sm:!gap-6 sm:!px-6 sm:!py-5 lg:!px-12 lg:!py-6"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!w-full !px-3 !py-4 sm:!gap-6 sm:!px-6 sm:!py-5 lg:!px-12 lg:!py-6 bg-[var(--color-bg)]"  >
       <Flex
         vertical
         gap={12}
-        className="!w-full !p-4 sm:!p-5"
-        style={{
-          background: "var(--color-bg-secondary)",
-          border: "1px solid var(--color-border)",
-          borderRadius: 20,
-          boxShadow: "var(--shadow-md)",
-        }}
-      >
+        className="!w-full !p-4 sm:!p-5 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[20px] [box-shadow:var(--shadow-md)]"  >
         <Input
           allowClear
           variant="filled"
@@ -106,7 +97,7 @@ export function FriendsTab() {
           {onlineFriends.length === 0 ? (
             <Empty
               description={
-                <span style={{ color: "var(--color-text-muted)" }}>{t("empty.noOnline")}</span>
+                <span className="text-[var(--color-text-muted)]" >{t("empty.noOnline")}</span>
               }
             />
           ) : (
@@ -144,7 +135,7 @@ export function FriendsTab() {
           {birthdays.length === 0 ? (
             <Empty
               description={
-                <span style={{ color: "var(--color-text-muted)" }}>{t("empty.noFriends")}</span>
+                <span className="text-[var(--color-text-muted)]" >{t("empty.noFriends")}</span>
               }
             />
           ) : (
@@ -178,7 +169,7 @@ export function FriendsTab() {
           {filteredFriends.length === 0 ? (
             <Empty
               description={
-                <span style={{ color: "var(--color-text-muted)" }}>{t("empty.noFriends")}</span>
+                <span className="text-[var(--color-text-muted)]" >{t("empty.noFriends")}</span>
               }
             />
           ) : (

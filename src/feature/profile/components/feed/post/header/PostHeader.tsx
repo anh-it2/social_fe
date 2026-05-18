@@ -17,9 +17,7 @@ export function PostHeader({ post }: PostHeaderProps) {
       align="center"
       justify="space-between"
       gap={12}
-      className="!w-full"
-      style={{ padding: "20px 24px" }}
-    >
+      className="!w-full [padding:20px_24px]"  >
       <Flex align="center" gap={12}>
         <PostAvatar
           size={44}
@@ -29,20 +27,20 @@ export function PostHeader({ post }: PostHeaderProps) {
         <Flex vertical gap={2}>
           {post.coAuthor ? (
             <Flex align="center" gap={6}>
-              <Text className="!text-[15px] !font-semibold" style={{ color: "var(--color-text)" }}>
+              <Text className="!text-[15px] !font-semibold text-[var(--color-text)]" >
                 {post.author.name}
               </Text>
               <Icon name="arrow_right" size={18} color="var(--color-text-muted)" />
-              <Text className="!text-[15px] !font-semibold" style={{ color: "var(--color-text)" }}>
+              <Text className="!text-[15px] !font-semibold text-[var(--color-text)]" >
                 {post.coAuthor.name}
               </Text>
             </Flex>
           ) : (
-            <Text className="!text-[15px] !font-semibold" style={{ color: "var(--color-text)" }}>
+            <Text className="!text-[15px] !font-semibold text-[var(--color-text)]" >
               {post.author.name}
             </Text>
           )}
-          <Text className="!text-xs" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-xs text-[var(--color-text-muted)]" >
             {post.time}
           </Text>
         </Flex>

@@ -34,16 +34,12 @@ export function MessageReplyQuote({
       }}
     >
       <Text
-        className="!mb-1 !text-[11px]"
-        style={{ color: "var(--color-text-muted)" }}
-      >
+        className="!mb-1 !text-[11px] text-[var(--color-text-muted)]"  >
         {label}
       </Text>
       {isImg ? (
         <div
-          className="overflow-hidden rounded-[14px]"
-          style={{ width: 96, height: 96, opacity: 0.85 }}
-        >
+          className="overflow-hidden rounded-[14px] w-[96px] h-[96px] opacity-[0.85]"  >
           <Image
             src={replyTo.content}
             alt="reply"
@@ -65,9 +61,7 @@ export function MessageReplyQuote({
           }}
         >
           <Text
-            className="!line-clamp-2 !text-[12px] !leading-[1.4]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!line-clamp-2 !text-[12px] !leading-[1.4] text-[var(--color-text-muted)]"  >
             {replyTo.content}
           </Text>
         </div>

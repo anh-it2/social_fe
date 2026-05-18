@@ -116,12 +116,7 @@ export function PeopleYouMayKnowCard() {
 
   return (
     <div
-      className="!relative !w-full !rounded-xl !overflow-hidden"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-      }}
-    >
+      className="!relative !w-full !rounded-xl !overflow-hidden bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
       <Flex
         align="center"
         justify="space-between"
@@ -134,9 +129,7 @@ export function PeopleYouMayKnowCard() {
             color="var(--color-text-secondary)"
           />
           <Text
-            className="!truncate !text-[15px] !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!truncate !text-[15px] !font-semibold text-[var(--color-text)]"  >
             {t("title")}
           </Text>
         </Flex>
@@ -190,33 +183,23 @@ export function PeopleYouMayKnowCard() {
           aria-label={t("scrollLeft")}
           onClick={() => scrollBy(-1)}
           icon={
-            <Icon name="chevron_left" size={22} color="var(--color-text)" />
+            <Icon className="bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]" name="chevron_left" size={22} color="var(--color-text)" />
           }
           className={
             "!absolute !left-2 !top-[50%] !z-10 !flex !h-9 !w-9 -translate-y-1/2 !items-center !justify-center !shadow-md !transition-opacity " +
             (canLeft ? "!opacity-100" : "!pointer-events-none !opacity-0")
-          }
-          style={{
-            background: "var(--color-bg-secondary)",
-            border: "1px solid var(--color-border)",
-          }}
-        />
+          }  />
         <Button
           shape="circle"
           aria-label={t("scrollRight")}
           onClick={() => scrollBy(1)}
           icon={
-            <Icon name="chevron_right" size={22} color="var(--color-text)" />
+            <Icon className="bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]" name="chevron_right" size={22} color="var(--color-text)" />
           }
           className={
             "!absolute !right-2 !top-[50%] !z-10 !flex !h-9 !w-9 -translate-y-1/2 !items-center !justify-center !shadow-md !transition-opacity " +
             (canRight ? "!opacity-100" : "!pointer-events-none !opacity-0")
-          }
-          style={{
-            background: "var(--color-bg-secondary)",
-            border: "1px solid var(--color-border)",
-          }}
-        />
+          }  />
       </div>
     </div>
   );

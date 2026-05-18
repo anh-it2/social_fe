@@ -33,25 +33,19 @@ export function EmojiModal({ open, conversationId, onClose }: EmojiModalProps) {
         <Icon name="close" size={20} color="var(--color-text-secondary)" />
       }
     >
-      <Flex vertical gap={12} style={{ padding: "24px 28px" }}>
+      <Flex className="[padding:24px_28px]" vertical gap={12} >
         <Title
           level={5}
-          className="!m-0 !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!m-0 !leading-tight text-[var(--color-text)]"  >
           {t("title")}
         </Title>
         <Text
-          className="!text-[13px]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[13px] text-[var(--color-text-muted)]"  >
           {t("description")}
         </Text>
         <Flex align="center" gap={12} className="!mt-1">
           <Text
-            className="!text-[14px]"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[14px] text-[var(--color-text)]"  >
             {t("current")}
           </Text>
           <span className="text-[28px]">{current}</span>

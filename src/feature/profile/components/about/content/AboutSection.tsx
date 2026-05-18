@@ -64,9 +64,7 @@ export function AboutSection({
     <Flex vertical gap={16} className="!w-full">
       {schema.title ? (
         <Text
-          className="!text-[17px] !font-bold !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-[17px] !font-bold !leading-tight text-[var(--color-text)]"  >
           {schema.title}
         </Text>
       ) : null}

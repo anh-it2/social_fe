@@ -40,9 +40,7 @@ export function DisplayPanel({ onBack }: DisplayPanelProps) {
           <Icon name="arrow_back" size={20} color="var(--color-text)" />
         </Flex>
         <Text
-          className="!text-[17px] !font-bold"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-[17px] !font-bold text-[var(--color-text)]"  >
           {t("title")}
         </Text>
       </Flex>
@@ -80,14 +78,10 @@ export function DisplayPanel({ onBack }: DisplayPanelProps) {
         <Flex
           align="center"
           gap={8}
-          className="!mt-2 !rounded-lg !px-2 !py-2"
-          style={{ background: "var(--color-bg-tertiary)" }}
-        >
+          className="!mt-2 !rounded-lg !px-2 !py-2 bg-[var(--color-bg-tertiary)]"  >
           <Icon name="info" size={16} color="var(--color-text-muted)" />
           <Text
-            className="!text-[12px]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!text-[12px] text-[var(--color-text-muted)]"  >
             {t("preferenceSaved")}
           </Text>
         </Flex>

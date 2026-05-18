@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { routing } from "@/i18n/routing";
 import { Providers } from "../provider";
-import "../globals.css";
+import "../globals.scss";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

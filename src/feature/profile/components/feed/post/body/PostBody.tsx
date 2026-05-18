@@ -16,13 +16,7 @@ export function PostBody({ text, hasImage }: PostBodyProps) {
       style={{ padding: hasImage ? "0 24px 16px 24px" : "0 24px 16px 24px" }}
     >
       <Paragraph
-        className="!m-0"
-        style={{
-          color: "var(--color-text-secondary)",
-          fontSize: 15,
-          lineHeight: 1.55,
-        }}
-      >
+        className="!m-0 text-[var(--color-text-secondary)] [font-size:15px] [line-height:1.55]"  >
         {text}
       </Paragraph>
     </div>

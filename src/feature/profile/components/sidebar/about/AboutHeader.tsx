@@ -16,9 +16,7 @@ export function AboutHeader({ onEditClick }: AboutHeaderProps) {
   return (
     <Flex align="center" justify="space-between" className="!w-full">
       <Text
-        className="!text-[17px] !font-bold !leading-tight"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!text-[17px] !font-bold !leading-tight text-[var(--color-text)]"  >
         {t("about")}
       </Text>
       <Button

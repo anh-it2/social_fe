@@ -92,19 +92,12 @@ export function StoryViewerModal({ open, onClose, story }: StoryViewerModalProps
         )}
 
         <div
-          className="!absolute !inset-0 !pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.7) 100%)",
-          }}
-        />
+          className="!absolute !inset-0 !pointer-events-none [background:linear-gradient(180deg,_rgba(0,0,0,0.55)_0%,_rgba(0,0,0,0)_22%,_rgba(0,0,0,0)_60%,_rgba(0,0,0,0.7)_100%)]"  />
 
         <Flex
           align="center"
           justify="space-between"
-          className="!absolute !left-0 !right-0"
-          style={{ top: 12, padding: "0 12px", zIndex: 2 }}
-        >
+          className="!absolute !left-0 !right-0 top-[12px] [padding:0_12px] z-[2]"  >
           <Flex align="center" gap={8}>
             <Avatar
               size={36}
@@ -117,9 +110,7 @@ export function StoryViewerModal({ open, onClose, story }: StoryViewerModalProps
               {story.initial}
             </Avatar>
             <Text
-              className="!text-sm !font-bold !text-white"
-              style={{ textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
-            >
+              className="!text-sm !font-bold !text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.5)]"  >
               {story.name}
             </Text>
           </Flex>
@@ -127,38 +118,16 @@ export function StoryViewerModal({ open, onClose, story }: StoryViewerModalProps
             shape="circle"
             onClick={onClose}
             aria-label={t("close")}
-            icon={<Icon name="close" size={16} color="#fff" />}
-            style={{
-              background: "rgba(0,0,0,0.5)",
-              border: "none",
-              width: 32,
-              height: 32,
-              minWidth: 32,
-              padding: 0,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          />
+            icon={<Icon className="bg-[rgba(0,0,0,0.5)] [border:none] w-[32px] h-[32px] min-w-[32px] p-[0px] [display:inline-flex] [align-items:center] [justify-content:center]" name="close" size={16} color="#fff" />}  />
         </Flex>
 
         <Flex
           vertical
           gap={8}
-          className="!absolute !left-0 !right-0"
-          style={{ bottom: 14, padding: "0 14px", zIndex: 2 }}
-        >
+          className="!absolute !left-0 !right-0 bottom-[14px] [padding:0_14px] z-[2]"  >
           {story.caption && (
             <Text
-              className="!text-xs !text-white"
-              style={{
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-                textShadow: "0 1px 2px rgba(0,0,0,0.5)",
-              }}
-            >
+              className="!text-xs !text-white [display:-webkit-box] [-webkit-line-clamp:3px] [-webkit-box-orient:vertical] [overflow:hidden] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)]"  >
               {story.caption}
             </Text>
           )}
@@ -166,19 +135,11 @@ export function StoryViewerModal({ open, onClose, story }: StoryViewerModalProps
             <Flex
               align="center"
               gap={6}
-              className="!rounded-full !px-2 !py-1 !w-fit"
-              style={{
-                background: "rgba(0,0,0,0.5)",
-                backdropFilter: "blur(8px)",
-                maxWidth: "100%",
-              }}
-            >
+              className="!rounded-full !px-2 !py-1 !w-fit bg-[rgba(0,0,0,0.5)] [backdrop-filter:blur(8px)] max-w-[100%]"  >
               <Icon name="music_note" size={12} color="#fff" />
               <Text
                 ellipsis
-                className="!text-[11px] !font-semibold !text-white"
-                style={{ maxWidth: 220 }}
-              >
+                className="!text-[11px] !font-semibold !text-white max-w-[220px]"  >
                 {track.title} · {track.artist}
               </Text>
             </Flex>

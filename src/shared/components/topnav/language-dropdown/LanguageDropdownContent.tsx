@@ -29,47 +29,23 @@ export function LanguageDropdownContent({
   return (
     <Flex
       vertical
-      className="!w-[min(340px,calc(100vw-16px))]"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 16,
-        boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
-        overflow: "hidden",
-      }}
-    >
-      <Flex
+      className="!w-[min(340px,calc(100vw-16px))] bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[16px] [box-shadow:0_12px_32px_rgba(0,0,0,0.45)] [overflow:hidden]"  >
+      <Flex className="[padding:14px_16px_10px_16px] [border-bottom:1px_solid_var(--color-border-light)]"
         align="center"
-        gap={10}
-        style={{
-          padding: "14px 16px 10px 16px",
-          borderBottom: "1px solid var(--color-border-light)",
-        }}
-      >
+        gap={10}  >
         <Flex
           align="center"
           justify="center"
-          className="!shrink-0 !rounded-full"
-          style={{
-            width: 36,
-            height: 36,
-            background: "var(--color-primary-bg)",
-            border: "1px solid var(--color-primary)",
-          }}
-        >
+          className="!shrink-0 !rounded-full w-[36px] h-[36px] bg-[var(--color-primary-bg)] [border:1px_solid_var(--color-primary)]"  >
           <Icon name="language" size={20} color="var(--color-primary)" />
         </Flex>
         <Flex vertical gap={2} className="!min-w-0 !flex-1">
           <Text
-            className="!text-[17px] !font-bold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[17px] !font-bold text-[var(--color-text)]"  >
             {t("header")}
           </Text>
           <Text
-            className="!text-[12px]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!text-[12px] text-[var(--color-text-muted)]"  >
             {t("description")}
           </Text>
         </Flex>

@@ -23,17 +23,15 @@ export function RightSidebar() {
     <Flex
       vertical
       gap={20}
-      className="no-scrollbar !sticky !top-14 !w-80 !shrink-0 !overflow-y-auto !p-4"
-      style={{ background: "var(--color-bg)", height: "calc(100vh - 56px)" }}
-    >
+      className="no-scrollbar !sticky !top-14 !w-80 !shrink-0 !overflow-y-auto !p-4 bg-[var(--color-bg)] [height:calc(100vh_-_56px)]"  >
       <SponsoredSection />
-      <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
+      <div className="!h-px !w-full bg-[var(--color-border)]"  />
       <TrendingSection />
-      <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
+      <div className="!h-px !w-full bg-[var(--color-border)]"  />
       <BirthdaysSection />
-      <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
+      <div className="!h-px !w-full bg-[var(--color-border)]"  />
       <ContactsSection />
-      <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
+      <div className="!h-px !w-full bg-[var(--color-border)]"  />
       <GroupChatSection />
     </Flex>
   );

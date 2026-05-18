@@ -58,34 +58,18 @@ export function NotificationDropdownContent({
   return (
     <Flex
       vertical
-      className="!w-[min(380px,calc(100vw-16px))]"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 14,
-        boxShadow: "0 12px 32px rgba(0,0,0,0.5)",
-        overflow: "hidden",
-      }}
-    >
+      className="!w-[min(380px,calc(100vw-16px))] bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[14px] [box-shadow:0_12px_32px_rgba(0,0,0,0.5)] [overflow:hidden]"  >
       <NotificationDropdownHeader onMarkAllRead={readAll} />
       <DropdownTabs value={tab} onChange={setTab} labels={tabLabels} />
       <Flex
         vertical
         gap={2}
-        className="!w-full"
-        style={{
-          padding: "4px 8px 8px 8px",
-          maxHeight: 460,
-          overflowY: "auto",
-        }}
-      >
+        className="!w-full [padding:4px_8px_8px_8px] max-h-[460px] [overflow-y:auto]"  >
         {visibleNotifications.length === 0 ? (
-          <Flex
+          <Flex className="[padding:32px_16px]"
             align="center"
-            justify="center"
-            style={{ padding: "32px 16px" }}
-          >
-            <Text style={{ color: "var(--color-text-muted)" }}>
+            justify="center"  >
+            <Text className="text-[var(--color-text-muted)]" >
               {emptyText}
             </Text>
           </Flex>

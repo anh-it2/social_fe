@@ -49,12 +49,7 @@ export function StoryCard({ story }: StoryCardProps) {
       )}
       {story.mediaUrl && (
         <div
-          className="!absolute !inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.75) 100%)",
-          }}
-        />
+          className="!absolute !inset-0 [background:linear-gradient(180deg,_rgba(0,0,0,0.45)_0%,_rgba(0,0,0,0)_35%,_rgba(0,0,0,0)_60%,_rgba(0,0,0,0.75)_100%)]"  />
       )}
       <Flex
         align="center"
@@ -73,9 +68,7 @@ export function StoryCard({ story }: StoryCardProps) {
         </Text>
       </Flex>
       <Text
-        className="!absolute !text-xs !font-semibold !text-white"
-        style={{ left: 12, top: 156, zIndex: 1 }}
-      >
+        className="!absolute !text-xs !font-semibold !text-white left-[12px] top-[156px] z-[1]"  >
         {story.name}
       </Text>
     </div>

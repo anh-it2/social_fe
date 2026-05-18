@@ -45,9 +45,7 @@ export function Logo() {
         </Text>
       </Flex>
       <Text
-        className="!hidden !whitespace-nowrap !text-[22px] !font-bold md:!inline"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!hidden !whitespace-nowrap !text-[22px] !font-bold md:!inline text-[var(--color-text)]"  >
         facebook
       </Text>
     </Flex>

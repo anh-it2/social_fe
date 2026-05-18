@@ -54,9 +54,7 @@ export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
       ))}
 
       <div
-        className="!my-2 !h-px !w-full"
-        style={{ background: "var(--color-border)" }}
-      />
+        className="!my-2 !h-px !w-full bg-[var(--color-border)]"  />
 
       <Flex
         align="center"
@@ -64,9 +62,7 @@ export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
         className="!h-9 !px-2"
       >
         <Text
-          className="!text-[15px] !font-semibold"
-          style={{ color: "var(--color-text-secondary)" }}
-        >
+          className="!text-[15px] !font-semibold text-[var(--color-text-secondary)]"  >
           {t("shortcuts")}
         </Text>
         <Button
@@ -82,14 +78,10 @@ export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
       ))}
 
       <div
-        className="!my-3 !h-px !w-full"
-        style={{ background: "var(--color-border)" }}
-      />
+        className="!my-3 !h-px !w-full bg-[var(--color-border)]"  />
       <Flex vertical gap={4} className="!px-2 !pb-2">
         <Text
-          className="!text-[12px] !leading-snug"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[12px] !leading-snug text-[var(--color-text-muted)]"  >
           {t("privacy", { year: new Date().getFullYear() })}
         </Text>
       </Flex>

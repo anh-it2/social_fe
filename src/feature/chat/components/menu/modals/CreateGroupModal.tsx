@@ -112,12 +112,10 @@ export function CreateGroupModal({
         <Icon name="close" size={20} color="var(--color-text-secondary)" />
       }
     >
-      <Flex vertical gap={16} style={{ padding: "24px 28px" }}>
+      <Flex className="[padding:24px_28px]" vertical gap={16} >
         <Title
           level={5}
-          className="!m-0 !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!m-0 !leading-tight text-[var(--color-text)]"  >
           {t("title")}
         </Title>
         <FormProvider {...methods}>
@@ -125,9 +123,7 @@ export function CreateGroupModal({
             <CreateGroupFields />
             {hasErrors && (
               <Text
-                className="!mt-3 !block !text-[13px]"
-                style={{ color: "var(--color-error)" }}
-              >
+                className="!mt-3 !block !text-[13px] text-[var(--color-error)]"  >
                 {t("invalid")}
               </Text>
             )}

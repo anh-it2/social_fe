@@ -37,9 +37,7 @@ export function AdminReportsPage() {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <TopNav />
       <Flex
         vertical
@@ -51,16 +49,12 @@ export function AdminReportsPage() {
             <Icon name="shield_person" size={26} color="var(--color-error)" />
             <Title
               level={3}
-              className="!m-0 !text-[22px] !font-bold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!m-0 !text-[22px] !font-bold text-[var(--color-text)]"  >
               {t("title")}
             </Title>
-            <Badge
+            <Badge className="bg-[var(--color-error)]"
               count={counts.pending}
-              overflowCount={99}
-              style={{ background: "var(--color-error)" }}
-            />
+              overflowCount={99}  />
           </Flex>
           <Flex align="center" gap={6}>
             <span
@@ -72,18 +66,14 @@ export function AdminReportsPage() {
               }}
             />
             <Text
-              className="!text-[12px]"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+              className="!text-[12px] text-[var(--color-text-secondary)]"  >
               {isConnected ? t("connected") : t("disconnected")}
             </Text>
           </Flex>
         </Flex>
 
         <Text
-          className="!text-[14px] !leading-relaxed"
-          style={{ color: "var(--color-text-secondary)" }}
-        >
+          className="!text-[14px] !leading-relaxed text-[var(--color-text-secondary)]"  >
           {t("description")}
         </Text>
 
@@ -115,21 +105,14 @@ export function AdminReportsPage() {
             align="center"
             justify="center"
             gap={12}
-            className="!w-full !rounded-xl !py-16"
-            style={{
-              background: "var(--color-bg-secondary)",
-              border: "1px solid var(--color-border)",
-            }}
-          >
+            className="!w-full !rounded-xl !py-16 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
             <Icon
               name="task_alt"
               size={48}
               color="var(--color-text-muted)"
             />
             <Text
-              className="!text-center !text-[14px]"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-center !text-[14px] text-[var(--color-text-muted)]"  >
               {t("empty")}
             </Text>
           </Flex>

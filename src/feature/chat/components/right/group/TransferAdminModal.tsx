@@ -68,8 +68,8 @@ export function TransferAdminModal({
       borderColor="var(--color-border)"
       closeIcon={<Icon name="close" size={20} color="var(--color-text-secondary)" />}
     >
-      <Flex vertical gap={16} style={{ padding: "24px 28px" }}>
-        <Title level={5} className="!m-0" style={{ color: "var(--color-text)" }}>
+      <Flex className="[padding:24px_28px]" vertical gap={16} >
+        <Title level={5} className="!m-0 text-[var(--color-text)]" >
           {t("title")}
         </Title>
         <Text className="!text-[13px] !text-[var(--color-text-muted)]">
@@ -86,11 +86,9 @@ export function TransferAdminModal({
             className="!flex !flex-col !gap-2"
           >
             {candidates.map((id) => (
-              <Radio
+              <Radio className="text-[var(--color-text)]"
                 key={id}
-                value={id}
-                style={{ color: "var(--color-text)" }}
-              >
+                value={id}  >
                 {nameOf(id)}
               </Radio>
             ))}

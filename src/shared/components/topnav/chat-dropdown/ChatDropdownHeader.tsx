@@ -33,13 +33,9 @@ export function ChatDropdownHeader({
     <Flex
       align="center"
       justify="space-between"
-      className="!w-full"
-      style={{ padding: "12px 16px 8px 16px" }}
-    >
+      className="!w-full [padding:12px_16px_8px_16px]"  >
       <Text
-        className="!text-xl !font-bold"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!text-xl !font-bold text-[var(--color-text)]"  >
         {t("header")}
       </Text>
       <Flex align="center" gap={4}>
@@ -47,9 +43,7 @@ export function ChatDropdownHeader({
           type="text"
           shape="circle"
           onClick={onCreateGroup}
-          className="!flex !h-8 !w-8 !items-center !justify-center !p-0"
-          style={{ background: "var(--color-bg-tertiary)" }}
-          aria-label={t("newGroup")}
+          className="!flex !h-8 !w-8 !items-center !justify-center !p-0 bg-[var(--color-bg-tertiary)]"  aria-label={t("newGroup")}
           title={t("newGroup")}
         >
           <Icon
@@ -62,9 +56,7 @@ export function ChatDropdownHeader({
           type="text"
           shape="circle"
           onClick={onExpand}
-          className="!flex !h-8 !w-8 !items-center !justify-center !p-0"
-          style={{ background: "var(--color-bg-tertiary)" }}
-          aria-label={t("expand")}
+          className="!flex !h-8 !w-8 !items-center !justify-center !p-0 bg-[var(--color-bg-tertiary)]"  aria-label={t("expand")}
         >
           <Icon
             name="open_in_full"
@@ -94,9 +86,7 @@ export function ChatDropdownHeader({
           <Button
             type="text"
             shape="circle"
-            className="!flex !h-8 !w-8 !items-center !justify-center !p-0"
-            style={{ background: "var(--color-bg-tertiary)" }}
-            aria-label={t("new")}
+            className="!flex !h-8 !w-8 !items-center !justify-center !p-0 bg-[var(--color-bg-tertiary)]"  aria-label={t("new")}
           >
             <Icon
               name="edit_square"

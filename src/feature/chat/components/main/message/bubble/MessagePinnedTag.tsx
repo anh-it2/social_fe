@@ -12,9 +12,7 @@ export function MessagePinnedTag({ mine }: { mine: boolean }) {
     <Flex align="center" gap={4} className={mine ? "!self-end" : "!self-start"}>
       <Icon name="push_pin" size={11} color="var(--color-text-muted)" />
       <Text
-        className="!text-[10px] !font-medium"
-        style={{ color: "var(--color-text-muted)" }}
-      >
+        className="!text-[10px] !font-medium text-[var(--color-text-muted)]"  >
         {t("pinnedLabel")}
       </Text>
     </Flex>

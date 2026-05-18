@@ -15,7 +15,7 @@ export function FilesList({ items }: FilesListProps) {
   const t = useTranslations("Chat.right.mediaSection");
   if (items.length === 0) {
     return (
-      <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+      <Text className="!text-[12px] text-[var(--color-text-muted)]" >
         {t("emptyFiles")}
       </Text>
     );
@@ -39,9 +39,7 @@ export function FilesList({ items }: FilesListProps) {
             />
             <Text
               ellipsis
-              className="!flex-1 !text-[13px]"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!flex-1 !text-[13px] text-[var(--color-text)]"  >
               {name}
             </Text>
           </a>

@@ -18,19 +18,15 @@ export function NotificationDropdownHeader({
     <Flex
       align="center"
       justify="space-between"
-      className="!w-full"
-      style={{ padding: "12px 16px 8px 16px" }}
-    >
-      <Text className="!text-xl !font-bold" style={{ color: "var(--color-text)" }}>
+      className="!w-full [padding:12px_16px_8px_16px]"  >
+      <Text className="!text-xl !font-bold text-[var(--color-text)]" >
         {t("header")}
       </Text>
       <Flex align="center" gap={4}>
         <Button
           type="text"
           shape="circle"
-          className="!flex !h-8 !w-8 !items-center !justify-center !p-0"
-          style={{ background: "var(--color-bg-tertiary)" }}
-          aria-label={t("options")}
+          className="!flex !h-8 !w-8 !items-center !justify-center !p-0 bg-[var(--color-bg-tertiary)]"  aria-label={t("options")}
         >
           <Icon name="more_horiz" size={18} color="var(--color-text-secondary)" />
         </Button>
@@ -38,9 +34,7 @@ export function NotificationDropdownHeader({
           type="text"
           shape="circle"
           onClick={onMarkAllRead}
-          className="!flex !h-8 !w-8 !items-center !justify-center !p-0"
-          style={{ background: "var(--color-bg-tertiary)" }}
-          aria-label={t("markAllRead")}
+          className="!flex !h-8 !w-8 !items-center !justify-center !p-0 bg-[var(--color-bg-tertiary)]"  aria-label={t("markAllRead")}
         >
           <Icon name="done_all" size={18} color="var(--color-text-secondary)" />
         </Button>

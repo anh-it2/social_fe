@@ -31,22 +31,16 @@ export function DisplayToggleRow({
         <Flex
           align="center"
           justify="center"
-          className="!h-9 !w-9 !shrink-0 !rounded-full"
-          style={{ background: "var(--color-bg-tertiary)" }}
-        >
+          className="!h-9 !w-9 !shrink-0 !rounded-full bg-[var(--color-bg-tertiary)]"  >
           <Icon name={icon} size={20} color="var(--color-text)" />
         </Flex>
         <Flex vertical className="!flex-1 !min-w-0">
           <Text
-            className="!text-[15px] !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[15px] !font-semibold text-[var(--color-text)]"  >
             {title}
           </Text>
           <Text
-            className="!text-[12px]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!text-[12px] text-[var(--color-text-muted)]"  >
             {description}
           </Text>
         </Flex>

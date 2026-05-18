@@ -36,24 +36,15 @@ export function FriendsSubSidebar({ view, onChange }: FriendsSubSidebarProps) {
 
   return (
     <aside
-      className="!hidden lg:!flex !w-[360px] !shrink-0 !flex-col"
-      style={{
-        background: "var(--color-bg-secondary)",
-        borderRight: "1px solid var(--color-border)",
-      }}
-    >
+      className="!hidden lg:!flex !w-[360px] !shrink-0 !flex-col bg-[var(--color-bg-secondary)] [border-right:1px_solid_var(--color-border)]"  >
       <Flex
         vertical
         gap={4}
-        className="!sticky !top-14 !px-4 !py-4"
-        style={{ height: "calc(100vh - 56px)", overflowY: "auto" }}
-      >
+        className="!sticky !top-14 !px-4 !py-4 [height:calc(100vh_-_56px)] [overflow-y:auto]"  >
         <Flex align="center" justify="space-between" className="!w-full !mb-2">
           <Title
             level={3}
-            className="!m-0 !text-[24px] !font-bold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!m-0 !text-[24px] !font-bold text-[var(--color-text)]"  >
             {t("title")}
           </Title>
           <Button

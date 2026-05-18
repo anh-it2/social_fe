@@ -1,12 +1,6 @@
 export function ComposerDivider() {
   return (
     <div
-      className="w-full"
-      style={{
-        height: 1,
-        background:
-          "linear-gradient(90deg, #2e2e2e00 0%, #4096ff20 50%, #2e2e2e00 100%)",
-      }}
-    />
+      className="w-full h-[1px] [background:linear-gradient(90deg,_#2e2e2e00_0%,_#4096ff20_50%,_#2e2e2e00_100%)]"  />
   );
 }

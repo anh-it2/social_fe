@@ -148,11 +148,9 @@ export function MessageList({
       <PinnedBanner conversationId={conversationId} onJump={handleJumpToPinned} />
     <div
       ref={containerRef}
-      className={
-        "flex-1 overflow-y-auto bg-[#fafbfc] dark:bg-[#0a0a0a] " +
-        (compact ? "px-3 py-3" : "px-3 py-4 sm:px-8 sm:py-6")
-      }
-      style={{ overscrollBehavior: "contain" }}
+      className={`flex-1 overflow-y-auto bg-[#fafbfc] dark:bg-[#0a0a0a] [overscroll-behavior:contain] ${
+        compact ? "px-3 py-3" : "px-3 py-4 sm:px-8 sm:py-6"
+      }`}
     >
       <Flex vertical gap={compact ? 8 : 12}>
         {messages.length === 0 ? (
@@ -173,9 +171,7 @@ export function MessageList({
                   className="flex justify-center py-1"
                 >
                   <Text
-                    className="!text-[12px] !italic"
-                    style={{ color: "var(--color-text-muted)" }}
-                  >
+                    className="!text-[12px] !italic text-[var(--color-text-muted)]"  >
                     {m.content}
                   </Text>
                 </div>

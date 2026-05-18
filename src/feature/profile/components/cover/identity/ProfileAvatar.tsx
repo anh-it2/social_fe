@@ -32,21 +32,14 @@ export function ProfileAvatar() {
       <Flex
         align="center"
         justify="center"
-        className="!relative !h-[96px] !w-[96px] !overflow-hidden !rounded-full sm:!h-[112px] sm:!w-[112px] md:!h-[136px] md:!w-[136px]"
-        style={{
-          background: "var(--color-bg-secondary)",
-          border: "4px solid var(--color-bg)",
-        }}
-      >
+        className="!relative !h-[96px] !w-[96px] !overflow-hidden !rounded-full sm:!h-[112px] sm:!w-[112px] md:!h-[136px] md:!w-[136px] bg-[var(--color-bg-secondary)] [border:4px_solid_var(--color-bg)]"  >
         {hasAvatar ? (
-          <Image
+          <Image className="[object-fit:cover]"
             src={avatarUrl}
             alt="avatar"
             fill
             unoptimized
-            sizes="(min-width: 768px) 136px, (min-width: 640px) 112px, 96px"
-            style={{ objectFit: "cover" }}
-          />
+            sizes="(min-width: 768px) 136px, (min-width: 640px) 112px, 96px"  />
         ) : !view.isSelf && view.initial ? (
           <Flex
             align="center"

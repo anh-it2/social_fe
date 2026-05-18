@@ -34,9 +34,7 @@ export function ContentArea({ tab, onEditAbout }: ContentAreaProps) {
   return (
     <Flex
       gap={24}
-      className="!w-full !flex-col !px-4 !py-4 sm:!px-6 lg:!flex-row lg:!px-12 lg:!py-6"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!w-full !flex-col !px-4 !py-4 sm:!px-6 lg:!flex-row lg:!px-12 lg:!py-6 bg-[var(--color-bg)]"  >
       <Sidebar onEditAbout={onEditAbout} />
       <MainFeed />
     </Flex>

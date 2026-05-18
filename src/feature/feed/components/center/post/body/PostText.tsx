@@ -13,9 +13,7 @@ export function PostText({ text }: PostTextProps) {
   return (
     <div className="!w-full !px-4 !pb-3">
       <Paragraph
-        className="!m-0"
-        style={{ color: "var(--color-text)", fontSize: 15, lineHeight: 1.5 }}
-      >
+        className="!m-0 text-[var(--color-text)] [font-size:15px] [line-height:1.5]"  >
         <RichText text={text} />
       </Paragraph>
     </div>

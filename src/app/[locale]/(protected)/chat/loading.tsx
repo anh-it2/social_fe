@@ -5,30 +5,18 @@ import { Flex, Skeleton } from "antd";
 export default function Loading() {
   return (
     <Flex
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <div
-        className="!h-14 !w-full !fixed !top-0 !z-10"
-        style={{
-          background: "var(--color-bg-secondary)",
-          borderBottom: "1px solid var(--color-border)",
-        }}
-      />
+        className="!h-14 !w-full !fixed !top-0 !z-10 bg-[var(--color-bg-secondary)] [border-bottom:1px_solid_var(--color-border)]"  />
       <aside
-        className="!hidden md:!flex !w-[360px] !shrink-0 !flex-col !gap-3 !px-3 !pt-[72px] !pb-4"
-        style={{
-          background: "var(--color-bg-secondary)",
-          borderRight: "1px solid var(--color-border)",
-        }}
-      >
+        className="!hidden md:!flex !w-[360px] !shrink-0 !flex-col !gap-3 !px-3 !pt-[72px] !pb-4 bg-[var(--color-bg-secondary)] [border-right:1px_solid_var(--color-border)]"  >
         <Skeleton.Input active block />
         {Array.from({ length: 8 }).map((_, i) => (
           <Flex key={i} align="center" gap={12} className="!w-full">
             <Skeleton.Avatar active size={44} />
             <Flex vertical gap={4} className="!flex-1">
               <Skeleton.Input active block size="small" />
-              <Skeleton.Input active size="small" style={{ width: "70%" }} />
+              <Skeleton.Input className="w-[70%]" active size="small"  />
             </Flex>
           </Flex>
         ))}

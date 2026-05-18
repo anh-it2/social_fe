@@ -19,24 +19,20 @@ export function PostImage({ gradient, imageUrl, videoUrl, isLive }: PostImagePro
   const t = useTranslations("Feed.post");
   if (videoUrl) {
     return (
-      <div className="!relative !w-full" style={{ background: "#000" }}>
+      <div className="!relative !w-full bg-[#000]" >
         <video
           src={videoUrl}
           poster={imageUrl}
           controls
           playsInline
           preload="metadata"
-          className="!w-full"
-          style={{ maxHeight: 520, objectFit: "contain", background: "#000" }}
-        />
+          className="!w-full max-h-[520px] [object-fit:contain] bg-[#000]"  />
         {isLive && (
           <Flex
             align="center"
             gap={6}
-            className="!absolute !rounded-md !px-2 !py-1"
-            style={{ top: 12, left: 12, background: "#f02849" }}
-          >
-            <span className="!h-2 !w-2 !rounded-full" style={{ background: "#fff" }} />
+            className="!absolute !rounded-md !px-2 !py-1 top-[12px] left-[12px] bg-[#f02849]"  >
+            <span className="!h-2 !w-2 !rounded-full bg-[#fff]"  />
             <Text className="!text-[11px] !font-bold !text-white !tracking-wider">
               {t("liveReplay")}
             </Text>
@@ -47,14 +43,14 @@ export function PostImage({ gradient, imageUrl, videoUrl, isLive }: PostImagePro
   }
   if (imageUrl) {
     return (
-      <div className="!relative !w-full" style={{ background: "#000" }}>
+      <div className="!relative !w-full bg-[#000]" >
         <AntImage
           src={imageUrl}
           alt="post media"
           preview={{
             mask: { blur: true },
             closeIcon: (
-              <CloseOutlined style={{ fontSize: 20, color: "#fff" }} />
+              <CloseOutlined className="[font-size:20px] text-[#fff]"  />
             ),
           }}
           classNames={{
@@ -70,10 +66,8 @@ export function PostImage({ gradient, imageUrl, videoUrl, isLive }: PostImagePro
           <Flex
             align="center"
             gap={6}
-            className="!absolute !rounded-md !px-2 !py-1"
-            style={{ top: 12, left: 12, background: "#f02849" }}
-          >
-            <span className="!h-2 !w-2 !rounded-full" style={{ background: "#fff" }} />
+            className="!absolute !rounded-md !px-2 !py-1 top-[12px] left-[12px] bg-[#f02849]"  >
+            <span className="!h-2 !w-2 !rounded-full bg-[#fff]"  />
             <Text className="!text-[11px] !font-bold !text-white !tracking-wider">
               {t("liveReplay")}
             </Text>

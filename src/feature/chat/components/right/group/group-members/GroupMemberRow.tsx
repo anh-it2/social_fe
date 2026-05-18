@@ -25,9 +25,7 @@ export function GroupMemberRow({ row, menuItems, labels }: GroupMemberRowProps) 
     <Flex
       align="center"
       gap={10}
-      className="!rounded-[10px] hover:!bg-[var(--color-bg-tertiary)]"
-      style={{ padding: "6px 8px" }}
-    >
+      className="!rounded-[10px] hover:!bg-[var(--color-bg-tertiary)] [padding:6px_8px]"  >
       <Avatar name={row.name} seed={row.memberId} size={36} online={row.isOnline} />
       <Flex vertical className="!min-w-0 !flex-1">
         <Flex align="center" gap={6} className="!min-w-0">
@@ -36,7 +34,7 @@ export function GroupMemberRow({ row, menuItems, labels }: GroupMemberRowProps) 
             {row.isMe ? ` (${labels.you})` : ""}
           </Text>
           {row.isAdmin ? (
-            <Tag color="blue" style={{ margin: 0 }}>
+            <Tag className="m-[0px]" color="blue" >
               {labels.adminBadge}
             </Tag>
           ) : null}

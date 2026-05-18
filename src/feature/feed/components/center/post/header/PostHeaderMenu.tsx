@@ -10,7 +10,7 @@ function menuIcon(name: string) {
 
 function menuLabel(text: string) {
   return (
-    <span style={{ fontSize: 14, fontWeight: 500 }}>{text}</span>
+    <span className="[font-size:14px] [font-weight:500]" >{text}</span>
   );
 }
 

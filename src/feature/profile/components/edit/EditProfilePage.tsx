@@ -58,9 +58,7 @@ export function EditProfilePage() {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <TopNav />
       <FormProvider {...methods}>
         <form
@@ -83,9 +81,7 @@ export function EditProfilePage() {
             <EditAboutSection />
             {hasFieldErrors && (
               <Text
-                className="!text-sm"
-                style={{ color: "var(--color-error)" }}
-              >
+                className="!text-sm text-[var(--color-error)]"  >
                 Please fill out the required fields marked with *.
               </Text>
             )}

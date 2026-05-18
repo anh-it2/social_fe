@@ -19,14 +19,7 @@ export function UserReelTile({ reel }: UserReelTileProps) {
   return (
     <Link href={`/${locale}/reels?id=${reel.id}`} className="!shrink-0">
       <div
-        className="!relative !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl"
-        style={{
-          width: 160,
-          height: 240,
-          background: "#0a0a0a",
-          border: "1px solid var(--color-border)",
-        }}
-      >
+        className="!relative !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl w-[160px] h-[240px] bg-[#0a0a0a] [border:1px_solid_var(--color-border)]"  >
         {reel.mediaType === "image" ? (
           <Image
             src={reel.mediaUrl}
@@ -35,9 +28,7 @@ export function UserReelTile({ reel }: UserReelTileProps) {
             height={240}
             preview={false}
             rootClassName="!absolute !inset-0"
-            className="!h-full !w-full !object-cover"
-            style={{ objectFit: "cover" }}
-          />
+            className="!h-full !w-full !object-cover [object-fit:cover]"  />
         ) : (
           <video
             src={reel.mediaUrl}
@@ -49,26 +40,17 @@ export function UserReelTile({ reel }: UserReelTileProps) {
           />
         )}
         <div
-          className="!absolute !inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.75) 100%)",
-          }}
-        />
+          className="!absolute !inset-0 [background:linear-gradient(180deg,_rgba(0,0,0,0.05)_0%,_rgba(0,0,0,0)_35%,_rgba(0,0,0,0.75)_100%)]"  />
         <Flex
           align="center"
           justify="center"
-          className="!absolute !h-8 !w-8 !rounded-full"
-          style={{ background: "rgba(0,0,0,0.55)", top: 8, right: 8 }}
-        >
+          className="!absolute !h-8 !w-8 !rounded-full bg-[rgba(0,0,0,0.55)] top-[8px] right-[8px]"  >
           <Icon name="play_arrow" size={20} color="#fff" />
         </Flex>
         <Flex
           align="center"
           gap={4}
-          className="!absolute !rounded-md !px-1.5 !py-0.5"
-          style={{ background: "rgba(124,58,237,0.85)", top: 8, left: 8 }}
-        >
+          className="!absolute !rounded-md !px-1.5 !py-0.5 bg-[rgba(124,58,237,0.85)] top-[8px] left-[8px]"  >
           <Icon name="person" size={12} color="#fff" />
           <Text className="!text-[10px] !font-semibold !text-white">
             You
@@ -77,9 +59,7 @@ export function UserReelTile({ reel }: UserReelTileProps) {
         <Flex
           vertical
           gap={4}
-          className="!absolute"
-          style={{ left: 8, right: 8, bottom: 8 }}
-        >
+          className="!absolute left-[8px] right-[8px] bottom-[8px]"  >
           <Flex align="center" gap={6} className="!min-w-0">
             <div
               className="!h-6 !w-6 !shrink-0 !rounded-full"
@@ -91,14 +71,7 @@ export function UserReelTile({ reel }: UserReelTileProps) {
           </Flex>
           {reel.caption && (
             <Text
-              className="!text-[11px] !text-white/90"
-              style={{
-                display: "-webkit-box",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              }}
-            >
+              className="!text-[11px] !text-white/90 [display:-webkit-box] [-webkit-line-clamp:2px] [-webkit-box-orient:vertical] [overflow:hidden]"  >
               {reel.caption}
             </Text>
           )}

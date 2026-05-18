@@ -45,17 +45,13 @@ export function GroupChatSection() {
     <Flex vertical gap={4} className="!w-full">
       <Flex align="center" className="!h-9 !w-full !pb-2">
         <Text
-          className="!text-base !font-semibold"
-          style={{ color: "var(--color-text-secondary)" }}
-        >
+          className="!text-base !font-semibold text-[var(--color-text-secondary)]"  >
           {t("groupChat")}
         </Text>
       </Flex>
       {groups.length === 0 ? (
         <Text
-          className="!text-[13px] !px-1 !py-3"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[13px] !px-1 !py-3 text-[var(--color-text-muted)]"  >
           {t("noGroups")}
         </Text>
       ) : (
@@ -78,15 +74,11 @@ export function GroupChatSection() {
             <Flex vertical className="!min-w-0 !flex-1">
               <Text
                 ellipsis
-                className="!text-sm !font-medium"
-                style={{ color: "var(--color-text)" }}
-              >
+                className="!text-sm !font-medium text-[var(--color-text)]"  >
                 {g.name}
               </Text>
               <Text
-                className="!text-[12px]"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+                className="!text-[12px] text-[var(--color-text-muted)]"  >
                 {t("groupMembers", { count: g.memberIds.length })}
               </Text>
             </Flex>
@@ -102,9 +94,7 @@ export function GroupChatSection() {
         <Flex
           align="center"
           justify="center"
-          className="!h-9 !w-9 !shrink-0 !rounded-full"
-          style={{ background: "var(--color-bg-tertiary)" }}
-        >
+          className="!h-9 !w-9 !shrink-0 !rounded-full bg-[var(--color-bg-tertiary)]"  >
           <Icon
             name="group_add"
             size={18}
@@ -112,9 +102,7 @@ export function GroupChatSection() {
           />
         </Flex>
         <Text
-          className="!text-sm !font-semibold"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-sm !font-semibold text-[var(--color-text)]"  >
           {t("createGroup")}
         </Text>
       </Flex>

@@ -24,27 +24,16 @@ export function CommentItem({ comment }: CommentItemProps) {
       />
       <Flex vertical gap={4} className="!flex-1">
         {(comment.text || !comment.imageUrl) && (
-          <Flex
+          <Flex className="bg-[var(--color-bg-tertiary)] rounded-[16px] [padding:8px_12px] max-w-[fit-content]"
             vertical
-            gap={2}
-            style={{
-              background: "var(--color-bg-tertiary)",
-              borderRadius: 16,
-              padding: "8px 12px",
-              maxWidth: "fit-content",
-            }}
-          >
+            gap={2}  >
             <Text
-              className="!text-[13px] !font-semibold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-[13px] !font-semibold text-[var(--color-text)]"  >
               {comment.author}
             </Text>
             {comment.text && (
               <Text
-                className="!text-sm"
-                style={{ color: "var(--color-text-secondary)" }}
-              >
+                className="!text-sm text-[var(--color-text-secondary)]"  >
                 <RichText text={comment.text} />
               </Text>
             )}
@@ -54,44 +43,29 @@ export function CommentItem({ comment }: CommentItemProps) {
           <Flex vertical gap={2} className="!w-fit">
             {!comment.text && (
               <Text
-                className="!text-[13px] !font-semibold"
-                style={{ color: "var(--color-text)" }}
-              >
+                className="!text-[13px] !font-semibold text-[var(--color-text)]"  >
                 {comment.author}
               </Text>
             )}
             <div
-              className="!overflow-hidden !rounded-2xl"
-              style={{ border: "1px solid var(--color-border)" }}
-            >
-              <AntImage
+              className="!overflow-hidden !rounded-2xl [border:1px_solid_var(--color-border)]"  >
+              <AntImage className="max-w-[240px] max-h-[240px] [object-fit:cover] [display:block]"
                 src={comment.imageUrl}
                 alt="comment attachment"
-                preview={{ mask: false }}
-                style={{
-                  maxWidth: 240,
-                  maxHeight: 240,
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
+                preview={{ mask: false }}  />
             </div>
           </Flex>
         )}
-        <Flex gap={12} style={{ paddingLeft: 12 }}>
+        <Flex className="[padding-left:12px]" gap={12} >
           <Text
-            className="!text-[11px] !font-semibold"
-            style={{ color: "var(--color-text-muted)", cursor: "pointer" }}
-          >
+            className="!text-[11px] !font-semibold text-[var(--color-text-muted)] [cursor:pointer]"  >
             {t("like")}
           </Text>
           <Text
-            className="!text-[11px] !font-semibold"
-            style={{ color: "var(--color-text-muted)", cursor: "pointer" }}
-          >
+            className="!text-[11px] !font-semibold text-[var(--color-text-muted)] [cursor:pointer]"  >
             {t("reply")}
           </Text>
-          <Text className="!text-[11px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[11px] text-[var(--color-text-muted)]" >
             {comment.time}
           </Text>
         </Flex>

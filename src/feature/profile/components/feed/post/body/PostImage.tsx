@@ -9,13 +9,13 @@ interface PostImageProps {
 
 export function PostImage({ url }: PostImageProps) {
   return (
-    <div className="!w-full" style={{ background: "#000" }}>
+    <div className="!w-full bg-[#000]" >
       <AntImage
         src={url}
         alt="post media"
         preview={{
           mask: { blur: true },
-          closeIcon: <CloseOutlined style={{ fontSize: 20, color: "#fff" }} />,
+          closeIcon: <CloseOutlined className="[font-size:20px] text-[#fff]"  />,
         }}
         classNames={{
           root: "!block !w-full",

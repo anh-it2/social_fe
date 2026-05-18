@@ -87,20 +87,12 @@ export function RHFMemberPicker({
                         onChange={() => toggle(u.id)}
                         onClick={(e) => e.stopPropagation()}
                       />
-                      <Avatar
-                        size={32}
-                        style={{
-                          background: "var(--color-primary)",
-                          color: "var(--color-on-primary)",
-                          fontWeight: 600,
-                        }}
-                      >
+                      <Avatar className="bg-[var(--color-primary)] text-[var(--color-on-primary)] [font-weight:600]"
+                        size={32}  >
                         {u.name.charAt(0).toUpperCase()}
                       </Avatar>
                       <Text
-                        className="!flex-1 !text-[14px]"
-                        style={{ color: "var(--color-text)" }}
-                      >
+                        className="!flex-1 !text-[14px] text-[var(--color-text)]"  >
                         {u.name}
                       </Text>
                     </div>

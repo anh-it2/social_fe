@@ -21,7 +21,7 @@ export function ChatBoxes() {
       className={`!fixed !bottom-0 !right-2 sm:!right-6 ${xlOffset} !z-[1000] !flex !max-w-[calc(100vw-16px)] !items-end !gap-3 !pointer-events-none [&>*:nth-child(n+2)]:!hidden sm:[&>*:nth-child(n+2)]:!flex`}
     >
       {openChats.map((chat) => (
-        <div key={chat.id} style={{ pointerEvents: "auto" }}>
+        <div className="[pointer-events:auto]" key={chat.id} >
           <ChatBox chat={chat} />
         </div>
       ))}

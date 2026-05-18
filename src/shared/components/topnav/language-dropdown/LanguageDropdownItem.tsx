@@ -42,46 +42,24 @@ export function LanguageDropdownItem({
       <Flex
         align="center"
         justify="center"
-        className="!shrink-0"
-        style={{
-          width: 40,
-          height: 40,
-          fontSize: 24,
-          lineHeight: 1,
-          borderRadius: "50%",
-          background: "var(--color-bg-tertiary)",
-        }}
-      >
+        className="!shrink-0 w-[40px] h-[40px] [font-size:24px] [line-height:1] rounded-[50%] bg-[var(--color-bg-tertiary)]"  >
         <span aria-hidden="true">{flag}</span>
       </Flex>
       <Flex vertical gap={2} className="!min-w-0 !flex-1">
         <Flex align="center" gap={8}>
           <Text
-            className="!text-[15px] !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[15px] !font-semibold text-[var(--color-text)]"  >
             {name}
           </Text>
           {active ? (
             <Text
-              className="!text-[11px] !font-semibold"
-              style={{
-                color: "var(--color-primary)",
-                background: "var(--color-primary-bg)",
-                border: "1px solid var(--color-primary)",
-                borderRadius: 999,
-                padding: "1px 8px",
-                lineHeight: "16px",
-              }}
-            >
+              className="!text-[11px] !font-semibold text-[var(--color-primary)] bg-[var(--color-primary-bg)] [border:1px_solid_var(--color-primary)] rounded-[999px] [padding:1px_8px] [line-height:16px]"  >
               {currentTag}
             </Text>
           ) : null}
         </Flex>
         <Text
-          className="!text-[13px]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[13px] text-[var(--color-text-muted)]"  >
           {region}
         </Text>
       </Flex>

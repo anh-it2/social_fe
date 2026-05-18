@@ -199,7 +199,10 @@ export function RegisterForm() {
           <Text className="!text-[14px] !text-[var(--color-text-muted)]">
             {t("loginPrompt")}
           </Text>
-          <Link href="/login" className="!text-[14px] !font-semibold">
+          <Link
+            href="/login"
+            className="!text-[14px] !font-semibold !text-[var(--color-primary)] hover:!text-[var(--color-primary-dark)]"
+          >
             {t("loginLink")}
           </Link>
         </div>

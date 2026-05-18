@@ -41,21 +41,14 @@ export function VideoGridItem({ src, caption, time, onClick }: VideoGridItemProp
       <Flex
         align="center"
         justify="center"
-        className="!relative !aspect-video !w-full !overflow-hidden !rounded-xl"
-        style={{
-          background: "#000",
-          border: "1px solid var(--color-border)",
-        }}
-      >
+        className="!relative !aspect-video !w-full !overflow-hidden !rounded-xl bg-[#000] [border:1px_solid_var(--color-border)]"  >
         <video
           ref={ref}
           src={src}
           muted
           playsInline
           preload="metadata"
-          className="!h-full !w-full"
-          style={{ objectFit: "cover" }}
-        />
+          className="!h-full !w-full [object-fit:cover]"  />
         <Flex
           align="center"
           justify="center"
@@ -69,9 +62,7 @@ export function VideoGridItem({ src, caption, time, onClick }: VideoGridItemProp
             <Flex
               align="center"
               justify="center"
-              className="!h-12 !w-12 !rounded-full"
-              style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(8px)" }}
-            >
+              className="!h-12 !w-12 !rounded-full bg-[rgba(0,0,0,0.6)] [backdrop-filter:blur(8px)]"  >
               <Icon name="play_arrow" size={28} color="#fff" />
             </Flex>
           )}
@@ -82,14 +73,12 @@ export function VideoGridItem({ src, caption, time, onClick }: VideoGridItemProp
           {caption && (
             <Text
               ellipsis
-              className="!text-sm !font-medium"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-sm !font-medium text-[var(--color-text)]"  >
               {caption}
             </Text>
           )}
           {time && (
-            <Text className="!text-xs" style={{ color: "var(--color-text-muted)" }}>
+            <Text className="!text-xs text-[var(--color-text-muted)]" >
               {time}
             </Text>
           )}

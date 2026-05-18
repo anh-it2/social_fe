@@ -233,26 +233,15 @@ export function ReelComposerModal({
       width={960}
       bg="var(--color-bg-secondary)"
       borderColor="var(--color-border)"
-      closeIcon={<Icon name="close" size={20} color="var(--color-text)" />}
-      style={{ maxWidth: "calc(100vw - 16px)", top: 16 }}
-    >
+      closeIcon={<Icon className="[max-width:calc(100vw_-_16px)] top-[16px]" name="close" size={20} color="var(--color-text)" />}  >
       <div className="!relative !overflow-hidden">
         <div
-          className="!absolute !inset-x-0 !top-0 !h-[80px]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(124,58,237,0.35) 0%, rgba(236,72,153,0.25) 50%, rgba(35,116,225,0.3) 100%)",
-            filter: "blur(40px)",
-            zIndex: 0,
-          }}
-        />
+          className="!absolute !inset-x-0 !top-0 !h-[80px] [background:linear-gradient(135deg,_rgba(124,58,237,0.35)_0%,_rgba(236,72,153,0.25)_50%,_rgba(35,116,225,0.3)_100%)] [filter:blur(40px)] z-[0]"  />
 
         <Flex
           align="center"
           justify="space-between"
-          className="!relative !px-4 !py-3 md:!px-7 md:!py-4"
-          style={{ borderBottom: "1px solid var(--color-border)", zIndex: 1 }}
-        >
+          className="!relative !px-4 !py-3 md:!px-7 md:!py-4 [border-bottom:1px_solid_var(--color-border)] z-[1]"  >
           <Flex align="center" gap={8}>
             <Flex
               align="center"
@@ -267,12 +256,10 @@ export function ReelComposerModal({
             <Flex vertical gap={0}>
               <Title
                 level={5}
-                className="!m-0 !leading-tight"
-                style={{ color: "var(--color-text)" }}
-              >
+                className="!m-0 !leading-tight text-[var(--color-text)]"  >
                 {tc("title")}
               </Title>
-              <Text className="!text-xs" style={{ color: "var(--color-text-secondary)" }}>
+              <Text className="!text-xs text-[var(--color-text-secondary)]" >
                 {tc("subtitle")}
               </Text>
             </Flex>
@@ -281,9 +268,7 @@ export function ReelComposerModal({
 
         <Flex
           gap={28}
-          className="!relative !flex-col !px-4 !py-4 md:!flex-row md:!gap-8 md:!px-7 md:!py-6"
-          style={{ zIndex: 1 }}
-        >
+          className="!relative !flex-col !px-4 !py-4 md:!flex-row md:!gap-8 md:!px-7 md:!py-6 z-[1]"  >
           <Flex
             vertical
             align="center"
@@ -291,13 +276,7 @@ export function ReelComposerModal({
             className="!w-full md:!w-auto md:!shrink-0 md:!self-stretch"
           >
             <div
-              className="!relative !overflow-hidden !mx-auto !aspect-[9/16] !w-full !max-w-[180px] md:!aspect-auto md:!min-h-[360px] md:!flex-1 md:!max-w-[240px]"
-              style={{
-                borderRadius: 24,
-                background: "var(--color-bg-tertiary)",
-                boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
-              }}
-            >
+              className="!relative !overflow-hidden !mx-auto !aspect-[9/16] !w-full !max-w-[180px] md:!aspect-auto md:!min-h-[360px] md:!flex-1 md:!max-w-[240px] rounded-[24px] bg-[var(--color-bg-tertiary)] [box-shadow:0_12px_32px_rgba(0,0,0,0.18)]"  >
               {!mediaUrl && (
                 <Upload.Dragger
                   accept="video/*,image/*"
@@ -325,15 +304,11 @@ export function ReelComposerModal({
                     </Flex>
                     <Flex vertical align="center" gap={2}>
                       <Text
-                        className="!text-[13px] md:!text-base !font-bold"
-                        style={{ color: "var(--color-text)" }}
-                      >
+                        className="!text-[13px] md:!text-base !font-bold text-[var(--color-text)]"  >
                         {tc("uploadTitle")}
                       </Text>
                       <Text
-                        className="!text-[10px] md:!text-xs !text-center"
-                        style={{ color: "var(--color-text-secondary)" }}
-                      >
+                        className="!text-[10px] md:!text-xs !text-center text-[var(--color-text-secondary)]"  >
                         {t("uploadSubtitle").split("\n").map((line, i, arr) => (
                           <span key={i}>
                             {line}
@@ -389,9 +364,7 @@ export function ReelComposerModal({
                       </Upload>
                     </Flex>
                     <Text
-                      className="!hidden md:!block !text-[10px]"
-                      style={{ color: "var(--color-text-muted)" }}
-                    >
+                      className="!hidden md:!block !text-[10px] text-[var(--color-text-muted)]"  >
                       {t("formats")}
                     </Text>
                   </Flex>
@@ -422,33 +395,13 @@ export function ReelComposerModal({
                     type="text"
                     size="small"
                     onClick={handleRemoveMedia}
-                    className="!absolute"
-                    style={{
-                      top: 14,
-                      right: 14,
-                      background: "rgba(0,0,0,0.7)",
-                      backdropFilter: "blur(8px)",
-                      color: "#fff",
-                      borderRadius: 999,
-                      height: 30,
-                      width: 30,
-                      padding: 0,
-                    }}
-                    icon={<Icon name="close" size={16} color="#fff" />}
+                    className="!absolute top-[14px] right-[14px] bg-[rgba(0,0,0,0.7)] [backdrop-filter:blur(8px)] text-[#fff] rounded-[999px] h-[30px] w-[30px] p-[0px]"  icon={<Icon name="close" size={16} color="#fff" />}
                   />
                   {selectedTrack && (
                     <Flex
                       align="center"
                       gap={6}
-                      className="!absolute !rounded-full !px-2.5 !py-1"
-                      style={{
-                        bottom: 14,
-                        left: 14,
-                        background: "rgba(0,0,0,0.7)",
-                        backdropFilter: "blur(8px)",
-                        maxWidth: 200,
-                      }}
-                    >
+                      className="!absolute !rounded-full !px-2.5 !py-1 bottom-[14px] left-[14px] bg-[rgba(0,0,0,0.7)] [backdrop-filter:blur(8px)] max-w-[200px]"  >
                       <Icon name="music_note" size={14} color="#fff" />
                       <Text
                         ellipsis
@@ -463,9 +416,7 @@ export function ReelComposerModal({
             </div>
             {mediaUrl && (
               <Text
-                className="!text-[11px]"
-                style={{ color: "var(--color-text-muted)" }}
-                ellipsis
+                className="!text-[11px] text-[var(--color-text-muted)]"  ellipsis
               >
                 {file?.name}
               </Text>
@@ -486,41 +437,28 @@ export function ReelComposerModal({
                 </Avatar>
                 <Flex vertical gap={0}>
                   <Text
-                    className="!text-sm !font-semibold !leading-tight"
-                    style={{ color: "var(--color-text)" }}
-                  >
+                    className="!text-sm !font-semibold !leading-tight text-[var(--color-text)]"  >
                     {CURRENT_USER.name}
                   </Text>
                   <Flex
                     align="center"
                     gap={3}
-                    className="!rounded-full !px-1.5 !py-0.5 !w-fit"
-                    style={{ background: "var(--color-bg-tertiary)" }}
-                  >
+                    className="!rounded-full !px-1.5 !py-0.5 !w-fit bg-[var(--color-bg-tertiary)]"  >
                     <Icon name="public" size={11} color="var(--color-text-secondary)" />
                     <Text
-                      className="!text-[10px] !font-semibold"
-                      style={{ color: "var(--color-text-secondary)" }}
-                    >
+                      className="!text-[10px] !font-semibold text-[var(--color-text-secondary)]"  >
                       {tPostComposer("visibility")}
                     </Text>
                   </Flex>
                 </Flex>
               </Flex>
-              <Input.TextArea
+              <Input.TextArea className="bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)] [resize:none]"
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
                 placeholder={tc("captionPlaceholder")}
                 autoSize={{ minRows: 2, maxRows: 4 }}
                 maxLength={300}
-                showCount
-                style={{
-                  background: "var(--color-bg-tertiary)",
-                  border: "1px solid var(--color-border)",
-                  color: "var(--color-text)",
-                  resize: "none",
-                }}
-              />
+                showCount  />
             </Flex>
 
             {selectedTrack && (
@@ -537,19 +475,12 @@ export function ReelComposerModal({
                 <Flex
                   align="center"
                   justify="center"
-                  className="!h-12 !w-12 !rounded-lg !shrink-0"
-                  style={{
-                    background: "rgba(0,0,0,0.25)",
-                    backdropFilter: "blur(4px)",
-                  }}
-                >
+                  className="!h-12 !w-12 !rounded-lg !shrink-0 bg-[rgba(0,0,0,0.25)] [backdrop-filter:blur(4px)]"  >
                   <Icon name="graphic_eq" size={24} color="#fff" />
                 </Flex>
                 <Flex vertical className="!flex-1 !min-w-0" gap={2}>
                   <Text
-                    className="!text-[10px] !font-bold !uppercase !tracking-wider"
-                    style={{ color: "rgba(255,255,255,0.85)" }}
-                  >
+                    className="!text-[10px] !font-bold !uppercase !tracking-wider text-[rgba(255,255,255,0.85)]"  >
                     {t("nowUsing")}
                   </Text>
                   <Text
@@ -560,9 +491,7 @@ export function ReelComposerModal({
                   </Text>
                   <Text
                     ellipsis
-                    className="!text-xs !leading-tight"
-                    style={{ color: "rgba(255,255,255,0.85)" }}
-                  >
+                    className="!text-xs !leading-tight text-[rgba(255,255,255,0.85)]"  >
                     {selectedTrack.artist} · {selectedTrack.duration}
                   </Text>
                 </Flex>
@@ -570,26 +499,14 @@ export function ReelComposerModal({
                   shape="circle"
                   onClick={() => togglePreview(selectedTrack)}
                   icon={
-                    <Icon
+                    <Icon className="bg-[rgba(0,0,0,0.3)] [border:1px_solid_rgba(255,255,255,0.3)] w-[32px] h-[32px] min-w-[32px] p-[0px] [display:inline-flex] [align-items:center] [justify-content:center]"
                       name={
                         playingId === selectedTrack.id ? "pause" : "play_arrow"
                       }
                       size={16}
                       color="#fff"
                     />
-                  }
-                  style={{
-                    background: "rgba(0,0,0,0.3)",
-                    border: "1px solid rgba(255,255,255,0.3)",
-                    width: 32,
-                    height: 32,
-                    minWidth: 32,
-                    padding: 0,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                />
+                  }  />
                 <Button
                   shape="circle"
                   onClick={() => {
@@ -599,19 +516,7 @@ export function ReelComposerModal({
                     }
                     setMusicId(null);
                   }}
-                  icon={<Icon name="close" size={16} color="#fff" />}
-                  style={{
-                    background: "rgba(0,0,0,0.3)",
-                    border: "1px solid rgba(255,255,255,0.3)",
-                    width: 32,
-                    height: 32,
-                    minWidth: 32,
-                    padding: 0,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                />
+                  icon={<Icon className="bg-[rgba(0,0,0,0.3)] [border:1px_solid_rgba(255,255,255,0.3)] w-[32px] h-[32px] min-w-[32px] p-[0px] [display:inline-flex] [align-items:center] [justify-content:center]" name="close" size={16} color="#fff" />}  />
               </Flex>
             )}
 
@@ -620,13 +525,11 @@ export function ReelComposerModal({
                 <Flex align="center" gap={6}>
                   <Icon name="library_music" size={18} color="#a78bfa" />
                   <Text
-                    className="!text-sm !font-semibold"
-                    style={{ color: "var(--color-text)" }}
-                  >
+                    className="!text-sm !font-semibold text-[var(--color-text)]"  >
                     {selectedTrack ? t("browseOther") : t("addMusic")}
                   </Text>
                 </Flex>
-                <Text className="!text-xs" style={{ color: "var(--color-text-muted)" }}>
+                <Text className="!text-xs text-[var(--color-text-muted)]" >
                   {t("tracksCount", { count: filteredTracks.length })}
                 </Text>
               </Flex>
@@ -635,13 +538,7 @@ export function ReelComposerModal({
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={t("musicSearch")}
-                prefix={<Icon name="search" size={14} color="var(--color-text-muted)" />}
-                style={{
-                  background: "var(--color-bg-tertiary)",
-                  border: "1px solid var(--color-border)",
-                  color: "var(--color-text)",
-                }}
-              />
+                prefix={<Icon className="bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)]" name="search" size={14} color="var(--color-text-muted)" />}  />
 
               <Flex
                 vertical
@@ -657,7 +554,7 @@ export function ReelComposerModal({
                     gap={4}
                   >
                     <Icon name="music_off" size={24} color="var(--color-text-muted)" />
-                    <Text className="!text-xs" style={{ color: "var(--color-text-muted)" }}>
+                    <Text className="!text-xs text-[var(--color-text-muted)]" >
                       {t("noTracks")}
                     </Text>
                   </Flex>
@@ -700,16 +597,12 @@ export function ReelComposerModal({
                       <Flex vertical className="!flex-1 !min-w-0" gap={0}>
                         <Text
                           ellipsis
-                          className="!text-sm !font-semibold !leading-tight"
-                          style={{ color: "var(--color-text)" }}
-                        >
+                          className="!text-sm !font-semibold !leading-tight text-[var(--color-text)]"  >
                           {t.title}
                         </Text>
                         <Text
                           ellipsis
-                          className="!text-xs !leading-tight"
-                          style={{ color: "var(--color-text-secondary)" }}
-                        >
+                          className="!text-xs !leading-tight text-[var(--color-text-secondary)]"  >
                           {t.artist} · {t.duration}
                         </Text>
                       </Flex>
@@ -758,28 +651,16 @@ export function ReelComposerModal({
           justify="space-between"
           gap={8}
           wrap="wrap"
-          className="!relative !px-4 !py-3 md:!px-7 md:!py-4"
-          style={{
-            borderTop: "1px solid var(--color-border)",
-            background: "var(--color-bg-secondary)",
-            zIndex: 1,
-          }}
-        >
+          className="!relative !px-4 !py-3 md:!px-7 md:!py-4 [border-top:1px_solid_var(--color-border)] bg-[var(--color-bg-secondary)] z-[1]"  >
           <Flex align="center" gap={6}>
             <Icon name="info" size={14} color="var(--color-text-muted)" />
-            <Text className="!text-[11px]" style={{ color: "var(--color-text-secondary)" }}>
+            <Text className="!text-[11px] text-[var(--color-text-secondary)]" >
               {tc("info")}
             </Text>
           </Flex>
           <Flex gap={8}>
-            <Button
-              onClick={onClose}
-              style={{
-                background: "transparent",
-                border: "1px solid var(--color-border)",
-                color: "var(--color-text)",
-              }}
-            >
+            <Button className="bg-[transparent] [border:1px_solid_var(--color-border)] text-[var(--color-text)]"
+              onClick={onClose}  >
               {t("cancel")}
             </Button>
             <Button

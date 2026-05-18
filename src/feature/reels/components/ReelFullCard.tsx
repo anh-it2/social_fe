@@ -113,18 +113,14 @@ export function ReelFullCard(props: Props) {
   return (
     <div
       ref={containerRef}
-      className="!relative !w-full !snap-start !snap-always"
-      style={{ height: "calc(100dvh - 64px)", background: "#000" }}
-    >
+      className="!relative !w-full !snap-start !snap-always [height:calc(100dvh_-_64px)] bg-[#000]"  >
       <Flex
         align="center"
         justify="center"
         className="!h-full !w-full"
       >
         <div
-          className="!relative !h-full !w-full !overflow-hidden"
-          style={{ maxWidth: 480 }}
-        >
+          className="!relative !h-full !w-full !overflow-hidden max-w-[480px]"  >
           {isUserVideo ? (
             <video
               ref={videoRef}
@@ -140,27 +136,18 @@ export function ReelFullCard(props: Props) {
               alt={caption}
               preview={false}
               rootClassName="!absolute !inset-0"
-              className="!h-full !w-full !object-cover"
-              style={{ objectFit: "cover" }}
-            />
+              className="!h-full !w-full !object-cover [object-fit:cover]"  />
           ) : props.kind === "recommend" ? (
             <Image
               src={props.reel.thumbnailUrl}
               alt={caption}
               preview={false}
               rootClassName="!absolute !inset-0"
-              className="!h-full !w-full !object-cover"
-              style={{ objectFit: "cover" }}
-            />
+              className="!h-full !w-full !object-cover [object-fit:cover]"  />
           ) : null}
 
           <div
-            className="!absolute !inset-0 !pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.85) 100%)",
-            }}
-          />
+            className="!absolute !inset-0 !pointer-events-none [background:linear-gradient(180deg,_rgba(0,0,0,0.4)_0%,_rgba(0,0,0,0)_18%,_rgba(0,0,0,0)_60%,_rgba(0,0,0,0.85)_100%)]"  />
 
           {isUserVideo || hasMusic ? (
             <Button
@@ -169,24 +156,20 @@ export function ReelFullCard(props: Props) {
               aria-label={muted ? "Unmute" : "Mute"}
               onClick={() => setMuted((m) => !m)}
               icon={
-                <Icon
+                <Icon className="bg-[rgba(0,0,0,0.5)]"
                   name={muted ? "volume_off" : "volume_up"}
                   size={18}
                   color="#fff"
                 />
               }
-              className="!absolute !top-16 !right-3 !h-9 !w-9"
-              style={{ background: "rgba(0,0,0,0.5)" }}
-            />
+              className="!absolute !top-16 !right-3 !h-9 !w-9"  />
           ) : null}
 
           <Flex
             vertical
             gap={20}
             align="center"
-            className="!absolute"
-            style={{ right: 12, bottom: 120 }}
-          >
+            className="!absolute right-[12px] bottom-[120px]"  >
             <Flex vertical align="center" gap={2}>
               <Button
                 type="text"
@@ -194,15 +177,13 @@ export function ReelFullCard(props: Props) {
                 aria-label={t("like")}
                 onClick={props.onLikeToggle}
                 icon={
-                  <Icon
+                  <Icon className="bg-[rgba(0,0,0,0.45)]"
                     name="favorite"
                     size={28}
                     color={props.liked ? "#ef4444" : "#fff"}
                   />
                 }
-                className="!h-12 !w-12"
-                style={{ background: "rgba(0,0,0,0.45)" }}
-              />
+                className="!h-12 !w-12"  />
               <Text className="!text-[11px] !font-semibold !text-white">
                 {t("like")}
               </Text>
@@ -212,10 +193,8 @@ export function ReelFullCard(props: Props) {
                 type="text"
                 shape="circle"
                 aria-label={t("comment")}
-                icon={<Icon name="mode_comment" size={26} color="#fff" />}
-                className="!h-12 !w-12"
-                style={{ background: "rgba(0,0,0,0.45)" }}
-              />
+                icon={<Icon className="bg-[rgba(0,0,0,0.45)]" name="mode_comment" size={26} color="#fff" />}
+                className="!h-12 !w-12"  />
               <Text className="!text-[11px] !font-semibold !text-white">
                 {t("comment")}
               </Text>
@@ -225,10 +204,8 @@ export function ReelFullCard(props: Props) {
                 type="text"
                 shape="circle"
                 aria-label={t("share")}
-                icon={<Icon name="share" size={26} color="#fff" />}
-                className="!h-12 !w-12"
-                style={{ background: "rgba(0,0,0,0.45)" }}
-              />
+                icon={<Icon className="bg-[rgba(0,0,0,0.45)]" name="share" size={26} color="#fff" />}
+                className="!h-12 !w-12"  />
               <Text className="!text-[11px] !font-semibold !text-white">
                 {t("share")}
               </Text>
@@ -240,15 +217,13 @@ export function ReelFullCard(props: Props) {
                 aria-label={t("save")}
                 onClick={props.onSaveToggle}
                 icon={
-                  <Icon
+                  <Icon className="bg-[rgba(0,0,0,0.45)]"
                     name={props.saved ? "bookmark" : "bookmark_border"}
                     size={26}
                     color={props.saved ? "#fbbf24" : "#fff"}
                   />
                 }
-                className="!h-12 !w-12"
-                style={{ background: "rgba(0,0,0,0.45)" }}
-              />
+                className="!h-12 !w-12"  />
               <Text className="!text-[11px] !font-semibold !text-white">
                 {props.saved ? t("saved") : t("save")}
               </Text>
@@ -258,9 +233,7 @@ export function ReelFullCard(props: Props) {
           <Flex
             vertical
             gap={8}
-            className="!absolute"
-            style={{ left: 16, right: 84, bottom: 32 }}
-          >
+            className="!absolute left-[16px] right-[84px] bottom-[32px]"  >
             <Flex align="center" gap={10}>
               <div
                 className="!h-10 !w-10 !shrink-0 !rounded-full"
@@ -280,14 +253,7 @@ export function ReelFullCard(props: Props) {
             </Flex>
             {caption ? (
               <Text
-                className="!text-[13px] !text-white"
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
-              >
+                className="!text-[13px] !text-white [display:-webkit-box] [-webkit-line-clamp:3px] [-webkit-box-orient:vertical] [overflow:hidden]"  >
                 {caption}
               </Text>
             ) : null}
@@ -300,19 +266,11 @@ export function ReelFullCard(props: Props) {
               <Flex
                 align="center"
                 gap={6}
-                className="!rounded-full !px-2 !py-1 !w-fit"
-                style={{
-                  background: "rgba(0,0,0,0.5)",
-                  backdropFilter: "blur(8px)",
-                  maxWidth: "100%",
-                }}
-              >
+                className="!rounded-full !px-2 !py-1 !w-fit bg-[rgba(0,0,0,0.5)] [backdrop-filter:blur(8px)] max-w-[100%]"  >
                 <Icon name="music_note" size={12} color="#fff" />
                 <Text
                   ellipsis
-                  className="!text-[11px] !font-semibold !text-white"
-                  style={{ maxWidth: 220 }}
-                >
+                  className="!text-[11px] !font-semibold !text-white max-w-[220px]"  >
                   {track.title} · {track.artist}
                 </Text>
               </Flex>

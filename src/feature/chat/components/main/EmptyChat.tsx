@@ -17,12 +17,7 @@ export function EmptyChat() {
       className="flex-1 bg-[#fafbfc] dark:bg-[#0a0a0a]"
     >
       <div
-        className="flex h-20 w-20 items-center justify-center rounded-full"
-        style={{
-          background:
-            "linear-gradient(135deg, var(--color-primary), var(--color-primary-light))",
-        }}
-      >
+        className="flex h-20 w-20 items-center justify-center rounded-full [background:linear-gradient(135deg,_var(--color-primary),_var(--color-primary-light))]"  >
         <MessageOutlined className="!text-[36px] !text-white" />
       </div>
       <Title level={4} className="!m-0 !text-[var(--color-text)]">

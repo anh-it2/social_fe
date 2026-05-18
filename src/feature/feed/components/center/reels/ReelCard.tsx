@@ -31,9 +31,7 @@ export function ReelCard({ reel }: ReelCardProps) {
   return (
     <>
       <div
-        className="!relative !h-[186px] !w-[130px] !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl"
-        style={{ background: "#0a0a0a", border: "1px solid var(--color-border)" }}
-        onClick={() => setViewerOpen(true)}
+        className="!relative !h-[186px] !w-[130px] !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl bg-[#0a0a0a] [border:1px_solid_var(--color-border)]"  onClick={() => setViewerOpen(true)}
       >
         {reel.mediaType === "video" ? (
           <video
@@ -55,23 +53,12 @@ export function ReelCard({ reel }: ReelCardProps) {
         )}
 
         <div
-          className="!absolute !inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%)",
-          }}
-        />
+          className="!absolute !inset-0 [background:linear-gradient(180deg,_rgba(0,0,0,0.1)_0%,_rgba(0,0,0,0)_40%,_rgba(0,0,0,0.7)_100%)]"  />
 
         <Flex
           align="center"
           justify="center"
-          className="!absolute !h-7 !w-7 !rounded-full"
-          style={{
-            background: "rgba(0,0,0,0.6)",
-            top: 8,
-            right: 8,
-          }}
-        >
+          className="!absolute !h-7 !w-7 !rounded-full bg-[rgba(0,0,0,0.6)] top-[8px] right-[8px]"  >
           <Icon name="play_arrow" size={18} color="#FFFFFF" />
         </Flex>
 
@@ -79,20 +66,11 @@ export function ReelCard({ reel }: ReelCardProps) {
           <Flex
             align="center"
             gap={4}
-            className="!absolute !rounded-md !px-1.5 !py-0.5"
-            style={{
-              background: "rgba(0,0,0,0.6)",
-              top: 8,
-              left: 8,
-              maxWidth: 100,
-            }}
-          >
+            className="!absolute !rounded-md !px-1.5 !py-0.5 bg-[rgba(0,0,0,0.6)] top-[8px] left-[8px] max-w-[100px]"  >
             <Icon name="music_note" size={12} color="#FFFFFF" />
             <Text
-              className="!text-[10px] !font-semibold !text-white"
-              ellipsis
-              style={{ maxWidth: 76 }}
-            >
+              className="!text-[10px] !font-semibold !text-white max-w-[76px]"
+              ellipsis  >
               {track.title}
             </Text>
           </Flex>
@@ -100,17 +78,7 @@ export function ReelCard({ reel }: ReelCardProps) {
 
         {reel.caption && (
           <Text
-            className="!absolute !text-xs !font-semibold !text-white"
-            style={{
-              left: 8,
-              right: 8,
-              bottom: 8,
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
+            className="!absolute !text-xs !font-semibold !text-white left-[8px] right-[8px] bottom-[8px] [display:-webkit-box] [-webkit-line-clamp:2px] [-webkit-box-orient:vertical] [overflow:hidden]"  >
             {reel.caption}
           </Text>
         )}

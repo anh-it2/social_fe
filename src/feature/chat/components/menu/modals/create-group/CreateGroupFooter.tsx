@@ -20,24 +20,16 @@ export function CreateGroupFooter({ onCancel, busy }: CreateGroupFooterProps) {
 
   return (
     <Flex justify="end" gap={8} className="!mt-5">
-      <Button
+      <Button className="bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)]"
         onClick={onCancel}
-        disabled={busy}
-        style={{
-          background: "var(--color-bg-tertiary)",
-          border: "1px solid var(--color-border)",
-          color: "var(--color-text)",
-        }}
-      >
+        disabled={busy}  >
         {t("cancel")}
       </Button>
-      <Button
+      <Button className="[font-weight:600]"
         type="primary"
         htmlType="submit"
         loading={busy}
-        disabled={!canSubmit || busy}
-        style={{ fontWeight: 600 }}
-      >
+        disabled={!canSubmit || busy}  >
         {t("create", { count })}
       </Button>
     </Flex>

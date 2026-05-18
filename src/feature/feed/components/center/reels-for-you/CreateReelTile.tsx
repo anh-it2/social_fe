@@ -30,12 +30,7 @@ export function CreateReelTile({ onClick }: CreateReelTileProps) {
       }}
     >
       <div
-        className="!absolute !inset-0"
-        style={{
-          background:
-            "linear-gradient(160deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)",
-        }}
-      />
+        className="!absolute !inset-0 [background:linear-gradient(160deg,_rgba(0,0,0,0)_0%,_rgba(0,0,0,0.55)_100%)]"  />
       <Flex
         vertical
         align="center"
@@ -46,13 +41,7 @@ export function CreateReelTile({ onClick }: CreateReelTileProps) {
         <Flex
           align="center"
           justify="center"
-          className="!h-12 !w-12 !rounded-full"
-          style={{
-            background: "rgba(255,255,255,0.18)",
-            backdropFilter: "blur(6px)",
-            border: "2px solid rgba(255,255,255,0.8)",
-          }}
-        >
+          className="!h-12 !w-12 !rounded-full bg-[rgba(255,255,255,0.18)] [backdrop-filter:blur(6px)] [border:2px_solid_rgba(255,255,255,0.8)]"  >
           <Icon name="add" size={24} color="#fff" />
         </Flex>
         <Text className="!text-[14px] !font-bold !text-white">

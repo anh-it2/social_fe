@@ -49,15 +49,13 @@ export function AboutContent({ active }: AboutContentProps) {
         style={wrapperStyle}
       >
         <Text
-          className="!text-[20px] !font-bold !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-[20px] !font-bold !leading-tight text-[var(--color-text)]"  >
           {t("overview")}
         </Text>
         {!hydrated ? null : overviewRows.length === 0 ? (
           <Empty
             description={
-              <Text style={{ color: "var(--color-text-muted)" }}>
+              <Text className="text-[var(--color-text-muted)]" >
                 {t("noInfo")}
               </Text>
             }
@@ -77,9 +75,7 @@ export function AboutContent({ active }: AboutContentProps) {
       style={wrapperStyle}
     >
       <Text
-        className="!text-[20px] !font-bold !leading-tight"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!text-[20px] !font-bold !leading-tight text-[var(--color-text)]"  >
         {category.label}
       </Text>
       {category.sections.map((s, i) => (
@@ -92,13 +88,7 @@ export function AboutContent({ active }: AboutContentProps) {
             onDelete={(rowId) => deleteRow(s.id, rowId)}
           />
           {i < category.sections.length - 1 ? (
-            <div
-              style={{
-                height: 1,
-                background: "var(--color-border)",
-                width: "100%",
-              }}
-            />
+            <div className="h-[1px] bg-[var(--color-border)] w-[100%]"  />
           ) : null}
         </Flex>
       ))}

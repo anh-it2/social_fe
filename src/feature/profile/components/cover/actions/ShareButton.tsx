@@ -51,30 +51,15 @@ export function ShareButton() {
         popupRender={() => (
           <Flex
             vertical
-            className="!w-[min(340px,calc(100vw-16px))]"
-            style={{
-              background: "var(--color-bg-secondary)",
-              border: "1px solid var(--color-border)",
-              borderRadius: 16,
-              boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
-              overflow: "hidden",
-            }}
-          >
-            <Flex
-              align="center"
-              style={{
-                padding: "14px 16px 10px 16px",
-                borderBottom: "1px solid var(--color-border-light)",
-              }}
-            >
+            className="!w-[min(340px,calc(100vw-16px))] bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[16px] [box-shadow:0_12px_32px_rgba(0,0,0,0.45)] [overflow:hidden]"  >
+            <Flex className="[padding:14px_16px_10px_16px] [border-bottom:1px_solid_var(--color-border-light)]"
+              align="center"  >
               <Text
-                className="!text-[17px] !font-bold"
-                style={{ color: "var(--color-text)" }}
-              >
+                className="!text-[17px] !font-bold text-[var(--color-text)]"  >
                 {tPost("shareDropdown.header")}
               </Text>
             </Flex>
-            <Flex vertical gap={2} style={{ padding: "8px" }}>
+            <Flex className="p-[8px]" vertical gap={2} >
               <ShareDropdownItem
                 icon="link"
                 gradient={["#6B7280", "#4B5563"]}
@@ -95,17 +80,10 @@ export function ShareButton() {
       >
         <Button
           type="text"
-          className="!h-9 !rounded-3xl !px-4 md:!h-10 md:!px-6"
-          style={{
-            background: "rgba(255,255,255,0.18)",
-            border: "1px solid rgba(255,255,255,0.35)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-          }}
-        >
+          className="!h-9 !rounded-3xl !px-4 md:!h-10 md:!px-6 bg-[rgba(255,255,255,0.18)] [border:1px_solid_rgba(255,255,255,0.35)] [backdrop-filter:blur(12px)] [-webkit-backdrop-filter:blur(12px)]"  >
           <Flex align="center" gap={8}>
             <Icon name="share" size={18} color="#ffffff" />
-            <Text className="!text-sm !font-semibold" style={{ color: "#ffffff" }}>
+            <Text className="!text-sm !font-semibold text-[#ffffff]" >
               {t("share")}
             </Text>
           </Flex>

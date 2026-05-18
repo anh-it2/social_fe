@@ -132,22 +132,14 @@ export function ChatDropdownContent({ onClose, onCreateGroup }: ChatDropdownCont
   return (
     <Flex
       vertical
-      className="!w-[min(360px,calc(100vw-16px))]"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 14,
-        boxShadow: "0 12px 32px rgba(0,0,0,0.5)",
-        overflow: "hidden",
-      }}
-    >
+      className="!w-[min(360px,calc(100vw-16px))] bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[14px] [box-shadow:0_12px_32px_rgba(0,0,0,0.5)] [overflow:hidden]"  >
       <ChatDropdownHeader
         contacts={contacts}
         onExpand={goSeeAll}
         onPickUser={handleItemClick}
         onCreateGroup={onCreateGroup}
       />
-      <div className="!w-full" style={{ padding: "0 12px 8px 12px" }}>
+      <div className="!w-full [padding:0_12px_8px_12px]" >
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -168,19 +160,11 @@ export function ChatDropdownContent({ onClose, onCreateGroup }: ChatDropdownCont
       <Flex
         vertical
         gap={2}
-        className="!w-full"
-        style={{
-          padding: "4px 8px 8px 8px",
-          maxHeight: 420,
-          overflowY: "auto",
-        }}
-      >
+        className="!w-full [padding:4px_8px_8px_8px] max-h-[420px] [overflow-y:auto]"  >
         {visibleEntries.length === 0 ? (
-          <div style={{ padding: "24px 12px", textAlign: "center" }}>
+          <div className="[padding:24px_12px] [text-align:center]" >
             <Text
-              className="!text-[13px]"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-[13px] text-[var(--color-text-muted)]"  >
               {query.trim()
                 ? t("noResults")
                 : tab === "unread"

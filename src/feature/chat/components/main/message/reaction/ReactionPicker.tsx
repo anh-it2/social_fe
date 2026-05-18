@@ -68,15 +68,13 @@ export function ReactionPicker({
         size="small"
         aria-label={t("add")}
         icon={
-          <Icon
+          <Icon className="text-[var(--color-text-secondary)]"
             name="add_reaction"
             size={16}
             color="var(--color-text-secondary)"
           />
         }
-        className="!h-7 !w-7 !rounded-full opacity-0 transition-opacity group-hover:opacity-100"
-        style={{ color: "var(--color-text-secondary)" }}
-      />
+        className="!h-7 !w-7 !rounded-full opacity-0 transition-opacity group-hover:opacity-100"  />
     </Popover>
   );
 }

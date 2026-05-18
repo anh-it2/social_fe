@@ -32,17 +32,10 @@ export function ContactRow({ contact, onClick }: ContactRowProps) {
         </Flex>
         {contact.online ? (
           <div
-            className="!absolute !h-3 !w-3 !rounded-full"
-            style={{
-              background: "#22c55e",
-              border: "2px solid var(--color-bg)",
-              right: -2,
-              bottom: -2,
-            }}
-          />
+            className="!absolute !h-3 !w-3 !rounded-full bg-[#22c55e] [border:2px_solid_var(--color-bg)] right-[-2px] bottom-[-2px]"  />
         ) : null}
       </div>
-      <Text className="!text-sm !font-medium" style={{ color: "var(--color-text)" }}>
+      <Text className="!text-sm !font-medium text-[var(--color-text)]" >
         {contact.name}
       </Text>
     </Flex>

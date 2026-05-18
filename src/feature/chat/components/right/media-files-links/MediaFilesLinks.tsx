@@ -63,9 +63,7 @@ export function MediaFilesLinks({ conversationId }: MediaFilesLinksProps) {
       key: "main",
       label: (
         <Text
-          className="!text-[14px] !font-semibold"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-[14px] !font-semibold text-[var(--color-text)]"  >
           {t("title")}
         </Text>
       ),

@@ -23,7 +23,7 @@ export function LinksList({ items }: LinksListProps) {
   const t = useTranslations("Chat.right.mediaSection");
   if (items.length === 0) {
     return (
-      <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+      <Text className="!text-[12px] text-[var(--color-text-muted)]" >
         {t("emptyLinks")}
       </Text>
     );
@@ -42,16 +42,12 @@ export function LinksList({ items }: LinksListProps) {
           <Flex vertical className="!min-w-0 !flex-1">
             <Text
               ellipsis
-              className="!text-[13px] !font-medium"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-[13px] !font-medium text-[var(--color-text)]"  >
               {safeHost(l.url)}
             </Text>
             <Text
               ellipsis
-              className="!text-[11px]"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-[11px] text-[var(--color-text-muted)]"  >
               {l.url}
             </Text>
           </Flex>

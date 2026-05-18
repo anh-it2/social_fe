@@ -30,9 +30,7 @@ export function PostActionBar({
   return (
     <Flex
       justify="space-around"
-      className="!w-full !border-t"
-      style={{ padding: "8px 24px", borderColor: "var(--color-border)" }}
-    >
+      className="!w-full !border-t [padding:8px_24px] [border-color:var(--color-border)]"  >
       <LikeButton reaction={reaction} onChange={onReactionChange} />
       <CommentButton onClick={onCommentClick} />
       <ShareMenu postId={postId} onShared={onShared} source={shareSource} />

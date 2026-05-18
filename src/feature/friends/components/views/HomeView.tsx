@@ -42,9 +42,7 @@ export function HomeView({
         <Flex align="baseline" justify="space-between" className="!w-full">
           <Title
             level={4}
-            className="!m-0 !text-[20px] !font-bold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!m-0 !text-[20px] !font-bold text-[var(--color-text)]"  >
             {t("section.requests")}
           </Title>
           <Button
@@ -84,9 +82,7 @@ export function HomeView({
         <Flex align="baseline" justify="space-between" className="!w-full">
           <Title
             level={4}
-            className="!m-0 !text-[20px] !font-bold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!m-0 !text-[20px] !font-bold text-[var(--color-text)]"  >
             {t("section.suggestions")}
           </Title>
           <Button

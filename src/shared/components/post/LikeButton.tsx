@@ -53,7 +53,7 @@ export function LikeButton({ reaction, onChange, className }: LikeButtonProps) {
         }
       >
         {current ? (
-          <span style={{ fontSize: 20, lineHeight: 1 }}>{current.emoji}</span>
+          <span className="[font-size:20px] [line-height:1]" >{current.emoji}</span>
         ) : (
           <Icon name="thumb_up" size={20} color={color} />
         )}

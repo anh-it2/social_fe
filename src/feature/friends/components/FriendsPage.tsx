@@ -41,16 +41,12 @@ export function FriendsPage() {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <TopNav />
       <Flex className="!w-full !flex-1 !items-stretch">
         <FriendsSubSidebar view={view} onChange={setView} />
         <main
-          className="!min-w-0 !flex-1"
-          style={{ background: "var(--color-bg)" }}
-        >
+          className="!min-w-0 !flex-1 bg-[var(--color-bg)]"  >
           {view === "home" && (
             <HomeView
               onSeeAllRequests={() => setView("requests")}

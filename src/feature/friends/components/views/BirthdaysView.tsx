@@ -24,9 +24,7 @@ function Section({ label, items }: SectionProps) {
   return (
     <Flex vertical gap={8} className="!w-full">
       <Text
-        className="!text-[15px] !font-semibold"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
+        className="!text-[15px] !font-semibold text-[var(--color-text-secondary)]"  >
         {label}
       </Text>
       {items.map((b) => (
@@ -34,12 +32,7 @@ function Section({ label, items }: SectionProps) {
           key={b.id}
           align="center"
           gap={12}
-          className="!w-full !rounded-xl !p-3"
-          style={{
-            background: "var(--color-bg-secondary)",
-            border: "1px solid var(--color-border)",
-          }}
-        >
+          className="!w-full !rounded-xl !p-3 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
           <Flex
             align="center"
             justify="center"
@@ -50,16 +43,12 @@ function Section({ label, items }: SectionProps) {
           </Flex>
           <Flex vertical className="!flex-1 !min-w-0">
             <Text
-              className="!truncate !text-[15px] !font-semibold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!truncate !text-[15px] !font-semibold text-[var(--color-text)]"  >
               {b.name}
             </Text>
             {b.date && (
               <Text
-                className="!text-[13px]"
-                style={{ color: "var(--color-text-secondary)" }}
-              >
+                className="!text-[13px] text-[var(--color-text-secondary)]"  >
                 {b.date}
               </Text>
             )}
@@ -87,9 +76,7 @@ export function BirthdaysView() {
     >
       <Title
         level={4}
-        className="!m-0 !text-[20px] !font-bold"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!m-0 !text-[20px] !font-bold text-[var(--color-text)]"  >
         {t("section.birthdays")}
       </Title>
       <Section label={t("section.today")} items={today} />

@@ -18,14 +18,7 @@ export function RequestCard({ request, online }: RequestCardProps) {
     <Flex
       vertical
       gap={12}
-      className="!w-full !p-3 sm:!p-4"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 16,
-        boxShadow: "var(--shadow-md)",
-      }}
-    >
+      className="!w-full !p-3 sm:!p-4 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[16px] [box-shadow:var(--shadow-md)]"  >
       <Flex gap={12} align="center" className="!min-w-0">
         <div className="!shrink-0 sm:!hidden">
           <FriendAvatar name={request.name} size={56} online={online} square />
@@ -35,15 +28,13 @@ export function RequestCard({ request, online }: RequestCardProps) {
         </div>
         <Flex vertical gap={2} className="!min-w-0 !flex-1">
           <Text
-            className="!truncate !text-[15px] !font-bold !leading-tight sm:!text-[16px]"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!truncate !text-[15px] !font-bold !leading-tight sm:!text-[16px] text-[var(--color-text)]"  >
             {request.name}
           </Text>
-          <Text className="!truncate !text-[12px] sm:!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!truncate !text-[12px] sm:!text-[13px] text-[var(--color-text-muted)]" >
             {t("meta.mutual", { count: request.mutualFriends })}
           </Text>
-          <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[12px] text-[var(--color-text-muted)]" >
             {request.time}
           </Text>
         </Flex>
@@ -56,13 +47,7 @@ export function RequestCard({ request, online }: RequestCardProps) {
           <span className="!truncate">{t("actions.confirm")}</span>
         </Button>
         <Button
-          className="!h-9 !min-w-0 !flex-1 !rounded-[10px] !text-[12px] !font-semibold sm:!text-[13px]"
-          style={{
-            background: "var(--color-bg-tertiary)",
-            color: "var(--color-text)",
-            borderColor: "var(--color-border)",
-          }}
-        >
+          className="!h-9 !min-w-0 !flex-1 !rounded-[10px] !text-[12px] !font-semibold sm:!text-[13px] bg-[var(--color-bg-tertiary)] text-[var(--color-text)] [border-color:var(--color-border)]"  >
           <span className="!truncate">{t("actions.delete")}</span>
         </Button>
       </Flex>

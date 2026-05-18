@@ -52,17 +52,7 @@ export function ChatDropdownItem({
         />
         {!isGroup && chat.online ? (
           <span
-            className="absolute"
-            style={{
-              right: 0,
-              bottom: 0,
-              width: 14,
-              height: 14,
-              borderRadius: "50%",
-              background: "#22c55e",
-              border: "2px solid #1a1a1a",
-            }}
-          />
+            className="absolute right-[0px] bottom-[0px] w-[14px] h-[14px] rounded-[50%] bg-[#22c55e] [border:2px_solid_#1a1a1a]"  />
         ) : null}
       </div>
       <Flex vertical gap={2} className="!min-w-0 !flex-1">
@@ -87,21 +77,13 @@ export function ChatDropdownItem({
           >
             {chat.lastMessage}
           </Text>
-          <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[12px] text-[var(--color-text-muted)]" >
             · {chat.time}
           </Text>
         </Flex>
       </Flex>
       {chat.unread ? (
-        <span
-          style={{
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            background: "#4096ff",
-            flexShrink: 0,
-          }}
-        />
+        <span className="w-[10px] h-[10px] rounded-[50%] bg-[#4096ff] shrink-[0]"  />
       ) : null}
       <div
         className="!shrink-0 !opacity-0 transition-opacity group-hover:!opacity-100 focus-within:!opacity-100"

@@ -17,15 +17,11 @@ export function TrendingSection() {
     return (
       <Flex vertical gap={10} className="!w-full">
         <Text
-          className="!text-base !font-semibold"
-          style={{ color: "var(--color-text-secondary)" }}
-        >
+          className="!text-base !font-semibold text-[var(--color-text-secondary)]"  >
           {t("title")}
         </Text>
         <Text
-          className="!text-[13px]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[13px] text-[var(--color-text-muted)]"  >
           {t("empty")}
         </Text>
       </Flex>
@@ -35,9 +31,7 @@ export function TrendingSection() {
   return (
     <Flex vertical gap={8} className="!w-full">
       <Text
-        className="!text-base !font-semibold"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
+        className="!text-base !font-semibold text-[var(--color-text-secondary)]"  >
         {t("title")}
       </Text>
       <Flex vertical gap={2} className="!w-full">
@@ -55,22 +49,16 @@ export function TrendingSection() {
               <Flex
                 align="center"
                 justify="center"
-                className="!h-9 !w-9 !shrink-0 !rounded-full"
-                style={{ background: "var(--color-bg-tertiary)" }}
-              >
+                className="!h-9 !w-9 !shrink-0 !rounded-full bg-[var(--color-bg-tertiary)]"  >
                 <Icon name="tag" size={18} color="var(--color-primary)" />
               </Flex>
               <Flex vertical gap={0} className="!min-w-0 !flex-1">
                 <Text
-                  className="!text-[14px] !font-semibold !truncate"
-                  style={{ color: "var(--color-text)" }}
-                >
+                  className="!text-[14px] !font-semibold !truncate text-[var(--color-text)]"  >
                   #{item.tag}
                 </Text>
                 <Text
-                  className="!text-[12px]"
-                  style={{ color: "var(--color-text-secondary)" }}
-                >
+                  className="!text-[12px] text-[var(--color-text-secondary)]"  >
                   {t("postCount", { count: item.count })}
                 </Text>
               </Flex>

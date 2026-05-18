@@ -46,9 +46,7 @@ export function UserRow() {
         {initial}
       </Avatar>
       <Text
-        className="!text-[15px] !font-semibold !leading-tight"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!text-[15px] !font-semibold !leading-tight text-[var(--color-text)]"  >
         {name}
       </Text>
     </Flex>

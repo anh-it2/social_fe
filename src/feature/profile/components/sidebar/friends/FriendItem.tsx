@@ -19,13 +19,7 @@ export function FriendItem({ friend }: FriendItemProps) {
       <Flex
         align="center"
         justify="center"
-        className="!w-full"
-        style={{
-          height: 96,
-          background: "var(--color-bg-tertiary)",
-          borderRadius: 12,
-        }}
-      >
+        className="!w-full h-[96px] bg-[var(--color-bg-tertiary)] rounded-[12px]"  >
         <FriendAvatar
           name={friend.name}
           size={72}
@@ -35,9 +29,7 @@ export function FriendItem({ friend }: FriendItemProps) {
         />
       </Flex>
       <Text
-        className="!truncate !text-xs !font-medium"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
+        className="!truncate !text-xs !font-medium text-[var(--color-text-secondary)]"  >
         {friend.name}
       </Text>
     </Flex>

@@ -31,11 +31,9 @@ export function NewChatCompose({ contacts, onPick }: NewChatComposeProps) {
   }, [contacts, q]);
 
   return (
-    <Flex vertical className="!w-[300px]" style={{ padding: 4 }}>
+    <Flex vertical className="!w-[300px] p-[4px]" >
       <Text
-        className="!px-2 !pt-1 !pb-2 !text-[15px] !font-bold"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!px-2 !pt-1 !pb-2 !text-[15px] !font-bold text-[var(--color-text)]"  >
         {t("title")}
       </Text>
       <Input
@@ -43,31 +41,18 @@ export function NewChatCompose({ contacts, onPick }: NewChatComposeProps) {
         onChange={(e) => setQ(e.target.value)}
         placeholder={t("placeholder")}
         prefix={
-          <Icon name="search" size={16} color="var(--color-text-muted)" />
+          <Icon className="bg-[var(--color-bg-tertiary)] [border:none] text-[var(--color-text)] [width:calc(100%_-_16px)]" name="search" size={16} color="var(--color-text-muted)" />
         }
-        className="!mx-2 !mb-2 !rounded-full"
-        style={{
-          background: "var(--color-bg-tertiary)",
-          border: "none",
-          color: "var(--color-text)",
-          width: "calc(100% - 16px)",
-        }}
-      />
-      <Flex
+        className="!mx-2 !mb-2 !rounded-full"  />
+      <Flex className="max-h-[320px] [overflow-y:auto] [padding:0_4px_4px_4px]"
         vertical
-        gap={2}
-        style={{ maxHeight: 320, overflowY: "auto", padding: "0 4px 4px 4px" }}
-      >
+        gap={2}  >
         {filtered.length === 0 ? (
-          <Flex
+          <Flex className="[padding:20px_12px]"
             align="center"
-            justify="center"
-            style={{ padding: "20px 12px" }}
-          >
+            justify="center"  >
             <Text
-              className="!text-[13px]"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-[13px] text-[var(--color-text-muted)]"  >
               {t("empty")}
             </Text>
           </Flex>
@@ -95,31 +80,17 @@ export function NewChatCompose({ contacts, onPick }: NewChatComposeProps) {
                 </Flex>
                 {c.online ? (
                   <span
-                    className="absolute"
-                    style={{
-                      right: 0,
-                      bottom: 0,
-                      width: 10,
-                      height: 10,
-                      borderRadius: "50%",
-                      background: "#22c55e",
-                      border: "2px solid var(--color-bg-secondary)",
-                    }}
-                  />
+                    className="absolute right-[0px] bottom-[0px] w-[10px] h-[10px] rounded-[50%] bg-[#22c55e] [border:2px_solid_var(--color-bg-secondary)]"  />
                 ) : null}
               </div>
               <Flex vertical className="!min-w-0 !flex-1">
                 <Text
                   ellipsis
-                  className="!text-sm"
-                  style={{ color: "var(--color-text)", fontWeight: 500 }}
-                >
+                  className="!text-sm text-[var(--color-text)] [font-weight:500]"  >
                   {c.user.name}
                 </Text>
                 <Text
-                  className="!text-[12px]"
-                  style={{ color: "var(--color-text-muted)" }}
-                >
+                  className="!text-[12px] text-[var(--color-text-muted)]"  >
                   {c.online ? t("active") : t("offline")}
                 </Text>
               </Flex>

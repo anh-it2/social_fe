@@ -51,13 +51,7 @@ export function SavedReelCard({ kind, reel, onRemove }: SavedReelCardProps) {
 
   return (
     <div
-      className="!relative !w-full !overflow-hidden !rounded-xl"
-      style={{
-        background: "#0a0a0a",
-        border: "1px solid var(--color-border)",
-        aspectRatio: "2 / 3",
-      }}
-      onClick={togglePlay}
+      className="!relative !w-full !overflow-hidden !rounded-xl bg-[#0a0a0a] [border:1px_solid_var(--color-border)] [aspect-ratio:2_/_3]"  onClick={togglePlay}
     >
       {isUserReel(reel, kind) && reel.mediaType === "video" ? (
         <video
@@ -74,35 +68,24 @@ export function SavedReelCard({ kind, reel, onRemove }: SavedReelCardProps) {
           alt={caption}
           preview={false}
           rootClassName="!absolute !inset-0"
-          className="!h-full !w-full !object-cover"
-          style={{ objectFit: "cover" }}
-        />
+          className="!h-full !w-full !object-cover [object-fit:cover]"  />
       ) : (
         <Image
           src={(reel as RecommendedReel).thumbnailUrl}
           alt={caption}
           preview={false}
           rootClassName="!absolute !inset-0"
-          className="!h-full !w-full !object-cover"
-          style={{ objectFit: "cover" }}
-        />
+          className="!h-full !w-full !object-cover [object-fit:cover]"  />
       )}
 
       <div
-        className="!absolute !inset-0 !pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.8) 100%)",
-        }}
-      />
+        className="!absolute !inset-0 !pointer-events-none [background:linear-gradient(180deg,_rgba(0,0,0,0.05)_0%,_rgba(0,0,0,0)_35%,_rgba(0,0,0,0.8)_100%)]"  />
 
       {!playing && isUserReel(reel, kind) && reel.mediaType === "video" ? (
         <Flex
           align="center"
           justify="center"
-          className="!absolute !left-1/2 !top-1/2 !h-12 !w-12 -translate-x-1/2 -translate-y-1/2 !rounded-full"
-          style={{ background: "rgba(0,0,0,0.55)" }}
-        >
+          className="!absolute !left-1/2 !top-1/2 !h-12 !w-12 -translate-x-1/2 -translate-y-1/2 !rounded-full bg-[rgba(0,0,0,0.55)]"  >
           <Icon name="play_arrow" size={28} color="#fff" />
         </Flex>
       ) : null}
@@ -115,17 +98,13 @@ export function SavedReelCard({ kind, reel, onRemove }: SavedReelCardProps) {
           e.stopPropagation();
           onRemove();
         }}
-        icon={<Icon name="bookmark" size={18} color="#fbbf24" />}
-        className="!absolute !top-2 !right-2 !h-9 !w-9"
-        style={{ background: "rgba(0,0,0,0.55)" }}
-      />
+        icon={<Icon className="bg-[rgba(0,0,0,0.55)]" name="bookmark" size={18} color="#fbbf24" />}
+        className="!absolute !top-2 !right-2 !h-9 !w-9"  />
 
       <Flex
         vertical
         gap={4}
-        className="!absolute"
-        style={{ left: 10, right: 10, bottom: 10 }}
-      >
+        className="!absolute left-[10px] right-[10px] bottom-[10px]"  >
         <Flex align="center" gap={6} className="!min-w-0">
           <div
             className="!h-6 !w-6 !shrink-0 !rounded-full"
@@ -137,14 +116,7 @@ export function SavedReelCard({ kind, reel, onRemove }: SavedReelCardProps) {
         </Flex>
         {caption ? (
           <Text
-            className="!text-[11px] !text-white/90"
-            style={{
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
+            className="!text-[11px] !text-white/90 [display:-webkit-box] [-webkit-line-clamp:2px] [-webkit-box-orient:vertical] [overflow:hidden]"  >
             {caption}
           </Text>
         ) : null}

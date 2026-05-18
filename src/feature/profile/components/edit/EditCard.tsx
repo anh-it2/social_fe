@@ -35,16 +35,12 @@ export function EditCard({ title, description, children, gap = 20 }: Props) {
     >
       <Flex vertical gap={4}>
         <Text
-          className="!text-base !font-semibold"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-base !font-semibold text-[var(--color-text)]"  >
           {title}
         </Text>
         {description && (
           <Text
-            className="!text-xs"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!text-xs text-[var(--color-text-muted)]"  >
             {description}
           </Text>
         )}

@@ -164,32 +164,17 @@ export function ChatBox({ chat }: ChatBoxProps) {
               <Icon name={isGroup ? "group" : "person"} size={20} color="#FFFFFF" />
             </Flex>
             {!isGroup && chat.online ? (
-              <span
-                style={{
-                  position: "absolute",
-                  right: -2,
-                  bottom: -2,
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  background: "#22c55e",
-                  border: "2px solid var(--color-bg-secondary)",
-                }}
-              />
+              <span className="[position:absolute] right-[-2px] bottom-[-2px] w-[10px] h-[10px] rounded-[50%] bg-[#22c55e] [border:2px_solid_var(--color-bg-secondary)]"  />
             ) : null}
           </div>
           <Flex vertical className="!min-w-0">
             <Text
               ellipsis
-              className="!text-sm !font-semibold !leading-tight"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-sm !font-semibold !leading-tight text-[var(--color-text)]"  >
               {displayName}
             </Text>
             <Text
-              className="!text-[11px] !leading-tight"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-[11px] !leading-tight text-[var(--color-text-muted)]"  >
               {isGroup
                 ? t("memberCount", { count: groupMemberCount })
                 : chat.online

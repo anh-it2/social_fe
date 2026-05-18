@@ -33,22 +33,20 @@ export function PostReactions({
     <Flex
       align="center"
       justify="space-between"
-      className="!w-full !border-t"
-      style={{ padding: "12px 24px", borderColor: "var(--color-border)" }}
-    >
+      className="!w-full !border-t [padding:12px_24px] [border-color:var(--color-border)]"  >
       <Flex align="center" gap={8}>
-        <Text className="!text-base" style={{ color: "var(--color-text)" }}>
+        <Text className="!text-base text-[var(--color-text)]" >
           {emojiDisplay(reaction, defaultEmojis)}
         </Text>
-        <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
+        <Text className="!text-[13px] text-[var(--color-text-muted)]" >
           {formatCount(likeCount)}
         </Text>
       </Flex>
       <Flex align="center" gap={16}>
-        <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
+        <Text className="!text-[13px] text-[var(--color-text-muted)]" >
           {formatCount(commentCount)} {t("comments")}
         </Text>
-        <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
+        <Text className="!text-[13px] text-[var(--color-text-muted)]" >
           {formatCount(shareCount)} {t("shares")}
         </Text>
       </Flex>

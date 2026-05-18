@@ -92,31 +92,22 @@ export function ReportReasonModal({
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onValid)} noValidate>
-          <Flex vertical gap={16} style={{ padding: "24px 28px" }}>
+          <Flex className="[padding:24px_28px]" vertical gap={16} >
             <Flex align="center" gap={12}>
               <Flex
                 align="center"
                 justify="center"
-                className="!h-10 !w-10 !shrink-0 !rounded-full"
-                style={{
-                  background:
-                    "color-mix(in srgb, var(--color-error) 15%, transparent)",
-                }}
-              >
+                className="!h-10 !w-10 !shrink-0 !rounded-full [background:color-mix(in_srgb,_var(--color-error)_15%,_transparent)]"  >
                 <Icon name="flag" size={22} color="var(--color-error)" />
               </Flex>
               <Title
                 level={5}
-                className="!m-0 !leading-tight"
-                style={{ color: "var(--color-text)" }}
-              >
+                className="!m-0 !leading-tight text-[var(--color-text)]"  >
                 {t("title")}
               </Title>
             </Flex>
             <Text
-              className="!text-sm !leading-relaxed"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+              className="!text-sm !leading-relaxed text-[var(--color-text-secondary)]"  >
               {t("description")}
             </Text>
             <RHFTextArea
@@ -130,29 +121,19 @@ export function ReportReasonModal({
             />
             {hasErrors && (
               <Text
-                className="!text-[12px]"
-                style={{ color: "var(--color-error)" }}
-              >
+                className="!text-[12px] text-[var(--color-error)]"  >
                 {t("fixRequired")}
               </Text>
             )}
-            <Flex justify="end" gap={8} style={{ paddingTop: 4 }}>
-              <Button
-                onClick={onClose}
-                style={{
-                  background: "var(--color-bg-tertiary)",
-                  border: "1px solid var(--color-border)",
-                  color: "var(--color-text)",
-                }}
-              >
+            <Flex className="[padding-top:4px]" justify="end" gap={8} >
+              <Button className="bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)]"
+                onClick={onClose}  >
                 {t("cancel")}
               </Button>
-              <Button
+              <Button className="[font-weight:600]"
                 htmlType="submit"
                 type="primary"
-                danger
-                style={{ fontWeight: 600 }}
-              >
+                danger  >
                 {t("submit")}
               </Button>
             </Flex>

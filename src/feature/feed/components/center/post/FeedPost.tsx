@@ -129,9 +129,7 @@ export function FeedPost({
   return (
     <Flex
       vertical
-      className="!w-full !overflow-hidden !rounded-xl"
-      style={{ background: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
-    >
+      className="!w-full !overflow-hidden !rounded-xl bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
       <PostHeader
         author={post.author}
         time={post.time}

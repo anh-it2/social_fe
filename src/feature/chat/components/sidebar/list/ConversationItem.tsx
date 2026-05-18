@@ -58,13 +58,11 @@ export function ConversationItem(props: ConversationItemProps) {
       align="center"
       gap={8}
       onClick={props.onClick}
-      className={
-        "group !w-full !cursor-pointer !rounded-[10px] " +
-        (props.active
+      className={`group !w-full !cursor-pointer !rounded-[10px] [padding:8px_12px] ${
+        props.active
           ? "!bg-[var(--color-primary-bg)]"
-          : "hover:!bg-[var(--color-bg-tertiary)]")
-      }
-      style={{ padding: "8px 12px" }}
+          : "hover:!bg-[var(--color-bg-tertiary)]"
+      }`}
     >
       <div className="relative shrink-0">
         <Flex
@@ -81,17 +79,7 @@ export function ConversationItem(props: ConversationItemProps) {
         </Flex>
         {isDm && online ? (
           <span
-            className="absolute"
-            style={{
-              right: 0,
-              bottom: 0,
-              width: 14,
-              height: 14,
-              borderRadius: "50%",
-              background: "#22c55e",
-              border: "2px solid var(--color-bg-secondary)",
-            }}
-          />
+            className="absolute right-[0px] bottom-[0px] w-[14px] h-[14px] rounded-[50%] bg-[#22c55e] [border:2px_solid_var(--color-bg-secondary)]"  />
         ) : null}
       </div>
       <Flex vertical gap={2} className="!min-w-0 !flex-1">
@@ -117,16 +105,8 @@ export function ConversationItem(props: ConversationItemProps) {
         </Text>
       </Flex>
       {unread ? (
-        <span
-          aria-label={t("unreadLabel")}
-          style={{
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            background: "#4096ff",
-            flexShrink: 0,
-          }}
-        />
+        <span className="w-[10px] h-[10px] rounded-[50%] bg-[#4096ff] shrink-[0]"
+          aria-label={t("unreadLabel")}  />
       ) : null}
       <div
         className="!shrink-0 !opacity-0 transition-opacity group-hover:!opacity-100 focus-within:!opacity-100"

@@ -86,14 +86,7 @@ export function PostCard({ post }: PostCardProps) {
   return (
     <Flex
       vertical
-      className="!w-full !overflow-hidden"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 20,
-        boxShadow: "0 2px 16px #00000030",
-      }}
-    >
+      className="!w-full !overflow-hidden bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[20px] [box-shadow:0_2px_16px_#00000030]"  >
       <PostHeader post={post} />
       <PostBody text={post.text} hasImage={!!post.image} />
       {post.image ? <PostImage url={post.image} /> : null}

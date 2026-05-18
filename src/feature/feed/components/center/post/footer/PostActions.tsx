@@ -44,9 +44,7 @@ export function PostActions({
     <Flex
       align="center"
       justify="space-around"
-      className="!h-11 !w-full !border-t !px-2 !py-1"
-      style={{ borderColor: "var(--color-border)" }}
-    >
+      className="!h-11 !w-full !border-t !px-2 !py-1 [border-color:var(--color-border)]"  >
       <LikeButton
         reaction={reaction}
         onChange={onReactionChange}

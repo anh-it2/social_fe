@@ -26,17 +26,10 @@ export function MessageDeleted({
         <MessageAvatar show={showAvatar} name={senderName} seed={senderSeed} />
       )}
       <div
-        className="max-w-[70%] rounded-[20px] border border-dashed px-4 py-3"
-        style={{
-          borderColor: "var(--color-border)",
-          background: "transparent",
-        }}
-      >
+        className="max-w-[70%] rounded-[20px] border border-dashed px-4 py-3 [border-color:var(--color-border)] bg-[transparent]"  >
         <Text
           italic
-          className="!text-[13px]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[13px] text-[var(--color-text-muted)]"  >
           {t("unsent")}
         </Text>
       </div>

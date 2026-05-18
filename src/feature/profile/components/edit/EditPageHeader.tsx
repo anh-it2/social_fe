@@ -21,20 +21,14 @@ export function EditPageHeader() {
         >
           {t("title")}
         </Title>
-        <Text className="!text-sm" style={{ color: "var(--color-text-muted)" }}>
+        <Text className="!text-sm text-[var(--color-text-muted)]" >
           {t("subtitle")}
         </Text>
       </Flex>
       <NavLink href="/profile">
         <Button
           type="text"
-          className="!h-10 !rounded-3xl !border !px-5"
-          style={{
-            borderColor: "var(--color-border)",
-            color: "var(--color-text-secondary)",
-            background: "var(--color-bg-secondary)",
-          }}
-        >
+          className="!h-10 !rounded-3xl !border !px-5 [border-color:var(--color-border)] text-[var(--color-text-secondary)] bg-[var(--color-bg-secondary)]"  >
           <Flex align="center" gap={6}>
             <Icon
               name="arrow_back"

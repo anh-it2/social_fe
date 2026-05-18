@@ -37,12 +37,7 @@ export function FriendCard({
   return (
     <Flex
       vertical
-      className="!w-full !overflow-hidden !rounded-xl"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-      }}
-    >
+      className="!w-full !overflow-hidden !rounded-xl bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
       <Flex
         align="center"
         justify="center"
@@ -51,33 +46,25 @@ export function FriendCard({
         style={{ aspectRatio: "1 / 1", ...gradientStyle(name) }}
       >
         <Text
-          className="!font-bold !text-white"
-          style={{ fontSize: "clamp(48px, 9vw, 80px)" }}
-        >
+          className="!font-bold !text-white [font-size:clamp(48px,_9vw,_80px)]"  >
           {initials(name)}
         </Text>
       </Flex>
       <Flex vertical gap={4} className="!w-full !px-3 !pt-3">
         <Text
           onClick={onOpen}
-          className={`!truncate !text-[17px] !font-semibold !leading-tight ${openable ? "!cursor-pointer hover:!underline" : ""}`}
-          style={{ color: "var(--color-text)" }}
-        >
+          className={`!truncate !text-[17px] !font-semibold !leading-tight ${openable ? "!cursor-pointer hover:!underline" : ""} text-[var(--color-text)]`}  >
           {name}
         </Text>
         {meta && (
           <Text
-            className="!truncate !text-[13px] !leading-snug"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
+            className="!truncate !text-[13px] !leading-snug text-[var(--color-text-secondary)]"  >
             {meta}
           </Text>
         )}
         {secondaryMeta && (
           <Text
-            className="!truncate !text-[13px] !leading-snug"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!truncate !text-[13px] !leading-snug text-[var(--color-text-muted)]"  >
             {secondaryMeta}
           </Text>
         )}
@@ -85,9 +72,7 @@ export function FriendCard({
       <Flex vertical gap={8} className="!w-full !p-3 !pt-3">
         {status ? (
           <Text
-            className="!text-[14px] !text-center !font-medium"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
+            className="!text-[14px] !text-center !font-medium text-[var(--color-text-secondary)]"  >
             {status}
           </Text>
         ) : (
@@ -106,13 +91,7 @@ export function FriendCard({
               <Button
                 disabled={secondaryDisabled}
                 onClick={onSecondary}
-                className="!h-9 !w-full !rounded-md !font-semibold"
-                style={{
-                  background: "var(--color-bg-tertiary)",
-                  borderColor: "transparent",
-                  color: "var(--color-text)",
-                }}
-              >
+                className="!h-9 !w-full !rounded-md !font-semibold bg-[var(--color-bg-tertiary)] [border-color:transparent] text-[var(--color-text)]"  >
                 {secondaryLabel}
               </Button>
             )}

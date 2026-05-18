@@ -34,15 +34,13 @@ export function CoverSection() {
       }}
     >
       {hasCover && (
-        <Image
+        <Image className="[object-fit:cover]"
           src={coverUrl}
           alt="cover"
           fill
           unoptimized
           priority
-          sizes="100vw"
-          style={{ objectFit: "cover" }}
-        />
+          sizes="100vw"  />
       )}
       {!hasCover && <CoverBlobs />}
       <div

@@ -56,15 +56,7 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
   return (
     <Flex
       vertical
-      className="!w-[min(360px,calc(100vw-16px))]"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 14,
-        boxShadow: "0 12px 32px rgba(0,0,0,0.5)",
-        overflow: "hidden",
-      }}
-    >
+      className="!w-[min(360px,calc(100vw-16px))] bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[14px] [box-shadow:0_12px_32px_rgba(0,0,0,0.5)] [overflow:hidden]"  >
       {panel === "display" ? (
         <DisplayPanel onBack={() => setPanel("main")} />
       ) : (
@@ -88,21 +80,17 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
         </Avatar>
         <Flex vertical className="!flex-1 !min-w-0">
           <Text
-            className="!text-[17px] !font-bold !truncate"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[17px] !font-bold !truncate text-[var(--color-text)]"  >
             {displayName}
           </Text>
           <Text
-            className="!text-[13px]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!text-[13px] text-[var(--color-text-muted)]"  >
             {t("profile")}
           </Text>
         </Flex>
       </Flex>
 
-      <Divider className="!my-2" style={{ borderColor: "var(--color-border)" }} />
+      <Divider className="!my-2 [border-color:var(--color-border)]"  />
 
       <Flex vertical gap={2} className="!px-2">
         <UserDropdownItem
@@ -130,7 +118,7 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
         />
       </Flex>
 
-      <Divider className="!my-2" style={{ borderColor: "var(--color-border)" }} />
+      <Divider className="!my-2 [border-color:var(--color-border)]"  />
 
       <Flex vertical className="!px-2 !pb-3">
         <UserDropdownItem icon="logout" label={t("logout")} onClick={handleLogout} />
@@ -139,19 +127,19 @@ export function UserDropdownContent({ onClose }: UserDropdownContentProps) {
           gap={6}
           className="!px-3 !pt-3 !flex-wrap"
         >
-          <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[12px] text-[var(--color-text-muted)]" >
             {t("privacy")}
           </Text>
           <Icon name="circle" size={4} color="var(--color-text-muted)" />
-          <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[12px] text-[var(--color-text-muted)]" >
             {t("terms")}
           </Text>
           <Icon name="circle" size={4} color="var(--color-text-muted)" />
-          <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[12px] text-[var(--color-text-muted)]" >
             {t("advertising")}
           </Text>
           <Icon name="circle" size={4} color="var(--color-text-muted)" />
-          <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[12px] text-[var(--color-text-muted)]" >
             {t("cookies")}
           </Text>
         </Flex>

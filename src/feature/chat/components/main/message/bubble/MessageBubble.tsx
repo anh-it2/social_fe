@@ -157,9 +157,7 @@ export function MessageBubble({
         />
         {editedAt && (
           <Text
-            className="!mt-0.5 !text-[11px]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!mt-0.5 !text-[11px] text-[var(--color-text-muted)]"  >
             {t("edited")}
           </Text>
         )}

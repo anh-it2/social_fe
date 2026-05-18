@@ -20,13 +20,11 @@ export function CardSectionHeader({
     <Flex align="center" justify="space-between" className="!w-full">
       <Flex vertical gap={2}>
         <Text
-          className="!text-[17px] !font-bold !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-[17px] !font-bold !leading-tight text-[var(--color-text)]"  >
           {title}
         </Text>
         {subtitle ? (
-          <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[13px] text-[var(--color-text-muted)]" >
             {subtitle}
           </Text>
         ) : null}

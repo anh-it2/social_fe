@@ -22,9 +22,7 @@ export function CommentSection({
     <Flex
       vertical
       gap={16}
-      className="!w-full !border-t"
-      style={{ padding: "16px 24px", borderColor: "var(--color-border)" }}
-    >
+      className="!w-full !border-t [padding:16px_24px] [border-color:var(--color-border)]"  >
       <CommentList comments={comments} />
       <CommentInput
         onSubmit={onAdd}

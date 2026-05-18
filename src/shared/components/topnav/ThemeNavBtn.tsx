@@ -21,9 +21,7 @@ export function ThemeNavBtn() {
       type="text"
       aria-label={t("toggleTheme")}
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`${styles.hoverBg} !flex !h-10 !w-10 !items-center !justify-center !rounded-[10px] !p-0`}
-      style={{ background: "transparent" }}
-    >
+      className={`${styles.hoverBg} !flex !h-10 !w-10 !items-center !justify-center !rounded-[10px] !p-0 bg-[transparent]`}  >
       <Icon
         name={isDark ? "light_mode" : "dark_mode"}
         size={22}

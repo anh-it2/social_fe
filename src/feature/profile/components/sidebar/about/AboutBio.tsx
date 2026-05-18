@@ -8,13 +8,7 @@ export function AboutBio({ text }: { text?: string }) {
   if (!text) return null;
   return (
     <Paragraph
-      className="!m-0 !w-full"
-      style={{
-        color: "#8a8a9a",
-        fontSize: 14,
-        lineHeight: 1.65,
-      }}
-    >
+      className="!m-0 !w-full text-[#8a8a9a] [font-size:14px] [line-height:1.65]"  >
       {text}
     </Paragraph>
   );

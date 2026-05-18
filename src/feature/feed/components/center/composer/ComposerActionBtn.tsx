@@ -32,9 +32,7 @@ export function ComposerActionBtn({ icon, iconColor, label, onClick }: ComposerA
     >
       <Icon name={icon} size={22} color={iconColor} />
       <Text
-        className="!hidden !text-sm !font-semibold sm:!inline"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
+        className="!hidden !text-sm !font-semibold sm:!inline text-[var(--color-text-secondary)]"  >
         {label}
       </Text>
     </Flex>

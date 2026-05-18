@@ -139,9 +139,7 @@ export function MessageInput({
   if (blockedNotice) {
     return (
       <div
-        className="border-t border-[var(--color-border)] bg-white px-4 py-3 text-center dark:bg-[#141414]"
-        style={{ color: "var(--color-text-muted)", fontSize: 13 }}
-      >
+        className="border-t border-[var(--color-border)] bg-white px-4 py-3 text-center dark:bg-[#141414] text-[var(--color-text-muted)] [font-size:13px]"  >
         {blockedNotice}
       </div>
     );
@@ -160,36 +158,27 @@ export function MessageInput({
         <Flex
           align="center"
           justify="space-between"
-          className={"border-b " + (compact ? "px-2 py-1.5" : "px-4 py-2")}
-          style={{ borderColor: "var(--color-border)" }}
+          className={`border-b [border-color:var(--color-border)] ${compact ? "px-2 py-1.5" : "px-4 py-2"}`}
           gap={8}
         >
           <Flex
             vertical
-            className="min-w-0 flex-1 border-l-2 pl-2"
-            style={{ borderColor: "var(--color-primary)" }}
-          >
+            className="min-w-0 flex-1 border-l-2 pl-2 [border-color:var(--color-primary)]"  >
             <Text
-              className="!text-[11px] !font-semibold"
-              style={{ color: "var(--color-primary)" }}
-            >
+              className="!text-[11px] !font-semibold text-[var(--color-primary)]"  >
               {t("message.replyingTo")} {replyTo.senderName}
             </Text>
             <Text
               ellipsis
-              className="!text-[12px]"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-[12px] text-[var(--color-text-muted)]"  >
               {replyTo.type === "image" ? t("message.photo") : replyTo.content}
             </Text>
           </Flex>
           <Button
             type="text"
             size="small"
-            icon={<CloseOutlined />}
-            onClick={onCancelReply}
-            style={{ color: "var(--color-text-muted)" }}
-          />
+            icon={<CloseOutlined className="text-[var(--color-text-muted)]" />}
+            onClick={onCancelReply}  />
         </Flex>
       )}
     <div
@@ -332,18 +321,13 @@ export function MessageInput({
       ) : (
         <Button
           type="primary"
-          icon={<SendOutlined />}
+          icon={<SendOutlined className="[background:linear-gradient(90deg,_var(--color-primary-dark),_var(--color-primary))]" />}
           onClick={handleSend}
           disabled={!trimmed || disabled}
           className={
             sendSize +
             " !rounded-full !border-0 !text-[var(--color-on-primary)]"
-          }
-          style={{
-            background:
-              "linear-gradient(90deg, var(--color-primary-dark), var(--color-primary))",
-          }}
-        />
+          }  />
       )}
     </div>
     </div>

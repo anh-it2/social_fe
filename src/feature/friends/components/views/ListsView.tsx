@@ -19,9 +19,7 @@ export function ListsView() {
       <Flex
         align="center"
         justify="center"
-        className="!h-16 !w-16 !rounded-full"
-        style={{ background: "var(--color-bg-tertiary)" }}
-      >
+        className="!h-16 !w-16 !rounded-full bg-[var(--color-bg-tertiary)]"  >
         <Icon
           name="format_list_bulleted"
           size={32}
@@ -30,15 +28,11 @@ export function ListsView() {
       </Flex>
       <Title
         level={4}
-        className="!m-0 !text-[18px] !font-bold"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!m-0 !text-[18px] !font-bold text-[var(--color-text)]"  >
         {t("subnav.lists")}
       </Title>
       <Text
-        className="!text-center !text-[14px]"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
+        className="!text-center !text-[14px] text-[var(--color-text-secondary)]"  >
         {t("section.listsEmpty")}
       </Text>
     </Flex>

@@ -17,7 +17,7 @@ export function MessageImage({ src, alt }: MessageImageProps) {
       alt={alt ?? t("imageAlt")}
       preview={{
         mask: { blur: true },
-        closeIcon: <CloseOutlined style={{ fontSize: 20, color: "#fff" }} />,
+        closeIcon: <CloseOutlined className="[font-size:20px] text-[#fff]"  />,
         actionsRender: () => null,
       }}
       classNames={{

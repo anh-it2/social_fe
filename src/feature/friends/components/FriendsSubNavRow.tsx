@@ -59,9 +59,7 @@ export function FriendsSubNavRow({
       </Text>
       {count !== undefined && count > 0 && (
         <Text
-          className="!text-[13px] !font-semibold"
-          style={{ color: "var(--color-text-secondary)" }}
-        >
+          className="!text-[13px] !font-semibold text-[var(--color-text-secondary)]"  >
           {count}
         </Text>
       )}

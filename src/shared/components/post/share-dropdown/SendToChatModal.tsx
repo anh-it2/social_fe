@@ -153,15 +153,11 @@ function SendToChatBody({
         </div>
         <Flex vertical gap={2} className="!min-w-0 !flex-1">
           <Text
-            className="!text-[19px] !font-bold !leading-tight"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[19px] !font-bold !leading-tight text-[var(--color-text)]"  >
             {title ?? t("title")}
           </Text>
           <Text
-            className="!truncate !text-[13px]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!truncate !text-[13px] text-[var(--color-text-muted)]"  >
             {subtitle ?? t("subtitle")}
           </Text>
         </Flex>
@@ -186,17 +182,13 @@ function SendToChatBody({
       <div className={styles.listWrap}>
         <div className={styles.listHeader}>
           <Text
-            className="!text-[12px] !font-semibold !uppercase"
-            style={{ color: "var(--color-text-muted)", letterSpacing: "0.5px" }}
-          >
+            className="!text-[12px] !font-semibold !uppercase text-[var(--color-text-muted)] [letter-spacing:0.5px]"  >
             {t("suggested")}
           </Text>
           {onlineCount > 0 ? (
             <span className={styles.countChip}>
               <span
-                className="!inline-block !h-1.5 !w-1.5 !rounded-full"
-                style={{ background: "var(--color-success)" }}
-              />
+                className="!inline-block !h-1.5 !w-1.5 !rounded-full bg-[var(--color-success)]"  />
               {onlineCount} {t("activeNow")}
             </span>
           ) : null}
@@ -206,9 +198,7 @@ function SendToChatBody({
             <Flex vertical align="center" gap={8} className="!w-full !py-10">
               <Icon name="search_off" size={32} color="var(--color-text-muted)" />
               <Text
-                className="!text-[14px]"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+                className="!text-[14px] text-[var(--color-text-muted)]"  >
                 {t("emptyResults")}
               </Text>
             </Flex>
@@ -246,13 +236,7 @@ function SendToChatBody({
         <Flex gap={8}>
           <Button
             onClick={onClose}
-            className="!h-10 !rounded-full !px-5 !text-[14px] !font-semibold"
-            style={{
-              background: "transparent",
-              color: "var(--color-text)",
-              borderColor: "var(--color-border)",
-            }}
-          >
+            className="!h-10 !rounded-full !px-5 !text-[14px] !font-semibold bg-[transparent] text-[var(--color-text)] [border-color:var(--color-border)]"  >
             {t("cancel")}
           </Button>
           <Button

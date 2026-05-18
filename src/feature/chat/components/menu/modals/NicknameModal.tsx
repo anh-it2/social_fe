@@ -45,12 +45,10 @@ export function NicknameModal(props: NicknameModalProps) {
         <Icon name="close" size={20} color="var(--color-text-secondary)" />
       }
     >
-      <Flex vertical gap={16} style={{ padding: "24px 28px" }}>
+      <Flex className="[padding:24px_28px]" vertical gap={16} >
         <Title
           level={5}
-          className="!m-0 !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!m-0 !leading-tight text-[var(--color-text)]"  >
           {t("title")}
         </Title>
         {props.open && <Body {...props} />}
@@ -103,9 +101,7 @@ function Body({
   return (
     <>
       <Text
-        className="!text-[13px]"
-        style={{ color: "var(--color-text-muted)" }}
-      >
+        className="!text-[13px] text-[var(--color-text-muted)]"  >
         {t("description")}
       </Text>
       <FormProvider {...methods}>
@@ -134,28 +130,18 @@ function Body({
           </Flex>
           {hasErrors && (
             <Text
-              className="!mt-3 !block !text-[13px]"
-              style={{ color: "var(--color-error)" }}
-            >
+              className="!mt-3 !block !text-[13px] text-[var(--color-error)]"  >
               {t("invalid")}
             </Text>
           )}
           <Flex justify="end" gap={8} className="!mt-5">
-            <Button
-              onClick={onClose}
-              style={{
-                background: "var(--color-bg-tertiary)",
-                border: "1px solid var(--color-border)",
-                color: "var(--color-text)",
-              }}
-            >
+            <Button className="bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)]"
+              onClick={onClose}  >
               {t("cancel")}
             </Button>
-            <Button
+            <Button className="[font-weight:600]"
               type="primary"
-              htmlType="submit"
-              style={{ fontWeight: 600 }}
-            >
+              htmlType="submit"  >
               {t("save")}
             </Button>
           </Flex>

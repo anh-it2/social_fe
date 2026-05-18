@@ -73,17 +73,7 @@ export function useReports() {
           owner: r.postSnapshot.author.name,
         }),
         icon: (
-          <span
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: "50%",
-              background: "var(--color-error)",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <span className="w-[32px] h-[32px] rounded-[50%] bg-[var(--color-error)] [display:inline-flex] [align-items:center] [justify-content:center]"  >
             <Icon name="flag" size={18} color="#FFFFFF" />
           </span>
         ),

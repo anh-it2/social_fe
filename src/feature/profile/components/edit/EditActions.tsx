@@ -17,19 +17,11 @@ export function EditActions({ submitting }: Props) {
       align="center"
       justify="end"
       gap={12}
-      className="!w-full"
-      style={{ paddingTop: 8 }}
-    >
+      className="!w-full [padding-top:8px]"  >
       <NavLink href="/profile">
         <Button
           type="text"
-          className="!h-11 !rounded-3xl !border !px-6"
-          style={{
-            borderColor: "var(--color-border)",
-            background: "transparent",
-            color: "var(--color-text-secondary)",
-          }}
-        >
+          className="!h-11 !rounded-3xl !border !px-6 [border-color:var(--color-border)] bg-[transparent] text-[var(--color-text-secondary)]"  >
           <span className="text-sm font-semibold">{t("cancel")}</span>
         </Button>
       </NavLink>

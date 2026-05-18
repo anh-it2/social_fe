@@ -62,15 +62,11 @@ export function ShareChatRow({
       <Avatar name={chat.name} size={44} online={chat.online} />
       <Flex vertical className="!min-w-0 !flex-1">
         <Text
-          className="!truncate !text-[15px] !font-semibold"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!truncate !text-[15px] !font-semibold text-[var(--color-text)]"  >
           {chat.name}
         </Text>
         <Text
-          className="!truncate !text-[12px]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!truncate !text-[12px] text-[var(--color-text-muted)]"  >
           {chat.lastMessage}
         </Text>
       </Flex>
@@ -78,9 +74,7 @@ export function ShareChatRow({
         <Flex align="center" gap={4} className="!shrink-0">
           <Icon name="check_circle" size={18} color="var(--color-success)" />
           <Text
-            className="!text-[13px] !font-semibold"
-            style={{ color: "var(--color-success)" }}
-          >
+            className="!text-[13px] !font-semibold text-[var(--color-success)]"  >
             {t("sent")}
           </Text>
         </Flex>

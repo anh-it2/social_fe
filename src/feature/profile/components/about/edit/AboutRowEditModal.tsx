@@ -80,12 +80,10 @@ export function AboutRowEditModal({
       bg="var(--color-bg-secondary)"
       borderColor="var(--color-border)"
     >
-      <Flex vertical gap={20} style={{ padding: "24px 28px" }}>
+      <Flex className="[padding:24px_28px]" vertical gap={20} >
         <Title
           level={5}
-          className="!m-0 !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!m-0 !leading-tight text-[var(--color-text)]"  >
           {title}
         </Title>
         <FormProvider {...methods}>
@@ -93,9 +91,7 @@ export function AboutRowEditModal({
             <AboutEditFields fields={schema.fields} />
             {hasErrors && (
               <Text
-                className="!mt-3 !block !text-[13px]"
-                style={{ color: "var(--color-error)" }}
-              >
+                className="!mt-3 !block !text-[13px] text-[var(--color-error)]"  >
                 {t("requiredFields")}
               </Text>
             )}

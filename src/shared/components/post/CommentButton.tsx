@@ -24,9 +24,7 @@ export function CommentButton({ onClick, className }: CommentButtonProps) {
     >
       <Icon name="mode_comment" size={20} color="var(--color-text-muted)" />
       <Text
-        className="!text-sm !font-medium"
-        style={{ color: "var(--color-text-muted)" }}
-      >
+        className="!text-sm !font-medium text-[var(--color-text-muted)]"  >
         {t("comment")}
       </Text>
     </Button>

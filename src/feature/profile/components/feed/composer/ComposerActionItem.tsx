@@ -17,13 +17,11 @@ export function ComposerActionItem({
   iconColor,
 }: ComposerActionItemProps) {
   return (
-    <Flex
+    <Flex className="[padding:8px_12px] rounded-[8px] [cursor:pointer]"
       align="center"
-      gap={8}
-      style={{ padding: "8px 12px", borderRadius: 8, cursor: "pointer" }}
-    >
+      gap={8}  >
       <Icon name={icon} size={20} color={iconColor} />
-      <Text className="!text-[13px] !font-medium" style={{ color: "var(--color-text-muted)" }}>
+      <Text className="!text-[13px] !font-medium text-[var(--color-text-muted)]" >
         {label}
       </Text>
     </Flex>

@@ -81,7 +81,7 @@ export function PostComposerModal({
     }
     setShowPhotoSection(mode === "photo");
     setShowFeelingPicker(mode === "feeling");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [open, mode, initialPost]);
 
   useEffect(() => {
@@ -216,10 +216,8 @@ export function PostComposerModal({
       <Flex
         align="center"
         justify="center"
-        className="!relative !px-6 !py-3"
-        style={{ borderBottom: "1px solid var(--color-border)" }}
-      >
-        <Title level={5} className="!m-0" style={{ color: "var(--color-text)" }}>
+        className="!relative !px-6 !py-3 [border-bottom:1px_solid_var(--color-border)]"  >
+        <Title level={5} className="!m-0 text-[var(--color-text)]" >
           {isEdit ? t("edit") : t("create")}
         </Title>
       </Flex>
@@ -233,18 +231,14 @@ export function PostComposerModal({
             {CURRENT_USER.initial}
           </Avatar>
           <Flex vertical gap={0}>
-            <Text className="!text-sm !font-semibold" style={{ color: "var(--color-text)" }}>
+            <Text className="!text-sm !font-semibold text-[var(--color-text)]" >
               {CURRENT_USER.name}
               {feeling && (
                 <Text
-                  className="!text-sm !font-normal"
-                  style={{ color: "var(--color-text-muted)" }}
-                >
+                  className="!text-sm !font-normal text-[var(--color-text-muted)]"  >
                   {" "}{feeling.kind === "feeling" ? tPost("isFeeling") : tPost("isActivity")}{" "}
                   <Text
-                    className="!text-sm !font-semibold"
-                    style={{ color: "var(--color-text)" }}
-                  >
+                    className="!text-sm !font-semibold text-[var(--color-text)]"  >
                     {feeling.emoji} {feeling.label}
                   </Text>
                 </Text>
@@ -253,14 +247,10 @@ export function PostComposerModal({
             <Flex
               align="center"
               gap={3}
-              className="!rounded-full !px-1.5 !py-0.5 !w-fit"
-              style={{ background: "var(--color-bg-tertiary)" }}
-            >
+              className="!rounded-full !px-1.5 !py-0.5 !w-fit bg-[var(--color-bg-tertiary)]"  >
               <Icon name="public" size={11} color="var(--color-text-muted)" />
               <Text
-                className="!text-[10px] !font-semibold"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+                className="!text-[10px] !font-semibold text-[var(--color-text-muted)]"  >
                 {t("visibility")}
               </Text>
             </Flex>
@@ -283,15 +273,7 @@ export function PostComposerModal({
             autoSize={{ minRows: 4, maxRows: 8 }}
             maxLength={500}
             variant="borderless"
-            className="[&_textarea]:!text-[var(--color-text)] [&_textarea::placeholder]:!text-[var(--color-text-placeholder)] [&_textarea::placeholder]:!opacity-100 [&_.ant-input::placeholder]:!text-[var(--color-text-placeholder)] [&_.ant-input::placeholder]:!opacity-100"
-            style={{
-              background: "transparent",
-              color: "var(--color-text)",
-              fontSize: 18,
-              resize: "none",
-              padding: 0,
-            }}
-          />
+            className="[&_textarea]:!text-[var(--color-text)] [&_textarea::placeholder]:!text-[var(--color-text-placeholder)] [&_textarea::placeholder]:!opacity-100 [&_.ant-input::placeholder]:!text-[var(--color-text-placeholder)] [&_.ant-input::placeholder]:!opacity-100 bg-[transparent] text-[var(--color-text)] [font-size:18px] [resize:none] p-[0px]"  />
           <MentionPicker
             open={mention.pickerOpen}
             query={mention.trigger.query}
@@ -305,42 +287,26 @@ export function PostComposerModal({
           <Flex
             vertical
             gap={8}
-            className="!rounded-xl !p-3"
-            style={{
-              border: "1px solid var(--color-border)",
-              background: "var(--color-bg)",
-            }}
-          >
+            className="!rounded-xl !p-3 [border:1px_solid_var(--color-border)] bg-[var(--color-bg)]"  >
             {!imageUrl && (
-              <Upload.Dragger
+              <Upload.Dragger className="bg-[transparent] [border:1px_dashed_var(--color-border)]"
                 accept="image/*,video/*"
                 beforeUpload={handleBeforeUpload}
                 showUploadList={false}
-                fileList={file ? [file] : []}
-                style={{
-                  background: "transparent",
-                  border: "1px dashed var(--color-border)",
-                }}
-              >
+                fileList={file ? [file] : []}  >
                 <Flex vertical align="center" justify="center" gap={6} className="!py-6">
                   <Flex
                     align="center"
                     justify="center"
-                    className="!h-10 !w-10 !rounded-full"
-                    style={{ background: "var(--color-bg-tertiary)" }}
-                  >
+                    className="!h-10 !w-10 !rounded-full bg-[var(--color-bg-tertiary)]"  >
                     <Icon name="add_a_photo" size={20} color="#22c55e" />
                   </Flex>
                   <Text
-                    className="!text-sm !font-semibold"
-                    style={{ color: "var(--color-text)" }}
-                  >
+                    className="!text-sm !font-semibold text-[var(--color-text)]"  >
                     {t("addPhotos")}
                   </Text>
                   <Text
-                    className="!text-[11px]"
-                    style={{ color: "var(--color-text-placeholder)" }}
-                  >
+                    className="!text-[11px] text-[var(--color-text-placeholder)]"  >
                     {t("dragDrop")}
                   </Text>
                 </Flex>
@@ -352,29 +318,19 @@ export function PostComposerModal({
                   <video
                     src={imageUrl}
                     controls
-                    className="!w-full"
-                    style={{ maxHeight: 320, background: "#000" }}
-                  />
+                    className="!w-full max-h-[320px] bg-[#000]"  />
                 ) : (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={imageUrl}
                     alt="upload preview"
-                    className="!w-full"
-                    style={{ maxHeight: 320, objectFit: "cover" }}
-                  />
+                    className="!w-full max-h-[320px] [object-fit:cover]"  />
                 )}
                 <Button
                   type="text"
                   size="small"
                   onClick={removeMedia}
-                  className="!absolute !top-2 !right-2 !h-7 !w-7 !rounded-full !p-0"
-                  style={{
-                    background: "rgba(0,0,0,0.7)",
-                    backdropFilter: "blur(8px)",
-                    color: "#fff",
-                  }}
-                  icon={<Icon name="close" size={14} color="#fff" />}
+                  className="!absolute !top-2 !right-2 !h-7 !w-7 !rounded-full !p-0 bg-[rgba(0,0,0,0.7)] [backdrop-filter:blur(8px)] text-[#fff]"  icon={<Icon name="close" size={14} color="#fff" />}
                 />
               </div>
             )}
@@ -385,23 +341,16 @@ export function PostComposerModal({
           <Flex
             vertical
             gap={8}
-            className="!rounded-xl !p-3"
-            style={{
-              border: "1px solid var(--color-border)",
-              background: "var(--color-bg)",
-            }}
-          >
+            className="!rounded-xl !p-3 [border:1px_solid_var(--color-border)] bg-[var(--color-bg)]"  >
             <Flex align="center" justify="space-between">
-              <Title level={5} className="!m-0" style={{ color: "var(--color-text)" }}>
+              <Title level={5} className="!m-0 text-[var(--color-text)]" >
                 {t("feelingTitle")}
               </Title>
               {feeling && (
-                <Button
+                <Button className="text-[var(--color-text-muted)]"
                   type="text"
                   size="small"
-                  onClick={() => setFeeling(null)}
-                  style={{ color: "var(--color-text-muted)" }}
-                >
+                  onClick={() => setFeeling(null)}  >
                   {t("clear")}
                 </Button>
               )}
@@ -436,21 +385,13 @@ export function PostComposerModal({
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("searchPlaceholder", { type: feelingTab === "feeling" ? t("feelingsTab") : t("activitiesTab") })}
               prefix={
-                <Icon name="search" size={14} color="var(--color-text-muted)" />
+                <Icon className="bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)]" name="search" size={14} color="var(--color-text-muted)" />
               }
-              className="[&_input]:!text-[var(--color-text)] [&_input::placeholder]:!text-[var(--color-text-placeholder)] [&_input::placeholder]:!opacity-100 [&_.ant-input::placeholder]:!text-[var(--color-text-placeholder)] [&_.ant-input::placeholder]:!opacity-100"
-              style={{
-                background: "var(--color-bg-tertiary)",
-                border: "1px solid var(--color-border)",
-                color: "var(--color-text)",
-              }}
-            />
+              className="[&_input]:!text-[var(--color-text)] [&_input::placeholder]:!text-[var(--color-text-placeholder)] [&_input::placeholder]:!opacity-100 [&_.ant-input::placeholder]:!text-[var(--color-text-placeholder)] [&_.ant-input::placeholder]:!opacity-100"  />
             <Flex
               wrap="wrap"
               gap={6}
-              className="!overflow-y-auto"
-              style={{ maxHeight: 200 }}
-            >
+              className="!overflow-y-auto max-h-[200px]"  >
               {filteredFeelings.map((f) => {
                 const selected = feeling?.id === f.id;
                 return (
@@ -472,12 +413,7 @@ export function PostComposerModal({
                   >
                     <Text className="!text-base !leading-none">{f.emoji}</Text>
                     <Text
-                      className="!text-xs !font-semibold"
-                      style={{
-                        color: "var(--color-text)",
-                        textTransform: "capitalize",
-                      }}
-                    >
+                      className="!text-xs !font-semibold text-[var(--color-text)] [text-transform:capitalize]"  >
                       {f.label}
                     </Text>
                   </Flex>
@@ -485,9 +421,7 @@ export function PostComposerModal({
               })}
               {filteredFeelings.length === 0 && (
                 <Text
-                  className="!text-xs !w-full !text-center !py-4"
-                  style={{ color: "var(--color-text-muted)" }}
-                >
+                  className="!text-xs !w-full !text-center !py-4 text-[var(--color-text-muted)]"  >
                   {t("noMatches")}
                 </Text>
               )}
@@ -498,13 +432,9 @@ export function PostComposerModal({
         <Flex
           align="center"
           justify="space-between"
-          className="!rounded-xl !px-3 !py-2"
-          style={{ border: "1px solid var(--color-border)" }}
-        >
+          className="!rounded-xl !px-3 !py-2 [border:1px_solid_var(--color-border)]"  >
           <Text
-            className="!text-sm !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-sm !font-semibold text-[var(--color-text)]"  >
             {t("addToPost")}
           </Text>
           <Flex gap={4}>

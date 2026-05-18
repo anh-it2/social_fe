@@ -75,14 +75,12 @@ export function EditCoverPreview() {
         }}
       >
         {coverUrl && (
-          <Image
+          <Image className="[object-fit:cover]"
             src={coverUrl}
             alt="cover preview"
             fill
             unoptimized
-            sizes="(min-width: 960px) 912px, 100vw"
-            style={{ objectFit: "cover" }}
-          />
+            sizes="(min-width: 960px) 912px, 100vw"  />
         )}
         <div className="absolute right-4 top-4">
           <Upload
@@ -92,9 +90,7 @@ export function EditCoverPreview() {
           >
             <Button
               type="text"
-              className="!h-9 !rounded-3xl !border-0 !px-4"
-              style={{ background: "rgba(0,0,0,0.5)", color: "#fff" }}
-            >
+              className="!h-9 !rounded-3xl !border-0 !px-4 bg-[rgba(0,0,0,0.5)] text-[#fff]"  >
               <Flex align="center" gap={6}>
                 <Icon name="photo_camera" size={16} color="#fff" />
                 <span className="text-xs font-semibold">
@@ -119,31 +115,25 @@ export function EditCoverPreview() {
           }}
         >
           {avatarUrl ? (
-            <Image
+            <Image className="[object-fit:cover]"
               src={avatarUrl}
               alt="avatar preview"
               fill
               unoptimized
-              sizes="120px"
-              style={{ objectFit: "cover" }}
-            />
+              sizes="120px"  />
           ) : (
             <Text
-              className="!text-3xl !font-bold"
-              style={{ color: "#fff", letterSpacing: 1 }}
-            >
+              className="!text-3xl !font-bold text-[#fff] [letter-spacing:1px]"  >
               {initials || "?"}
             </Text>
           )}
         </div>
         <Flex vertical gap={8}>
           <Text
-            className="!text-sm !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-sm !font-semibold text-[var(--color-text)]"  >
             Profile picture
           </Text>
-          <Text className="!text-xs" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-xs text-[var(--color-text-muted)]" >
             JPG, PNG. Max 4MB. Square recommended.
           </Text>
           <Flex gap={8}>
@@ -167,13 +157,7 @@ export function EditCoverPreview() {
               type="text"
               onClick={removeAvatar}
               disabled={!avatarUrl}
-              className="!h-9 !rounded-3xl !border !px-4"
-              style={{
-                borderColor: "var(--color-border)",
-                background: "transparent",
-                color: "var(--color-text-secondary)",
-              }}
-            >
+              className="!h-9 !rounded-3xl !border !px-4 [border-color:var(--color-border)] bg-[transparent] text-[var(--color-text-secondary)]"  >
               <span className="text-xs font-semibold">Remove</span>
             </Button>
           </Flex>

@@ -35,9 +35,7 @@ export function PhotosCard() {
       />
       {photoUrls.length === 0 ? (
         <Text
-          className="!text-[13px]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[13px] text-[var(--color-text-muted)]"  >
           {t("noPhotos")}
         </Text>
       ) : (

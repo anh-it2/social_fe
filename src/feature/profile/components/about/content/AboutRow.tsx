@@ -38,9 +38,7 @@ export function AboutRow({ row, onEdit, onDelete }: AboutRowProps) {
       <Flex
         align="center"
         justify="center"
-        className="!h-9 !w-9 !shrink-0 !rounded-full"
-        style={{ background: "var(--color-bg-tertiary)" }}
-      >
+        className="!h-9 !w-9 !shrink-0 !rounded-full bg-[var(--color-bg-tertiary)]"  >
         <Icon
           name={row.icon}
           size={20}
@@ -50,16 +48,12 @@ export function AboutRow({ row, onEdit, onDelete }: AboutRowProps) {
       </Flex>
       <Flex vertical gap={2} className="!flex-1 !min-w-0">
         <Text
-          className="!text-[15px] !font-medium !leading-snug"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-[15px] !font-medium !leading-snug text-[var(--color-text)]"  >
           {row.primary}
         </Text>
         {row.secondary ? (
           <Text
-            className="!text-[13px] !leading-snug"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!text-[13px] !leading-snug text-[var(--color-text-muted)]"  >
             {row.secondary}
           </Text>
         ) : null}

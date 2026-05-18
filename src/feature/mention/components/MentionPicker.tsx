@@ -108,7 +108,7 @@ export function MentionPicker({
           ...style,
         }}
       >
-        <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
+        <Text className="!text-[13px] text-[var(--color-text-muted)]" >
           {t("noMatches")}
         </Text>
       </div>
@@ -159,15 +159,11 @@ export function MentionPicker({
           </Avatar>
           <Flex vertical gap={0} className="!min-w-0 !flex-1">
             <Text
-              className="!text-[14px] !font-semibold !truncate"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-[14px] !font-semibold !truncate text-[var(--color-text)]"  >
               {u.name}
             </Text>
             <Text
-              className="!text-[12px] !truncate"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-[12px] !truncate text-[var(--color-text-muted)]"  >
               @{u.handle}
             </Text>
           </Flex>

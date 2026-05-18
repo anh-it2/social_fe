@@ -44,18 +44,10 @@ export function ReelsPage() {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <TopNav />
       <div
-        className="!w-full !overflow-y-auto !snap-y !snap-mandatory no-scrollbar"
-        style={{
-          height: "calc(100dvh - 64px)",
-          background: "#000",
-          scrollBehavior: "smooth",
-        }}
-      >
+        className="!w-full !overflow-y-auto !snap-y !snap-mandatory no-scrollbar [height:calc(100dvh_-_64px)] bg-[#000] [scroll-behavior:smooth]"  >
         {items.length === 0 ? (
           <Flex
             align="center"
@@ -63,9 +55,7 @@ export function ReelsPage() {
             className="!h-full !w-full"
           >
             <Typography.Text
-              className="!text-[14px]"
-              style={{ color: "rgba(255,255,255,0.7)" }}
-            >
+              className="!text-[14px] text-[rgba(255,255,255,0.7)]"  >
               {t("empty")}
             </Typography.Text>
           </Flex>

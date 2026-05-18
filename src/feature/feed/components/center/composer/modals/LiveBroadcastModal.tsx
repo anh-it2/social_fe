@@ -259,9 +259,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
       <Flex
         align="center"
         gap={10}
-        className="!relative !px-5 !py-3"
-        style={{ borderBottom: "1px solid var(--color-border)" }}
-      >
+        className="!relative !px-5 !py-3 [border-bottom:1px_solid_var(--color-border)]"  >
         <Flex
           align="center"
           justify="center"
@@ -271,10 +269,10 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
           <Icon name="videocam" size={18} color="#fff" />
         </Flex>
         <Flex vertical>
-          <Title level={5} className="!m-0 !leading-tight" style={{ color: "var(--color-text)" }}>
+          <Title level={5} className="!m-0 !leading-tight text-[var(--color-text)]" >
             {phase === "live" ? t("titleActive") : t("titleIdle")}
           </Title>
-          <Text className="!text-xs" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-xs text-[var(--color-text-muted)]" >
             {phase === "live" ? t("subtitleActive") : t("subtitleIdle")}
           </Text>
         </Flex>
@@ -304,22 +302,16 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
               <Icon name="videocam" size={40} color="#fff" />
             </Flex>
             <Text
-              className="!text-xl !font-bold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-xl !font-bold text-[var(--color-text)]"  >
               {t("ready")}
             </Text>
             <Text
-              className="!text-sm !text-center"
-              style={{ color: "var(--color-text-muted)", maxWidth: 360 }}
-            >
+              className="!text-sm !text-center text-[var(--color-text-muted)] max-w-[360px]"  >
               {t("permission")}
             </Text>
             {error && (
               <Text
-                className="!text-sm !text-center"
-                style={{ color: "var(--color-error)" }}
-              >
+                className="!text-sm !text-center text-[var(--color-error)]"  >
                 {error}
               </Text>
             )}
@@ -353,12 +345,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
             <Flex
               align="center"
               gap={6}
-              className="!absolute !top-3.5 !left-3.5 !rounded-md !px-2 !py-1"
-              style={{
-                background: "#f02849",
-                animation: "live-pulse 1.5s infinite",
-              }}
-            >
+              className="!absolute !top-3.5 !left-3.5 !rounded-md !px-2 !py-1 bg-[#f02849] [animation:live-pulse_1.5s_infinite]"  >
               <span className="!h-2 !w-2 !rounded-full !bg-white" />
               <Text className="!text-[11px] !font-bold !text-white !tracking-wider">
                 {t("indicator")}
@@ -367,9 +354,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
             <Flex
               align="center"
               gap={4}
-              className="!absolute !top-3.5 !rounded-md !px-2 !py-1"
-              style={{ left: 80, background: "rgba(0,0,0,0.6)" }}
-            >
+              className="!absolute !top-3.5 !rounded-md !px-2 !py-1 left-[80px] bg-[rgba(0,0,0,0.6)]"  >
               <Icon name="visibility" size={12} color="#fff" />
               <Text className="!text-[11px] !font-semibold !text-white">
                 {viewers}
@@ -377,9 +362,7 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
             </Flex>
             <Flex
               align="center"
-              className="!absolute !top-3.5 !rounded-md !px-2 !py-1"
-              style={{ right: 14, background: "rgba(0,0,0,0.6)" }}
-            >
+              className="!absolute !top-3.5 !rounded-md !px-2 !py-1 right-[14px] bg-[rgba(0,0,0,0.6)]"  >
               <Text className="!text-[11px] !font-semibold !text-white">
                 {formatTime(elapsed)}
               </Text>
@@ -397,20 +380,16 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
             {CURRENT_USER.initial}
           </Avatar>
           <Flex vertical gap={0}>
-            <Text className="!text-sm !font-semibold" style={{ color: "var(--color-text)" }}>
+            <Text className="!text-sm !font-semibold text-[var(--color-text)]" >
               {CURRENT_USER.name}
             </Text>
             <Flex
               align="center"
               gap={3}
-              className="!rounded-full !px-1.5 !py-0.5 !w-fit"
-              style={{ background: "var(--color-bg-tertiary)" }}
-            >
+              className="!rounded-full !px-1.5 !py-0.5 !w-fit bg-[var(--color-bg-tertiary)]"  >
               <Icon name="public" size={11} color="var(--color-text-muted)" />
               <Text
-                className="!text-[10px] !font-semibold"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+                className="!text-[10px] !font-semibold text-[var(--color-text-muted)]"  >
                 {tPostComposer("visibility")}
               </Text>
             </Flex>
@@ -423,22 +402,10 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
           autoSize={{ minRows: 2, maxRows: 4 }}
           maxLength={150}
           disabled={phase === "live"}
-          className="!text-[var(--color-text)] !caret-[var(--color-text)] placeholder:!text-[var(--color-text-placeholder)] placeholder:!opacity-100"
-          style={{
-            background: "var(--color-bg-tertiary)",
-            border: "1px solid var(--color-border)",
-            resize: "none",
-          }}
-        />
+          className="!text-[var(--color-text)] !caret-[var(--color-text)] placeholder:!text-[var(--color-text-placeholder)] placeholder:!opacity-100 bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] [resize:none]"  />
         <Flex justify="end" gap={8}>
-          <Button
-            onClick={cancel}
-            style={{
-              background: "transparent",
-              border: "1px solid var(--color-border)",
-              color: "var(--color-text)",
-            }}
-          >
+          <Button className="bg-[transparent] [border:1px_solid_var(--color-border)] text-[var(--color-text)]"
+            onClick={cancel}  >
             {t("cancel")}
           </Button>
           {phase === "preview" && (
@@ -459,13 +426,8 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
             <Button
               danger
               onClick={endLive}
-              icon={<Icon name="stop_circle" size={16} color="#fff" />}
-              className="!font-bold !px-6 !text-white"
-              style={{
-                background: "#f02849",
-                border: "none",
-              }}
-            >
+              icon={<Icon className="bg-[#f02849] [border:none]" name="stop_circle" size={16} color="#fff" />}
+              className="!font-bold !px-6 !text-white"  >
               {t("endLive")}
             </Button>
           )}

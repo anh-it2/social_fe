@@ -58,10 +58,8 @@ export function ShareToFeedModal({
       <Flex
         align="center"
         justify="center"
-        className="!relative !px-6 !py-3"
-        style={{ borderBottom: "1px solid var(--color-border)" }}
-      >
-        <Title level={5} className="!m-0" style={{ color: "var(--color-text)" }}>
+        className="!relative !px-6 !py-3 [border-bottom:1px_solid_var(--color-border)]"  >
+        <Title level={5} className="!m-0 text-[var(--color-text)]" >
           {t("title")}
         </Title>
       </Flex>
@@ -76,22 +74,16 @@ export function ShareToFeedModal({
           </Avatar>
           <Flex vertical gap={0}>
             <Text
-              className="!text-sm !font-semibold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-sm !font-semibold text-[var(--color-text)]"  >
               {CURRENT_USER.name}
             </Text>
             <Flex
               align="center"
               gap={3}
-              className="!rounded-full !px-1.5 !py-0.5 !w-fit"
-              style={{ background: "var(--color-bg-tertiary)" }}
-            >
+              className="!rounded-full !px-1.5 !py-0.5 !w-fit bg-[var(--color-bg-tertiary)]"  >
               <Icon name="public" size={11} color="var(--color-text-muted)" />
               <Text
-                className="!text-[10px] !font-semibold"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+                className="!text-[10px] !font-semibold text-[var(--color-text-muted)]"  >
                 {t("visibility")}
               </Text>
             </Flex>
@@ -105,15 +97,7 @@ export function ShareToFeedModal({
           autoSize={{ minRows: 3, maxRows: 6 }}
           maxLength={500}
           variant="borderless"
-          className="[&_textarea]:!text-[var(--color-text)] [&_textarea::placeholder]:!text-[var(--color-text-placeholder)] [&_textarea::placeholder]:!opacity-100"
-          style={{
-            background: "transparent",
-            color: "var(--color-text)",
-            fontSize: 16,
-            resize: "none",
-            padding: 0,
-          }}
-        />
+          className="[&_textarea]:!text-[var(--color-text)] [&_textarea::placeholder]:!text-[var(--color-text-placeholder)] [&_textarea::placeholder]:!opacity-100 bg-[transparent] text-[var(--color-text)] [font-size:16px] [resize:none] p-[0px]"  />
 
         <div className="!-mx-2">
           <SharedPostPreview post={rootSnapshot(originalPost)} compact />

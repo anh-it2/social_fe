@@ -31,13 +31,7 @@ export function PostLinkPreview({ postId }: PostLinkPreviewProps) {
         e.stopPropagation();
         router.push(`/posts/${postId}`);
       }}
-      className={`${styles.card} !mt-1 !block !w-full !cursor-pointer !overflow-hidden`}
-      style={{
-        background: "var(--color-bg)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 14,
-      }}
-    >
+      className={`${styles.card} !mt-1 !block !w-full !cursor-pointer !overflow-hidden bg-[var(--color-bg)] [border:1px_solid_var(--color-border)] rounded-[14px]`}  >
       {cover ? (
         <div
           className="!h-[140px] !w-full"
@@ -55,26 +49,20 @@ export function PostLinkPreview({ postId }: PostLinkPreviewProps) {
       )}
       <Flex vertical gap={4} className="!p-3">
         <Text
-          className="!text-[11px] !font-semibold !uppercase !tracking-wider"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[11px] !font-semibold !uppercase !tracking-wider text-[var(--color-text-muted)]"  >
           {t("postRefShort")}
         </Text>
         <Text
-          className="!line-clamp-2 !text-[14px] !font-semibold !leading-snug"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!line-clamp-2 !text-[14px] !font-semibold !leading-snug text-[var(--color-text)]"  >
           {post.text || post.author.name}
         </Text>
         <Flex align="center" gap={4}>
-          <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[12px] text-[var(--color-text-muted)]" >
             {post.author.name}
           </Text>
           <Icon name="arrow_forward" size={12} color="var(--color-primary)" />
           <Text
-            className="!text-[12px] !font-semibold"
-            style={{ color: "var(--color-primary)" }}
-          >
+            className="!text-[12px] !font-semibold text-[var(--color-primary)]"  >
             {t("viewPost")}
           </Text>
         </Flex>

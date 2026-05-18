@@ -21,9 +21,7 @@ export function PostDetailPage({ postId }: PostDetailPageProps) {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <TopNav />
       <Flex
         vertical
@@ -34,26 +32,19 @@ export function PostDetailPage({ postId }: PostDetailPageProps) {
           <NavLink href="/">
             <Button
               type="text"
-              className="!flex !items-center !gap-2 !rounded-full !px-3 !text-[14px] !font-semibold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!flex !items-center !gap-2 !rounded-full !px-3 !text-[14px] !font-semibold text-[var(--color-text)]"  >
               <Icon name="arrow_back" size={18} color="var(--color-text-secondary)" />
               {t("backToFeed")}
             </Button>
           </NavLink>
-          <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-[12px] text-[var(--color-text-muted)]" >
             {t("postRef", { postId })}
           </Text>
         </Flex>
 
         {!ready ? (
           <div
-            className="!w-full !rounded-xl !p-6"
-            style={{
-              background: "var(--color-bg-secondary)",
-              border: "1px solid var(--color-border)",
-            }}
-          >
+            className="!w-full !rounded-xl !p-6 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
             <Skeleton active avatar paragraph={{ rows: 4 }} />
           </div>
         ) : post ? (
@@ -63,17 +54,12 @@ export function PostDetailPage({ postId }: PostDetailPageProps) {
             vertical
             align="center"
             gap={12}
-            className="!w-full !rounded-xl !p-10"
-            style={{
-              background: "var(--color-bg-secondary)",
-              border: "1px solid var(--color-border)",
-            }}
-          >
+            className="!w-full !rounded-xl !p-10 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
             <Icon name="search_off" size={48} color="var(--color-text-muted)" />
-            <Title level={4} className="!m-0" style={{ color: "var(--color-text)" }}>
+            <Title level={4} className="!m-0 text-[var(--color-text)]" >
               {t("notFoundTitle")}
             </Title>
-            <Text className="!text-[14px]" style={{ color: "var(--color-text-muted)" }}>
+            <Text className="!text-[14px] text-[var(--color-text-muted)]" >
               {t("notFoundDesc")}
             </Text>
             <NavLink href="/">

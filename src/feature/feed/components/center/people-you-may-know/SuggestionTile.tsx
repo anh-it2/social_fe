@@ -23,15 +23,8 @@ export function SuggestionTile({ suggestion, onAdd, onDismiss }: SuggestionTileP
   return (
     <Flex
       vertical
-      className="!shrink-0 !overflow-hidden"
-      style={{
-        width: 168,
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-        borderRadius: 12,
-      }}
-    >
-      <div className="!relative" style={{ width: "100%", height: 200 }}>
+      className="!shrink-0 !overflow-hidden w-[168px] bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[12px]"  >
+      <div className="!relative w-[100%] h-[200px]" >
         <div
           onClick={openProfile}
           className="!h-full !w-full !cursor-pointer"
@@ -45,20 +38,13 @@ export function SuggestionTile({ suggestion, onAdd, onDismiss }: SuggestionTileP
           shape="circle"
           aria-label={t("dismiss")}
           onClick={() => onDismiss(suggestion.id)}
-          icon={<Icon name="close" size={16} color="#fff" />}
-          className="!absolute !top-1.5 !right-1.5 !h-7 !w-7"
-          style={{
-            background: "rgba(0,0,0,0.55)",
-            border: "none",
-          }}
-        />
+          icon={<Icon className="bg-[rgba(0,0,0,0.55)] [border:none]" name="close" size={16} color="#fff" />}
+          className="!absolute !top-1.5 !right-1.5 !h-7 !w-7"  />
       </div>
       <Flex vertical gap={2} className="!px-3 !pt-2">
         <Text
           onClick={openProfile}
-          className="!truncate !text-[14px] !font-semibold !leading-tight !cursor-pointer hover:!underline"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!truncate !text-[14px] !font-semibold !leading-tight !cursor-pointer hover:!underline text-[var(--color-text)]"  >
           {suggestion.name}
         </Text>
         <Flex align="center" gap={4} className="!min-w-0">
@@ -68,9 +54,7 @@ export function SuggestionTile({ suggestion, onAdd, onDismiss }: SuggestionTileP
             color="var(--color-text-muted)"
           />
           <Text
-            className="!truncate !text-[12px]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!truncate !text-[12px] text-[var(--color-text-muted)]"  >
             {t("mutual", { count: suggestion.mutualFriends })}
           </Text>
         </Flex>

@@ -36,9 +36,7 @@ export function PinnedBanner({ conversationId, onJump }: PinnedBannerProps) {
       <Flex
         align="center"
         gap={8}
-        className="!min-w-0"
-        style={{ maxWidth: 320 }}
-      >
+        className="!min-w-0 max-w-[320px]"  >
         <Icon
           name="push_pin"
           size={14}
@@ -47,16 +45,12 @@ export function PinnedBanner({ conversationId, onJump }: PinnedBannerProps) {
         <Flex vertical className="!min-w-0 !flex-1">
           <Text
             ellipsis
-            className="!text-[12px] !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[12px] !font-semibold text-[var(--color-text)]"  >
             {m.senderName}
           </Text>
           <Text
             ellipsis
-            className="!text-[12px]"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
+            className="!text-[12px] text-[var(--color-text-secondary)]"  >
             {preview(m.content, m.type)}
           </Text>
         </Flex>
@@ -69,13 +63,7 @@ export function PinnedBanner({ conversationId, onJump }: PinnedBannerProps) {
     <Flex
       align="center"
       gap={8}
-      className="!w-full !shrink-0"
-      style={{
-        padding: "8px 12px",
-        background: "var(--color-bg-tertiary)",
-        borderBottom: "1px solid var(--color-border)",
-      }}
-    >
+      className="!w-full !shrink-0 [padding:8px_12px] bg-[var(--color-bg-tertiary)] [border-bottom:1px_solid_var(--color-border)]"  >
       <Icon name="push_pin" size={16} color="var(--color-primary)" />
       <Flex
         vertical
@@ -83,19 +71,15 @@ export function PinnedBanner({ conversationId, onJump }: PinnedBannerProps) {
         onClick={() => onJump?.(latest.id)}
       >
         <Text
-          className="!text-[11px] !font-semibold !leading-tight"
-          style={{ color: "var(--color-primary)" }}
-        >
+          className="!text-[11px] !font-semibold !leading-tight text-[var(--color-primary)]"  >
           {pinned.length > 1
             ? t("count", { count: pinned.length })
             : t("label")}
         </Text>
         <Text
           ellipsis
-          className="!text-[12px] !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
-          <span style={{ fontWeight: 600 }}>{latest.senderName}: </span>
+          className="!text-[12px] !leading-tight text-[var(--color-text)]"  >
+          <span className="[font-weight:600]" >{latest.senderName}: </span>
           {preview(latest.content, latest.type)}
         </Text>
       </Flex>

@@ -37,12 +37,7 @@ export function SidebarHeader({ onLogout, onCreateGroup }: SidebarHeaderProps) {
               nav.push("/");
             }
           }}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-[10px] transition-opacity hover:opacity-90"
-          style={{
-            background:
-              "linear-gradient(180deg, var(--color-primary), var(--color-primary-light))",
-          }}
-        >
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-[10px] transition-opacity hover:opacity-90 [background:linear-gradient(180deg,_var(--color-primary),_var(--color-primary-light))]"  >
           <span className="text-[22px] font-extrabold text-white">f</span>
         </div>
         <Text className="!text-[22px] !font-bold !text-[var(--color-text)]">

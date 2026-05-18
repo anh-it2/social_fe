@@ -48,66 +48,48 @@ export function E2EEModal({
         <Icon name="close" size={20} color="var(--color-text-secondary)" />
       }
     >
-      <Flex vertical gap={16} style={{ padding: "24px 28px" }}>
+      <Flex className="[padding:24px_28px]" vertical gap={16} >
         <Title
           level={5}
-          className="!m-0 !leading-tight"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!m-0 !leading-tight text-[var(--color-text)]"  >
           {t("title")}
         </Title>
         <Flex vertical gap={12} align="center" className="!py-2">
           <Flex
             align="center"
             justify="center"
-            className="!h-14 !w-14 !rounded-full"
-            style={{ background: "var(--color-primary)" }}
-          >
+            className="!h-14 !w-14 !rounded-full bg-[var(--color-primary)]"  >
             <Icon name="lock" size={28} color="var(--color-on-primary)" />
           </Flex>
           <Text
-            className="!text-[15px] !font-semibold !text-center"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[15px] !font-semibold !text-center text-[var(--color-text)]"  >
             {enabled
               ? t("activeWith", { name: peerName })
               : t("startWith", { name: peerName })}
           </Text>
           <Text
-            className="!text-[13px] !text-center"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!text-[13px] !text-center text-[var(--color-text-muted)]"  >
             {t("description")}
           </Text>
           {settings.e2eePublicKey && (
             <Text
               code
-              className="!text-[11px] !break-all"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-[11px] !break-all text-[var(--color-text-muted)]"  >
               {t("yourKey")}: {settings.e2eePublicKey.slice(0, 32)}…
             </Text>
           )}
         </Flex>
         <Flex justify="end" gap={8}>
-          <Button
+          <Button className="bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)]"
             onClick={onClose}
-            disabled={busy}
-            style={{
-              background: "var(--color-bg-tertiary)",
-              border: "1px solid var(--color-border)",
-              color: "var(--color-text)",
-            }}
-          >
+            disabled={busy}  >
             {t("cancel")}
           </Button>
-          <Button
+          <Button className="[font-weight:600]"
             type="primary"
             onClick={toggle}
             loading={busy}
-            danger={enabled}
-            style={{ fontWeight: 600 }}
-          >
+            danger={enabled}  >
             {enabled ? t("stop") : t("start")}
           </Button>
         </Flex>

@@ -65,13 +65,7 @@ export function Stories() {
 
   return (
     <div
-      className="!relative !w-full !rounded-xl"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-        height: 202,
-      }}
-    >
+      className="!relative !w-full !rounded-xl bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] h-[202px]"  >
       <Flex
         gap={8}
         ref={scrollerRef}
@@ -89,30 +83,20 @@ export function Stories() {
         shape="circle"
         aria-label={t("scrollLeft")}
         onClick={() => scrollBy(-1)}
-        icon={<Icon name="chevron_left" size={22} color="var(--color-text)" />}
+        icon={<Icon className="bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]" name="chevron_left" size={22} color="var(--color-text)" />}
         className={
           "!absolute !left-2 !top-1/2 !z-10 !hidden !h-9 !w-9 -translate-y-1/2 !shadow-md !transition-opacity sm:!flex !items-center !justify-center " +
           (canLeft ? "!opacity-100" : "!pointer-events-none !opacity-0")
-        }
-        style={{
-          background: "var(--color-bg-secondary)",
-          border: "1px solid var(--color-border)",
-        }}
-      />
+        }  />
       <Button
         shape="circle"
         aria-label={t("scrollRight")}
         onClick={() => scrollBy(1)}
-        icon={<Icon name="chevron_right" size={22} color="var(--color-text)" />}
+        icon={<Icon className="bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]" name="chevron_right" size={22} color="var(--color-text)" />}
         className={
           "!absolute !right-2 !top-1/2 !z-10 !hidden !h-9 !w-9 -translate-y-1/2 !shadow-md !transition-opacity sm:!flex !items-center !justify-center " +
           (canRight ? "!opacity-100" : "!pointer-events-none !opacity-0")
-        }
-        style={{
-          background: "var(--color-bg-secondary)",
-          border: "1px solid var(--color-border)",
-        }}
-      />
+        }  />
       <ReelComposerModal
         mode="story"
         open={composerOpen}

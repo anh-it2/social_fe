@@ -52,13 +52,7 @@ export function FilterChips({ active, onChange, onlineCount, requestCount }: Fil
             <Flex align="center" gap={6}>
               {c.dot ? (
                 <span
-                  className="!inline-block !rounded-full"
-                  style={{
-                    width: 8,
-                    height: 8,
-                    background: "var(--color-success)",
-                  }}
-                />
+                  className="!inline-block !rounded-full w-[8px] h-[8px] bg-[var(--color-success)]"  />
               ) : (
                 <Icon
                   name={c.icon}

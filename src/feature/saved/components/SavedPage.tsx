@@ -43,9 +43,7 @@ export function SavedPage() {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <TopNav />
       <Flex
         vertical
@@ -56,9 +54,7 @@ export function SavedPage() {
           <Icon name="bookmark" size={26} color="var(--color-primary)" />
           <Title
             level={3}
-            className="!m-0 !text-[22px] !font-bold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!m-0 !text-[22px] !font-bold text-[var(--color-text)]"  >
             {t("title")}
           </Title>
         </Flex>
@@ -66,24 +62,15 @@ export function SavedPage() {
         <Flex
           vertical
           gap={12}
-          className="!w-full !rounded-xl !p-4"
-          style={{
-            background: "var(--color-bg-secondary)",
-            border: "1px solid var(--color-border)",
-          }}
-        >
+          className="!w-full !rounded-xl !p-4 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
           <Flex align="center" justify="space-between" className="!w-full">
             <Text
-              className="!text-[16px] !font-semibold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-[16px] !font-semibold text-[var(--color-text)]"  >
               {t("savedPosts")}
             </Text>
             <Link href={`/${locale}`}>
               <Text
-                className="!text-[13px] !font-semibold"
-                style={{ color: "var(--color-primary)" }}
-              >
+                className="!text-[13px] !font-semibold text-[var(--color-primary)]"  >
                 {t("openFeed")}
               </Text>
             </Link>
@@ -103,9 +90,7 @@ export function SavedPage() {
                 color="var(--color-text-muted)"
               />
               <Text
-                className="!text-[14px] !text-center"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+                className="!text-[14px] !text-center text-[var(--color-text-muted)]"  >
                 {t("emptyPosts")}
               </Text>
             </Flex>
@@ -121,24 +106,15 @@ export function SavedPage() {
         <Flex
           vertical
           gap={12}
-          className="!w-full !rounded-xl !p-4"
-          style={{
-            background: "var(--color-bg-secondary)",
-            border: "1px solid var(--color-border)",
-          }}
-        >
+          className="!w-full !rounded-xl !p-4 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
           <Flex align="center" justify="space-between" className="!w-full">
             <Text
-              className="!text-[16px] !font-semibold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-[16px] !font-semibold text-[var(--color-text)]"  >
               {t("savedReels")}
             </Text>
             <Link href={`/${locale}/reels`}>
               <Text
-                className="!text-[13px] !font-semibold"
-                style={{ color: "var(--color-primary)" }}
-              >
+                className="!text-[13px] !font-semibold text-[var(--color-primary)]"  >
                 {t("openReels")}
               </Text>
             </Link>
@@ -158,9 +134,7 @@ export function SavedPage() {
                 color="var(--color-text-muted)"
               />
               <Text
-                className="!text-[14px] !text-center"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+                className="!text-[14px] !text-center text-[var(--color-text-muted)]"  >
                 {t("empty")}
               </Text>
               <Link href={`/${locale}/reels`}>
@@ -174,12 +148,7 @@ export function SavedPage() {
             </Flex>
           ) : (
             <div
-              className="!grid !w-full !gap-3"
-              style={{
-                gridTemplateColumns:
-                  "repeat(auto-fill, minmax(180px, 1fr))",
-              }}
-            >
+              className="!grid !w-full !gap-3 [grid-template-columns:repeat(auto-fill,_minmax(180px,_1fr))]"  >
               {resolved.map((it) => (
                 <SavedReelCard
                   key={it.key}

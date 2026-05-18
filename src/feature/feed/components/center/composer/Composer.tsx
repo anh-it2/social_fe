@@ -35,9 +35,7 @@ export function Composer({ onCreatePost }: ComposerProps) {
     <>
       <Flex
         vertical
-        className="!w-full !overflow-hidden !rounded-xl"
-        style={{ background: "var(--color-bg-secondary)", border: "1px solid var(--color-border)" }}
-      >
+        className="!w-full !overflow-hidden !rounded-xl bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
         <Flex align="center" gap={12} className="!h-16 !w-full !px-4 !py-3">
           <Avatar
             size={40}
@@ -53,15 +51,13 @@ export function Composer({ onCreatePost }: ComposerProps) {
           <Flex
             align="center"
             onClick={() => open("default")}
-            className={`${styles.input} !h-10 !flex-1 !cursor-pointer !rounded-full !px-4`}
-            style={{ background: "var(--color-bg-tertiary)" }}
-          >
-            <Text className="!text-base" style={{ color: "var(--color-text-secondary)" }}>
+            className={`${styles.input} !h-10 !flex-1 !cursor-pointer !rounded-full !px-4 bg-[var(--color-bg-tertiary)]`}  >
+            <Text className="!text-base text-[var(--color-text-secondary)]" >
               {t("placeholder", { name: firstName })}
             </Text>
           </Flex>
         </Flex>
-        <div className="!h-px !w-full" style={{ background: "var(--color-border)" }} />
+        <div className="!h-px !w-full bg-[var(--color-border)]"  />
         <Flex align="center" justify="space-around" className="!w-full !px-4 !py-2">
           <ComposerActionBtn
             icon="videocam"

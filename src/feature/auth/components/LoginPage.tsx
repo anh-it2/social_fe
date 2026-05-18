@@ -14,6 +14,10 @@ import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "@/i18n/navigation";
+import {
+  getLabelCls,
+  RequiredAsterisk,
+} from "@/shared/components/form-fields/_field-shared";
 import { RHFPasswordField } from "@/shared/components/form-fields/RHFPasswordField";
 import { RHFTextField } from "@/shared/components/form-fields/RHFTextField";
 import { ThemeToggle } from "@/shared/components/ThemeToggle";
@@ -201,16 +205,17 @@ export function LoginPage() {
                   <div className="flex items-center justify-between">
                     <label
                       htmlFor="password"
-                      className="text-sm font-medium text-[var(--color-text-secondary)]"
+                      className={getLabelCls(!!errors.password)}
                     >
                       <span className="inline-flex items-center gap-1">
                         {t("passwordLabel")}
-                        <span className="text-[var(--color-error)]">*</span>
+                        <RequiredAsterisk />
                       </span>
                     </label>
                     <Link
                       href="/forgot-password"
-                      className="!text-[13px] !font-medium"
+                      tabIndex={-1}
+                      className="!text-[13px] !font-medium !text-[var(--color-primary)] hover:!text-[var(--color-primary-dark)]"
                     >
                       {t("forgot")}
                     </Link>
@@ -290,7 +295,10 @@ export function LoginPage() {
             <Text className="!text-[15px] !text-[var(--color-text-muted)]">
               {t("signupPrompt")}
             </Text>
-            <Link href="/register" className="!text-[15px] !font-semibold">
+            <Link
+              href="/register"
+              className="!text-[15px] !font-semibold !text-[var(--color-primary)] hover:!text-[var(--color-primary-dark)]"
+            >
               {t("signupLink")}
             </Link>
           </div>

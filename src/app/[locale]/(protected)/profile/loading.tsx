@@ -6,23 +6,11 @@ export default function Loading() {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <div
-        className="!h-14 !w-full"
-        style={{
-          background: "var(--color-bg-secondary)",
-          borderBottom: "1px solid var(--color-border)",
-        }}
-      />
+        className="!h-14 !w-full bg-[var(--color-bg-secondary)] [border-bottom:1px_solid_var(--color-border)]"  />
       <div
-        className="!w-full"
-        style={{
-          height: 320,
-          background: "var(--color-bg-tertiary)",
-        }}
-      />
+        className="!w-full h-[320px] bg-[var(--color-bg-tertiary)]"  />
       <Flex
         vertical
         gap={16}
@@ -31,8 +19,8 @@ export default function Loading() {
         <Flex align="center" gap={16}>
           <Skeleton.Avatar active size={120} />
           <Flex vertical gap={8} className="!flex-1">
-            <Skeleton.Input active style={{ width: 280, height: 32 }} />
-            <Skeleton.Input active style={{ width: 200 }} />
+            <Skeleton.Input className="w-[280px] h-[32px]" active  />
+            <Skeleton.Input className="w-[200px]" active  />
           </Flex>
         </Flex>
         <Flex gap={16} className="!w-full">
@@ -44,12 +32,7 @@ export default function Loading() {
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="!w-full !rounded-xl !p-4"
-                style={{
-                  background: "var(--color-bg-secondary)",
-                  border: "1px solid var(--color-border)",
-                }}
-              >
+                className="!w-full !rounded-xl !p-4 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
                 <Skeleton active paragraph={{ rows: 3 }} />
               </div>
             ))}
@@ -58,12 +41,7 @@ export default function Loading() {
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="!w-full !rounded-xl !p-4"
-                style={{
-                  background: "var(--color-bg-secondary)",
-                  border: "1px solid var(--color-border)",
-                }}
-              >
+                className="!w-full !rounded-xl !p-4 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
                 <Skeleton active paragraph={{ rows: 4 }} />
               </div>
             ))}

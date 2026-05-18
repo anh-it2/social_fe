@@ -1,4 +1,6 @@
-@import "tailwindcss";
+/* Sass leaves any @import ending in .css as a plain CSS @import (no sass
+   @import deprecation); @tailwindcss/postcss then inlines it. */
+@import "tailwindcss/index.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 

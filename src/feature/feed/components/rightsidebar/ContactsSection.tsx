@@ -109,9 +109,7 @@ export function ContactsSection() {
         ) : (
           <>
             <Text
-              className="!text-base !font-semibold"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+              className="!text-base !font-semibold text-[var(--color-text-secondary)]"  >
               {t("contacts")}
             </Text>
             <Flex align="center" gap={4}>
@@ -161,9 +159,7 @@ export function ContactsSection() {
       </Flex>
       {contacts.length === 0 ? (
         <Text
-          className="!text-[13px] !px-1 !py-3"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[13px] !px-1 !py-3 text-[var(--color-text-muted)]"  >
           {query.trim() ? t("noResults") : t("noContacts")}
         </Text>
       ) : (

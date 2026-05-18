@@ -28,25 +28,16 @@ export function PhotosTab() {
     <Flex
       vertical
       gap={20}
-      className="!w-full !px-4 !py-4 sm:!px-6 lg:!px-12 lg:!py-6"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!w-full !px-4 !py-4 sm:!px-6 lg:!px-12 lg:!py-6 bg-[var(--color-bg)]"  >
       <Flex
         align="center"
         justify="space-between"
-        className="!w-full !p-5"
-        style={{
-          background: "var(--color-bg-secondary)",
-          border: "1px solid var(--color-border)",
-          borderRadius: 20,
-          boxShadow: "var(--shadow-md)",
-        }}
-      >
+        className="!w-full !p-5 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[20px] [box-shadow:var(--shadow-md)]"  >
         <Flex vertical gap={2}>
-          <Title level={4} className="!m-0" style={{ color: "var(--color-text)" }}>
+          <Title level={4} className="!m-0 text-[var(--color-text)]" >
             {t("title")}
           </Title>
-          <Text className="!text-sm" style={{ color: "var(--color-text-muted)" }}>
+          <Text className="!text-sm text-[var(--color-text-muted)]" >
             {t("count", { count: photos.length })}
           </Text>
         </Flex>
@@ -65,16 +56,11 @@ export function PhotosTab() {
           vertical
           align="center"
           justify="center"
-          className="!w-full !rounded-[20px] !py-16"
-          style={{
-            background: "var(--color-bg-secondary)",
-            border: "1px solid var(--color-border)",
-          }}
-        >
+          className="!w-full !rounded-[20px] !py-16 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
             description={
-              <Text style={{ color: "var(--color-text-muted)" }}>{t("empty")}</Text>
+              <Text className="text-[var(--color-text-muted)]" >{t("empty")}</Text>
             }
           />
         </Flex>
@@ -84,21 +70,14 @@ export function PhotosTab() {
             {photos.map((p) => (
               <Flex
                 key={p.id}
-                className="!aspect-square !w-full !overflow-hidden !rounded-xl"
-                style={{
-                  background: "var(--color-bg-tertiary)",
-                  border: "1px solid var(--color-border)",
-                }}
-              >
+                className="!aspect-square !w-full !overflow-hidden !rounded-xl bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)]"  >
                 <Image
                   src={p.imageUrl}
                   alt=""
                   width="100%"
                   height="100%"
                   rootClassName="!h-full !w-full"
-                  className="!h-full !w-full !object-cover"
-                  style={{ objectFit: "cover", cursor: "pointer" }}
-                />
+                  className="!h-full !w-full !object-cover [object-fit:cover] [cursor:pointer]"  />
               </Flex>
             ))}
           </Image.PreviewGroup>

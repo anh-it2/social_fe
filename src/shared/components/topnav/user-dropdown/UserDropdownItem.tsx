@@ -38,9 +38,7 @@ export function UserDropdownItem({
         <Icon name={icon} size={20} color={iconColor} />
       </Flex>
       <Text
-        className="!flex-1 !text-[15px] !font-semibold"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!flex-1 !text-[15px] !font-semibold text-[var(--color-text)]"  >
         {label}
       </Text>
       {trailingIcon ? (

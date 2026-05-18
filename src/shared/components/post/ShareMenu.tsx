@@ -119,9 +119,7 @@ export function ShareMenu({
         >
           <Icon name="share" size={20} color="var(--color-text-muted)" />
           <Text
-            className="!text-sm !font-medium"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+            className="!text-sm !font-medium text-[var(--color-text-muted)]"  >
             {t("share")}
           </Text>
         </Button>

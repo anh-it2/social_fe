@@ -24,9 +24,7 @@ export function SuggestionsView() {
     <Flex vertical gap={16} className="!w-full !px-4 !py-6 sm:!px-6 lg:!px-8">
       <Title
         level={4}
-        className="!m-0 !text-[20px] !font-bold"
-        style={{ color: "var(--color-text)" }}
-      >
+        className="!m-0 !text-[20px] !font-bold text-[var(--color-text)]"  >
         {t("section.suggestions")}
       </Title>
       <div className="!grid !w-full !gap-4 !grid-cols-2 md:!grid-cols-3 xl:!grid-cols-4 2xl:!grid-cols-5">

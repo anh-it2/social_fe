@@ -189,10 +189,8 @@ export function MessageActionMenu({
         <Button
           type="text"
           size="small"
-          icon={<MoreOutlined />}
-          className="!h-7 !w-7 !rounded-full opacity-0 transition-opacity group-hover:opacity-100"
-          style={{ color: "var(--color-text-secondary)" }}
-        />
+          icon={<MoreOutlined className="text-[var(--color-text-secondary)]" />}
+          className="!h-7 !w-7 !rounded-full opacity-0 transition-opacity group-hover:opacity-100"  />
       </Dropdown>
       <ConfirmModal
         open={confirmOpen}

@@ -26,9 +26,7 @@ export function SharedPostPreview({ post, compact = false }: SharedPostPreviewPr
   return (
     <Flex
       vertical
-      className="!mx-3 !mb-3 !overflow-hidden !rounded-xl"
-      style={{ border: "1px solid var(--color-border)", background: "var(--color-bg)" }}
-    >
+      className="!mx-3 !mb-3 !overflow-hidden !rounded-xl [border:1px_solid_var(--color-border)] bg-[var(--color-bg)]"  >
       <Flex align="center" gap={10} className="!px-3 !py-2.5">
         <Flex
           align="center"
@@ -42,21 +40,15 @@ export function SharedPostPreview({ post, compact = false }: SharedPostPreviewPr
         </Flex>
         <Flex vertical gap={0}>
           <Text
-            className="!text-[13px] !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[13px] !font-semibold text-[var(--color-text)]"  >
             {post.author.name}
             {post.feeling && (
               <Text
-                className="!text-[13px]"
-                style={{ color: "var(--color-text-secondary)", fontWeight: 400 }}
-              >
+                className="!text-[13px] text-[var(--color-text-secondary)] [font-weight:400]"  >
                 {" "}
                 {post.feeling.kind === "feeling" ? t("isFeeling") : t("isActivity")}{" "}
                 <Text
-                  className="!text-[13px] !font-semibold"
-                  style={{ color: "var(--color-text)" }}
-                >
+                  className="!text-[13px] !font-semibold text-[var(--color-text)]"  >
                   {post.feeling.emoji} {post.feeling.label}
                 </Text>
               </Text>
@@ -64,15 +56,11 @@ export function SharedPostPreview({ post, compact = false }: SharedPostPreviewPr
           </Text>
           <Flex align="center" gap={4}>
             <Text
-              className="!text-[11px]"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+              className="!text-[11px] text-[var(--color-text-secondary)]"  >
               {timeLabel}
             </Text>
             <Text
-              className="!text-[11px]"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+              className="!text-[11px] text-[var(--color-text-secondary)]"  >
               ·
             </Text>
             <Icon name="public" size={11} color="var(--color-text-secondary)" />
@@ -82,9 +70,7 @@ export function SharedPostPreview({ post, compact = false }: SharedPostPreviewPr
 
       {post.text ? (
         <Text
-          className="!px-3 !pb-2 !text-[14px]"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!px-3 !pb-2 !text-[14px] text-[var(--color-text)]"  >
           <RichText text={post.text} />
         </Text>
       ) : null}
@@ -101,13 +87,11 @@ export function SharedPostPreview({ post, compact = false }: SharedPostPreviewPr
             style={{ maxHeight: mediaMaxHeight, objectFit: "contain", background: "#000" }}
           />
         ) : post.imageUrl ? (
-          <Image
+          <Image className="[object-fit:cover] w-[100%]"
             src={post.imageUrl}
             alt="shared post media"
             width="100%"
-            height={mediaMaxHeight}
-            style={{ objectFit: "cover", width: "100%" }}
-            wrapperStyle={{ width: "100%", display: "block", background: "#000" }}
+            height={mediaMaxHeight}  wrapperStyle={{ width: "100%", display: "block", background: "#000" }}
             preview={{ mask: false }}
           />
         ) : post.imageGradient ? (

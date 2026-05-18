@@ -67,13 +67,9 @@ export function FriendActionButton({ userId }: FriendActionButtonProps) {
             await rejectRequest(userId);
             message.info(t("section.requestDeleted"));
           }}
-          className={pillBase}
-          style={{ background: "var(--color-bg-tertiary)" }}
-        >
+          className={`${pillBase ?? ""} bg-[var(--color-bg-tertiary)]`}  >
           <Text
-            className="!text-sm !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-sm !font-semibold text-[var(--color-text)]"  >
             {t("action.delete")}
           </Text>
         </Button>
@@ -90,15 +86,11 @@ export function FriendActionButton({ userId }: FriendActionButtonProps) {
           await unfriend(userId);
           message.info(t("section.removed"));
         }}
-        className={pillBase}
-        style={{ background: "var(--color-bg-tertiary)" }}
-      >
+        className={`${pillBase ?? ""} bg-[var(--color-bg-tertiary)]`}  >
         <Flex align="center" gap={8}>
           <Icon name="group" size={18} color="var(--color-text)" />
           <Text
-            className="!text-sm !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-sm !font-semibold text-[var(--color-text)]"  >
             {t("action.friends")}
           </Text>
         </Flex>
@@ -115,15 +107,11 @@ export function FriendActionButton({ userId }: FriendActionButtonProps) {
           await cancelRequest(userId);
           message.info(t("section.requestDeleted"));
         }}
-        className={pillBase}
-        style={{ background: "var(--color-bg-tertiary)" }}
-      >
+        className={`${pillBase ?? ""} bg-[var(--color-bg-tertiary)]`}  >
         <Flex align="center" gap={8}>
           <Icon name="schedule" size={18} color="var(--color-text)" />
           <Text
-            className="!text-sm !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-sm !font-semibold text-[var(--color-text)]"  >
             {t("action.requested")}
           </Text>
         </Flex>

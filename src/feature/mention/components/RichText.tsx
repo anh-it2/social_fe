@@ -13,16 +13,14 @@ interface RichTextProps {
 export function RichText({ text, className }: RichTextProps) {
   const segments = splitRichSegments(text);
   return (
-    <span className={className} style={{ whiteSpace: "pre-wrap" }}>
+    <span className={`${className ?? ""} [white-space:pre-wrap]`} >
       {segments.map((seg, i) => {
         if (seg.kind === "hashtag") {
           return (
             <Link
               key={i}
               href={`/hashtag/${encodeURIComponent(seg.tag)}`}
-              className="!font-semibold hover:!underline"
-              style={{ color: "var(--color-primary)" }}
-              onClick={(e) => e.stopPropagation()}
+              className="!font-semibold hover:!underline text-[var(--color-primary)]"  onClick={(e) => e.stopPropagation()}
             >
               {seg.value}
             </Link>
@@ -34,9 +32,7 @@ export function RichText({ text, className }: RichTextProps) {
             <Link
               key={i}
               href={user ? `/profile?handle=${user.handle}` : "/profile"}
-              className="!font-semibold hover:!underline"
-              style={{ color: "var(--color-primary)" }}
-              onClick={(e) => e.stopPropagation()}
+              className="!font-semibold hover:!underline text-[var(--color-primary)]"  onClick={(e) => e.stopPropagation()}
               title={user?.name}
             >
               {user ? `@${user.name}` : seg.value}

@@ -10,9 +10,7 @@ export function FeedPage() {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <TopNav />
       <Flex className="!w-full !flex-1 !items-stretch">
         <div className="!hidden lg:!block">

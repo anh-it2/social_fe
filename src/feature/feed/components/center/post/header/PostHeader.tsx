@@ -90,9 +90,7 @@ export function PostHeader({
             color="var(--color-text-secondary)"
           />
           <Text
-            className="!text-xs !font-semibold"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
+            className="!text-xs !font-semibold text-[var(--color-text-secondary)]"  >
             {t("pinnedLabel")}
           </Text>
         </Flex>
@@ -118,41 +116,33 @@ export function PostHeader({
         </Avatar>
         <Flex vertical gap={2}>
           <Text
-            className="!text-[15px] !font-semibold"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[15px] !font-semibold text-[var(--color-text)]"  >
             <Text
               onClick={goToProfile}
-              className="!text-[15px] !font-semibold !cursor-pointer hover:!underline"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!text-[15px] !font-semibold !cursor-pointer hover:!underline text-[var(--color-text)]"  >
               {author.name}
             </Text>
             {isLive && (
-              <Text className="!text-[15px]" style={{ color: "var(--color-text-secondary)", fontWeight: 400 }}>
+              <Text className="!text-[15px] text-[var(--color-text-secondary)] [font-weight:400]" >
                 {" "}{t("wasLive")}
               </Text>
             )}
             {feeling && (
               <Text
-                className="!text-[15px]"
-                style={{ color: "var(--color-text-secondary)", fontWeight: 400 }}
-              >
+                className="!text-[15px] text-[var(--color-text-secondary)] [font-weight:400]"  >
                 {" "}{feeling.kind === "feeling" ? t("isFeeling") : t("isActivity")}{" "}
                 <Text
-                  className="!text-[15px] !font-semibold"
-                  style={{ color: "var(--color-text)" }}
-                >
+                  className="!text-[15px] !font-semibold text-[var(--color-text)]"  >
                   {feeling.emoji} {feeling.label}
                 </Text>
               </Text>
             )}
           </Text>
           <Flex align="center" gap={4}>
-            <Text className="!text-xs" style={{ color: "var(--color-text-secondary)" }}>
+            <Text className="!text-xs text-[var(--color-text-secondary)]" >
               {timeLabel}
             </Text>
-            <Text className="!text-xs" style={{ color: "var(--color-text-secondary)" }}>
+            <Text className="!text-xs text-[var(--color-text-secondary)]" >
               ·
             </Text>
             <Icon name="public" size={12} color="var(--color-text-secondary)" />

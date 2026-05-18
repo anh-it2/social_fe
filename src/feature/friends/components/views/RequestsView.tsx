@@ -20,20 +20,16 @@ export function RequestsView() {
       <Flex align="baseline" justify="space-between" className="!w-full">
         <Title
           level={4}
-          className="!m-0 !text-[20px] !font-bold"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!m-0 !text-[20px] !font-bold text-[var(--color-text)]"  >
           {t("section.requests")}
         </Title>
         <Text
-          className="!text-[15px]"
-          style={{ color: "var(--color-text-secondary)" }}
-        >
+          className="!text-[15px] text-[var(--color-text-secondary)]"  >
           {incoming.length}
         </Text>
       </Flex>
       {incoming.length === 0 ? (
-        <Text style={{ color: "var(--color-text-secondary)" }}>
+        <Text className="text-[var(--color-text-secondary)]" >
           {t("section.noRequests")}
         </Text>
       ) : (

@@ -60,15 +60,11 @@ export function ReportCard({
           </Flex>
           <Flex vertical className="!min-w-0">
             <Text
-              className="!truncate !text-[14px] !font-semibold"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!truncate !text-[14px] !font-semibold text-[var(--color-text)]"  >
               {t("reportedBy", { name: report.reporterName })}
             </Text>
             <Text
-              className="!text-[12px]"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+              className="!text-[12px] text-[var(--color-text-secondary)]"  >
               {relativeTime(tTime, report.createdAt)}
             </Text>
           </Flex>
@@ -85,24 +81,18 @@ export function ReportCard({
           className={`${styles.reasonBox} !w-full !px-3 !py-2`}
         >
           <Text
-            className="!text-[12px] !font-semibold !uppercase"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
+            className="!text-[12px] !font-semibold !uppercase text-[var(--color-text-secondary)]"  >
             {t("reasonLabel")}
           </Text>
           <Text
-            className="!text-[14px] !leading-relaxed"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!text-[14px] !leading-relaxed text-[var(--color-text)]"  >
             {report.reason}
           </Text>
         </Flex>
         <Flex align="center" gap={6}>
           <Icon name="article" size={16} color="var(--color-text-secondary)" />
           <Text
-            className="!text-[12px] !font-semibold !uppercase"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
+            className="!text-[12px] !font-semibold !uppercase text-[var(--color-text-secondary)]"  >
             {t("reportedPost")}
           </Text>
         </Flex>
@@ -117,21 +107,13 @@ export function ReportCard({
           align="center"
           justify="end"
           gap={8}
-          className="!w-full !border-t !px-4 !py-3"
-          style={{ borderTopColor: "var(--color-border)" }}
-        >
+          className="!w-full !border-t !px-4 !py-3 [border-top-color:var(--color-border)]"  >
           <Button
             disabled={disabled}
             onClick={() => setConfirmReject(true)}
-            className="!h-10 !rounded-[10px] !px-4 !font-semibold"
-            style={{
-              background: "var(--color-bg-tertiary)",
-              border: "1px solid var(--color-border)",
-              color: "var(--color-text)",
-            }}
-          >
+            className="!h-10 !rounded-[10px] !px-4 !font-semibold bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)]"  >
             <Icon name="close" size={16} color="var(--color-text-secondary)" />
-            <span style={{ marginLeft: 6 }}>{t("rejectBtn")}</span>
+            <span className="[margin-left:6px]" >{t("rejectBtn")}</span>
           </Button>
           <Button
             type="primary"
@@ -141,7 +123,7 @@ export function ReportCard({
             className="!h-10 !rounded-[10px] !px-4 !font-semibold"
           >
             <Icon name="check" size={16} color="#FFFFFF" />
-            <span style={{ marginLeft: 6 }}>{t("approveBtn")}</span>
+            <span className="[margin-left:6px]" >{t("approveBtn")}</span>
           </Button>
         </Flex>
       )}

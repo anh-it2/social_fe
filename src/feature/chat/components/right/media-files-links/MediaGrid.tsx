@@ -14,7 +14,7 @@ export function MediaGrid({ items }: MediaGridProps) {
   const t = useTranslations("Chat.right.mediaSection");
   if (items.length === 0) {
     return (
-      <Text className="!text-[12px]" style={{ color: "var(--color-text-muted)" }}>
+      <Text className="!text-[12px] text-[var(--color-text-muted)]" >
         {t("emptyMedia")}
       </Text>
     );
@@ -24,17 +24,13 @@ export function MediaGrid({ items }: MediaGridProps) {
       {items.map((m) => (
         <div
           key={m.id ?? m.tempId}
-          className="!relative !aspect-square !overflow-hidden !rounded-md"
-          style={{ background: "var(--color-bg-tertiary)" }}
-        >
+          className="!relative !aspect-square !overflow-hidden !rounded-md bg-[var(--color-bg-tertiary)]"  >
           <Image
             src={m.content}
             alt=""
             preview={{ mask: false }}
             rootClassName="!absolute !inset-0"
-            className="!h-full !w-full !object-cover"
-            style={{ objectFit: "cover" }}
-          />
+            className="!h-full !w-full !object-cover [object-fit:cover]"  />
         </div>
       ))}
     </div>

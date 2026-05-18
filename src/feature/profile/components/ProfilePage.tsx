@@ -17,9 +17,7 @@ export function ProfilePage({ personId }: { personId?: string }) {
     <ProfileViewProvider personId={personId}>
       <Flex
         vertical
-        className="!min-h-screen !w-full"
-        style={{ background: "var(--color-bg)" }}
-      >
+        className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
         <TopNav />
         <CoverSection />
         <StatsAndTabs active={tab} onChange={setTab} />

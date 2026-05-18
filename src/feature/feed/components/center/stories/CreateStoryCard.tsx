@@ -17,12 +17,7 @@ export function CreateStoryCard({ onClick }: CreateStoryCardProps = {}) {
     <Flex
       vertical
       onClick={onClick}
-      className="!h-[186px] !w-[130px] !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl"
-      style={{
-        background: "var(--color-bg-secondary)",
-        border: "1px solid var(--color-border)",
-      }}
-    >
+      className="!h-[186px] !w-[130px] !shrink-0 !cursor-pointer !overflow-hidden !rounded-xl bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
       <div
         className="!h-[120px] !w-full"
         style={{ background: gradientBg(["#7c3aed", "#3b82f6"]) }}
@@ -37,19 +32,11 @@ export function CreateStoryCard({ onClick }: CreateStoryCardProps = {}) {
         <Flex
           align="center"
           justify="center"
-          className="!absolute !h-9 !w-9 !rounded-full"
-          style={{
-            background: "var(--color-primary)",
-            border: "4px solid var(--color-bg-secondary)",
-            top: -18,
-          }}
-        >
+          className="!absolute !h-9 !w-9 !rounded-full bg-[var(--color-primary)] [border:4px_solid_var(--color-bg-secondary)] top-[-18px]"  >
           <Icon name="add" size={22} color="var(--color-on-primary)" />
         </Flex>
         <Text
-          className="!mt-5 !text-xs !font-semibold"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!mt-5 !text-xs !font-semibold text-[var(--color-text)]"  >
           {t("createStory")}
         </Text>
       </Flex>

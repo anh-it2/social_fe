@@ -19,7 +19,7 @@ export function ReactionItem({ reaction, onPick }: ReactionItemProps) {
         aria-label={reaction.label}
         className="!flex !h-10 !w-10 !items-center !justify-center !p-0 !text-[28px] !leading-none"
       >
-        <span style={{ fontSize: 28, lineHeight: 1 }}>{reaction.emoji}</span>
+        <span className="[font-size:28px] [line-height:1]" >{reaction.emoji}</span>
       </Button>
     </Tooltip>
   );

@@ -13,14 +13,7 @@ export function ReactionPicker({ onPick }: ReactionPickerProps) {
     <Flex
       align="center"
       gap={4}
-      className="!rounded-full"
-      style={{
-        background: "var(--color-bg-tertiary)",
-        border: "1px solid var(--color-border)",
-        padding: "6px 8px",
-        boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
-      }}
-    >
+      className="!rounded-full bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] [padding:6px_8px] [box-shadow:0_8px_24px_rgba(0,0,0,0.5)]"  >
       {REACTIONS.map((r) => (
         <ReactionItem key={r.id} reaction={r} onPick={() => onPick(r.id)} />
       ))}

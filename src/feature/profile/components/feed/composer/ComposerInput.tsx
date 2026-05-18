@@ -10,15 +10,8 @@ export function ComposerInput() {
   return (
     <Flex
       align="center"
-      className="!flex-1"
-      style={{
-        height: 44,
-        background: "var(--color-bg-tertiary)",
-        borderRadius: 22,
-        padding: "0 20px",
-      }}
-    >
-      <Text className="!text-sm" style={{ color: "var(--color-text-muted)" }}>
+      className="!flex-1 h-[44px] bg-[var(--color-bg-tertiary)] rounded-[22px] [padding:0_20px]"  >
+      <Text className="!text-sm text-[var(--color-text-muted)]" >
         {t("composer")}
       </Text>
     </Flex>

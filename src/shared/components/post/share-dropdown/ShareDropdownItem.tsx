@@ -27,13 +27,7 @@ export function ShareDropdownItem({
       align="center"
       gap={12}
       onClick={onClick}
-      className={`${styles.row} !w-full`}
-      style={{
-        padding: "10px 12px",
-        borderRadius: 12,
-        cursor: "pointer",
-      }}
-    >
+      className={`${styles.row} !w-full [padding:10px_12px] rounded-[12px] [cursor:pointer]`}  >
       <Flex
         align="center"
         justify="center"
@@ -48,15 +42,11 @@ export function ShareDropdownItem({
       </Flex>
       <Flex vertical gap={2} className="!min-w-0 !flex-1">
         <Text
-          className="!text-[15px] !font-semibold"
-          style={{ color: "var(--color-text)" }}
-        >
+          className="!text-[15px] !font-semibold text-[var(--color-text)]"  >
           {title}
         </Text>
         <Text
-          className="!text-[13px]"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+          className="!text-[13px] text-[var(--color-text-muted)]"  >
           {description}
         </Text>
       </Flex>

@@ -76,16 +76,9 @@ export function CommentInput({
     <Flex gap={8} className="!w-full">
       <PostAvatar size={32} gradient={authorGradient} initial={authorInitial} />
       <Flex vertical gap={6} className="!flex-1 !min-w-0">
-        <Flex
+        <Flex className="bg-[var(--color-bg-tertiary)] rounded-[18px] [padding:0_4px_0_12px] min-h-[36px]"
           align="center"
-          gap={4}
-          style={{
-            background: "var(--color-bg-tertiary)",
-            borderRadius: 18,
-            padding: "0 4px 0 12px",
-            minHeight: 36,
-          }}
-        >
+          gap={4}  >
           <div className="!relative !flex-1">
             <Input
               ref={(node) => {
@@ -110,9 +103,7 @@ export function CommentInput({
               }}
               placeholder={t("writeComment")}
               variant="borderless"
-              className="!w-full !p-0 !text-sm !text-[var(--color-text)] !caret-[var(--color-text)] placeholder:!text-[var(--color-text-placeholder)] placeholder:!opacity-100"
-              style={{ background: "transparent" }}
-            />
+              className="!w-full !p-0 !text-sm !text-[var(--color-text)] !caret-[var(--color-text)] placeholder:!text-[var(--color-text-placeholder)] placeholder:!opacity-100 bg-[transparent]"  />
             <MentionPicker
               open={mention.pickerOpen}
               query={mention.trigger.query}
@@ -181,9 +172,7 @@ export function CommentInput({
             <Button
               type="text"
               size="small"
-              className="!h-7 !min-w-7 !px-1 !text-[11px] !font-bold"
-              style={{ color: "var(--color-text-muted)" }}
-              aria-label="gif"
+              className="!h-7 !min-w-7 !px-1 !text-[11px] !font-bold text-[var(--color-text-muted)]"  aria-label="gif"
             >
               GIF
             </Button>
@@ -207,27 +196,16 @@ export function CommentInput({
           <Flex
             align="flex-start"
             gap={6}
-            className="!relative !w-fit !rounded-xl !overflow-hidden"
-            style={{ border: "1px solid var(--color-border)" }}
-          >
-            <AntImage
+            className="!relative !w-fit !rounded-xl !overflow-hidden [border:1px_solid_var(--color-border)]"  >
+            <AntImage className="max-w-[160px] max-h-[160px] [object-fit:cover] [display:block]"
               src={imageUrl}
               alt="comment attachment"
-              preview={false}
-              style={{
-                maxWidth: 160,
-                maxHeight: 160,
-                objectFit: "cover",
-                display: "block",
-              }}
-            />
+              preview={false}  />
             <Button
               type="text"
               size="small"
               onClick={() => setImageUrl(null)}
-              className="!absolute !top-1 !right-1 !h-6 !w-6 !p-0 !rounded-full"
-              style={{ background: "rgba(0,0,0,0.6)" }}
-              aria-label="remove"
+              className="!absolute !top-1 !right-1 !h-6 !w-6 !p-0 !rounded-full bg-[rgba(0,0,0,0.6)]"  aria-label="remove"
             >
               <Icon name="close" size={14} color="#fff" />
             </Button>

@@ -43,7 +43,7 @@ export function ConfirmModal({
         <Icon name="close" size={20} color="var(--color-text-secondary)" />
       }
     >
-      <Flex vertical gap={16} style={{ padding: "24px 28px 24px 28px" }}>
+      <Flex className="[padding:24px_28px_24px_28px]" vertical gap={16} >
         <Flex align="center" gap={12}>
           <Flex
             align="center"
@@ -65,37 +65,25 @@ export function ConfirmModal({
           </Flex>
           <Title
             level={5}
-            className="!m-0 !leading-tight"
-            style={{ color: "var(--color-text)" }}
-          >
+            className="!m-0 !leading-tight text-[var(--color-text)]"  >
             {title}
           </Title>
         </Flex>
         {description && (
           <Text
-            className="!text-sm !leading-relaxed"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
+            className="!text-sm !leading-relaxed text-[var(--color-text-secondary)]"  >
             {description}
           </Text>
         )}
-        <Flex justify="end" gap={8} style={{ paddingTop: 8 }}>
-          <Button
-            onClick={onCancel}
-            style={{
-              background: "var(--color-bg-tertiary)",
-              border: "1px solid var(--color-border)",
-              color: "var(--color-text)",
-            }}
-          >
+        <Flex className="[padding-top:8px]" justify="end" gap={8} >
+          <Button className="bg-[var(--color-bg-tertiary)] [border:1px_solid_var(--color-border)] text-[var(--color-text)]"
+            onClick={onCancel}  >
             {cancelText ?? t("cancel")}
           </Button>
-          <Button
+          <Button className="[font-weight:600]"
             type="primary"
             danger={danger}
-            onClick={onOk}
-            style={{ fontWeight: 600 }}
-          >
+            onClick={onOk}  >
             {okText ?? t("confirm")}
           </Button>
         </Flex>

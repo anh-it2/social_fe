@@ -20,9 +20,7 @@ export function HashtagPage({ tag }: HashtagPageProps) {
   return (
     <Flex
       vertical
-      className="!min-h-screen !w-full"
-      style={{ background: "var(--color-bg)" }}
-    >
+      className="!min-h-screen !w-full bg-[var(--color-bg)]"  >
       <TopNav />
       <Flex
         vertical
@@ -32,32 +30,21 @@ export function HashtagPage({ tag }: HashtagPageProps) {
         <Flex
           align="center"
           gap={12}
-          className="!w-full !rounded-xl !p-4"
-          style={{
-            background: "var(--color-bg-secondary)",
-            border: "1px solid var(--color-border)",
-          }}
-        >
+          className="!w-full !rounded-xl !p-4 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
           <Flex
             align="center"
             justify="center"
-            className="!h-12 !w-12 !shrink-0 !rounded-full"
-            style={{ background: "var(--color-bg-tertiary)" }}
-          >
+            className="!h-12 !w-12 !shrink-0 !rounded-full bg-[var(--color-bg-tertiary)]"  >
             <Icon name="tag" size={26} color="var(--color-primary)" />
           </Flex>
           <Flex vertical gap={2} className="!min-w-0 !flex-1">
             <Title
               level={3}
-              className="!m-0 !text-[22px] !font-bold !truncate"
-              style={{ color: "var(--color-text)" }}
-            >
+              className="!m-0 !text-[22px] !font-bold !truncate text-[var(--color-text)]"  >
               #{tag}
             </Title>
             <Text
-              className="!text-[13px]"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+              className="!text-[13px] text-[var(--color-text-secondary)]"  >
               {hydrated ? t("postCount", { count: posts.length }) : t("loading")}
             </Text>
           </Flex>
@@ -69,21 +56,14 @@ export function HashtagPage({ tag }: HashtagPageProps) {
             align="center"
             justify="center"
             gap={12}
-            className="!w-full !rounded-xl !py-16"
-            style={{
-              background: "var(--color-bg-secondary)",
-              border: "1px solid var(--color-border)",
-            }}
-          >
+            className="!w-full !rounded-xl !py-16 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"  >
             <Icon
               name="search_off"
               size={48}
               color="var(--color-text-muted)"
             />
             <Text
-              className="!text-[14px] !text-center"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+              className="!text-[14px] !text-center text-[var(--color-text-muted)]"  >
               {t("empty")}
             </Text>
           </Flex>

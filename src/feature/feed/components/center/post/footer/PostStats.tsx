@@ -39,7 +39,7 @@ export function PostStats({
         {showLikes ? (
           <>
             {current ? (
-              <span style={{ fontSize: 18, lineHeight: 1 }}>
+              <span className="[font-size:18px] [line-height:1]" >
                 {current.emoji}
               </span>
             ) : (
@@ -51,15 +51,13 @@ export function PostStats({
               </Flex>
             )}
             <Text
-              className="!text-sm"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+              className="!text-sm text-[var(--color-text-secondary)]"  >
               {likesLabel}
             </Text>
           </>
         ) : null}
       </Flex>
-      <Text className="!text-sm" style={{ color: "var(--color-text-secondary)" }}>
+      <Text className="!text-sm text-[var(--color-text-secondary)]" >
         {comments} {t("comments")} &nbsp;·&nbsp; {shares} {t("shares")}
       </Text>
     </Flex>

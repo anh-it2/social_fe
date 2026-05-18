@@ -15,7 +15,7 @@ export function CommentList({ comments }: CommentListProps) {
   const t = useTranslations("Post");
   if (comments.length === 0) {
     return (
-      <Text className="!text-[13px]" style={{ color: "var(--color-text-muted)" }}>
+      <Text className="!text-[13px] text-[var(--color-text-muted)]" >
         {t("firstToComment")}
       </Text>
     );
