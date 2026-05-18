@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { API_BASE_URL } from "@/shared/lib/apiBaseUrl";
 
 /** httpOnly cookie holding the BE JWT. Never readable from JS. */
 export const AUTH_COOKIE = "token";
@@ -6,8 +7,6 @@ export const AUTH_COOKIE = "token";
 // BE jwtExpiresIn defaults to '1d'. Keep the cookie lifetime in sync so the
 // browser drops it about when the token stops being accepted.
 const COOKIE_MAX_AGE = 60 * 60 * 24;
-
-const API_BASE_URL = process.env.API_BASE_URL ?? "http://localhost:8080/api/v1";
 
 interface BackendEnvelope {
   success: boolean;

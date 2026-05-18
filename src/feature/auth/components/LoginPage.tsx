@@ -85,7 +85,10 @@ export function LoginPage() {
       message.success(t("welcomeBack", { name: user.name }));
       router.push("/");
     } catch (err) {
-      const msg = err instanceof Error ? err.message : t("genericError");
+      const raw = err instanceof Error ? err.message : "";
+      const msg = /invalid credentials/i.test(raw)
+        ? t("invalidCredentials")
+        : raw || t("genericError");
       setSubmitError(msg);
       message.error(msg);
     }

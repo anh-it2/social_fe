@@ -18,6 +18,22 @@ export const useFriendsStore = create<FriendsState>()(
       _setStatus: (id, status) =>
         set((st) => ({ status: { ...st.status, [id]: status } })),
 
+      _hydrateFromSnapshot: (snap) =>
+        set((st) => {
+          const people = { ...st.people };
+          const status: Record<string, FriendStatus> = {};
+          const apply = (list: PersonDTO[], s: FriendStatus) => {
+            for (const p of list) {
+              people[p.id] = { ...people[p.id], ...p };
+              status[p.id] = s;
+            }
+          };
+          apply(snap.friends, "friends");
+          apply(snap.incoming, "incoming");
+          apply(snap.outgoing, "requested");
+          return { people, status };
+        }),
+
       _ingestFriendRequest: (notificationId, actorId, actorName) =>
         set((st) => {
           if (st.processedRequests[notificationId]) return st;

@@ -24,6 +24,7 @@
       "welcome": "Welcome, {name}!",
       "welcomeBack": "Welcome back, {name}!",
       "genericError": "Something went wrong. Please try again.",
+      "invalidCredentials": "Wrong email or password",
       "requiredBanner": "Please fill out the required fields marked with *.",
       "validation": {
         "emailRequired": "Email is required",

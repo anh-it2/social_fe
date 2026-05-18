@@ -12,6 +12,17 @@ export interface FriendsState {
   _upsertPerson: (person: PersonDTO) => void;
   _setStatus: (id: string, status: FriendStatus) => void;
   /**
+   * Replace the relationship graph with an authoritative server snapshot
+   * (friends.api init). `status` is rebuilt wholesale so a friendship the
+   * other side removed disappears; `people` is merged (keeps presence-known
+   * names); `processedRequests` is untouched (notification-bridge dedupe).
+   */
+  _hydrateFromSnapshot: (snap: {
+    friends: PersonDTO[];
+    incoming: PersonDTO[];
+    outgoing: PersonDTO[];
+  }) => void;
+  /**
    * Materialize an incoming friend request that arrived as a
    * `friend_request` notification. Idempotent per notification id (so the
    * notification:list replay on every reconnect can't resurrect a request

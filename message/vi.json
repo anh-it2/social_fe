@@ -24,6 +24,7 @@
       "welcome": "Chào mừng, {name}!",
       "welcomeBack": "Chào mừng trở lại, {name}!",
       "genericError": "Đã xảy ra lỗi. Vui lòng thử lại.",
+      "invalidCredentials": "Sai email hoặc mật khẩu",
       "requiredBanner": "Vui lòng điền các trường bắt buộc được đánh dấu *.",
       "validation": {
         "emailRequired": "Email là bắt buộc",

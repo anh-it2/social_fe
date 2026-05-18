@@ -1,12 +1,8 @@
 import axios from "axios";
 import { NextResponse, type NextRequest } from "next/server";
 import { AUTH_COOKIE } from "@/feature/auth/server/authProxy";
+import { API_BASE_URL } from "@/shared/lib/apiBaseUrl";
 import type { ProfileDTO } from "../dto/profile.dto";
-
-// social-platform-be base. Same default the auth proxy uses; kept local so
-// this module has no cross-import for a plain string.
-const API_BASE_URL =
-  process.env.API_BASE_URL ?? "http://localhost:8080/api/v1";
 
 const BE_PROFILE_PATH = "/users/me/profile";
 
