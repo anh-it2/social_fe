@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import { usePresenceStore } from "@/feature/presence/stores/presence.store";
+import { useFriendIdSet } from "@/feature/friends/hooks/useFriends";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
 import type { GroupInfo } from "../../../stores/chat.store.type";
 import { buildChatEntries, sortChatEntries } from "../../../lib/conversationSort";
@@ -44,6 +45,7 @@ export function ConversationList({
   const filter = useSidebarFilterStore((s) => s.active);
   const onlineUsers = usePresenceStore((s) => s.onlineUsers);
   const lastActivity = useChatRoomUnreadStore((s) => s.lastActivity);
+  const friendIds = useFriendIdSet();
 
   const { visibleGroups, visibleContacts } = useMemo(() => {
     switch (filter) {
@@ -68,8 +70,20 @@ export function ConversationList({
       onlineUserIds,
       myId,
     });
-    return sortChatEntries(entries, { unread: unreadMap ?? {}, lastActivity });
-  }, [visibleContacts, visibleGroups, onlineUsers, unreadMap, lastActivity, myId]);
+    return sortChatEntries(entries, {
+      unread: unreadMap ?? {},
+      lastActivity,
+      friendIds,
+    });
+  }, [
+    visibleContacts,
+    visibleGroups,
+    onlineUsers,
+    unreadMap,
+    lastActivity,
+    friendIds,
+    myId,
+  ]);
 
   if (contacts.length === 0 && groups.length === 0) {
     return (

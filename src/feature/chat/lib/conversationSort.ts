@@ -10,7 +10,12 @@ import type { GroupInfo } from "@/feature/chat/stores/chat.store.type";
  *  1. 1:1 user online
  *  2. group with a member (other than me) online
  *  3. everything else     -> alphabetical
- * Ties within tiers 1-3 break alphabetically by name.
+ *
+ * Friend priority: inside EVERY tier, a friend DM sorts above a stranger
+ * (or group) before that tier's own tiebreak runs. "Friend" is decided by
+ * the backend Friend table (single source of truth), surfaced here as the
+ * `friendIds` set — this module does not re-derive the relationship.
+ * Ties within tiers 1-3 then break alphabetically by name.
  */
 export type ChatListEntry =
   | {
@@ -33,6 +38,16 @@ export type ChatListEntry =
 interface SortContext {
   unread: Record<string, boolean>;
   lastActivity: Record<string, number>;
+  /**
+   * User ids that are my accepted friends (from the BE /friends snapshot).
+   * Only DM entries can match; groups are never "friends".
+   */
+  friendIds: Set<string>;
+}
+
+/** Friend DM = 0 (sorts first), everything else = 1. */
+function friendRank(e: ChatListEntry, friendIds: Set<string>): number {
+  return !e.isGroup && friendIds.has(e.id) ? 0 : 1;
 }
 
 /**
@@ -76,12 +91,16 @@ function tier(e: ChatListEntry, unread: Record<string, boolean>): number {
 /** Returns a new array sorted by the shared tier rules (does not mutate input). */
 export function sortChatEntries(
   entries: ChatListEntry[],
-  { unread, lastActivity }: SortContext,
+  { unread, lastActivity, friendIds }: SortContext,
 ): ChatListEntry[] {
   return [...entries].sort((a, b) => {
     const ta = tier(a, unread);
     const tb = tier(b, unread);
     if (ta !== tb) return ta - tb;
+    // Same tier: friends outrank strangers before the tier's own tiebreak.
+    const fa = friendRank(a, friendIds);
+    const fb = friendRank(b, friendIds);
+    if (fa !== fb) return fa - fb;
     if (ta === 0) {
       return (
         (lastActivity[b.id] ?? 0) - (lastActivity[a.id] ?? 0) ||

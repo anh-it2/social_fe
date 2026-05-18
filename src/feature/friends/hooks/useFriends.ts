@@ -34,6 +34,23 @@ export function useFriendsList(): PersonDTO[] {
   );
 }
 
+/**
+ * Ids of my accepted friends as a Set, for O(1) membership in hot paths
+ * (chat list sort). Bootstrapped from the BE /friends snapshot like the
+ * other selectors, so it is populated app-wide, not just on the friends page.
+ */
+export function useFriendIdSet(): Set<string> {
+  useFriendsBootstrap();
+  const status = useFriendsStore((s) => s.status);
+  return useMemo(
+    () =>
+      new Set(
+        Object.keys(status).filter((id) => status[id] === "friends"),
+      ),
+    [status],
+  );
+}
+
 /** Incoming requests awaiting my response. */
 export function useIncomingRequests(): PersonDTO[] {
   useFriendsBootstrap();

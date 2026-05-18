@@ -13,6 +13,7 @@ import {
   buildChatEntries,
   sortChatEntries,
 } from "@/feature/chat/lib/conversationSort";
+import { useFriendIdSet } from "@/feature/friends/hooks/useFriends";
 import { useChatStore } from "@/feature/chat/stores/chat.store";
 import type { GroupInfo } from "@/feature/chat/stores/chat.store.type";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
@@ -46,6 +47,7 @@ export function ChatDropdownContent({ onClose, onCreateGroup }: ChatDropdownCont
   const unreadMap = useChatRoomUnreadStore((s) => s.unread);
   const kindMap = useChatRoomUnreadStore((s) => s.kind);
   const lastActivity = useChatRoomUnreadStore((s) => s.lastActivity);
+  const friendIds = useFriendIdSet();
   const markRead = useChatRoomUnreadStore((s) => s.markRead);
   const [tab, setTab] = useState<DropdownTabKey>("all");
   const [query, setQuery] = useState("");
@@ -106,7 +108,11 @@ export function ChatDropdownContent({ onClose, onCreateGroup }: ChatDropdownCont
       return true;
     });
 
-    return sortChatEntries(filtered, { unread: unreadMap, lastActivity });
+    return sortChatEntries(filtered, {
+      unread: unreadMap,
+      lastActivity,
+      friendIds,
+    });
   }, [
     knownUsers,
     onlineUsers,
@@ -114,6 +120,7 @@ export function ChatDropdownContent({ onClose, onCreateGroup }: ChatDropdownCont
     selfId,
     unreadMap,
     lastActivity,
+    friendIds,
     tab,
     query,
   ]);
