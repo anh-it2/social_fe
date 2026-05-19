@@ -83,6 +83,9 @@
   --color-warning: #faad14;
   --color-error: #ff4d4f;
 
+  --color-reaction-like: #2374e1;
+  --color-reaction-love: #f02849;
+
   --color-bg: #ffffff;
   --color-bg-secondary: #fafbfc;
   --color-bg-tertiary: #f0f2f5;
@@ -150,6 +153,9 @@
   --color-success: #73d13d;
   --color-warning: #ffc53d;
   --color-error: #ff7875;
+
+  --color-reaction-like: #4599ff;
+  --color-reaction-love: #ff4d6a;
 
   --color-bg: #0a0a0a;
   --color-bg-secondary: #141414;
