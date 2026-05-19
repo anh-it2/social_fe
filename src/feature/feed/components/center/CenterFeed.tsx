@@ -1,10 +1,9 @@
 "use client";
 
 import { Flex } from "antd";
-import { Fragment, useEffect, useMemo, useState } from "react";
-import { FEED_POSTS } from "../../data/constants";
+import { Fragment, useEffect, useState } from "react";
 import type { FeedPostData, ReelData } from "../../data/types";
-import { useUserPosts } from "../../data/useUserPosts";
+import { useFeed } from "../../data/useFeed";
 import { useUserReels } from "../../data/useUserReels";
 import { ReelComposerProvider, useReelComposer } from "../../lib/reelComposer";
 import { Composer } from "./composer/Composer";
@@ -31,17 +30,11 @@ function FeedReelComposerHost() {
 }
 
 export function CenterFeed() {
-  const { posts: userPosts, addPost, removePost, updatePost } = useUserPosts();
-  const [mockPosts, setMockPosts] = useState<FeedPostData[]>(FEED_POSTS);
-
-  const allPosts = useMemo(() => {
-    const combined = [...userPosts, ...mockPosts];
-    const pinned = combined
-      .filter((p) => p.pinnedAt)
-      .sort((a, b) => (b.pinnedAt ?? 0) - (a.pinnedAt ?? 0));
-    const rest = combined.filter((p) => !p.pinnedAt);
-    return [...pinned, ...rest];
-  }, [userPosts, mockPosts]);
+  // Global feed, server-backed and server-ordered (pinned first, then
+  // newest). All writes go through the API; the old localStorage+mock mix
+  // and the user-vs-mock branching are gone (the BE authorizes edits).
+  const { posts: allPosts, addPost, removePost, updatePost, pinPost } =
+    useFeed();
 
   const [suggestionsAt, setSuggestionsAt] = useState<number | null>(null);
   useEffect(() => {
@@ -55,37 +48,15 @@ export function CenterFeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const isUserPost = (id: string) => userPosts.some((p) => p.id === id);
+  const handleCreate = (post: FeedPostData) => addPost(post);
 
-  const handleCreate = (post: FeedPostData) => {
-    addPost(post);
-  };
+  const handleRemove = (id: string) => removePost(id);
 
-  const handleRemove = (id: string) => {
-    if (isUserPost(id)) {
-      removePost(id);
-      return;
-    }
-    setMockPosts((prev) => prev.filter((p) => p.id !== id));
-  };
-
-  const handleUpdate = (updated: FeedPostData) => {
-    if (isUserPost(updated.id)) {
-      updatePost(updated);
-      return;
-    }
-    setMockPosts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
-  };
+  const handleUpdate = (updated: FeedPostData) => updatePost(updated);
 
   const handlePinToggle = (id: string) => {
-    const flip = (p: FeedPostData): FeedPostData =>
-      p.id === id ? { ...p, pinnedAt: p.pinnedAt ? undefined : Date.now() } : p;
-    if (isUserPost(id)) {
-      const target = userPosts.find((p) => p.id === id);
-      if (target) updatePost(flip(target));
-      return;
-    }
-    setMockPosts((prev) => prev.map(flip));
+    const target = allPosts.find((p) => p.id === id);
+    return pinPost(id, !target?.pinnedAt);
   };
 
   return (

@@ -1,3 +1,5 @@
+import type { ReactionId } from "@/shared/data/reactions";
+
 export interface NavRow {
   id: string;
   icon: string;
@@ -75,6 +77,8 @@ export interface FeedPostData {
   likes: string;
   comments: number;
   shares: number;
+  /** The current viewer's own reaction (server-derived), or null. */
+  myReaction?: ReactionId | null;
   sharedFrom?: SharedPostRef;
   pinnedAt?: number;
 }

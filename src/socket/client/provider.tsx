@@ -16,6 +16,8 @@ import {
   disposeReport,
   initReport,
 } from "@/feature/admin/socket";
+import { disposeFeed, initFeed } from "@/feature/feed/socket";
+import { useFeedRealtime } from "@/feature/feed/hooks/useFeedRealtime";
 
 function useAuthReady() {
   const isLoggined = useAuthStore((s) => s.isLoggined);
@@ -30,6 +32,10 @@ function useAuthReady() {
 export function SocketProvider({ children }: { children: React.ReactNode }) {
   const { isLoggined, hydrated } = useAuthReady();
 
+  // Single global mount for the realtime feed listener (needs the React
+  // Query client, which wraps this provider). Self-guards on login state.
+  useFeedRealtime();
+
   useEffect(() => {
     if (!hydrated) return;
     if (isLoggined) {
@@ -38,11 +44,13 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       initChat();
       initNotification();
       initReport();
+      initFeed();
     } else {
       disposePresence();
       disposeChat();
       disposeNotification();
       disposeReport();
+      disposeFeed();
       disposeAll();
     }
   }, [hydrated, isLoggined]);

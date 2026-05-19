@@ -58,13 +58,13 @@ export function NavSearch() {
   return (
     <div ref={wrapRef} className="!relative">
       <Input
-        prefix={<Icon className="bg-[var(--color-bg-tertiary)]" name="search" size={20} color="var(--color-text-muted)" />}
+        prefix={<Icon name="search" size={20} color="var(--color-text-muted)" />}
         placeholder={t("search")}
-        variant="borderless"
+        variant="filled"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => setOpen(true)}
-        className="!h-10 !w-40 !shrink-0 !rounded-full !px-4 sm:!w-56 md:!w-64 [&_input]:!bg-transparent [&_input]:!text-[var(--color-text)] [&_input]:!caret-[var(--color-text)] [&_input::placeholder]:!text-[var(--color-text-placeholder)] [&_input::placeholder]:!opacity-100"  />
+        className="!h-10 !w-40 !shrink-0 !rounded-full !px-4 sm:!w-56 md:!w-64 !bg-[var(--color-bg-tertiary)] [&_input]:!bg-transparent [&_input]:!text-[var(--color-text)] [&_input]:!caret-[var(--color-text)] [&_input::placeholder]:!text-[var(--color-text-placeholder)] [&_input::placeholder]:!opacity-100"  />
       {open && (
         <div
           className="!absolute !top-12 !left-0 !z-[1000] !w-72 !overflow-hidden !rounded-xl !border !border-[var(--color-border)] !shadow-lg sm:!w-80 bg-[var(--color-bg-secondary)]"  >

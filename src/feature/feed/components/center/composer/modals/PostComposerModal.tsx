@@ -12,6 +12,7 @@ import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
 import { gradientBg } from "@/shared/utils/gradient";
+import { uploadPostMediaService } from "../../../../services/uploadPostMedia.service";
 import { CURRENT_USER, FEELINGS } from "../../../../data/constants";
 import type { Feeling, FeedPostData } from "../../../../data/types";
 import styles from "./PostComposerModal.module.scss";
@@ -24,7 +25,9 @@ interface PostComposerModalProps {
   open: boolean;
   mode: ComposerMode;
   onClose: () => void;
-  onSubmit: (post: FeedPostData) => void;
+  // May persist (returns a Promise) — the modal awaits it before closing so
+  // a failed save keeps the draft open with an error.
+  onSubmit: (post: FeedPostData) => void | Promise<unknown>;
   initialPost?: FeedPostData;
 }
 
@@ -52,12 +55,17 @@ export function PostComposerModal({
   const [showFeelingPicker, setShowFeelingPicker] = useState(false);
   const [feelingTab, setFeelingTab] = useState<"feeling" | "activity">("feeling");
   const [search, setSearch] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const submittedRef = useRef(false);
+  // The raw selected file, uploaded to the BE only on submit (no orphan
+  // uploads if the draft is cancelled). null = no new media this session.
+  const rawFileRef = useRef<File | null>(null);
   const mention = useMentionInput({ value: text, onChange: setText });
 
   useEffect(() => {
     if (!open) return;
     submittedRef.current = false;
+    rawFileRef.current = null;
     if (initialPost) {
       const existingMedia = initialPost.videoUrl ?? initialPost.imageUrl ?? "";
       const existingType: "image" | "video" = initialPost.videoUrl ? "video" : "image";
@@ -89,6 +97,8 @@ export function PostComposerModal({
     if (!submittedRef.current && imageUrl.startsWith("blob:")) {
       URL.revokeObjectURL(imageUrl);
     }
+    rawFileRef.current = null;
+    setSubmitting(false);
     setText("");
     setFile(null);
     setImageUrl("");
@@ -116,15 +126,10 @@ export function PostComposerModal({
     }
     if (imageUrl.startsWith("blob:")) URL.revokeObjectURL(imageUrl);
     setMediaType(isImage ? "image" : "video");
-    const reader = new FileReader();
-    reader.onload = () => {
-      const url = typeof reader.result === "string" ? reader.result : "";
-      if (!url) return;
-      setImageUrl(url);
-    };
-    reader.onerror = () =>
-      message.error(isImage ? "Failed to read image" : "Failed to read video");
-    reader.readAsDataURL(raw);
+    // Keep the raw file; preview from an object URL. The actual upload to
+    // the BE happens on submit (uploadPostMediaService → public URL).
+    rawFileRef.current = raw;
+    setImageUrl(URL.createObjectURL(raw));
     setFile({
       uid: String(Date.now()),
       name: raw.name,
@@ -137,6 +142,7 @@ export function PostComposerModal({
 
   const removeMedia = () => {
     if (imageUrl.startsWith("blob:")) URL.revokeObjectURL(imageUrl);
+    rawFileRef.current = null;
     setFile(null);
     setImageUrl("");
     setMediaType("image");
@@ -153,56 +159,76 @@ export function PostComposerModal({
 
   const canSubmit = text.trim().length > 0 || imageUrl.length > 0 || feeling !== null;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!canSubmit) {
       message.warning(t("warningEmpty"));
       return;
     }
-    submittedRef.current = true;
-    const isVideo = mediaType === "video";
-    const imageField = imageUrl && !isVideo ? imageUrl : undefined;
-    const videoField = imageUrl && isVideo ? imageUrl : undefined;
-    if (isEdit && initialPost) {
-      onSubmit({
-        ...initialPost,
-        text: text.trim(),
+    if (submitting) return;
+    setSubmitting(true);
+    try {
+      // Resolve the final media URL. A freshly picked file is uploaded to
+      // the BE now; otherwise keep the existing hosted URL (edit), never a
+      // blob: preview (those must not be persisted).
+      let mediaUrl =
+        imageUrl && !imageUrl.startsWith("blob:") ? imageUrl : "";
+      if (rawFileRef.current) {
+        mediaUrl = await uploadPostMediaService(rawFileRef.current);
+      }
+      const isVideo = mediaType === "video";
+      const imageField = mediaUrl && !isVideo ? mediaUrl : undefined;
+      const videoField = mediaUrl && isVideo ? mediaUrl : undefined;
+      submittedRef.current = true;
+
+      if (isEdit && initialPost) {
+        await onSubmit({
+          ...initialPost,
+          text: text.trim(),
+          imageUrl: imageField,
+          videoUrl: videoField,
+          imageGradient: mediaUrl ? undefined : initialPost.imageGradient,
+          feeling: feeling ?? undefined,
+          time: `${initialPost.time} · edited`,
+        });
+        message.success(t("successUpdated"));
+        onClose();
+        return;
+      }
+
+      const trimmed = text.trim();
+      const newId = `fp-${Date.now()}`;
+      await onSubmit({
+        id: newId,
+        ownerId: myId,
+        author: {
+          id: myId,
+          name: CURRENT_USER.name,
+          initial: CURRENT_USER.initial,
+          gradient: CURRENT_USER.gradient,
+          avatarUrl: hydrated ? meta.avatarUrl || undefined : undefined,
+        },
+        time: tReel("justNow"),
+        createdAt: Date.now(),
+        text: trimmed,
         imageUrl: imageField,
         videoUrl: videoField,
-        imageGradient: imageUrl ? undefined : initialPost.imageGradient,
         feeling: feeling ?? undefined,
-        time: `${initialPost.time} · edited`,
+        likes: "0",
+        comments: 0,
+        shares: 0,
       });
-      message.success(t("successUpdated"));
+      if (trimmed) {
+        notifyMentions({ text: trimmed, postId: newId });
+      }
+      message.success(t("successCreated"));
       onClose();
-      return;
+    } catch (e) {
+      // Persist failed — keep the draft open so nothing is lost.
+      submittedRef.current = false;
+      message.error(e instanceof Error ? e.message : "Failed to save post");
+    } finally {
+      setSubmitting(false);
     }
-    const newId = `fp-${Date.now()}`;
-    const trimmed = text.trim();
-    onSubmit({
-      id: newId,
-      ownerId: myId,
-      author: {
-        id: myId,
-        name: CURRENT_USER.name,
-        initial: CURRENT_USER.initial,
-        gradient: CURRENT_USER.gradient,
-        avatarUrl: hydrated ? meta.avatarUrl || undefined : undefined,
-      },
-      time: tReel("justNow"),
-      createdAt: Date.now(),
-      text: trimmed,
-      imageUrl: imageField,
-      videoUrl: videoField,
-      feeling: feeling ?? undefined,
-      likes: "0",
-      comments: 0,
-      shares: 0,
-    });
-    if (trimmed) {
-      notifyMentions({ text: trimmed, postId: newId });
-    }
-    message.success(t("successCreated"));
-    onClose();
   };
 
   return (
@@ -466,7 +492,8 @@ export function PostComposerModal({
         <Button
           type="primary"
           onClick={handleSubmit}
-          disabled={!canSubmit}
+          disabled={!canSubmit || submitting}
+          loading={submitting}
           block
           size="large"
           className={`${styles.submitBtn} !h-10 !rounded-[10px] !font-bold`}

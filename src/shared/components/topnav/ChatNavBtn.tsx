@@ -66,7 +66,7 @@ export function ChatNavBtn() {
         </Button>
       </Badge>
       {open ? (
-        <div className="!fixed !top-14 !right-2 sm:!right-4 lg:!right-8 !z-[1000]">
+        <div className="!fixed !top-16 !right-3 sm:!right-5 lg:!right-9 !z-[1000]">
           <ChatDropdownContent
             onClose={() => setOpen(false)}
             onCreateGroup={() => {

@@ -2,13 +2,15 @@
 
 import { App, Flex } from "antd";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CommentSection } from "@/shared/components/post/CommentSection";
-import type { Comment, ReactionId } from "@/shared/data/reactions";
+import type { ReactionId } from "@/shared/data/reactions";
 import { notifyMentions } from "@/feature/mention/lib/notify";
 import { emitNotification } from "@/feature/notification/lib/emit";
-import { getFirstUserId } from "@/shared/lib/firstUser";
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { CURRENT_USER } from "../../../data/constants";
+import { usePostMutations } from "../../../data/usePostMutations";
+import { usePostComments } from "../../../data/usePostComments";
 import { useSavedPosts } from "../../../data/useSavedReels";
 import { useReelComposer } from "../../../lib/reelComposer";
 import { buildSharedPost } from "../../../lib/sharedPost";
@@ -42,39 +44,54 @@ export function FeedPost({
   const tShare = useTranslations("Feed.shareToFeed");
   const tPost = useTranslations("Feed.post");
   const { message } = App.useApp();
+  const authUserId = useAuthStore((s) => s.userId);
+  // Real ownership: the logged-in user authored this post. Replaces the old
+  // mock check (author.name === CURRENT_USER.name) now that posts carry a
+  // real authorId from the BE.
+  const isOwnPost =
+    !!authUserId &&
+    (post.ownerId === authUserId || post.author.id === authUserId);
   const reelComposer = useReelComposer();
   const { isSaved, toggleSaved } = useSavedPosts();
   const postSaved = isSaved(post.id);
   const [editOpen, setEditOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
-  const [reaction, setReaction] = useState<ReactionId | null>(null);
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [reaction, setReaction] = useState<ReactionId | null>(
+    post.myReaction ?? null,
+  );
   const [showComments, setShowComments] = useState(false);
   const [shareCount, setShareCount] = useState(post.shares);
+  const { reactPost, addComment } = usePostMutations();
+  const { comments } = usePostComments(post.id, showComments);
 
-  const commentCount = post.comments + comments.length;
+  // Resync my reaction to server truth when the feed refetches (e.g. after
+  // someone else reacts and the realtime listener invalidates the query).
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setReaction(post.myReaction ?? null);
+  }, [post.myReaction]);
 
+  // DB count is authoritative (the add-comment mutation refetches the feed).
+  const commentCount = post.comments;
+
+  // The real post author — they receive the notification AND now see the
+  // count change on the post itself. emitNotification self-guards when the
+  // recipient is the current user (reacting to your own post).
   function resolveRecipient(): string | undefined {
-    return getFirstUserId() ?? post.ownerId ?? post.author.id;
+    return post.ownerId ?? post.author.id;
   }
 
-  function handleAdd(payload: { text: string; imageUrl?: string }) {
+  async function handleAdd(payload: { text: string; imageUrl?: string }) {
     const { text, imageUrl } = payload;
     if (!text && !imageUrl) return;
-    setComments((prev) => [
-      ...prev,
-      {
-        id: `c-${Date.now()}`,
-        author: CURRENT_USER.name,
-        authorInitial: CURRENT_USER.initial,
-        authorGradient: CURRENT_USER.gradient,
-        text,
-        imageUrl,
-        time: t("justNow"),
-      },
-    ]);
     if (!showComments) setShowComments(true);
+    try {
+      await addComment(post.id, { text, imageUrl });
+    } catch (e) {
+      message.error(e instanceof Error ? e.message : "Failed to comment");
+      return;
+    }
     const recipientId = resolveRecipient();
     if (recipientId) {
       emitNotification({
@@ -94,8 +111,16 @@ export function FeedPost({
     }
   }
 
-  function handleReactionChange(next: ReactionId | null) {
-    setReaction(next);
+  async function handleReactionChange(next: ReactionId | null) {
+    const prev = reaction;
+    setReaction(next); // optimistic
+    try {
+      await reactPost(post.id, next);
+    } catch (e) {
+      setReaction(prev); // revert on failure
+      message.error(e instanceof Error ? e.message : "Failed to react");
+      return;
+    }
     const recipientId = resolveRecipient();
     if (next && recipientId) {
       emitNotification({
@@ -136,7 +161,7 @@ export function FeedPost({
         createdAt={post.createdAt}
         feeling={post.feeling}
         isLive={post.isLive}
-        isOwn={post.author.name === CURRENT_USER.name}
+        isOwn={isOwnPost}
         isSaved={postSaved}
         isPinned={!!post.pinnedAt}
         onRemove={onRemove ? () => onRemove(post.id) : undefined}
@@ -157,11 +182,7 @@ export function FeedPost({
               }
             : undefined
         }
-        onReport={
-          post.author.name === CURRENT_USER.name
-            ? undefined
-            : () => setReportOpen(true)
-        }
+        onReport={isOwnPost ? undefined : () => setReportOpen(true)}
       />
       {post.text ? <PostText text={post.text} /> : null}
       {post.sharedFrom ? (
@@ -176,6 +197,7 @@ export function FeedPost({
       ) : null}
       <PostStats
         reaction={reaction}
+        initialReaction={post.myReaction ?? null}
         likes={post.likes}
         comments={commentCount}
         shares={shareCount}
@@ -211,10 +233,7 @@ export function FeedPost({
           mode="default"
           initialPost={post}
           onClose={() => setEditOpen(false)}
-          onSubmit={(updated) => {
-            onUpdate(updated);
-            setEditOpen(false);
-          }}
+          onSubmit={(updated) => onUpdate?.(updated)}
         />
       )}
       {onShareToProfile && (

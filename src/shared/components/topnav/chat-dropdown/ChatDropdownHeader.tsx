@@ -33,7 +33,7 @@ export function ChatDropdownHeader({
     <Flex
       align="center"
       justify="space-between"
-      className="!w-full [padding:12px_16px_8px_16px]"  >
+      className="!w-full [padding:16px_20px_12px_20px]"  >
       <Text
         className="!text-xl !font-bold text-[var(--color-text)]"  >
         {t("header")}
