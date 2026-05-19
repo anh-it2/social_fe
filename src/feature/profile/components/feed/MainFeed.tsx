@@ -7,12 +7,13 @@ import { FeedPost } from "@/feature/feed/components/center/post/FeedPost";
 import { CURRENT_USER } from "@/feature/feed/data/constants";
 import type { FeedPostData } from "@/feature/feed/data/types";
 import { useUserPosts } from "@/feature/feed/data/useUserPosts";
+import { useOtherUserPosts } from "@/feature/feed/data/useOtherUserPosts";
 import { usePostMutations } from "@/feature/feed/data/usePostMutations";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useProfileView } from "../../context/ProfileViewContext";
 
 export function MainFeed() {
-  const { posts: userPosts, addPost, removePost, updatePost } = useUserPosts();
+  const { posts: myPosts, addPost, removePost, updatePost } = useUserPosts();
   const { pinPost } = usePostMutations();
   const view = useProfileView();
   const authUserId = useAuthStore((s) => s.userId);
@@ -20,11 +21,14 @@ export function MainFeed() {
   // whose profile this is: self => my id, other => their id
   const ownerId = view.isSelf ? myId : view.personId;
 
-  const posts = useMemo<FeedPostData[]>(
-    () =>
-      userPosts.filter((p) => (p.ownerId ?? p.author.id) === ownerId),
-    [userPosts, ownerId],
-  );
+  const { posts: otherPosts } = useOtherUserPosts(ownerId, !view.isSelf);
+
+  const posts = useMemo<FeedPostData[]>(() => {
+    if (view.isSelf) {
+      return myPosts.filter((p) => (p.ownerId ?? p.author.id) === ownerId);
+    }
+    return otherPosts;
+  }, [view.isSelf, myPosts, ownerId, otherPosts]);
 
   const handleCreate = (post: FeedPostData) => addPost(post);
   const handleRemove = (id: string) => removePost(id);
