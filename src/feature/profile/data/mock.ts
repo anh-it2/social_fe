@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import type { ReactionId } from "@/shared/data/reactions";
 
 export {
   REACTIONS,
@@ -10,12 +9,6 @@ export {
 } from "@/shared/data/reactions";
 export { formatCount } from "@/shared/utils/format";
 export { gradientBg, gradientText } from "@/shared/utils/gradient";
-
-export interface ProfileUser {
-  name: string;
-  bio: string;
-  location: string;
-}
 
 export interface StatItem {
   id: string;
@@ -65,32 +58,6 @@ export interface PhotoTile {
   id: string;
   url: string;
 }
-
-export interface PostAuthor {
-  name: string;
-  gradient?: [string, string];
-}
-
-export interface Post {
-  id: string;
-  ownerId?: string;
-  author: PostAuthor;
-  coAuthor?: PostAuthor;
-  time: string;
-  text: string;
-  image?: string;
-  emojis: string;
-  likes: number;
-  comments: number;
-  shares: number;
-  initialReaction?: ReactionId;
-}
-
-export const PROFILE: ProfileUser = {
-  name: "Sarah Anderson",
-  bio: "Product Designer at Meta",
-  location: "San Francisco, CA",
-};
 
 export const STATS: StatItem[] = [
   { id: "s1", value: "1,247", label: "Posts", gradient: ["#4096ff", "#a855f7"] },
@@ -540,66 +507,5 @@ export const ABOUT_CATEGORIES: AboutCategoryDef[] = [
         },
       },
     ],
-  },
-];
-
-
-export const FRIEND_REQUESTS: FriendRequest[] = [
-  { id: "r1", name: "Noah Patel", mutualFriends: 8, time: "2d" },
-  { id: "r2", name: "Olivia Brooks", mutualFriends: 3, time: "5d" },
-  { id: "r3", name: "Hiroshi Tanaka", mutualFriends: 12, time: "1w" },
-];
-
-export const FRIEND_SUGGESTIONS: FriendSuggestion[] = [
-  { id: "s1", name: "Ava Müller", mutualFriends: 6, reason: "Works at Meta" },
-  { id: "s2", name: "Lucas Silva", mutualFriends: 4, reason: "From San Francisco" },
-  { id: "s3", name: "Isabella Rossi", mutualFriends: 9, reason: "Stanford University" },
-  { id: "s4", name: "Minh Khoa", mutualFriends: 2, reason: "Friend of Mai Linh" },
-];
-
-export const PHOTOS: PhotoTile[] = [
-  {
-    id: "p1",
-    url: "https://images.unsplash.com/photo-1574854985846-97f10ecc922c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-  },
-  {
-    id: "p2",
-    url: "https://images.unsplash.com/photo-1511081692775-05d0f180a065?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-  },
-  {
-    id: "p3",
-    url: "https://images.unsplash.com/photo-1730034374649-924a9507089e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-  },
-  {
-    id: "p4",
-    url: "https://images.unsplash.com/photo-1493238792000-8113da705763?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-  },
-];
-
-export const POSTS: Post[] = [
-  {
-    id: "post-1",
-    ownerId: "u-sarah",
-    author: { name: "Sarah Anderson", gradient: ["#4096ff", "#a855f7"] },
-    time: "2 hours ago  ·  🌍",
-    text: "Just wrapped up an amazing design sprint with the team! 🎨✨ Nothing beats the energy of collaborative creativity. Here's a sneak peek at what we've been working on.",
-    image: "/profile/post-1.png",
-    emojis: "❤️ 👍 😮",
-    likes: 248,
-    comments: 42,
-    shares: 12,
-  },
-  {
-    id: "post-2",
-    ownerId: "u-alexchen",
-    author: { name: "Alex Chen" },
-    coAuthor: { name: "Sarah Anderson" },
-    time: "5 hours ago  ·  🌍",
-    text: "Happy birthday Sarah! 🎂🎉 Wishing you an incredible year ahead. Your designs continue to inspire everyone on the team. Here's to many more creative adventures together!",
-    emojis: "🎂 ❤️ 👍",
-    likes: 186,
-    comments: 31,
-    shares: 5,
-    initialReaction: "like",
   },
 ];

@@ -15,12 +15,6 @@ export interface ShortcutRow {
   gradient: [string, string];
 }
 
-export interface CenterTab {
-  id: string;
-  icon: string;
-  active?: boolean;
-}
-
 export interface StoryCardData {
   id: string;
   initial: string;
