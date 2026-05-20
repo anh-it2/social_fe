@@ -1,86 +1,47 @@
-import axios from "axios";
 import { NextResponse, type NextRequest } from "next/server";
-import { AUTH_COOKIE } from "@/feature/auth/server/authProxy";
 import { API_BASE_URL } from "@/shared/lib/apiBaseUrl";
+import {
+  callBackend,
+  tokenOf,
+  unauthorized,
+  type Envelope,
+} from "@/shared/lib/beProxy";
 import type { CommentDTO, PostDTO } from "../dto/post.dto";
 
-type Envelope<T> = { success: boolean; message?: string; data?: T };
-
-function tokenOf(req: NextRequest): string | null {
-  return req.cookies.get(AUTH_COOKIE)?.value ?? null;
-}
-
-function unauthorized(): NextResponse {
-  return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
-}
-
-/**
- * One JSON BE call with the cookie JWT as Bearer. Mirrors profileProxy:
- * default validateStatus (axios throws on ≥400) → relay BE status + human
- * message; network failure → 502. `shape` wraps the unwrapped data so the
- * browser gets a clean body ({ posts } | { post } | { id }).
- */
-async function callBackend<T, R>(
-  req: NextRequest,
-  method: "get" | "post" | "patch" | "delete",
-  path: string,
-  shape: (data: T) => R,
-  payload?: unknown,
-): Promise<NextResponse> {
-  const token = tokenOf(req);
-  if (!token) return unauthorized();
-
-  try {
-    const beRes = await axios.request<Envelope<T>>({
-      baseURL: API_BASE_URL,
-      url: path,
-      method,
-      headers: { authorization: `Bearer ${token}` },
-      data: payload,
-    });
-    const body = beRes.data;
-    if (!body?.success || body.data === undefined) {
-      return NextResponse.json(
-        { message: body?.message || "Post request failed" },
-        { status: 502 },
-      );
-    }
-    return NextResponse.json(shape(body.data), { status: beRes.status });
-  } catch (err) {
-    if (axios.isAxiosError(err) && err.response) {
-      const body = err.response.data as Envelope<unknown> | undefined;
-      return NextResponse.json(
-        { message: body?.message || "Post request failed" },
-        { status: err.response.status },
-      );
-    }
-    return NextResponse.json(
-      { message: "Cannot reach post server" },
-      { status: 502 },
-    );
-  }
-}
+const RESOURCE = "post";
 
 /** GET /posts (forwards ?mine=1 / ?authorId= to the BE). */
 export function listPosts(req: NextRequest): Promise<NextResponse> {
   const qs = req.nextUrl.search; // includes leading "?" or ""
-  return callBackend<PostDTO[], { posts: PostDTO[] }>(
+  return callBackend<PostDTO[], { posts: PostDTO[] }>({
     req,
-    "get",
-    `/posts${qs}`,
-    (posts) => ({ posts }),
-  );
+    method: "get",
+    path: `/posts${qs}`,
+    shape: (posts) => ({ posts }),
+    resource: RESOURCE,
+  });
+}
+
+export function getPost(req: NextRequest, id: string): Promise<NextResponse> {
+  return callBackend<PostDTO, { post: PostDTO }>({
+    req,
+    method: "get",
+    path: `/posts/${encodeURIComponent(id)}`,
+    shape: (post) => ({ post }),
+    resource: RESOURCE,
+  });
 }
 
 export async function createPost(req: NextRequest): Promise<NextResponse> {
   const payload = await req.json().catch(() => ({}));
-  return callBackend<PostDTO, { post: PostDTO }>(
+  return callBackend<PostDTO, { post: PostDTO }>({
     req,
-    "post",
-    "/posts",
-    (post) => ({ post }),
+    method: "post",
+    path: "/posts",
+    shape: (post) => ({ post }),
     payload,
-  );
+    resource: RESOURCE,
+  });
 }
 
 export async function updatePost(
@@ -88,13 +49,14 @@ export async function updatePost(
   id: string,
 ): Promise<NextResponse> {
   const payload = await req.json().catch(() => ({}));
-  return callBackend<PostDTO, { post: PostDTO }>(
+  return callBackend<PostDTO, { post: PostDTO }>({
     req,
-    "patch",
-    `/posts/${encodeURIComponent(id)}`,
-    (post) => ({ post }),
+    method: "patch",
+    path: `/posts/${encodeURIComponent(id)}`,
+    shape: (post) => ({ post }),
     payload,
-  );
+    resource: RESOURCE,
+  });
 }
 
 export async function pinPost(
@@ -102,25 +64,27 @@ export async function pinPost(
   id: string,
 ): Promise<NextResponse> {
   const payload = await req.json().catch(() => ({}));
-  return callBackend<PostDTO, { post: PostDTO }>(
+  return callBackend<PostDTO, { post: PostDTO }>({
     req,
-    "post",
-    `/posts/${encodeURIComponent(id)}/pin`,
-    (post) => ({ post }),
+    method: "post",
+    path: `/posts/${encodeURIComponent(id)}/pin`,
+    shape: (post) => ({ post }),
     payload,
-  );
+    resource: RESOURCE,
+  });
 }
 
 export function deletePost(
   req: NextRequest,
   id: string,
 ): Promise<NextResponse> {
-  return callBackend<{ id: string }, { id: string }>(
+  return callBackend<{ id: string }, { id: string }>({
     req,
-    "delete",
-    `/posts/${encodeURIComponent(id)}`,
-    (data) => data,
-  );
+    method: "delete",
+    path: `/posts/${encodeURIComponent(id)}`,
+    shape: (data) => data,
+    resource: RESOURCE,
+  });
 }
 
 export async function reactPost(
@@ -128,37 +92,40 @@ export async function reactPost(
   id: string,
 ): Promise<NextResponse> {
   const payload = await req.json().catch(() => ({}));
-  return callBackend<PostDTO, { post: PostDTO }>(
+  return callBackend<PostDTO, { post: PostDTO }>({
     req,
-    "post",
-    `/posts/${encodeURIComponent(id)}/react`,
-    (post) => ({ post }),
+    method: "post",
+    path: `/posts/${encodeURIComponent(id)}/react`,
+    shape: (post) => ({ post }),
     payload,
-  );
+    resource: RESOURCE,
+  });
 }
 
 export function unreactPost(
   req: NextRequest,
   id: string,
 ): Promise<NextResponse> {
-  return callBackend<PostDTO, { post: PostDTO }>(
+  return callBackend<PostDTO, { post: PostDTO }>({
     req,
-    "delete",
-    `/posts/${encodeURIComponent(id)}/react`,
-    (post) => ({ post }),
-  );
+    method: "delete",
+    path: `/posts/${encodeURIComponent(id)}/react`,
+    shape: (post) => ({ post }),
+    resource: RESOURCE,
+  });
 }
 
 export function listComments(
   req: NextRequest,
   id: string,
 ): Promise<NextResponse> {
-  return callBackend<CommentDTO[], { comments: CommentDTO[] }>(
+  return callBackend<CommentDTO[], { comments: CommentDTO[] }>({
     req,
-    "get",
-    `/posts/${encodeURIComponent(id)}/comments`,
-    (comments) => ({ comments }),
-  );
+    method: "get",
+    path: `/posts/${encodeURIComponent(id)}/comments`,
+    shape: (comments) => ({ comments }),
+    resource: RESOURCE,
+  });
 }
 
 export async function addComment(
@@ -166,13 +133,14 @@ export async function addComment(
   id: string,
 ): Promise<NextResponse> {
   const payload = await req.json().catch(() => ({}));
-  return callBackend<CommentDTO, { comment: CommentDTO }>(
+  return callBackend<CommentDTO, { comment: CommentDTO }>({
     req,
-    "post",
-    `/posts/${encodeURIComponent(id)}/comments`,
-    (comment) => ({ comment }),
+    method: "post",
+    path: `/posts/${encodeURIComponent(id)}/comments`,
+    shape: (comment) => ({ comment }),
     payload,
-  );
+    resource: RESOURCE,
+  });
 }
 
 /**

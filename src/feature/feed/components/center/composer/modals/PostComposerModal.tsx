@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { MentionPicker } from "@/feature/mention/components/MentionPicker";
 import { useMentionInput } from "@/feature/mention/hooks/useMentionInput";
 import { notifyMentions } from "@/feature/mention/lib/notify";
+import { extractMentionHandles } from "@/feature/mention/lib/parse";
 import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
@@ -181,15 +182,24 @@ export function PostComposerModal({
       submittedRef.current = true;
 
       if (isEdit && initialPost) {
+        const trimmedEdit = text.trim();
         await onSubmit({
           ...initialPost,
-          text: text.trim(),
+          text: trimmedEdit,
           imageUrl: imageField,
           videoUrl: videoField,
           imageGradient: mediaUrl ? undefined : initialPost.imageGradient,
           feeling: feeling ?? undefined,
           time: `${initialPost.time} · edited`,
         });
+        const oldHandles = new Set(extractMentionHandles(initialPost.text ?? ""));
+        const addedText = extractMentionHandles(trimmedEdit)
+          .filter((h) => !oldHandles.has(h))
+          .map((h) => `@${h}`)
+          .join(" ");
+        if (addedText) {
+          notifyMentions({ text: addedText, postId: initialPost.id });
+        }
         message.success(t("successUpdated"));
         onClose();
         return;

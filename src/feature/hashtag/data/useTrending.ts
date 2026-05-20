@@ -1,87 +1,50 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { FEED_POSTS } from "@/feature/feed/data/constants";
+import { useQuery } from "@tanstack/react-query";
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { FeedPostData } from "@/feature/feed/data/types";
-import {
-  FEED_POSTS_CHANGED_EVENT,
-  loadUserPostsFromStorage,
-} from "@/feature/feed/data/userPostsStorage";
-import { extractHashtags } from "../lib/parse";
+import { getPostsByTagService } from "../services/getPostsByTag.service";
+import { getTrendingService } from "../services/getTrending.service";
+
+// Stable prefix so usePostMutations can blow away every trending/tag-page
+// cache with one invalidateQueries({ queryKey: HASHTAG_QUERY_PREFIX }).
+export const HASHTAG_QUERY_PREFIX = ["hashtags"] as const;
+export const trendingKey = (limit: number) =>
+  ["hashtags", "trending", limit] as const;
+export const postsByTagKey = (tag: string) =>
+  ["hashtags", "posts", tag.toLowerCase()] as const;
 
 export interface TrendingTag {
   tag: string;
   count: number;
 }
 
-function aggregate(posts: FeedPostData[]): TrendingTag[] {
-  const counts = new Map<string, number>();
-  for (const p of posts) {
-    for (const tag of extractHashtags(p.text)) {
-      counts.set(tag, (counts.get(tag) ?? 0) + 1);
-    }
-    if (p.sharedFrom) {
-      for (const tag of extractHashtags(p.sharedFrom.text)) {
-        counts.set(tag, (counts.get(tag) ?? 0) + 1);
-      }
-    }
-  }
-  return [...counts.entries()]
-    .map(([tag, count]) => ({ tag, count }))
-    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
-}
-
-export function useAllPostsForHashtags() {
-  const [userPosts, setUserPosts] = useState<FeedPostData[]>([]);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUserPosts(loadUserPostsFromStorage());
-    setHydrated(true);
-
-    const refresh = () => setUserPosts(loadUserPostsFromStorage());
-    window.addEventListener("storage", refresh);
-    window.addEventListener(FEED_POSTS_CHANGED_EVENT, refresh);
-    return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener(FEED_POSTS_CHANGED_EVENT, refresh);
-    };
-  }, []);
-
-  const posts = useMemo(
-    () => [...userPosts, ...FEED_POSTS],
-    [userPosts],
-  );
-
-  return { posts, hydrated };
-}
-
 export function useTrending(limit = 6): {
   trending: TrendingTag[];
   hydrated: boolean;
 } {
-  const { posts, hydrated } = useAllPostsForHashtags();
-  const trending = useMemo(() => aggregate(posts).slice(0, limit), [posts, limit]);
-  return { trending, hydrated };
+  const isLoggined = useAuthStore((s) => s.isLoggined);
+  const { data, isLoading } = useQuery({
+    queryKey: trendingKey(limit),
+    queryFn: () => getTrendingService(limit),
+    enabled: isLoggined,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+  return { trending: data ?? [], hydrated: !isLoading };
 }
 
 export function usePostsByHashtag(tag: string): {
   posts: FeedPostData[];
   hydrated: boolean;
 } {
-  const { posts, hydrated } = useAllPostsForHashtags();
-  const lowered = tag.toLowerCase();
-  const filtered = useMemo(
-    () =>
-      posts.filter((p) => {
-        const inSelf = extractHashtags(p.text).includes(lowered);
-        const inShared = p.sharedFrom
-          ? extractHashtags(p.sharedFrom.text).includes(lowered)
-          : false;
-        return inSelf || inShared;
-      }),
-    [posts, lowered],
-  );
-  return { posts: filtered, hydrated };
+  const isLoggined = useAuthStore((s) => s.isLoggined);
+  const { data, isLoading } = useQuery({
+    queryKey: postsByTagKey(tag),
+    queryFn: () => getPostsByTagService(tag),
+    enabled: isLoggined && tag.length > 0,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+  return { posts: data ?? [], hydrated: !isLoading };
 }

@@ -54,6 +54,7 @@ export function toFeedPostData(dto: PostDTO): FeedPostData {
     myReaction: (dto.myReaction as ReactionId | null) ?? null,
     sharedFrom: (dto.sharedFrom as unknown as SharedPostRef | null) ?? undefined,
     pinnedAt: dto.pinnedAt ?? undefined,
+    tags: dto.tags ?? [],
   };
 }
 

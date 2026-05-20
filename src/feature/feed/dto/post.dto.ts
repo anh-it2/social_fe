@@ -37,6 +37,8 @@ export interface PostDTO {
   sharedFrom: Record<string, unknown> | null;
   pinnedAt: number | null;
   createdAt: number;
+  /** Hashtags extracted on the BE at create/update time, lowercased + deduped. */
+  tags: string[];
 }
 
 export interface CommentDTO {

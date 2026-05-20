@@ -81,6 +81,8 @@ export interface FeedPostData {
   myReaction?: ReactionId | null;
   sharedFrom?: SharedPostRef;
   pinnedAt?: number;
+  /** Hashtags persisted by the BE on this post. */
+  tags?: string[];
 }
 
 export interface ContactRowData {

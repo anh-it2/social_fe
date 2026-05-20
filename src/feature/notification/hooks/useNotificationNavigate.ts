@@ -15,6 +15,10 @@ export function useNotificationNavigate() {
 
   return useCallback(
     (n: Notification) => {
+      if (n.kind === "mention") {
+        if (n.postId) nav.push(`/posts/${n.postId}`);
+        return;
+      }
       if (n.kind === "friend_request") {
         nav.push("/friends?view=requests");
         return;

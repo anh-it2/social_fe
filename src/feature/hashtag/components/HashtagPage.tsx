@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Typography } from "antd";
+import { Flex, Skeleton, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { FeedPost } from "@/feature/feed/components/center/post/FeedPost";
 import { Icon } from "@/shared/components/Icon";
@@ -50,7 +50,18 @@ export function HashtagPage({ tag }: HashtagPageProps) {
           </Flex>
         </Flex>
 
-        {hydrated && posts.length === 0 ? (
+        {!hydrated ? (
+          <Flex vertical gap={16} className="!w-full">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="!w-full !rounded-xl !p-6 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)]"
+              >
+                <Skeleton active avatar paragraph={{ rows: 4 }} />
+              </div>
+            ))}
+          </Flex>
+        ) : posts.length === 0 ? (
           <Flex
             vertical
             align="center"

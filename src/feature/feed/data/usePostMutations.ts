@@ -2,6 +2,7 @@
 
 import { useCallback } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { HASHTAG_QUERY_PREFIX } from "@/feature/hashtag/data/useTrending";
 import { createPostService } from "../services/createPost.service";
 import { updatePostService } from "../services/updatePost.service";
 import { deletePostService } from "../services/deletePost.service";
@@ -46,6 +47,13 @@ export function usePostMutations() {
     () => queryClient.invalidateQueries({ queryKey: POSTS_QUERY_PREFIX }),
     [queryClient],
   );
+  // Bust trending + /hashtag/[tag] caches whenever a post's `text` could
+  // have changed (create / edit / delete). Reactions and comments don't
+  // touch tags, so they skip this.
+  const invalidateHashtags = useCallback(
+    () => queryClient.invalidateQueries({ queryKey: HASHTAG_QUERY_PREFIX }),
+    [queryClient],
+  );
 
   // persist-then-announce: the mutation already resolved (DB write done) —
   // refresh our caches, then best-effort tell other clients to refetch.
@@ -53,6 +61,7 @@ export function usePostMutations() {
     mutationFn: createPostService,
     onSuccess: (post) => {
       invalidate();
+      invalidateHashtags();
       emitFeedPublish(post.id);
     },
   });
@@ -60,6 +69,7 @@ export function usePostMutations() {
     mutationFn: updatePostService,
     onSuccess: (post) => {
       invalidate();
+      invalidateHashtags();
       emitFeedUpdate(post.id);
     },
   });
@@ -67,6 +77,7 @@ export function usePostMutations() {
     mutationFn: deletePostService,
     onSuccess: (id) => {
       invalidate();
+      invalidateHashtags();
       emitFeedRemove(id);
     },
   });

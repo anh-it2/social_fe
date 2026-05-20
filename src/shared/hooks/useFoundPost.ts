@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { FeedPostData } from "@/feature/feed/data/types";
+import { getPostService } from "@/feature/feed/services/getPost.service";
 import { findPostById } from "@/shared/lib/findPost";
 
 export function useFoundPost(id: string): {
@@ -12,9 +13,31 @@ export function useFoundPost(id: string): {
   const [post, setPost] = useState<FeedPostData | null>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPost(findPostById(id));
-    setReady(true);
+    let cancelled = false;
+    const local = findPostById(id);
+    if (local) {
+      setPost(local);
+      setReady(true);
+      return;
+    }
+    setReady(false);
+    setPost(null);
+    getPostService(id)
+      .then((fetched) => {
+        if (cancelled) return;
+        setPost(fetched);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setPost(null);
+      })
+      .finally(() => {
+        if (cancelled) return;
+        setReady(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   return { post, ready };
