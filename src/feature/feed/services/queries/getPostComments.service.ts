@@ -1,7 +1,7 @@
 import { apiClient } from "@/shared/lib/apiClient";
-import type { CommentListResponseDTO } from "../dto/post.dto";
-import { toFeedComment } from "../dto/post.mapper";
-import type { FeedComment } from "../data/types";
+import type { CommentListResponseDTO } from "../../dto/post.dto";
+import { toFeedComment } from "../../dto/post.mapper";
+import type { FeedComment } from "../../data/types";
 
 /** A post's comments, oldest → newest. */
 export async function getPostCommentsService(

@@ -13,7 +13,7 @@ import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
 import { gradientBg } from "@/shared/utils/gradient";
-import { uploadPostMediaService } from "../../../../services/uploadPostMedia.service";
+import { uploadPostMediaService } from "../../../../services/media/uploadPostMedia.service";
 import { CURRENT_USER, FEELINGS } from "../../../../data/constants";
 import type { Feeling, FeedPostData } from "../../../../data/types";
 import styles from "./PostComposerModal.module.scss";

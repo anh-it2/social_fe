@@ -3,15 +3,15 @@
 import { useCallback } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HASHTAG_QUERY_PREFIX } from "@/feature/hashtag/data/useTrending";
-import { createPostService } from "../services/createPost.service";
-import { updatePostService } from "../services/updatePost.service";
-import { deletePostService } from "../services/deletePost.service";
-import { pinPostService } from "../services/pinPost.service";
+import { createPostService } from "../services/mutations/createPost.service";
+import { updatePostService } from "../services/mutations/updatePost.service";
+import { deletePostService } from "../services/mutations/deletePost.service";
+import { pinPostService } from "../services/mutations/pinPost.service";
 import {
   reactPostService,
   unreactPostService,
-} from "../services/reactPost.service";
-import { addPostCommentService } from "../services/addPostComment.service";
+} from "../services/mutations/reactPost.service";
+import { addPostCommentService } from "../services/mutations/addPostComment.service";
 import {
   toCreatePostBody,
   toUpdatePostBody,

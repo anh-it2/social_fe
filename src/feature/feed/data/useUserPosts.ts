@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
-import { getMyPostsService } from "../services/getMyPosts.service";
+import { getMyPostsService } from "../services/queries/getMyPosts.service";
 import {
   POSTS_MINE_KEY,
   POSTS_QUERY_PREFIX,

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { NextResponse, type NextRequest } from "next/server";
 import { API_BASE_URL } from "@/shared/lib/apiBaseUrl";
 import {
@@ -144,10 +145,8 @@ export async function addComment(
 }
 
 /**
- * Multipart pass-through for media upload. Uses fetch (not axios) because the
- * route receives a spec FormData and fetch re-streams it with the correct
- * multipart boundary; same pragmatic exception authProxy makes. BE multer
- * caps size/type and returns { url }.
+ * Multipart pass-through for media upload. BE multer caps size/type and
+ * returns { url }. Axios sets the multipart boundary from the FormData.
  */
 export async function uploadPostMedia(
   req: NextRequest,
@@ -164,29 +163,31 @@ export async function uploadPostMedia(
   const outForm = new FormData();
   outForm.append("file", file, file.name);
 
-  let beRes: Response;
   try {
-    beRes = await fetch(`${API_BASE_URL}/posts/upload`, {
-      method: "POST",
-      headers: { authorization: `Bearer ${token}` },
-      body: outForm,
-      cache: "no-store",
-    });
-  } catch {
+    const beRes = await axios.post<Envelope<{ url: string }>>(
+      `${API_BASE_URL}/posts/upload`,
+      outForm,
+      { headers: { authorization: `Bearer ${token}` } },
+    );
+    const body = beRes.data;
+    if (!body?.success || !body.data) {
+      return NextResponse.json(
+        { message: body?.message || "Upload failed" },
+        { status: 502 },
+      );
+    }
+    return NextResponse.json({ url: body.data.url }, { status: 201 });
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response) {
+      const body = err.response.data as Envelope<unknown> | undefined;
+      return NextResponse.json(
+        { message: body?.message || "Upload failed" },
+        { status: err.response.status },
+      );
+    }
     return NextResponse.json(
       { message: "Cannot reach post server" },
       { status: 502 },
     );
   }
-
-  const body = (await beRes
-    .json()
-    .catch(() => null)) as Envelope<{ url: string }> | null;
-  if (!beRes.ok || !body?.success || !body.data) {
-    return NextResponse.json(
-      { message: body?.message || "Upload failed" },
-      { status: beRes.ok ? 502 : beRes.status },
-    );
-  }
-  return NextResponse.json({ url: body.data.url }, { status: 201 });
 }

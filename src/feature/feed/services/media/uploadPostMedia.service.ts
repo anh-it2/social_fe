@@ -1,5 +1,5 @@
 import { apiClient } from "@/shared/lib/apiClient";
-import type { UploadResponseDTO } from "../dto/post.dto";
+import type { UploadResponseDTO } from "../../dto/post.dto";
 
 /**
  * Uploads one image/video to the BE and resolves with its public URL.

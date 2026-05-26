@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo } from "react";
 import { ChatMessage, HistoryInfinteData, HistoryMessagePage } from "../types";
 import { useChat } from "./useChat";
 import {
-  ChatHistoryResponseDTO,
   ChatMessageDTO,
   MessageEditedDTO,
   MessageUnpinnedBroadcastDTO,
@@ -21,6 +20,7 @@ import { isBlockMarker, parseBlockMarker } from "../lib/blockMarker";
 import { applyReaction } from "../lib/reactions";
 import type { MessageReaction, ReactionKey } from "../types";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
+import { getMessagesService } from "../services/getMessages.service";
 
 /** Replace the reactions array of one message (by id) in the query cache. */
 function patchReactions(
@@ -46,75 +46,66 @@ function patchReactions(
 export function useMessages(conversationId: string) {
   const chatSocket = getChatSocket();
   const { isConnected } = useChat(conversationId);
+  const isLoggined = useAuthStore((s) => s.isLoggined);
   const queryClient = useQueryClient();
   const { removeOptimisticMessage } = useChatStore.getState();
 
   const fetchHistoryMessage = useCallback(
-    (cursor?: number): Promise<HistoryMessagePage> => {
-      return new Promise((resolve, reject) => {
-        if (!chatSocket || !isConnected)
-          return reject(new Error("Can't connect to server"));
+    async (cursor?: number): Promise<HistoryMessagePage> => {
+      // History now comes from social-platform-be over REST (not the socket).
+      // Socket still feeds live updates via the listeners below.
+      const ack = await getMessagesService(conversationId, cursor, 30);
 
-        chatSocket.emit(
-          "chat:history",
-          {
-            conversationId,
-            cursor: cursor as unknown as string,
-            limit: 30 as unknown as string,
-          },
-          (ack: ChatHistoryResponseDTO) => {
-            const myId = useAuthStore.getState().userId;
-            let latestPeerBlock: { senderId: string; on: boolean; seq: number } | null = null;
-            const filtered = ack.messages.filter((dto) => {
-              if (!isBlockMarker(dto.content)) return true;
-              if (dto.senderId !== myId) {
-                const on = parseBlockMarker(dto.content) ?? false;
-                const seq = dto.seq ?? 0;
-                if (!latestPeerBlock || seq >= latestPeerBlock.seq) {
-                  latestPeerBlock = { senderId: dto.senderId, on, seq };
-                }
-              }
-              return false;
-            });
-            if (latestPeerBlock) {
-              const s: { senderId: string; on: boolean } = latestPeerBlock;
-              useChatStore.getState().setBlockedBy(s.senderId, s.on);
-            }
-            const messageData = toMessages(filtered);
-
-            const cur = useChatStore.getState().getReadCursor(conversationId);
-            if (cur === -1) {
-              resolve({
-                messages: messageData,
-                nextCursor: ack.nextCurosr,
-                hasMore: ack.hasMore,
-              });
-              return;
-            }
-
-            let changed = false;
-            const messages = messageData.map((msg) => {
-              if (
-                msg.seq !== undefined &&
-                msg.seq <= cur &&
-                msg.status !== "read"
-              ) {
-                changed = true;
-                return { ...msg, status: "read" as const };
-              }
-              return msg;
-            });
-
-            resolve({
-              messages: changed ? messages : messageData,
-              nextCursor: ack.nextCurosr,
-              hasMore: ack.hasMore,
-            });
-          },
-        );
+      const myId = useAuthStore.getState().userId;
+      let latestPeerBlock:
+        | { senderId: string; on: boolean; seq: number }
+        | null = null;
+      const filtered = ack.messages.filter((dto) => {
+        if (!isBlockMarker(dto.content)) return true;
+        if (dto.senderId !== myId) {
+          const on = parseBlockMarker(dto.content) ?? false;
+          const seq = dto.seq ?? 0;
+          if (!latestPeerBlock || seq >= latestPeerBlock.seq) {
+            latestPeerBlock = { senderId: dto.senderId, on, seq };
+          }
+        }
+        return false;
       });
+      if (latestPeerBlock) {
+        const s: { senderId: string; on: boolean } = latestPeerBlock;
+        useChatStore.getState().setBlockedBy(s.senderId, s.on);
+      }
+      const messageData = toMessages(filtered);
+
+      const cur = useChatStore.getState().getReadCursor(conversationId);
+      if (cur === -1) {
+        return {
+          messages: messageData,
+          nextCursor: ack.nextCurosr ?? undefined,
+          hasMore: ack.hasMore,
+        };
+      }
+
+      let changed = false;
+      const messages = messageData.map((msg) => {
+        if (
+          msg.seq !== undefined &&
+          msg.seq <= cur &&
+          msg.status !== "read"
+        ) {
+          changed = true;
+          return { ...msg, status: "read" as const };
+        }
+        return msg;
+      });
+
+      return {
+        messages: changed ? messages : messageData,
+        nextCursor: ack.nextCurosr ?? undefined,
+        hasMore: ack.hasMore,
+      };
     },
-    [conversationId, chatSocket, isConnected],
+    [conversationId],
   );
 
   const {
@@ -129,7 +120,7 @@ export function useMessages(conversationId: string) {
     initialPageParam: undefined as number | undefined,
     getNextPageParam: (lastPage) =>
       lastPage.hasMore ? lastPage.nextCursor : undefined,
-    enabled: isConnected && !!conversationId,
+    enabled: !!conversationId && isLoggined,
     // global staleTime is 30s; while a conversation is closed its socket
     // listeners are gone, so reactions/edits/unsends made meanwhile are
     // missed. Re-fetch history on every (re)open to resync server truth.

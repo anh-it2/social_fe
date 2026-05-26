@@ -15,7 +15,7 @@ import { useEffect, useRef, useState } from "react";
 import { MentionPicker } from "@/feature/mention/components/MentionPicker";
 import { useSearchMentionUsers } from "@/feature/mention/data/users";
 import { useMentionInput } from "@/feature/mention/hooks/useMentionInput";
-import { uploadPostMediaService } from "@/feature/feed/services/uploadPostMedia.service";
+import { uploadPostMediaService } from "@/feature/feed/services/media/uploadPostMedia.service";
 import type { ReplyContext } from "../../../types";
 import { EmojiPicker } from "./EmojiPicker";
 import { GifPicker } from "./GifPicker";

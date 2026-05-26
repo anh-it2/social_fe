@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { EmojiPicker } from "@/feature/chat/components/main/input/EmojiPicker";
 import { GifPicker } from "@/feature/chat/components/main/input/GifPicker";
-import { uploadPostMediaService } from "@/feature/feed/services/uploadPostMedia.service";
+import { uploadPostMediaService } from "@/feature/feed/services/media/uploadPostMedia.service";
 import { MentionPicker } from "@/feature/mention/components/MentionPicker";
 import { useMentionInput } from "@/feature/mention/hooks/useMentionInput";
 import type { CommentInputPayload } from "../../data/reactions";

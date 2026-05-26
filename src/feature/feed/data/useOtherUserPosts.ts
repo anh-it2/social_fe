@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getUserPostsService } from "../services/getUserPosts.service";
+import { getUserPostsService } from "../services/queries/getUserPosts.service";
 
 /**
  * A specific user's posts, server-backed (social-platform-be via

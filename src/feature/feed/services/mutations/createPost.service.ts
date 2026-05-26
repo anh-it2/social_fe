@@ -1,7 +1,7 @@
 import { apiClient } from "@/shared/lib/apiClient";
-import type { CreatePostBody, PostResponseDTO } from "../dto/post.dto";
-import { toFeedPostData } from "../dto/post.mapper";
-import type { FeedPostData } from "../data/types";
+import type { CreatePostBody, PostResponseDTO } from "../../dto/post.dto";
+import { toFeedPostData } from "../../dto/post.mapper";
+import type { FeedPostData } from "../../data/types";
 
 /** Creates a post; resolves with the persisted post (BE-assigned id). */
 export async function createPostService(

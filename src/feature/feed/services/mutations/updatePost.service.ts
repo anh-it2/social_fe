@@ -1,7 +1,7 @@
 import { apiClient } from "@/shared/lib/apiClient";
-import type { PostResponseDTO, UpdatePostBody } from "../dto/post.dto";
-import { toFeedPostData } from "../dto/post.mapper";
-import type { FeedPostData } from "../data/types";
+import type { PostResponseDTO, UpdatePostBody } from "../../dto/post.dto";
+import { toFeedPostData } from "../../dto/post.mapper";
+import type { FeedPostData } from "../../data/types";
 
 /** Full-replace edit of an owned post. Resolves with the persisted post. */
 export async function updatePostService(args: {

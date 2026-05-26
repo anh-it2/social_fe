@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
-import { getFeedService } from "../services/getFeed.service";
+import { getFeedService } from "../services/queries/getFeed.service";
 import { POSTS_FEED_KEY, usePostMutations } from "./usePostMutations";
 
 /**
