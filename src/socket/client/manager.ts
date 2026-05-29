@@ -7,17 +7,20 @@ let listenersBound = false;
 function getManager() {
   if (manager) return manager;
 
-  manager = new Manager("http://localhost:3002", {
-    reconnection: true,
-    reconnectionAttempts: Infinity,
-    reconnectionDelay: 1000,
-    reconnectionDelayMax: 5000,
-    transports: ["websocket", "polling"],
-    // Send the httpOnly `token` cookie on the engine.io handshake so the
-    // socket server can verify the JWT. localhost:3000 and :3002 are the
-    // same site (host `localhost`), so the SameSite=Lax cookie is sent.
-    withCredentials: true,
-  });
+  manager = new Manager(
+    process.env.NEXT_PUBLIC_SOCKET_URL ?? "http://localhost:3002",
+    {
+      reconnection: true,
+      reconnectionAttempts: Infinity,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      transports: ["websocket", "polling"],
+      // Send the httpOnly `token` cookie on the engine.io handshake so the
+      // socket server can verify the JWT. localhost:3000 and :3002 are the
+      // same site (host `localhost`), so the SameSite=Lax cookie is sent.
+      withCredentials: true,
+    },
+  );
 
   return manager;
 }
