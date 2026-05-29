@@ -4,6 +4,32 @@ let manager: Manager | null = null;
 let sockets = new Map<string, Socket>();
 let listenersBound = false;
 
+// Cross-domain (vercel ↔ render) the httpOnly cookie is NOT sent on the socket
+// handshake, so we fetch the JWT from our own same-origin route and pass it in
+// the handshake `auth`. One in-flight fetch is shared across the 5 namespace
+// connects; it's cleared on settle so each later (re)connect gets a fresh token.
+let tokenPromise: Promise<string | null> | null = null;
+
+async function fetchSocketToken(): Promise<string | null> {
+  try {
+    const res = await fetch("/api/socket-token", { credentials: "include" });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { token?: unknown };
+    return typeof data.token === "string" ? data.token : null;
+  } catch {
+    return null;
+  }
+}
+
+function getSocketToken(): Promise<string | null> {
+  if (!tokenPromise) {
+    tokenPromise = fetchSocketToken().finally(() => {
+      tokenPromise = null;
+    });
+  }
+  return tokenPromise;
+}
+
 function getManager() {
   if (manager) return manager;
 
@@ -32,7 +58,16 @@ export function getNamespaceSocket<S extends Socket>(
   const existing = sockets.get(nsp);
   if (existing) return existing as S;
 
-  const socket = getManager().socket(nsp, { auth });
+  // `auth` as a function is re-evaluated on every (re)connect attempt, so the
+  // token is refreshed on reconnect. socket.io waits for the callback, letting
+  // us resolve the async token fetch before the handshake goes out.
+  const socket = getManager().socket(nsp, {
+    auth: (cb: (data: Record<string, unknown>) => void) => {
+      getSocketToken().then((token) =>
+        cb({ ...auth, ...(token ? { token } : {}) }),
+      );
+    },
+  });
   sockets.set(nsp, socket);
 
   return socket as S;
