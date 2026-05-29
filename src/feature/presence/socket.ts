@@ -45,6 +45,23 @@ export function publishPresenceProfile(avatar?: string, name?: string) {
   });
 }
 
+/**
+ * Idempotent snapshot kick. Safe to call any time — socket.io-client
+ * buffers emits with ack until the namespace connects. Used both inside
+ * the connect handler (canonical path) and on dropdown open (recovers
+ * from a dropped initial ack so the user does not need to reload).
+ */
+export function requestPresenceSnapshot() {
+  const { userId } = useAuthStore.getState();
+  if (!userId) return;
+  const socket = getPresenceSocket();
+  socket.emit("presence:get-online-users", (list) => {
+    usePresenceStore
+      .getState()
+      .setOnlineUsers(list.filter((u) => u.id !== userId));
+  });
+}
+
 // Re-callable on purpose: a module-level "initialized" latch goes stale
 // across HMR and the login/logout lifecycle (new code never rebinds,
 // listeners double-fire on the cached socket). We instead clear our own
@@ -69,6 +86,15 @@ export function initPresence() {
   ) => {
     if (u.id !== userId) usePresenceStore.getState().updateUser(u);
   };
+  // Safety net: if the server ever pushes a full snapshot (DTO declares
+  // `presence:online-users`), accept it. Recovers from a dropped ack.
+  const onSnapshot: PresenceServerToClientEvents["presence:online-users"] = (
+    list,
+  ) => {
+    usePresenceStore
+      .getState()
+      .setOnlineUsers(list.filter((u) => u.id !== userId));
+  };
 
   // The server only broadcasts `user-joined` to *other* sockets, so the
   // snapshot ack is the only way to learn who was already online. Request
@@ -76,11 +102,7 @@ export function initPresence() {
   // emitting it pre-connect buffers the packet and its ack can be dropped,
   // which left a later-joining user blind to earlier ones.
   const onConnect = () => {
-    socket.emit("presence:get-online-users", (list) => {
-      usePresenceStore
-        .getState()
-        .setOnlineUsers(list.filter((u) => u.id !== userId));
-    });
+    requestPresenceSnapshot();
     publishPresenceProfile();
   };
 
@@ -88,12 +110,14 @@ export function initPresence() {
   socket.on("presence:user-joined", onJoined);
   socket.on("presence:user-left", onLeft);
   socket.on("presence:user-updated", onUpdated);
+  socket.on("presence:online-users", onSnapshot);
   if (socket.connected) onConnect();
 
   cleanup = () => {
     socket.off("presence:user-joined", onJoined);
     socket.off("presence:user-left", onLeft);
     socket.off("presence:user-updated", onUpdated);
+    socket.off("presence:online-users", onSnapshot);
     socket.off("connect", onConnect);
   };
 }

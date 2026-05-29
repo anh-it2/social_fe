@@ -4,6 +4,7 @@ import { Badge, Button } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { CreateGroupModal } from "@/feature/chat/components/menu/modals/CreateGroupModal";
+import { requestPresenceSnapshot } from "@/feature/presence/socket";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
 import { ChatDropdownContent } from "./chat-dropdown/ChatDropdownContent";
 import styles from "./NavBtn.module.scss";
@@ -18,6 +19,9 @@ export function ChatNavBtn() {
 
   useEffect(() => {
     if (!open) return;
+    // Self-heal: if the init-time snapshot ack was lost (or hadn't
+    // arrived before this first open), re-request it on every open.
+    requestPresenceSnapshot();
     const onDoc = (e: MouseEvent) => {
       if (!wrapRef.current) return;
       const target = e.target as HTMLElement | null;

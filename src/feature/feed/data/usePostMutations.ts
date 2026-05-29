@@ -12,10 +12,7 @@ import {
   unreactPostService,
 } from "../services/mutations/reactPost.service";
 import { addPostCommentService } from "../services/mutations/addPostComment.service";
-import {
-  toCreatePostBody,
-  toUpdatePostBody,
-} from "../dto/post.mapper";
+import { toCreatePostBody, toUpdatePostBody } from "../dto/post.mapper";
 import {
   emitFeedPublish,
   emitFeedRemove,
@@ -144,8 +141,7 @@ export function usePostMutations() {
     [react, unreact],
   );
   const addComment = useCallback(
-    (id: string, body: CreateCommentBody) =>
-      comment.mutateAsync({ id, body }),
+    (id: string, body: CreateCommentBody) => comment.mutateAsync({ id, body }),
     [comment],
   );
 
