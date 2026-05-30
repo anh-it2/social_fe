@@ -14,18 +14,36 @@ export const useAuthStore = create<AuthState>()(
       userId: "",
       userName: "",
       email: "",
+      role: "USER",
       isLoggined: false,
 
-      saveLoginnedUser: ({ userId, userName, email }): void => {
-        set({ userId, userName, email, isLoggined: true });
+      saveLoginnedUser: ({ userId, userName, email, role }): void => {
+        set({ userId, userName, email, role: role ?? "USER", isLoggined: true });
       },
 
       removeLogginedUser: (): void => {
-        set({ userId: "", userName: "", email: "", isLoggined: false });
+        set({
+          userId: "",
+          userName: "",
+          email: "",
+          role: "USER",
+          isLoggined: false,
+        });
       },
     }),
     {
       name: "auth-state",
+      // v1 added `role`. Drop any pre-role persisted blob → useSessionBootstrap
+      // re-fetches /me and hydrates role (else an old session would stay
+      // role:"USER" forever). migrate must return a value, so reset to logged-out.
+      version: 1,
+      migrate: () => ({
+        userId: "",
+        userName: "",
+        email: "",
+        role: "USER" as const,
+        isLoggined: false,
+      }),
     },
   ),
 );

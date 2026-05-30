@@ -8,19 +8,15 @@ import { Icon } from "@/shared/components/Icon";
 import { getReportSocket } from "../socket";
 import { useReportStore } from "../stores/report.store";
 import { toReport, toReports } from "../dto/report.mapper";
-import { isAdminUserName } from "../lib/isAdmin";
-import type {
-  ReportActionAck,
-  ReportDTO,
-  ReportListResponseDTO,
-  ReportStatus,
-} from "../dto/report.dto";
+import { listReportsService } from "../services/listReports.service";
+import { approveReportService } from "../services/approveReport.service";
+import { rejectReportService } from "../services/rejectReport.service";
+import type { ReportDTO, ReportStatus } from "../dto/report.dto";
 
 export function useReports() {
   const t = useTranslations("Admin");
   const isLoggined = useAuthStore((s) => s.isLoggined);
-  const userName = useAuthStore((s) => s.userName);
-  const isAdmin = isAdminUserName(userName);
+  const isAdmin = useAuthStore((s) => s.role === "ADMIN");
 
   const socket = isAdmin ? getReportSocket() : null;
   const [isConnected, setIsConnected] = useState<boolean>(
@@ -49,14 +45,27 @@ export function useReports() {
     };
   }, [isAdmin, isLoggined, socket]);
 
+  // Initial queue is loaded from the BE (source of truth), not the socket.
   useEffect(() => {
-    if (!isAdmin || !isLoggined || !socket || !isConnected) return;
+    if (!isAdmin || !isLoggined) return;
 
-    socket.emit("report:list", (res: ReportListResponseDTO) => {
-      setAll(toReports(res.reports));
-      initialFetchedRef.current = true;
-    });
-  }, [isAdmin, isLoggined, socket, isConnected, setAll]);
+    let cancelled = false;
+    (async () => {
+      try {
+        const reports = await listReportsService();
+        if (cancelled) return;
+        setAll(toReports(reports));
+      } catch {
+        /* leave queue empty on failure */
+      } finally {
+        initialFetchedRef.current = true;
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isAdmin, isLoggined, setAll]);
 
   useEffect(() => {
     if (!isAdmin || !isLoggined || !socket) return;
@@ -99,46 +108,72 @@ export function useReports() {
   }, [isAdmin, isLoggined, socket, addOne, setStatus, t]);
 
   const approve = useCallback(
-    (reportId: string, postOwnerId?: string, postId?: string) => {
-      if (!socket || !isConnected) return;
-      socket.emit(
-        "report:approve",
-        { reportId },
-        (ack: ReportActionAck) => {
-          if (ack.ok) {
-            useReportStore.getState().removeOne(reportId);
-            if (postOwnerId && postId) {
-              try {
-                if (typeof window !== "undefined") {
-                  const ch = new BroadcastChannel("admin:report");
-                  ch.postMessage({
-                    type: "post-removed",
-                    postId,
-                    postOwnerId,
-                  });
-                  ch.close();
-                }
-              } catch {
-                /* noop */
-              }
-            }
+    async (reportId: string) => {
+      try {
+        // reporterId comes from the locally-stored report (the BE decision
+        // response doesn't echo it) so the socket can notify the reporter.
+        const reporterId = useReportStore
+          .getState()
+          .reports.find((r) => r.id === reportId)?.reporterId;
+        const res = await approveReportService(reportId);
+        useReportStore.getState().setStatus(reportId, "approved");
+
+        // Relay realtime: notify other admins + purge the post for all clients.
+        if (socket?.connected) {
+          socket.emit(
+            "report:approve",
+            {
+              reportId,
+              postId: res.postId,
+              postOwnerId: res.postOwnerId,
+              reporterId,
+            },
+            () => {},
+          );
+        }
+
+        // Cross-tab feed purge (same browser, other tabs).
+        if (res.postId && typeof window !== "undefined") {
+          try {
+            const ch = new BroadcastChannel("admin:report");
+            ch.postMessage({
+              type: "post-removed",
+              postId: res.postId,
+              postOwnerId: res.postOwnerId,
+            });
+            ch.close();
+          } catch {
+            /* noop */
           }
-        },
-      );
+        }
+      } catch {
+        apiRef.current.error({ message: t("actionFailed") });
+      }
     },
-    [socket, isConnected],
+    [socket, t],
   );
 
   const reject = useCallback(
-    (reportId: string) => {
-      if (!socket || !isConnected) return;
-      socket.emit("report:reject", { reportId }, (ack: ReportActionAck) => {
-        if (ack.ok) {
-          useReportStore.getState().removeOne(reportId);
+    async (reportId: string) => {
+      try {
+        const reporterId = useReportStore
+          .getState()
+          .reports.find((r) => r.id === reportId)?.reporterId;
+        const res = await rejectReportService(reportId);
+        useReportStore.getState().setStatus(reportId, "rejected");
+
+        if (socket?.connected) {
+          socket.emit(
+            "report:reject",
+            { reportId, postId: res.postId, reporterId },
+            () => {},
+          );
         }
-      });
+      } catch {
+        apiRef.current.error({ message: t("actionFailed") });
+      }
     },
-    [socket, isConnected],
+    [socket, t],
   );
 
   return { isConnected, isAdmin, approve, reject };

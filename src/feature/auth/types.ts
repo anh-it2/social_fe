@@ -1,11 +1,14 @@
 // Domain models. The JWT lives in an httpOnly cookie set by the Next
 // route handlers — it is intentionally NOT part of any client-side model.
 
+export type UserRole = "USER" | "ADMIN";
+
 export interface AuthUser {
   id: string;
   name: string;
   email: string;
   createdAt: string;
+  role: UserRole;
 }
 
 export interface LoginCredentials {
@@ -27,11 +30,13 @@ export interface AuthState {
   userId: string;
   userName: string;
   email: string;
+  role: UserRole;
   isLoggined: boolean;
   saveLoginnedUser: (user: {
     userId: string;
     userName: string;
     email: string;
+    role?: UserRole;
   }) => void;
   removeLogginedUser: () => void;
 }

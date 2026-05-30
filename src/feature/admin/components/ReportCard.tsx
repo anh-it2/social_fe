@@ -15,7 +15,7 @@ const { Text } = Typography;
 
 interface ReportCardProps {
   report: Report;
-  onApprove: (reportId: string, postOwnerId?: string, postId?: string) => void;
+  onApprove: (reportId: string) => void;
   onReject: (reportId: string) => void;
   disabled?: boolean;
 }
@@ -137,7 +137,7 @@ export function ReportCard({
         danger
         onOk={() => {
           setConfirmApprove(false);
-          onApprove(report.id, report.postOwnerId, report.postId);
+          onApprove(report.id);
         }}
         onCancel={() => setConfirmApprove(false)}
       />

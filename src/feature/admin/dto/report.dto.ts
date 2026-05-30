@@ -36,16 +36,19 @@ export interface EmitReportDTO {
 
 export interface ReportDecisionDTO {
   reportId: string;
+  postId: string;
+  postOwnerId?: string;
+  // Reporter to notify when the admin resolves the report.
+  reporterId?: string;
 }
 
 //socket events
+// The BE persists reports (source of truth); these socket events only relay
+// the already-persisted data so connected admins/clients update in realtime.
 
 export interface ReportClientToServerEvents {
-  "report:list": (
-    ack: (res: ReportListResponseDTO) => void,
-  ) => void;
   "report:emit": (
-    data: EmitReportDTO,
+    data: ReportDTO,
     ack: (res: ReportActionAck) => void,
   ) => void;
   "report:approve": (

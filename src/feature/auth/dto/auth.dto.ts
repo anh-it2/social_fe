@@ -22,6 +22,7 @@ export interface PublicUserDTO {
   name: string;
   email: string;
   createdAt: string;
+  role?: "USER" | "ADMIN";
 }
 
 export interface AuthResponseDTO {

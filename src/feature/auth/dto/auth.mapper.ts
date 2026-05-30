@@ -35,6 +35,7 @@ export function toAuthSession(dto: AuthResponseDTO): AuthSession {
       name: dto.user.name,
       email: dto.user.email,
       createdAt: dto.user.createdAt,
+      role: dto.user.role ?? "USER",
     },
   };
 }

@@ -92,7 +92,7 @@ export function ReportReasonModal({
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onValid)} noValidate>
-          <Flex className="[padding:24px_28px]" vertical gap={16} >
+          <Flex className="!p-2 !px-4" vertical gap={16} >
             <Flex align="center" gap={12}>
               <Flex
                 align="center"

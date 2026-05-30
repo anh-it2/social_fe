@@ -21,6 +21,7 @@ export function useLogin() {
         userId: user.id,
         userName: user.name,
         email: user.email,
+        role: user.role,
       });
     },
   });

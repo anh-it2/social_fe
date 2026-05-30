@@ -11,6 +11,9 @@ export const NOTIFICATION_ICON: Record<NotificationKind, string> = {
   friend_request: "group_add",
   friend_accept: "how_to_reg",
   friend_reject: "person_remove",
+  report_submitted: "flag",
+  report_approved: "gavel",
+  report_rejected: "gavel",
 };
 
 export const NOTIFICATION_ICON_COLOR: Record<NotificationKind, string> = {
@@ -22,6 +25,9 @@ export const NOTIFICATION_ICON_COLOR: Record<NotificationKind, string> = {
   friend_request: "#3b82f6",
   friend_accept: "#22c55e",
   friend_reject: "#ef4444",
+  report_submitted: "#ef4444",
+  report_approved: "#22c55e",
+  report_rejected: "#6b7280",
 };
 
 const ACTOR_GRADIENTS: [string, string][] = [
@@ -65,6 +71,14 @@ export function notificationText(
       return t("friendAccept");
     case "friend_reject":
       return t("friendReject");
+    case "report_submitted":
+      return preview
+        ? t("reportSubmittedWithPreview", { preview })
+        : t("reportSubmitted");
+    case "report_approved":
+      return t("reportApproved");
+    case "report_rejected":
+      return t("reportRejected");
   }
 }
 

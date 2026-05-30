@@ -33,6 +33,7 @@ export function useSessionBootstrap(enabled: boolean) {
         userId: user.id,
         userName: user.name,
         email: user.email,
+        role: user.role,
       });
     }
   }, [user, isLoggined, saveLoginnedUser]);

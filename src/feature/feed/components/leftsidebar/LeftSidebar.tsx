@@ -3,7 +3,6 @@
 import { Button, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
-import { isAdminUserName } from "@/feature/admin/lib/isAdmin";
 import { NAV_ROWS, SHORTCUTS } from "../../data/constants";
 import { ShortcutItem } from "./ShortcutItem";
 import { SidebarRow } from "./SidebarRow";
@@ -18,8 +17,7 @@ interface LeftSidebarProps {
 export function LeftSidebar({ embedded = false }: LeftSidebarProps) {
   const t = useTranslations("Feed.leftSidebar");
   const tAdmin = useTranslations("Admin");
-  const userName = useAuthStore((s) => s.userName);
-  const isAdmin = isAdminUserName(userName);
+  const isAdmin = useAuthStore((s) => s.role === "ADMIN");
 
   return (
     <Flex

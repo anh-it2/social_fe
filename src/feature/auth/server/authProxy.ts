@@ -90,7 +90,11 @@ export async function fetchMe(req: NextRequest): Promise<NextResponse> {
         { status: 502 },
       );
     }
-    return NextResponse.json({ user: body.data }, { status: 200 });
+    // BE `/users/me` wraps the user as { data: { user } }; unwrap so the FE
+    // session bootstrap receives the user object directly (incl. role).
+    const data = body.data as { user?: unknown };
+    const user = data.user ?? body.data;
+    return NextResponse.json({ user }, { status: 200 });
   } catch (err) {
     if (axios.isAxiosError(err) && err.response) {
       const errBody = err.response.data as BackendEnvelope | undefined;

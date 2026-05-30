@@ -25,6 +25,16 @@ export function useNotificationNavigate() {
       }
       if (n.kind === "friend_accept" || n.kind === "friend_reject") {
         nav.push(`/profile/${n.actorId}`);
+        return;
+      }
+      // Admin sees a new report → jump to the moderation queue.
+      if (n.kind === "report_submitted") {
+        nav.push("/admin");
+        return;
+      }
+      // Reporter sees a resolution → open the (still-visible) post if kept.
+      if (n.kind === "report_rejected" && n.postId) {
+        nav.push(`/posts/${n.postId}`);
       }
     },
     [nav],
