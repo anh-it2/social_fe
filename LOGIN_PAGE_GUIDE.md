@@ -195,7 +195,7 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Facebook - Log in or sign up",
+  title: "Orbit - Log in or sign up",
   description: "Connect with friends and the world around you.",
 };
 
@@ -840,7 +840,7 @@ export default function LoginPage() {
             <div className={styles.logoIcon}>
               <span>f</span>
             </div>
-            <span className={styles.logoText}>facebook</span>
+            <span className={styles.logoText}>orbit</span>
           </div>
 
           <h1 className={styles.heroTitle}>
@@ -850,7 +850,7 @@ export default function LoginPage() {
           </h1>
 
           <p className={styles.heroSubtitle}>
-            Join billions of people who use Facebook to share ideas, find
+            Join billions of people who use Orbit to share ideas, find
             communities, and grow closer to the people who matter most.
           </p>
 
@@ -966,7 +966,7 @@ export default function LoginPage() {
         </div>
 
         <p className={styles.footer}>
-          Protected by reCAPTCHA and subject to the Facebook Privacy Policy and
+          Protected by reCAPTCHA and subject to the Orbit Privacy Policy and
           Terms of Service.
         </p>
       </div>
