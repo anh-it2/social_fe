@@ -19,7 +19,7 @@
       "apple": "Apple",
       "signupPrompt": "Don't have an account?",
       "signupLink": "Sign up for free",
-      "footer": "Protected by reCAPTCHA and subject to the Facebook Privacy Policy and Terms of Service.",
+      "footer": "Protected by reCAPTCHA and subject to the Orbit Privacy Policy and Terms of Service.",
       "usernameLabel": "Username",
       "welcome": "Welcome, {name}!",
       "welcomeBack": "Welcome back, {name}!",
@@ -33,9 +33,9 @@
       }
     },
     "hero": {
-      "brand": "facebook",
+      "brand": "orbit",
       "title": "Connect with your world, your way.",
-      "subtitle": "Join billions of people who use Facebook to share ideas, find communities, and grow closer to the people who matter most.",
+      "subtitle": "Join billions of people who use Orbit to share ideas, find communities, and grow closer to the people who matter most.",
       "users": "Monthly users",
       "communities": "Communities",
       "messages": "Messages daily"
@@ -61,7 +61,7 @@
       "apple": "Apple",
       "loginPrompt": "Already have an account?",
       "loginLink": "Sign in",
-      "footer": "Protected by reCAPTCHA and subject to the Facebook Privacy Policy and Terms of Service.",
+      "footer": "Protected by reCAPTCHA and subject to the Orbit Privacy Policy and Terms of Service.",
       "welcome": "Welcome, {name}!",
       "genericError": "Something went wrong. Please try again.",
       "requiredBanner": "Please fill out the required fields marked with *.",
@@ -80,7 +80,7 @@
     }
   },
   "Topnav": {
-    "search": "Search Facebook...",
+    "search": "Search Orbit...",
     "searchEmpty": "Type a name to search",
     "searchNoResults": "No people match",
     "openMenu": "Open menu",

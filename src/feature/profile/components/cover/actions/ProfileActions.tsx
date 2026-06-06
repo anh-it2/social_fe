@@ -11,7 +11,7 @@ import { ShareButton } from "./ShareButton";
 /**
  * Cover action row.
  * - Self: Edit + Share.
- * - Other person (Facebook-style order): relationship control →
+ * - Other person (Orbit-style order): relationship control →
  *   Message (primary) → Share → More(⋯ block/report). The relationship
  *   button changes label by status but stays in the same slot so the row
  *   is predictable regardless of which UI the other person resolves to.

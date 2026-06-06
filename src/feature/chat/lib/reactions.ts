@@ -7,7 +7,7 @@ export interface ReactionMeta {
   labelKey: string;
 }
 
-// Facebook-style set, in picker order.
+// Orbit-style set, in picker order.
 export const REACTIONS: ReactionMeta[] = [
   { key: "like", emoji: "👍", labelKey: "like" },
   { key: "love", emoji: "❤️", labelKey: "love" },

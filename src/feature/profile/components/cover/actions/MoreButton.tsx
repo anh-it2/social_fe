@@ -14,7 +14,7 @@ import { COVER_GLASS, COVER_GLASS_FG } from "./coverGlass";
 const pillSecondary = `${COVER_GLASS} !h-9 !w-9 !rounded-full md:!h-10 md:!w-10`;
 
 /**
- * Overflow menu for another person's profile (Facebook-style ⋯): Block
+ * Overflow menu for another person's profile (Orbit-style ⋯): Block
  * (real — reuses the chat BlockModal, the canonical block path per
  * clone-chat §6) and Report (placeholder toast, matching the mock report
  * surfaces elsewhere).

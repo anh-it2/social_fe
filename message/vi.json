@@ -19,7 +19,7 @@
       "apple": "Apple",
       "signupPrompt": "Chưa có tài khoản?",
       "signupLink": "Đăng ký miễn phí",
-      "footer": "Được bảo vệ bởi reCAPTCHA và tuân theo Chính sách Quyền riêng tư cùng Điều khoản Dịch vụ của Facebook.",
+      "footer": "Được bảo vệ bởi reCAPTCHA và tuân theo Chính sách Quyền riêng tư cùng Điều khoản Dịch vụ của Orbit.",
       "usernameLabel": "Tên người dùng",
       "welcome": "Chào mừng, {name}!",
       "welcomeBack": "Chào mừng trở lại, {name}!",
@@ -33,9 +33,9 @@
       }
     },
     "hero": {
-      "brand": "facebook",
+      "brand": "orbit",
       "title": "Kết nối với thế giới của bạn, theo cách của bạn.",
-      "subtitle": "Tham gia hàng tỷ người dùng Facebook để chia sẻ ý tưởng, tìm cộng đồng và gần gũi hơn với những người quan trọng nhất.",
+      "subtitle": "Tham gia hàng tỷ người dùng Orbit để chia sẻ ý tưởng, tìm cộng đồng và gần gũi hơn với những người quan trọng nhất.",
       "users": "Người dùng hàng tháng",
       "communities": "Cộng đồng",
       "messages": "Tin nhắn mỗi ngày"
@@ -61,7 +61,7 @@
       "apple": "Apple",
       "loginPrompt": "Đã có tài khoản?",
       "loginLink": "Đăng nhập",
-      "footer": "Được bảo vệ bởi reCAPTCHA và tuân theo Chính sách Quyền riêng tư cùng Điều khoản Dịch vụ của Facebook.",
+      "footer": "Được bảo vệ bởi reCAPTCHA và tuân theo Chính sách Quyền riêng tư cùng Điều khoản Dịch vụ của Orbit.",
       "welcome": "Chào mừng, {name}!",
       "genericError": "Đã xảy ra lỗi. Vui lòng thử lại.",
       "requiredBanner": "Vui lòng điền các trường bắt buộc được đánh dấu *.",
@@ -80,7 +80,7 @@
     }
   },
   "Topnav": {
-    "search": "Tìm kiếm trên Facebook...",
+    "search": "Tìm kiếm trên Orbit...",
     "searchEmpty": "Nhập tên để tìm kiếm",
     "searchNoResults": "Không có người dùng nào khớp",
     "openMenu": "Mở menu",
