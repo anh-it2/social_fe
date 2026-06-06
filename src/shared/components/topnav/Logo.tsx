@@ -41,12 +41,12 @@ export function Logo() {
         style={{ background: gradientBg(["#4096ff", "#a855f7"]) }}
       >
         <Text className="!text-[24px] !font-extrabold !leading-none !text-white">
-          f
+          o
         </Text>
       </Flex>
       <Text
         className="!hidden !whitespace-nowrap !text-[22px] !font-bold md:!inline text-[var(--color-text)]"  >
-        facebook
+        orbit
       </Text>
     </Flex>
   );

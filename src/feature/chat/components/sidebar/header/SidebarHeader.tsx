@@ -38,7 +38,7 @@ export function SidebarHeader({ onLogout, onCreateGroup }: SidebarHeaderProps) {
             }
           }}
           className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-[10px] transition-opacity hover:opacity-90 [background:linear-gradient(180deg,_var(--color-primary),_var(--color-primary-light))]"  >
-          <span className="text-[22px] font-extrabold text-white">f</span>
+          <span className="text-[22px] font-extrabold text-white">o</span>
         </div>
         <Text className="!text-[22px] !font-bold !text-[var(--color-text)]">
           {t("title")}
