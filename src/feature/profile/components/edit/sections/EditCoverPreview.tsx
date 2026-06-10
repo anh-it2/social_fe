@@ -2,7 +2,9 @@
 
 import { App, Button, Flex, Typography, Upload } from "antd";
 import Image from "next/image";
+import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
+import { uploadProfileImageService } from "@/feature/profile/services/uploadProfileImage.service";
 import { Icon } from "../../Icon";
 import { gradientBg } from "../../../data/mock";
 import { EditCard } from "../EditCard";
@@ -18,9 +20,16 @@ const { Text } = Typography;
 
 const MAX_BYTES = 4 * 1024 * 1024;
 
-export function EditCoverPreview() {
+interface EditCoverPreviewProps {
+  onUploadingChange?: (uploading: boolean) => void;
+}
+
+export function EditCoverPreview({
+  onUploadingChange,
+}: EditCoverPreviewProps) {
   const { message } = App.useApp();
   const { control, setValue } = useFormContext<EditProfileValues>();
+  const [uploading, setUploading] = useState<"avatar" | "cover" | null>(null);
   const name = useWatch({ control, name: "name" });
   const avatarUrl = useWatch({ control, name: "avatarUrl" });
   const coverUrl = useWatch({ control, name: "coverUrl" });
@@ -33,7 +42,9 @@ export function EditCoverPreview() {
     .join("")
     .toUpperCase();
 
-  const makeBeforeUpload = (field: "avatarUrl" | "coverUrl") => (raw: File) => {
+  const makeBeforeUpload =
+    (kind: "avatar" | "cover", field: "avatarUrl" | "coverUrl") =>
+    (raw: File) => {
     if (!raw.type.startsWith("image/")) {
       message.error("Only images allowed");
       return Upload.LIST_IGNORE;
@@ -42,17 +53,28 @@ export function EditCoverPreview() {
       message.error("File too big (max 4MB)");
       return Upload.LIST_IGNORE;
     }
-    const reader = new FileReader();
-    reader.onload = () => {
-      const url = typeof reader.result === "string" ? reader.result : "";
-      if (!url) return;
-      setValue(field, url, { shouldDirty: true });
-      message.success(
-        field === "avatarUrl" ? "Profile picture updated" : "Cover photo updated"
-      );
-    };
-    reader.onerror = () => message.error("Failed to read image");
-    reader.readAsDataURL(raw);
+
+    setUploading(kind);
+    onUploadingChange?.(true);
+    void uploadProfileImageService(kind, raw)
+      .then((url) => {
+        setValue(field, url, { shouldDirty: true });
+        message.success(
+          kind === "avatar"
+            ? "Profile picture uploaded"
+            : "Cover photo uploaded",
+        );
+      })
+      .catch((error) => {
+        message.error(
+          error instanceof Error ? error.message : "Failed to upload image",
+        );
+      })
+      .finally(() => {
+        setUploading(null);
+        onUploadingChange?.(false);
+      });
+
     return false;
   };
 
@@ -85,11 +107,14 @@ export function EditCoverPreview() {
         <div className="absolute right-4 top-4">
           <Upload
             accept="image/*"
-            beforeUpload={makeBeforeUpload("coverUrl")}
+            beforeUpload={makeBeforeUpload("cover", "coverUrl")}
             showUploadList={false}
+            disabled={uploading !== null}
           >
             <Button
               type="text"
+              loading={uploading === "cover"}
+              disabled={uploading !== null}
               className="!h-9 !rounded-3xl !border-0 !px-4 bg-[rgba(0,0,0,0.5)] text-[#fff]"  >
               <Flex align="center" gap={6}>
                 <Icon name="photo_camera" size={16} color="#fff" />
@@ -139,11 +164,14 @@ export function EditCoverPreview() {
           <Flex gap={8}>
             <Upload
               accept="image/*"
-              beforeUpload={makeBeforeUpload("avatarUrl")}
+              beforeUpload={makeBeforeUpload("avatar", "avatarUrl")}
               showUploadList={false}
+              disabled={uploading !== null}
             >
               <Button
                 type="text"
+                loading={uploading === "avatar"}
+                disabled={uploading !== null}
                 className="!h-9 !rounded-3xl !border-0 !px-4"
                 style={{
                   background: gradientBg([...EDIT_AVATAR_GRADIENT]),
@@ -156,7 +184,7 @@ export function EditCoverPreview() {
             <Button
               type="text"
               onClick={removeAvatar}
-              disabled={!avatarUrl}
+              disabled={!avatarUrl || uploading !== null}
               className="!h-9 !rounded-3xl !border !px-4 [border-color:var(--color-border)] bg-[transparent] text-[var(--color-text-secondary)]"  >
               <span className="text-xs font-semibold">Remove</span>
             </Button>

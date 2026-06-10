@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { App, Flex, Typography } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigation } from "@/shared/hooks/useNavigation";
 import { TopNav } from "@/shared/components/topnav/TopNav";
@@ -26,6 +26,7 @@ export function EditProfilePage() {
   const nav = useNavigation();
   const { message } = App.useApp();
   const { meta, hydrated, save } = useProfileMeta();
+  const [mediaUploading, setMediaUploading] = useState(false);
   const methods = useForm<EditProfileValues>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: EDIT_PROFILE_DEFAULTS,
@@ -76,7 +77,7 @@ export function EditProfilePage() {
             }}
           >
             <EditPageHeader />
-            <EditCoverPreview />
+            <EditCoverPreview onUploadingChange={setMediaUploading} />
             <EditIdentitySection />
             <EditAboutSection />
             {hasFieldErrors && (
@@ -90,7 +91,10 @@ export function EditProfilePage() {
                 {methods.formState.errors.root.message}
               </Text>
             )}
-            <EditActions submitting={methods.formState.isSubmitting} />
+            <EditActions
+              submitting={methods.formState.isSubmitting}
+              disabled={mediaUploading}
+            />
           </Flex>
         </form>
       </FormProvider>

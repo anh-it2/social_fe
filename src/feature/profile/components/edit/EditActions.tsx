@@ -8,9 +8,10 @@ import { EDIT_PRIMARY_GRADIENT } from "./data/edit-profile.constants";
 
 interface Props {
   submitting: boolean;
+  disabled?: boolean;
 }
 
-export function EditActions({ submitting }: Props) {
+export function EditActions({ submitting, disabled = false }: Props) {
   const t = useTranslations("Profile.edit");
   return (
     <Flex
@@ -29,6 +30,7 @@ export function EditActions({ submitting }: Props) {
         htmlType="submit"
         type="text"
         loading={submitting}
+        disabled={disabled}
         className="!h-11 !rounded-3xl !border-0 !px-8"
         style={{
           background: gradientBg([...EDIT_PRIMARY_GRADIENT]),

@@ -12,6 +12,15 @@ interface BackendEnvelope {
   data?: ProfileDTO;
 }
 
+interface BackendUserEnvelope {
+  success: boolean;
+  message?: string;
+  data?: {
+    avatarUrl?: string | null;
+    coverUrl?: string | null;
+  };
+}
+
 /**
  * Reads the JWT from the httpOnly cookie and calls social-platform-be with
  * it as a Bearer token. The browser never sees the token; it only ever
@@ -68,4 +77,61 @@ export function fetchProfile(req: NextRequest): Promise<NextResponse> {
 export async function saveProfile(req: NextRequest): Promise<NextResponse> {
   const payload = await req.json().catch(() => ({}));
   return callBackend(req, "patch", payload);
+}
+
+export async function uploadProfileImage(
+  req: NextRequest,
+  kind: string,
+): Promise<NextResponse> {
+  if (kind !== "avatar" && kind !== "cover") {
+    return NextResponse.json(
+      { message: "Unsupported profile image type" },
+      { status: 404 },
+    );
+  }
+
+  const token = req.cookies.get(AUTH_COOKIE)?.value;
+  if (!token) {
+    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  }
+
+  const input = await req.formData().catch(() => null);
+  const file = input?.get("file");
+  if (!(file instanceof File)) {
+    return NextResponse.json({ message: "No image selected" }, { status: 400 });
+  }
+
+  const output = new FormData();
+  output.append("file", file, file.name);
+
+  try {
+    const beRes = await axios.patch<BackendUserEnvelope>(
+      `${API_BASE_URL}/users/me/${kind}`,
+      output,
+      { headers: { authorization: `Bearer ${token}` } },
+    );
+    const body = beRes.data;
+    const url =
+      kind === "avatar" ? body.data?.avatarUrl : body.data?.coverUrl;
+
+    if (!body.success || !url) {
+      return NextResponse.json(
+        { message: body.message || "Image upload failed" },
+        { status: 502 },
+      );
+    }
+    return NextResponse.json({ url });
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response) {
+      const body = err.response.data as BackendUserEnvelope | undefined;
+      return NextResponse.json(
+        { message: body?.message || "Image upload failed" },
+        { status: err.response.status },
+      );
+    }
+    return NextResponse.json(
+      { message: "Cannot reach profile server" },
+      { status: 502 },
+    );
+  }
 }

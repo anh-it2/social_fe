@@ -1,6 +1,8 @@
 .wrap {
   :global(.ant-modal-container) {
     padding: 0 !important;
+    border-radius: 20px !important;
+    overflow: hidden;
   }
 }
 
@@ -11,12 +13,15 @@
     padding: 0 !important;
     background: var(--dark-modal-bg, #161616) !important;
     border: 1px solid var(--dark-modal-border, #2e2e2e);
+    border-radius: 20px !important;
     overflow: hidden;
   }
 
   :global(.ant-modal-body) {
     padding: 0 !important;
     background: var(--dark-modal-bg, #161616) !important;
+    border-radius: inherit;
+    overflow: hidden;
   }
 
   :global(.ant-modal-header) {
