@@ -47,6 +47,7 @@ export function toFeedPostData(dto: PostDTO): FeedPostData {
     imageUrl: dto.imageUrl ?? undefined,
     videoUrl: dto.videoUrl ?? undefined,
     feeling: dto.feeling ?? undefined,
+    visibility: dto.visibility,
     isLive: dto.isLive,
     likes: formatCount(totalReactions(dto.reactions)),
     comments: dto.commentsCount,
@@ -75,6 +76,7 @@ export function toFeedComment(dto: CommentDTO): FeedComment {
 export function toCreatePostBody(post: FeedPostData): CreatePostBody {
   return {
     text: post.text ?? "",
+    visibility: post.visibility ?? "PUBLIC",
     imageUrl: post.imageUrl,
     videoUrl: post.videoUrl,
     feeling: post.feeling ?? null,
@@ -87,6 +89,7 @@ export function toCreatePostBody(post: FeedPostData): CreatePostBody {
 export function toUpdatePostBody(post: FeedPostData): UpdatePostBody {
   return {
     text: post.text ?? "",
+    visibility: post.visibility ?? "PUBLIC",
     imageUrl: post.imageUrl ?? null,
     videoUrl: post.videoUrl ?? null,
     feeling: post.feeling ?? null,

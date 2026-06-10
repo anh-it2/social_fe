@@ -1,3 +1,5 @@
+import type { PostVisibility } from "../data/types";
+
 // Wire shapes between the browser and the Next route handlers (/api/posts*),
 // which proxy social-platform-be /posts. Field-aligned with the BE PostDTO
 // (modules/post/post.model.ts) — change both together.
@@ -28,6 +30,7 @@ export interface PostDTO {
   imageUrl: string | null;
   videoUrl: string | null;
   feeling: PostFeelingDTO | null;
+  visibility: PostVisibility;
   isLive: boolean;
   reactions: PostReactionsDTO;
   /** The requesting user's own reaction (ReactionId) or null. */
@@ -66,6 +69,7 @@ export interface CreateCommentBody {
 /** Create payload (browser → /api/posts). Author comes from the cookie. */
 export interface CreatePostBody {
   text: string;
+  visibility: PostVisibility;
   imageUrl?: string;
   videoUrl?: string;
   feeling?: PostFeelingDTO | null;
@@ -76,6 +80,7 @@ export interface CreatePostBody {
 /** Edit payload — full replace of the editable fields (null clears). */
 export interface UpdatePostBody {
   text: string;
+  visibility: PostVisibility;
   imageUrl?: string | null;
   videoUrl?: string | null;
   feeling?: PostFeelingDTO | null;

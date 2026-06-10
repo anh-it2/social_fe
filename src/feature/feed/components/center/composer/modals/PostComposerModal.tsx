@@ -1,6 +1,6 @@
 "use client";
 
-import { App, Avatar, Button, Flex, Input, Typography, Upload } from "antd";
+import { App, Avatar, Button, Dropdown, Flex, Input, Typography, Upload } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -15,10 +15,24 @@ import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfil
 import { gradientBg } from "@/shared/utils/gradient";
 import { uploadPostMediaService } from "../../../../services/media/uploadPostMedia.service";
 import { CURRENT_USER, FEELINGS } from "../../../../data/constants";
-import type { Feeling, FeedPostData } from "../../../../data/types";
+import type {
+  Feeling,
+  FeedPostData,
+  PostVisibility,
+} from "../../../../data/types";
 import styles from "./PostComposerModal.module.scss";
 
 const { Text, Title } = Typography;
+
+const VISIBILITY_OPTIONS: Array<{
+  value: PostVisibility;
+  icon: string;
+  labelKey: "visibilityPublic" | "visibilityFollowers" | "visibilityPrivate";
+}> = [
+  { value: "PUBLIC", icon: "public", labelKey: "visibilityPublic" },
+  { value: "FOLLOWERS", icon: "group", labelKey: "visibilityFollowers" },
+  { value: "PRIVATE", icon: "lock", labelKey: "visibilityPrivate" },
+];
 
 export type ComposerMode = "default" | "photo" | "feeling";
 
@@ -52,6 +66,7 @@ export function PostComposerModal({
   const [imageUrl, setImageUrl] = useState("");
   const [mediaType, setMediaType] = useState<"image" | "video">("image");
   const [feeling, setFeeling] = useState<Feeling | null>(null);
+  const [visibility, setVisibility] = useState<PostVisibility>("PUBLIC");
   const [showPhotoSection, setShowPhotoSection] = useState(false);
   const [showFeelingPicker, setShowFeelingPicker] = useState(false);
   const [feelingTab, setFeelingTab] = useState<"feeling" | "activity">("feeling");
@@ -74,6 +89,7 @@ export function PostComposerModal({
       setImageUrl(existingMedia);
       setMediaType(existingType);
       setFeeling(initialPost.feeling ?? null);
+      setVisibility(initialPost.visibility ?? "PUBLIC");
       setShowPhotoSection(!!existingMedia);
       setShowFeelingPicker(!!initialPost.feeling);
       setFile(
@@ -90,6 +106,7 @@ export function PostComposerModal({
     }
     setShowPhotoSection(mode === "photo");
     setShowFeelingPicker(mode === "feeling");
+    setVisibility("PUBLIC");
      
   }, [open, mode, initialPost]);
 
@@ -105,6 +122,7 @@ export function PostComposerModal({
     setImageUrl("");
     setMediaType("image");
     setFeeling(null);
+    setVisibility("PUBLIC");
     setShowPhotoSection(false);
     setShowFeelingPicker(false);
     setFeelingTab("feeling");
@@ -159,6 +177,9 @@ export function PostComposerModal({
   }, [feelingTab, search]);
 
   const canSubmit = text.trim().length > 0 || imageUrl.length > 0 || feeling !== null;
+  const selectedVisibility =
+    VISIBILITY_OPTIONS.find((option) => option.value === visibility) ??
+    VISIBILITY_OPTIONS[0];
 
   const handleSubmit = async () => {
     if (!canSubmit) {
@@ -190,6 +211,7 @@ export function PostComposerModal({
           videoUrl: videoField,
           imageGradient: mediaUrl ? undefined : initialPost.imageGradient,
           feeling: feeling ?? undefined,
+          visibility,
           time: `${initialPost.time} · edited`,
         });
         const oldHandles = new Set(extractMentionHandles(initialPost.text ?? ""));
@@ -223,6 +245,7 @@ export function PostComposerModal({
         imageUrl: imageField,
         videoUrl: videoField,
         feeling: feeling ?? undefined,
+        visibility,
         likes: "0",
         comments: 0,
         shares: 0,
@@ -280,16 +303,40 @@ export function PostComposerModal({
                 </Text>
               )}
             </Text>
-            <Flex
-              align="center"
-              gap={3}
-              className="!rounded-full !px-1.5 !py-0.5 !w-fit bg-[var(--color-bg-tertiary)]"  >
-              <Icon name="public" size={11} color="var(--color-text-muted)" />
-              <Text
-                className="!text-[10px] !font-semibold text-[var(--color-text-muted)]"  >
-                {t("visibility")}
-              </Text>
-            </Flex>
+            <Dropdown
+              trigger={["click"]}
+              menu={{
+                selectedKeys: [visibility],
+                items: VISIBILITY_OPTIONS.map((option) => ({
+                  key: option.value,
+                  icon: <Icon name={option.icon} size={15} />,
+                  label: t(option.labelKey),
+                })),
+                onClick: ({ key }) => setVisibility(key as PostVisibility),
+              }}
+            >
+              <Button
+                type="text"
+                size="small"
+                className="!h-auto !rounded-full !px-1.5 !py-0.5 bg-[var(--color-bg-tertiary)]"
+              >
+                <Flex align="center" gap={3}>
+                  <Icon
+                    name={selectedVisibility.icon}
+                    size={11}
+                    color="var(--color-text-muted)"
+                  />
+                  <Text className="!text-[10px] !font-semibold text-[var(--color-text-muted)]">
+                    {t(selectedVisibility.labelKey)}
+                  </Text>
+                  <Icon
+                    name="arrow_drop_down"
+                    size={13}
+                    color="var(--color-text-muted)"
+                  />
+                </Flex>
+              </Button>
+            </Dropdown>
           </Flex>
         </Flex>
 

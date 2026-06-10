@@ -649,7 +649,9 @@
     "postComposer": {
       "create": "Create post",
       "edit": "Edit post",
-      "visibility": "Public",
+      "visibilityPublic": "Public",
+      "visibilityFollowers": "Followers",
+      "visibilityPrivate": "Only me",
       "placeholder": "What's on your mind, {name}?",
       "addPhotos": "Add photos/videos",
       "dragDrop": "or drag and drop",

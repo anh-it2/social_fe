@@ -43,6 +43,8 @@ export interface Feeling {
   kind: "feeling" | "activity";
 }
 
+export type PostVisibility = "PUBLIC" | "FOLLOWERS" | "PRIVATE";
+
 export interface SharedPostRef {
   id: string;
   author: FeedAuthor;
@@ -53,6 +55,7 @@ export interface SharedPostRef {
   imageUrl?: string;
   videoUrl?: string;
   feeling?: Feeling;
+  visibility?: PostVisibility;
   isLive?: boolean;
 }
 
@@ -67,6 +70,7 @@ export interface FeedPostData {
   imageUrl?: string;
   videoUrl?: string;
   feeling?: Feeling;
+  visibility?: PostVisibility;
   isLive?: boolean;
   likes: string;
   comments: number;

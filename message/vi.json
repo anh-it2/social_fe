@@ -649,7 +649,9 @@
     "postComposer": {
       "create": "Tạo bài viết",
       "edit": "Chỉnh sửa bài viết",
-      "visibility": "Công khai",
+      "visibilityPublic": "Công khai",
+      "visibilityFollowers": "Người theo dõi",
+      "visibilityPrivate": "Chỉ mình tôi",
       "placeholder": "Bạn đang nghĩ gì, {name}?",
       "addPhotos": "Thêm ảnh/video",
       "dragDrop": "hoặc kéo và thả",
