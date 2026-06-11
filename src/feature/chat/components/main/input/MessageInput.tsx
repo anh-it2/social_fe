@@ -48,7 +48,7 @@ const PILL_BTN_COMPACT =
 
 // Matches the post composer/comment image-persist limit. The image is now
 // uploaded to the BE (→ short hosted URL) instead of inlined as base64.
-const IMAGE_MAX_BYTES = 5 * 1024 * 1024;
+const IMAGE_MAX_BYTES = 2 * 1024 * 1024;
 
 export function MessageInput({
   recipientName,

@@ -933,7 +933,25 @@
       "relationship": "Mối quan hệ",
       "relationshipPlaceholder": "Chọn trạng thái mối quan hệ",
       "single": "Độc thân",
-      "inRelationship": "Đang hẹn hò"
+      "inRelationship": "Đang hẹn hò",
+      "coverAvatar": {
+        "title": "Ảnh bìa và ảnh đại diện",
+        "description": "Tải lên hình ảnh thể hiện bạn. Ảnh đại diện sẽ xuất hiện trên mọi bài viết.",
+        "uploadCover": "Tải ảnh bìa",
+        "changeCover": "Đổi ảnh bìa",
+        "profilePicture": "Ảnh đại diện",
+        "requirements": "JPG hoặc PNG. Tối đa 4MB. Nên sử dụng ảnh vuông.",
+        "upload": "Tải lên",
+        "remove": "Xóa",
+        "imageOnly": "Chỉ được phép tải lên tệp hình ảnh.",
+        "fileTooLarge": "Ảnh quá lớn (tối đa 4MB).",
+        "avatarUploaded": "Đã tải ảnh đại diện lên.",
+        "coverUploaded": "Đã tải ảnh bìa lên.",
+        "uploadFailed": "Không thể tải ảnh lên.",
+        "avatarRemoved": "Đã xóa ảnh đại diện.",
+        "coverPreviewAlt": "Xem trước ảnh bìa",
+        "avatarPreviewAlt": "Xem trước ảnh đại diện"
+      }
     },
     "feed": {
       "composer": "Bạn đang nghĩ gì, Sarah?",

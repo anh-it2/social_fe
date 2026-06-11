@@ -2,6 +2,7 @@
 
 import { App, Button, Flex, Typography, Upload } from "antd";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { uploadProfileImageService } from "@/feature/profile/services/uploadProfileImage.service";
@@ -27,6 +28,7 @@ interface EditCoverPreviewProps {
 export function EditCoverPreview({
   onUploadingChange,
 }: EditCoverPreviewProps) {
+  const t = useTranslations("Profile.edit.coverAvatar");
   const { message } = App.useApp();
   const { control, setValue } = useFormContext<EditProfileValues>();
   const [uploading, setUploading] = useState<"avatar" | "cover" | null>(null);
@@ -46,11 +48,11 @@ export function EditCoverPreview({
     (kind: "avatar" | "cover", field: "avatarUrl" | "coverUrl") =>
     (raw: File) => {
     if (!raw.type.startsWith("image/")) {
-      message.error("Only images allowed");
+      message.error(t("imageOnly"));
       return Upload.LIST_IGNORE;
     }
     if (raw.size > MAX_BYTES) {
-      message.error("File too big (max 4MB)");
+      message.error(t("fileTooLarge"));
       return Upload.LIST_IGNORE;
     }
 
@@ -61,14 +63,12 @@ export function EditCoverPreview({
         setValue(field, url, { shouldDirty: true });
         message.success(
           kind === "avatar"
-            ? "Profile picture uploaded"
-            : "Cover photo uploaded",
+            ? t("avatarUploaded")
+            : t("coverUploaded"),
         );
       })
-      .catch((error) => {
-        message.error(
-          error instanceof Error ? error.message : "Failed to upload image",
-        );
+      .catch(() => {
+        message.error(t("uploadFailed"));
       })
       .finally(() => {
         setUploading(null);
@@ -80,13 +80,13 @@ export function EditCoverPreview({
 
   const removeAvatar = () => {
     setValue("avatarUrl", "", { shouldDirty: true });
-    message.success("Profile picture removed");
+    message.success(t("avatarRemoved"));
   };
 
   return (
     <EditCard
-      title="Cover & Avatar"
-      description="Upload images that represent you. Avatar shows on every post."
+      title={t("title")}
+      description={t("description")}
     >
       <div
         className="relative w-full overflow-hidden"
@@ -99,7 +99,7 @@ export function EditCoverPreview({
         {coverUrl && (
           <Image className="[object-fit:cover]"
             src={coverUrl}
-            alt="cover preview"
+            alt={t("coverPreviewAlt")}
             fill
             unoptimized
             sizes="(min-width: 960px) 912px, 100vw"  />
@@ -119,7 +119,7 @@ export function EditCoverPreview({
               <Flex align="center" gap={6}>
                 <Icon name="photo_camera" size={16} color="#fff" />
                 <span className="text-xs font-semibold">
-                  {coverUrl ? "Change Cover" : "Upload Cover"}
+                  {coverUrl ? t("changeCover") : t("uploadCover")}
                 </span>
               </Flex>
             </Button>
@@ -142,7 +142,7 @@ export function EditCoverPreview({
           {avatarUrl ? (
             <Image className="[object-fit:cover]"
               src={avatarUrl}
-              alt="avatar preview"
+              alt={t("avatarPreviewAlt")}
               fill
               unoptimized
               sizes="120px"  />
@@ -156,10 +156,10 @@ export function EditCoverPreview({
         <Flex vertical gap={8}>
           <Text
             className="!text-sm !font-semibold text-[var(--color-text)]"  >
-            Profile picture
+            {t("profilePicture")}
           </Text>
           <Text className="!text-xs text-[var(--color-text-muted)]" >
-            JPG, PNG. Max 4MB. Square recommended.
+            {t("requirements")}
           </Text>
           <Flex gap={8}>
             <Upload
@@ -178,7 +178,7 @@ export function EditCoverPreview({
                   color: "#fff",
                 }}
               >
-                <span className="text-xs font-semibold">Upload</span>
+                <span className="text-xs font-semibold">{t("upload")}</span>
               </Button>
             </Upload>
             <Button
@@ -186,7 +186,7 @@ export function EditCoverPreview({
               onClick={removeAvatar}
               disabled={!avatarUrl || uploading !== null}
               className="!h-9 !rounded-3xl !border !px-4 [border-color:var(--color-border)] bg-[transparent] text-[var(--color-text-secondary)]"  >
-              <span className="text-xs font-semibold">Remove</span>
+              <span className="text-xs font-semibold">{t("remove")}</span>
             </Button>
           </Flex>
         </Flex>

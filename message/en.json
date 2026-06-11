@@ -933,7 +933,25 @@
       "relationship": "Relationship",
       "relationshipPlaceholder": "Select relationship status",
       "single": "Single",
-      "inRelationship": "In a relationship"
+      "inRelationship": "In a relationship",
+      "coverAvatar": {
+        "title": "Cover & Avatar",
+        "description": "Upload images that represent you. Your avatar appears on every post.",
+        "uploadCover": "Upload Cover",
+        "changeCover": "Change Cover",
+        "profilePicture": "Profile picture",
+        "requirements": "JPG or PNG. Maximum 4MB. Square image recommended.",
+        "upload": "Upload",
+        "remove": "Remove",
+        "imageOnly": "Only image files are allowed.",
+        "fileTooLarge": "The image is too large (maximum 4MB).",
+        "avatarUploaded": "Profile picture uploaded.",
+        "coverUploaded": "Cover photo uploaded.",
+        "uploadFailed": "Failed to upload image.",
+        "avatarRemoved": "Profile picture removed.",
+        "coverPreviewAlt": "Cover preview",
+        "avatarPreviewAlt": "Profile picture preview"
+      }
     },
     "feed": {
       "composer": "What's on your mind, Sarah?",
