@@ -15,8 +15,8 @@ import { useEffect, useRef, useState } from "react";
 import { MentionPicker } from "@/feature/mention/components/MentionPicker";
 import { useSearchMentionUsers } from "@/feature/mention/data/users";
 import { useMentionInput } from "@/feature/mention/hooks/useMentionInput";
-import { uploadPostMediaService } from "@/feature/feed/services/media/uploadPostMedia.service";
 import type { ReplyContext } from "../../../types";
+import { uploadChatImageService } from "../../../services/uploadChatImage.service";
 import { EmojiPicker } from "./EmojiPicker";
 import { GifPicker } from "./GifPicker";
 
@@ -126,10 +126,14 @@ export function MessageInput({
     }
     try {
       setUploading(true);
-      const url = await uploadPostMediaService(file);
+      const url = await uploadChatImageService(file);
       await onSend(url, "image");
-    } catch {
-      message.error(t("input.errorUploadFailed"));
+    } catch (error) {
+      message.error(
+        error instanceof Error && error.message
+          ? error.message
+          : t("input.errorUploadFailed"),
+      );
     } finally {
       setUploading(false);
     }
