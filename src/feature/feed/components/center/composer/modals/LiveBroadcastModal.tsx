@@ -5,6 +5,8 @@ import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
+import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
 import { gradientBg } from "@/shared/utils/gradient";
 import { CURRENT_USER } from "../../../../data/constants";
 import type { FeedPostData } from "../../../../data/types";
@@ -26,6 +28,13 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
   const tPostComposer = useTranslations("Feed.postComposer");
   const tReel = useTranslations("Feed.reelViewer");
   const { message } = App.useApp();
+  const authUserId = useAuthStore((s) => s.userId);
+  const authUserName = useAuthStore((s) => s.userName);
+  const { meta, hydrated } = useProfileMeta();
+  const myId = authUserId || CURRENT_USER.id;
+  const myName = (hydrated && meta.name) || authUserName || CURRENT_USER.name;
+  const myInitial = (myName.trim()[0] ?? CURRENT_USER.initial).toUpperCase();
+  const myAvatarUrl = hydrated ? meta.avatarUrl : "";
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -70,10 +79,11 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
   }, []);
 
   useEffect(() => {
-    if (!open) {
-      stopStream();
-      stopTimer();
-      stopRecorder();
+    if (open) return;
+    stopStream();
+    stopTimer();
+    stopRecorder();
+    const resetTimer = window.setTimeout(() => {
       setPhase("idle");
       setTitle("");
       setError(null);
@@ -81,7 +91,8 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
       setViewers(0);
       setSnapshot(null);
       chunksRef.current = [];
-    }
+    }, 0);
+    return () => window.clearTimeout(resetTimer);
   }, [open]);
 
   const startCamera = async () => {
@@ -217,10 +228,13 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
     stopStream();
     onSubmit({
       id: `fp-live-${Date.now()}`,
+      ownerId: myId,
       author: {
-        name: CURRENT_USER.name,
-        initial: CURRENT_USER.initial,
+        id: myId,
+        name: myName,
+        initial: myInitial,
         gradient: CURRENT_USER.gradient,
+        avatarUrl: myAvatarUrl || undefined,
       },
       time: tReel("justNow"),
       createdAt: Date.now(),
@@ -375,13 +389,19 @@ export function LiveBroadcastModal({ open, onClose, onSubmit }: LiveBroadcastMod
         <Flex align="center" gap={10}>
           <Avatar
             size={36}
-            style={{ background: gradientBg(CURRENT_USER.gradient), fontWeight: 700 }}
+            src={myAvatarUrl || undefined}
+            style={{
+              background: myAvatarUrl
+                ? undefined
+                : gradientBg(CURRENT_USER.gradient),
+              fontWeight: 700,
+            }}
           >
-            {CURRENT_USER.initial}
+            {myInitial}
           </Avatar>
           <Flex vertical gap={0}>
             <Text className="!text-sm !font-semibold text-[var(--color-text)]" >
-              {CURRENT_USER.name}
+              {myName}
             </Text>
             <Flex
               align="center"

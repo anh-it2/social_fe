@@ -29,9 +29,11 @@ export function ProfileIdentity() {
         >
           {name}
         </Text>
-        <span className={styles.verified} aria-label={t("verified")}>
-          <Icon name="verified" size={20} />
-        </span>
+        {view.isSelf ? (
+          <span className={styles.verified} aria-label={t("verified")}>
+            <Icon name="verified" size={20} />
+          </span>
+        ) : null}
       </Flex>
 
       <Flex
@@ -52,10 +54,12 @@ export function ProfileIdentity() {
             <span className={styles.chipText}>{location}</span>
           </span>
         ) : null}
-        <span className={`${styles.chip} ${styles.statusChip}`}>
-          <span className={styles.statusDot} />
-          <span className={styles.chipText}>{t("openToCollab")}</span>
-        </span>
+        {view.isSelf ? (
+          <span className={`${styles.chip} ${styles.statusChip}`}>
+            <span className={styles.statusDot} />
+            <span className={styles.chipText}>{t("openToCollab")}</span>
+          </span>
+        ) : null}
       </Flex>
     </Flex>
   );

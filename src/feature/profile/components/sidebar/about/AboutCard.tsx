@@ -29,7 +29,12 @@ export function AboutCard({ onEditAbout }: AboutCardProps) {
   const bio = view.isSelf ? meta.bio : view.bio;
   const fields = view.isSelf
     ? [meta.work, meta.education, meta.location, meta.relationship]
-    : ["", "", view.location ?? "", ""];
+    : [
+        view.work ?? "",
+        view.education ?? "",
+        view.location ?? "",
+        view.relationship ?? "",
+      ];
 
   const items: AboutItemData[] = fields
     .map((text, i) => ({
@@ -51,7 +56,7 @@ export function AboutCard({ onEditAbout }: AboutCardProps) {
 
   return (
     <CardWrapper>
-      <AboutHeader onEditClick={onEditAbout} />
+      <AboutHeader onEditClick={view.isSelf ? onEditAbout : undefined} />
       <AboutBio text={bio} />
       {items.length > 0 ? <AboutDivider /> : null}
       {items.map((item) => (

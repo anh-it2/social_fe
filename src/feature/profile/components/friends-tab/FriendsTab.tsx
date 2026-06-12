@@ -9,6 +9,7 @@ import {
   useIncomingRequests,
   useSuggestions,
 } from "@/feature/friends/hooks/useFriends";
+import { useProfileView } from "../../context/ProfileViewContext";
 import type { BirthdayEntry } from "../../data/mock";
 import { useOnlineNameSet } from "../../hooks/useFriendOnline";
 import { BirthdayItem } from "./cards/BirthdayItem";
@@ -28,10 +29,12 @@ export function FriendsTab() {
   const [query, setQuery] = useState("");
 
   const onlineNames = useOnlineNameSet();
-  const friends = useFriendsList();
+  const view = useProfileView();
+  const ownFriends = useFriendsList();
+  const friends = view.isSelf ? ownFriends : view.friends ?? [];
   const incoming = useIncomingRequests();
   const suggestions = useSuggestions();
-  const requests = incoming.map((r) => ({
+  const requests = (view.isSelf ? incoming : []).map((r) => ({
     id: r.id,
     name: r.name,
     avatarUrl: r.avatarUrl,
@@ -53,6 +56,42 @@ export function FriendsTab() {
   const birthdays: BirthdayEntry[] = [];
 
   const seeAll = t("actions.seeAll");
+
+  if (!view.isSelf) {
+    return (
+      <Flex
+        vertical
+        gap={20}
+        className="!w-full !px-3 !py-4 sm:!gap-6 sm:!px-6 sm:!py-5 lg:!px-12 lg:!py-6 bg-[var(--color-bg)]"
+      >
+        <section className="!w-full">
+          <SectionHeader
+            title={t("sections.all")}
+            count={filteredFriends.length}
+          />
+          {filteredFriends.length === 0 ? (
+            <Empty
+              description={
+                <span className="text-[var(--color-text-muted)]">
+                  {t("empty.noFriends")}
+                </span>
+              }
+            />
+          ) : (
+            <div className="!grid !w-full !grid-cols-1 !gap-3 sm:!grid-cols-2 sm:!gap-4 md:!grid-cols-3 xl:!grid-cols-4 2xl:!grid-cols-5">
+              {filteredFriends.map((friend) => (
+                <FriendCard
+                  key={friend.id}
+                  friend={friend}
+                  online={isOnline(friend.name)}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      </Flex>
+    );
+  }
 
   const showAll = filter === "all";
   const showOnline = filter === "all" || filter === "online";

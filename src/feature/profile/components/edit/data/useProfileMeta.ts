@@ -9,8 +9,6 @@ import { updateProfileService } from "@/feature/profile/services/updateProfile.s
 import { EDIT_PROFILE_DEFAULTS } from "./edit-profile.constants";
 import type { EditProfileValues } from "./edit-profile.schema";
 
-const PROFILE_QUERY_KEY = ["profile", "me"] as const;
-
 // Unscoped key the presence socket reads on connect (readSelfAvatar) to
 // announce this user's avatar before the edit page is ever opened. The DB
 // is the source of truth; this is only a cache so presence has something
@@ -36,15 +34,20 @@ function mirrorAvatarForPresence(avatarUrl: string | undefined) {
  * caller after this resolves (variant 1a: persist first, then announce).
  */
 export function useProfileMeta() {
+  const userId = useAuthStore((s) => s.userId);
   const userName = useAuthStore((s) => s.userName);
   const isLoggined = useAuthStore((s) => s.isLoggined);
   const queryClient = useQueryClient();
   const publishedProfileRef = useRef("");
+  const profileQueryKey = useMemo(
+    () => ["profile", "me", userId] as const,
+    [userId],
+  );
 
   const query = useQuery({
-    queryKey: PROFILE_QUERY_KEY,
+    queryKey: profileQueryKey,
     queryFn: getProfileService,
-    enabled: isLoggined,
+    enabled: isLoggined && !!userId,
     staleTime: 30_000,
     refetchOnWindowFocus: false,
     retry: false,
@@ -79,7 +82,7 @@ export function useProfileMeta() {
   const mutation = useMutation({
     mutationFn: updateProfileService,
     onSuccess: (saved) => {
-      queryClient.setQueryData(PROFILE_QUERY_KEY, saved);
+      queryClient.setQueryData(profileQueryKey, saved);
       mirrorAvatarForPresence(saved.avatarUrl);
     },
   });

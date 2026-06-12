@@ -9,6 +9,7 @@ import { SendToChatModal } from "@/shared/components/post/share-dropdown/SendToC
 import shareStyles from "@/shared/components/post/share-dropdown/ShareDropdown.module.scss";
 import { COVER_GLASS, COVER_GLASS_FG } from "./coverGlass";
 import { Icon } from "../../Icon";
+import { useProfileView } from "../../../context/ProfileViewContext";
 
 const { Text } = Typography;
 
@@ -18,6 +19,7 @@ export function ShareButton() {
   const tShare = useTranslations("Profile.share");
   const { message: api } = App.useApp();
   const { meta } = useProfileMeta();
+  const view = useProfileView();
   const [open, setOpen] = useState(false);
   const [sendOpen, setSendOpen] = useState(false);
 
@@ -95,7 +97,9 @@ export function ShareButton() {
         onClose={() => setSendOpen(false)}
         onSent={handleSent}
         shareUrl={profileUrl}
-        refLabel={tShare("profileRef", { name: meta.name })}
+        refLabel={tShare("profileRef", {
+          name: view.isSelf ? meta.name : (view.name ?? ""),
+        })}
         title={tShare("sendModalTitle")}
         subtitle={tShare("sendModalSubtitle")}
       />

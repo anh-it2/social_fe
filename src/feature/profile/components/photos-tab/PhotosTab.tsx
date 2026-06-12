@@ -4,15 +4,15 @@ import { Button, Empty, Flex, Image, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import type { FeedPostData } from "@/feature/feed/data/types";
-import { useUserPosts } from "@/feature/feed/data/useUserPosts";
 import { Icon } from "@/shared/components/Icon";
 import { PostComposerModal } from "@/feature/feed/components/center/composer/modals/PostComposerModal";
+import { useProfilePosts } from "../../hooks/useProfilePosts";
 
 const { Title, Text } = Typography;
 
 export function PhotosTab() {
   const t = useTranslations("Profile.photosTab");
-  const { posts, addPost } = useUserPosts();
+  const { posts, addPost, isSelf } = useProfilePosts();
   const [composerOpen, setComposerOpen] = useState(false);
 
   const photos = useMemo(
@@ -41,14 +41,16 @@ export function PhotosTab() {
             {t("count", { count: photos.length })}
           </Text>
         </Flex>
-        <Button
-          type="primary"
-          icon={<Icon name="add_a_photo" size={18} color="#fff" />}
-          onClick={() => setComposerOpen(true)}
-          className="!h-10 !rounded-[10px] !font-semibold"
-        >
-          {t("addPhotos")}
-        </Button>
+        {isSelf ? (
+          <Button
+            type="primary"
+            icon={<Icon name="add_a_photo" size={18} color="#fff" />}
+            onClick={() => setComposerOpen(true)}
+            className="!h-10 !rounded-[10px] !font-semibold"
+          >
+            {t("addPhotos")}
+          </Button>
+        ) : null}
       </Flex>
 
       {photos.length === 0 ? (
@@ -84,12 +86,14 @@ export function PhotosTab() {
         </div>
       )}
 
-      <PostComposerModal
-        open={composerOpen}
-        mode="photo"
-        onClose={() => setComposerOpen(false)}
-        onSubmit={handleCreate}
-      />
+      {isSelf ? (
+        <PostComposerModal
+          open={composerOpen}
+          mode="photo"
+          onClose={() => setComposerOpen(false)}
+          onSubmit={handleCreate}
+        />
+      ) : null}
     </Flex>
   );
 }

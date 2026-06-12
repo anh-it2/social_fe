@@ -3,7 +3,7 @@
 import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { useUserPosts } from "@/feature/feed/data/useUserPosts";
+import { useProfilePosts } from "../../../hooks/useProfilePosts";
 import { CardSectionHeader } from "../card/CardSectionHeader";
 import { CardWrapper } from "../card/CardWrapper";
 import { PhotoTile } from "./PhotoTile";
@@ -12,7 +12,7 @@ const { Text } = Typography;
 
 export function PhotosCard() {
   const t = useTranslations("Profile.sidebar");
-  const { posts } = useUserPosts();
+  const { posts } = useProfilePosts();
 
   const photoUrls = useMemo(
     () =>

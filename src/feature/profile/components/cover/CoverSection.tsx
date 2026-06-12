@@ -17,7 +17,8 @@ export function CoverSection() {
   const { meta, hydrated } = useProfileMeta();
   // Only the logged-in user's own cover comes from their saved profile.
   const coverUrl = view.isSelf && hydrated ? meta.coverUrl : "";
-  const hasCover = !!coverUrl;
+  const displayedCoverUrl = view.isSelf ? coverUrl : view.coverUrl ?? "";
+  const hasCover = !!displayedCoverUrl;
   // Other people get a stable per-person gradient, not my background.
   const fallbackBg =
     !view.isSelf && view.gradient
@@ -35,7 +36,7 @@ export function CoverSection() {
     >
       {hasCover && (
         <Image className="[object-fit:cover]"
-          src={coverUrl}
+          src={displayedCoverUrl}
           alt="cover"
           fill
           unoptimized

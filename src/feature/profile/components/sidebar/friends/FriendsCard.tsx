@@ -3,13 +3,16 @@
 import { Flex } from "antd";
 import { useTranslations } from "next-intl";
 import { useFriendsList } from "@/feature/friends/hooks/useFriends";
+import { useProfileView } from "../../../context/ProfileViewContext";
 import { CardSectionHeader } from "../card/CardSectionHeader";
 import { CardWrapper } from "../card/CardWrapper";
 import { FriendItem } from "./FriendItem";
 
 export function FriendsCard() {
   const t = useTranslations("Profile.sidebar");
-  const friends = useFriendsList();
+  const view = useProfileView();
+  const ownFriends = useFriendsList();
+  const friends = view.isSelf ? ownFriends : view.friends ?? [];
   const row1 = friends.slice(0, 3);
   const row2 = friends.slice(3, 6);
 

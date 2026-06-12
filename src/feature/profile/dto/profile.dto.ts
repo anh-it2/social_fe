@@ -32,6 +32,27 @@ export interface PublicUserDTO {
   avatarUrl?: string | null;
   coverUrl?: string | null;
   bio?: string | null;
+  location: string;
+  work: string;
+  education: string;
+  relationship: string;
+  friends: PublicProfileFriendDTO[];
+  stats: PublicProfileStatsDTO;
+}
+
+export interface PublicProfileFriendDTO {
+  id: string;
+  name: string;
+  avatarUrl?: string | null;
+  location?: string;
+}
+
+export interface PublicProfileStatsDTO {
+  posts: number;
+  friends: number;
+  photos: number;
+  videos: number;
+  likes: number;
 }
 
 export interface PublicUserResponseDTO {

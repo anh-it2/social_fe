@@ -3,6 +3,7 @@
 import { Avatar, Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
 import { CURRENT_USER } from "../../../data/constants";
 import { gradientBg } from "@/shared/utils/gradient";
@@ -22,8 +23,9 @@ export function Composer({ onCreatePost }: ComposerProps) {
   const t = useTranslations("Feed.composer");
   const [postMode, setPostMode] = useState<ComposerMode | null>(null);
   const [liveOpen, setLiveOpen] = useState(false);
+  const authName = useAuthStore((s) => s.userName);
   const { meta, hydrated } = useProfileMeta();
-  const name = hydrated && meta.name ? meta.name : CURRENT_USER.name;
+  const name = (hydrated && meta.name) || authName || CURRENT_USER.name;
   const avatarUrl = hydrated ? meta.avatarUrl : "";
   const initial = (name.trim()[0] ?? CURRENT_USER.initial).toUpperCase();
   const firstName = name.split(" ").pop() ?? "";

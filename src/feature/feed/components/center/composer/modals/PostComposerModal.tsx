@@ -59,7 +59,12 @@ export function PostComposerModal({
   const { message } = App.useApp();
   const { meta, hydrated } = useProfileMeta();
   const authUserId = useAuthStore((s) => s.userId);
+  const authUserName = useAuthStore((s) => s.userName);
   const myId = authUserId || CURRENT_USER.id;
+  const myName = (hydrated && meta.name) || authUserName || CURRENT_USER.name;
+  const myInitial = (myName.trim()[0] ?? CURRENT_USER.initial).toUpperCase();
+  const myAvatarUrl = hydrated ? meta.avatarUrl : "";
+  const myFirstName = myName.split(" ").pop() ?? "";
   const isEdit = !!initialPost;
   const [text, setText] = useState("");
   const [file, setFile] = useState<UploadFile | null>(null);
@@ -234,10 +239,10 @@ export function PostComposerModal({
         ownerId: myId,
         author: {
           id: myId,
-          name: CURRENT_USER.name,
-          initial: CURRENT_USER.initial,
+          name: myName,
+          initial: myInitial,
           gradient: CURRENT_USER.gradient,
-          avatarUrl: hydrated ? meta.avatarUrl || undefined : undefined,
+          avatarUrl: myAvatarUrl || undefined,
         },
         time: tReel("justNow"),
         createdAt: Date.now(),
@@ -285,13 +290,19 @@ export function PostComposerModal({
         <Flex align="center" gap={10}>
           <Avatar
             size={40}
-            style={{ background: gradientBg(CURRENT_USER.gradient), fontWeight: 700 }}
+            src={myAvatarUrl || undefined}
+            style={{
+              background: myAvatarUrl
+                ? undefined
+                : gradientBg(CURRENT_USER.gradient),
+              fontWeight: 700,
+            }}
           >
-            {CURRENT_USER.initial}
+            {myInitial}
           </Avatar>
           <Flex vertical gap={0}>
             <Text className="!text-sm !font-semibold text-[var(--color-text)]" >
-              {CURRENT_USER.name}
+              {myName}
               {feeling && (
                 <Text
                   className="!text-sm !font-normal text-[var(--color-text-muted)]"  >
@@ -352,7 +363,7 @@ export function PostComposerModal({
             onSelect={mention.refresh}
             onKeyUp={mention.refresh}
             onClick={mention.refresh}
-            placeholder={t("placeholder", { name: CURRENT_USER.name.split(" ").pop() ?? "" })}
+            placeholder={t("placeholder", { name: myFirstName })}
             autoSize={{ minRows: 4, maxRows: 8 }}
             maxLength={500}
             variant="borderless"
