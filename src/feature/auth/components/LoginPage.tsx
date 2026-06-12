@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { App, Button, Checkbox, Divider, Typography } from "antd";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -131,11 +132,14 @@ export function LoginPage() {
 
         <div className="relative z-10 flex max-w-[600px] flex-col gap-8 px-20 pt-[200px]">
           <div className="flex items-center gap-[14px]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white">
-              <span className="text-[30px] font-extrabold text-[#1877f2]">
-                o
-              </span>
-            </div>
+            <Image
+              src="/icon.svg"
+              alt="Orbit"
+              width={48}
+              height={48}
+              priority
+              className="h-12 w-12 shrink-0"
+            />
             <span className="text-[36px] font-bold text-white">
               {tHero("brand")}
             </span>
