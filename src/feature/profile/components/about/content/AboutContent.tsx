@@ -34,26 +34,27 @@ export function AboutContent({ active }: AboutContentProps) {
   };
 
   if (!view.isSelf) {
+    const workEducationRows: AboutRowData[] = [];
+    if (view.work) {
+      workEducationRows.push({
+        id: "public-work",
+        icon: "work",
+        primary: view.work,
+        gradient: ["#4096ff", "#a855f7"],
+      });
+    }
+    if (view.education) {
+      workEducationRows.push({
+        id: "public-education",
+        icon: "school",
+        primary: view.education,
+        gradient: ["#a855f7", "#ec4899"],
+      });
+    }
+
     const publicRows: Record<AboutCategoryId, AboutRowData[]> = {
       overview: [],
-      work_education: [
-        view.work
-          ? {
-              id: "public-work",
-              icon: "work",
-              primary: view.work,
-              gradient: ["#4096ff", "#a855f7"],
-            }
-          : null,
-        view.education
-          ? {
-              id: "public-education",
-              icon: "school",
-              primary: view.education,
-              gradient: ["#a855f7", "#ec4899"],
-            }
-          : null,
-      ].filter((row): row is AboutRowData => row !== null),
+      work_education: workEducationRows,
       places: view.location
         ? [
             {
