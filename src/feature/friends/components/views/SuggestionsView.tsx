@@ -34,6 +34,7 @@ export function SuggestionsView() {
             <FriendCard
               key={s.id}
               name={s.name}
+              avatarUrl={s.avatarUrl}
               onOpen={() => nav.push(`/profile/${s.id}`)}
               meta={t("section.mutual", { count: s.mutualFriends })}
               secondaryMeta={s.reason}

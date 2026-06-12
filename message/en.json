@@ -323,7 +323,7 @@
       "groupNameLabel": "Group name",
       "namePlaceholder": "Group name (optional)",
       "pickMembers": "Pick at least 2 members",
-      "noUsers": "No users online",
+      "noUsers": "You don't have any friends yet",
       "create": "Create ({count})",
       "cancel": "Cancel",
       "needMembers": "Pick at least 2 members",

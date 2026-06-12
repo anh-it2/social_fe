@@ -9,19 +9,24 @@ import {
 } from "@/shared/components/form-fields/RHFMemberPicker";
 import { RHFTextField } from "@/shared/components/form-fields/RHFTextField";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
-import { usePresenceStore } from "@/feature/presence/stores/presence.store";
+import { useFriendsList } from "@/feature/friends/hooks/useFriends";
 
 export function CreateGroupFields() {
   const t = useTranslations("ChatMenu.groupModal");
   const myId = useAuthStore((s) => s.userId);
-  const users = usePresenceStore((s) => s.onlineUsers);
+  const friends = useFriendsList();
 
   const candidates = useMemo<MemberOption[]>(
     () =>
-      users
+      friends
         .filter((u) => u.id !== myId)
-        .map((u) => ({ id: u.id, name: u.name })),
-    [users, myId],
+        .map((u) => ({
+          id: u.id,
+          name: u.name,
+          avatarUrl: u.avatarUrl,
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    [friends, myId],
   );
 
   return (

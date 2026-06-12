@@ -8,6 +8,7 @@ import type { ReactionId } from "@/shared/data/reactions";
 import { notifyMentions } from "@/feature/mention/lib/notify";
 import { emitNotification } from "@/feature/notification/lib/emit";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
+import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
 import { CURRENT_USER } from "../../../data/constants";
 import { usePostMutations } from "../../../data/usePostMutations";
 import { usePostComments } from "../../../data/usePostComments";
@@ -45,6 +46,7 @@ export function FeedPost({
   const tPost = useTranslations("Feed.post");
   const { message } = App.useApp();
   const authUserId = useAuthStore((s) => s.userId);
+  const { meta, hydrated } = useProfileMeta();
   // Real ownership: the logged-in user authored this post. Replaces the old
   // mock check (author.name === CURRENT_USER.name) now that posts carry a
   // real authorId from the BE.
@@ -224,6 +226,7 @@ export function FeedPost({
         <CommentSection
           comments={comments}
           onAdd={handleAdd}
+          authorAvatarUrl={hydrated ? meta.avatarUrl || undefined : undefined}
           authorInitial={CURRENT_USER.initial}
           authorGradient={CURRENT_USER.gradient}
         />

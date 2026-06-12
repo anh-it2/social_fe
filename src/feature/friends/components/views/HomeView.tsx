@@ -58,6 +58,7 @@ export function HomeView({
             <FriendCard
               key={r.id}
               name={r.name}
+              avatarUrl={r.avatarUrl}
               onOpen={() => nav.push(`/profile/${r.id}`)}
               meta={t("section.mutual", { count: r.mutualFriends })}
               secondaryMeta={r.requestedAt}
@@ -100,6 +101,7 @@ export function HomeView({
               <FriendCard
                 key={s.id}
                 name={s.name}
+                avatarUrl={s.avatarUrl}
                 onOpen={() => nav.push(`/profile/${s.id}`)}
                 meta={t("section.mutual", { count: s.mutualFriends })}
                 secondaryMeta={s.reason}

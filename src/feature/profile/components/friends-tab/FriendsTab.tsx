@@ -34,6 +34,7 @@ export function FriendsTab() {
   const requests = incoming.map((r) => ({
     id: r.id,
     name: r.name,
+    avatarUrl: r.avatarUrl,
     mutualFriends: r.mutualFriends,
     time: r.requestedAt ?? "",
   }));

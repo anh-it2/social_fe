@@ -5,6 +5,7 @@ import { gradientStyle, initials } from "@/feature/chat/lib/avatar";
 
 interface FriendAvatarProps {
   name: string;
+  src?: string;
   size?: number;
   online?: boolean;
   ringColor?: string;
@@ -14,6 +15,7 @@ interface FriendAvatarProps {
 
 export function FriendAvatar({
   name,
+  src,
   size = 64,
   online = false,
   ringColor = "var(--color-bg-secondary)",
@@ -32,6 +34,7 @@ export function FriendAvatar({
     >
       <AntAvatar
         size={size}
+        src={src || undefined}
         shape={square ? "square" : "circle"}
         style={{
           ...bg,

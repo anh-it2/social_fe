@@ -8,6 +8,7 @@
 
 .modal {
   padding: 0 !important;
+  max-width: calc(100vw - 24px);
 
   :global(.ant-modal-content) {
     padding: 0 !important;
@@ -21,7 +22,9 @@
     padding: 0 !important;
     background: var(--dark-modal-bg, #161616) !important;
     border-radius: inherit;
-    overflow: hidden;
+    max-height: calc(100dvh - 24px);
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   :global(.ant-modal-header) {
@@ -29,8 +32,8 @@
   }
 
   :global(.ant-modal-close) {
-    top: 14px;
-    inset-inline-end: 14px;
+    top: 16px;
+    inset-inline-end: 16px;
     z-index: 10;
   }
 }

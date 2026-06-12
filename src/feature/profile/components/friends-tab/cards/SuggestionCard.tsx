@@ -38,10 +38,10 @@ export function SuggestionCard({ suggestion }: SuggestionCardProps) {
         className="!min-w-0 !cursor-pointer"
       >
         <div className="!shrink-0 sm:!hidden">
-          <FriendAvatar name={suggestion.name} size={56} square />
+          <FriendAvatar name={suggestion.name} src={suggestion.avatarUrl} size={56} square />
         </div>
         <div className="!hidden !shrink-0 sm:!block">
-          <FriendAvatar name={suggestion.name} size={72} square />
+          <FriendAvatar name={suggestion.name} src={suggestion.avatarUrl} size={72} square />
         </div>
         <Flex vertical gap={2} className="!min-w-0 !flex-1">
           <Text

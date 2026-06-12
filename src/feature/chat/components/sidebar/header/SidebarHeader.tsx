@@ -7,6 +7,7 @@ import {
   UsergroupAddOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Tooltip, Typography } from "antd";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useNavigation } from "@/shared/hooks/useNavigation";
 
@@ -37,8 +38,16 @@ export function SidebarHeader({ onLogout, onCreateGroup }: SidebarHeaderProps) {
               nav.push("/");
             }
           }}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-[10px] transition-opacity hover:opacity-90 [background:linear-gradient(180deg,_var(--color-primary),_var(--color-primary-light))]"  >
-          <span className="text-[22px] font-extrabold text-white">o</span>
+          className="flex h-9 w-9 cursor-pointer items-center justify-center transition-opacity hover:opacity-90"
+        >
+          <Image
+            src="/icon.svg"
+            alt="Orbit"
+            width={36}
+            height={36}
+            priority
+            className="h-9 w-9 shrink-0"
+          />
         </div>
         <Text className="!text-[22px] !font-bold !text-[var(--color-text)]">
           {t("title")}

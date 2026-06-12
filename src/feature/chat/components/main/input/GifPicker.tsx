@@ -57,7 +57,7 @@ export function GifPicker({ onPick }: GifPickerProps) {
   }, [query, t]);
 
   return (
-    <div className="flex w-[340px] flex-col gap-3 p-3">
+    <div className="flex w-[min(340px,calc(100vw-32px))] max-w-full flex-col gap-3 p-3">
       <Input
         ref={inputRef}
         placeholder={t("placeholder")}

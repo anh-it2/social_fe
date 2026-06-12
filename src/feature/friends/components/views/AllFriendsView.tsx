@@ -53,6 +53,7 @@ export function AllFriendsView() {
           <FriendCard
             key={f.id}
             name={f.name}
+            avatarUrl={f.avatarUrl}
             onOpen={() => nav.push(`/profile/${f.id}`)}
             meta={
               f.mutualFriends

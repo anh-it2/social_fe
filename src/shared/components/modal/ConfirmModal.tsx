@@ -43,7 +43,7 @@ export function ConfirmModal({
         <Icon name="close" size={20} color="var(--color-text-secondary)" />
       }
     >
-      <Flex className="[padding:24px_28px_24px_28px]" vertical gap={16} >
+      <Flex className="!px-7 !py-6" vertical gap={16}>
         <Flex align="center" gap={12}>
           <Flex
             align="center"
@@ -65,7 +65,7 @@ export function ConfirmModal({
           </Flex>
           <Title
             level={5}
-            className="!m-0 !leading-tight text-[var(--color-text)]"  >
+            className="!m-0 !pr-10 !leading-tight text-[var(--color-text)]">
             {title}
           </Title>
         </Flex>

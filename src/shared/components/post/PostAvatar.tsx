@@ -6,6 +6,7 @@ import { gradientBg } from "../../utils/gradient";
 
 interface PostAvatarProps {
   size?: number;
+  src?: string;
   gradient?: [string, string];
   initial?: string;
   bg?: string;
@@ -14,12 +15,22 @@ interface PostAvatarProps {
 
 export function PostAvatar({
   size = 44,
+  src,
   gradient,
   initial,
   bg = "#1f1f1f",
   iconColor = "#FFFFFF",
 }: PostAvatarProps) {
   const background = gradient ? gradientBg([...gradient]) : bg;
+  if (src) {
+    return (
+      <Avatar
+        size={size}
+        src={src}
+        style={{ background, flexShrink: 0 }}
+      />
+    );
+  }
   if (initial) {
     return (
       <Avatar

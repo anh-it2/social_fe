@@ -12,6 +12,7 @@ export type FriendStatus =
 export interface PersonDTO {
   id: string;
   name: string;
+  avatarUrl?: string;
   mutualFriends: number;
   /** suggestion reason e.g. "Works at Meta" */
   reason?: string;

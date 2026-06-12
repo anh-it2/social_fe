@@ -7,6 +7,7 @@ const { Text } = Typography;
 
 interface FriendCardProps {
   name: string;
+  avatarUrl?: string;
   meta?: string;
   secondaryMeta?: string;
   /** open this person's profile (avatar + name become clickable) */
@@ -22,6 +23,7 @@ interface FriendCardProps {
 
 export function FriendCard({
   name,
+  avatarUrl,
   meta,
   secondaryMeta,
   onOpen,
@@ -43,12 +45,24 @@ export function FriendCard({
         justify="center"
         onClick={onOpen}
         className={`!relative !w-full ${openable ? "!cursor-pointer" : ""}`}
-        style={{ aspectRatio: "1 / 1", ...gradientStyle(name) }}
+        style={{
+          aspectRatio: "1 / 1",
+          ...gradientStyle(name),
+          ...(avatarUrl
+            ? {
+                backgroundImage: `url("${avatarUrl}")`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }
+            : {}),
+        }}
       >
-        <Text
-          className="!font-bold !text-white [font-size:clamp(48px,_9vw,_80px)]"  >
-          {initials(name)}
-        </Text>
+        {!avatarUrl ? (
+          <Text
+            className="!font-bold !text-white [font-size:clamp(48px,_9vw,_80px)]"  >
+            {initials(name)}
+          </Text>
+        ) : null}
       </Flex>
       <Flex vertical gap={4} className="!w-full !px-3 !pt-3">
         <Text

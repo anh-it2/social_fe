@@ -29,8 +29,9 @@ export interface ProfileErrorDTO {
 export interface PublicUserDTO {
   id: string;
   name: string;
-  email: string;
-  createdAt: string;
+  avatarUrl?: string | null;
+  coverUrl?: string | null;
+  bio?: string | null;
 }
 
 export interface PublicUserResponseDTO {

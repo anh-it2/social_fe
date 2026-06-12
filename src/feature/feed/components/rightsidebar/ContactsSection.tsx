@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { pickGradient } from "@/feature/chat/lib/avatar";
+import { useFriendsList } from "@/feature/friends/hooks/useFriends";
 import { usePresenceStore } from "@/feature/presence/stores/presence.store";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
@@ -16,8 +17,8 @@ const { Text } = Typography;
 
 export function ContactsSection() {
   const t = useTranslations("Feed.rightSidebar");
+  const friends = useFriendsList();
   const onlineUsers = usePresenceStore((s) => s.onlineUsers);
-  const knownUsers = usePresenceStore((s) => s.knownUsers);
   const openChat = useChatBoxesStore((s) => s.openChat);
   const markRead = useChatRoomUnreadStore((s) => s.markRead);
 
@@ -30,21 +31,25 @@ export function ContactsSection() {
   }, [searching]);
 
   const contacts = useMemo<ContactRowData[]>(() => {
-    const onlineIds = new Set(onlineUsers.map((u) => u.id));
-    const base = knownUsers
-      .map((u) => ({
-        id: u.id,
-        name: u.name,
-        avatar: u.avatar,
-        initial: (u.name?.[0] ?? "?").toUpperCase(),
-        gradient: pickGradient(u.id),
-        online: onlineIds.has(u.id),
+    const onlineById = new Map(onlineUsers.map((u) => [u.id, u]));
+    const base = friends
+      .map((friend) => ({
+        id: friend.id,
+        name: friend.name,
+        avatar: onlineById.get(friend.id)?.avatar ?? friend.avatarUrl,
+        initial: (friend.name?.[0] ?? "?").toUpperCase(),
+        gradient: pickGradient(friend.id),
+        online: onlineById.has(friend.id),
       }))
-      .sort((a, b) => Number(b.online) - Number(a.online));
+      .sort(
+        (a, b) =>
+          Number(b.online) - Number(a.online) ||
+          a.name.localeCompare(b.name),
+      );
     const q = query.trim().toLowerCase();
     if (!q) return base;
     return base.filter((c) => c.name.toLowerCase().includes(q));
-  }, [onlineUsers, knownUsers, query]);
+  }, [friends, onlineUsers, query]);
 
   function closeSearch() {
     setSearching(false);

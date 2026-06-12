@@ -12,7 +12,11 @@ const { Text } = Typography;
 export function ProfileAvatar() {
   const view = useProfileView();
   const { meta, hydrated } = useProfileMeta();
-  const avatarUrl = view.isSelf && hydrated ? meta.avatarUrl : "";
+  const avatarUrl = view.isSelf
+    ? hydrated
+      ? meta.avatarUrl
+      : ""
+    : view.avatarUrl ?? "";
   const hasAvatar = !!avatarUrl;
   const ringGradient =
     !view.isSelf && view.gradient

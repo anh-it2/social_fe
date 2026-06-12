@@ -9,7 +9,7 @@ interface EmojiPickerProps {
 
 export function EmojiPicker({ onPick }: EmojiPickerProps) {
   return (
-    <div className="w-[320px] rounded-lg bg-[var(--color-bg)] p-2 text-[var(--color-text)]">
+    <div className="w-[min(320px,calc(100vw-32px))] max-w-full rounded-lg bg-[var(--color-bg)] p-2 text-[var(--color-text)]">
       <Tabs
         size="small"
         defaultActiveKey={EMOJI_CATEGORIES[0].key}
@@ -19,7 +19,7 @@ export function EmojiPicker({ onPick }: EmojiPickerProps) {
             <span className="!text-[var(--color-text)]">{cat.label}</span>
           ),
           children: (
-            <div className="grid h-[220px] grid-cols-8 gap-1 overflow-y-auto pr-1">
+            <div className="grid h-[220px] grid-cols-6 gap-1 overflow-y-auto pr-1 sm:grid-cols-8">
               {cat.emojis.map((e, idx) => (
                 <button
                   key={`${cat.key}-${idx}`}

@@ -2,7 +2,7 @@
 
 import { App, Button, Flex, Radio, Typography } from "antd";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { usePresenceStore } from "@/feature/presence/stores/presence.store";
@@ -26,6 +26,34 @@ export function TransferAdminModal({
   onClose,
   onTransferred,
 }: TransferAdminModalProps) {
+  return (
+    <DarkModal
+      open={open}
+      onCancel={onClose}
+      width={460}
+      centered
+      bg="var(--color-bg-secondary)"
+      borderColor="var(--color-border)"
+      closeIcon={<Icon name="close" size={20} color="var(--color-text-secondary)" />}
+    >
+      {open ? (
+        <TransferAdminBody
+          group={group}
+          myId={myId}
+          onClose={onClose}
+          onTransferred={onTransferred}
+        />
+      ) : null}
+    </DarkModal>
+  );
+}
+
+function TransferAdminBody({
+  group,
+  myId,
+  onClose,
+  onTransferred,
+}: Omit<TransferAdminModalProps, "open">) {
   const t = useTranslations("GroupAdmin.transferModal");
   const { message } = App.useApp();
   const { promote } = useGroupActions(group.conversationId);
@@ -33,12 +61,8 @@ export function TransferAdminModal({
   const candidates = group.memberIds.filter(
     (id) => id !== myId && !group.adminIds.includes(id),
   );
-  const [pick, setPick] = useState<string | null>(null);
+  const [pick, setPick] = useState<string | null>(candidates[0] ?? null);
   const [busy, setBusy] = useState(false);
-
-  useEffect(() => {
-    if (open) setPick(candidates[0] ?? null);
-  }, [open, group.conversationId]);
 
   function nameOf(id: string) {
     return knownUsers.find((u) => u.id === id)?.name ?? id;
@@ -59,17 +83,8 @@ export function TransferAdminModal({
   }
 
   return (
-    <DarkModal
-      open={open}
-      onCancel={onClose}
-      width={460}
-      centered
-      bg="var(--color-bg-secondary)"
-      borderColor="var(--color-border)"
-      closeIcon={<Icon name="close" size={20} color="var(--color-text-secondary)" />}
-    >
-      <Flex className="[padding:24px_28px]" vertical gap={16} >
-        <Title level={5} className="!m-0 text-[var(--color-text)]" >
+    <Flex className="!px-7 !py-6" vertical gap={16}>
+        <Title level={5} className="!m-0 !pr-10 text-[var(--color-text)]">
           {t("title")}
         </Title>
         <Text className="!text-[13px] !text-[var(--color-text-muted)]">
@@ -107,7 +122,6 @@ export function TransferAdminModal({
             {t("promote")}
           </Button>
         </Flex>
-      </Flex>
-    </DarkModal>
+    </Flex>
   );
 }

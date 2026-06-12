@@ -28,6 +28,7 @@ export interface AboutItem {
 export interface Friend {
   id: string;
   name: string;
+  avatarUrl?: string;
   mutualFriends?: number;
   location?: string;
   mockOnline?: boolean;
@@ -36,6 +37,7 @@ export interface Friend {
 export interface FriendRequest {
   id: string;
   name: string;
+  avatarUrl?: string;
   mutualFriends: number;
   time: string;
 }
@@ -43,6 +45,7 @@ export interface FriendRequest {
 export interface FriendSuggestion {
   id: string;
   name: string;
+  avatarUrl?: string;
   mutualFriends: number;
   reason?: string;
 }
@@ -50,6 +53,7 @@ export interface FriendSuggestion {
 export interface BirthdayEntry {
   id: string;
   name: string;
+  avatarUrl?: string;
   when: "today" | "tomorrow" | "this_week";
   date?: string;
 }

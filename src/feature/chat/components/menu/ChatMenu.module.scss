@@ -11,15 +11,22 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   padding: 6px;
   min-width: 260px;
+  max-width: calc(100vw - 24px);
 
   :global(.ant-dropdown-menu-item) {
     color: var(--color-text) !important;
     border-radius: 8px;
     padding: 8px 10px;
+    white-space: normal;
 
     &:hover {
       background: var(--color-bg-tertiary) !important;
     }
+  }
+
+  :global(.ant-dropdown-menu-title-content) {
+    min-width: 0;
+    line-height: 1.35;
   }
 
   :global(.ant-dropdown-menu-item-divider) {

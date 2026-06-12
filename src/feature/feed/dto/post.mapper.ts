@@ -64,6 +64,7 @@ export function toFeedComment(dto: CommentDTO): FeedComment {
   return {
     id: dto.id,
     author: dto.authorName,
+    authorAvatarUrl: dto.authorAvatarUrl || undefined,
     authorInitial: initialOf(dto.authorName),
     authorGradient: actorGradient(dto.authorId),
     text: dto.text,

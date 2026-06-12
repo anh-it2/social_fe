@@ -32,6 +32,7 @@ export const REACTION_BY_ID: Record<ReactionId, Reaction> = REACTIONS.reduce(
 export interface Comment {
   id: string;
   author: string;
+  authorAvatarUrl?: string;
   authorInitial?: string;
   authorGradient?: [string, string];
   text: string;

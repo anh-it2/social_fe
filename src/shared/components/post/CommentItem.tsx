@@ -18,6 +18,7 @@ export function CommentItem({ comment }: CommentItemProps) {
     <Flex gap={8} className="!w-full">
       <PostAvatar
         size={32}
+        src={comment.authorAvatarUrl}
         gradient={comment.authorGradient}
         initial={comment.authorInitial}
         iconColor={comment.authorGradient ? "#FFFFFF" : "var(--color-text-muted)"}

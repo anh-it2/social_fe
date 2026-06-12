@@ -31,7 +31,7 @@ export function SuggestionTile({ suggestion, onAdd, onDismiss }: SuggestionTileP
           role="link"
           aria-label={suggestion.name}
         >
-          <FriendAvatar name={suggestion.name} size={168} square />
+          <FriendAvatar name={suggestion.name} src={suggestion.avatarUrl} size={168} square />
         </div>
         <Button
           type="text"

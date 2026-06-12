@@ -18,12 +18,14 @@ const IMAGE_MAX_BYTES = 5 * 1024 * 1024;
 
 interface CommentInputProps {
   onSubmit: (payload: CommentInputPayload) => void;
+  authorAvatarUrl?: string;
   authorInitial?: string;
   authorGradient?: [string, string];
 }
 
 export function CommentInput({
   onSubmit,
+  authorAvatarUrl,
   authorInitial,
   authorGradient = ["#4096ff", "#a855f7"],
 }: CommentInputProps) {
@@ -114,7 +116,12 @@ export function CommentInput({
 
   return (
     <Flex gap={8} className="!w-full">
-      <PostAvatar size={32} gradient={authorGradient} initial={authorInitial} />
+      <PostAvatar
+        size={32}
+        src={authorAvatarUrl}
+        gradient={authorGradient}
+        initial={authorInitial}
+      />
       <Flex vertical gap={6} className="!flex-1 !min-w-0">
         <Flex className="bg-[var(--color-bg-tertiary)] rounded-[18px] [padding:0_16px] min-h-[36px]"
           align="center"

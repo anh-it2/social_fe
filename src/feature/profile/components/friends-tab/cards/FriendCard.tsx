@@ -22,10 +22,22 @@ export function FriendCard({ friend, online }: FriendCardProps) {
       className="!w-full !p-3 sm:!p-4 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[16px] [box-shadow:var(--shadow-md)]"  >
       <Flex gap={12} align="center" className="!min-w-0">
         <div className="!shrink-0 sm:!hidden">
-          <FriendAvatar name={friend.name} size={56} online={online} square />
+          <FriendAvatar
+            name={friend.name}
+            src={friend.avatarUrl}
+            size={56}
+            online={online}
+            square
+          />
         </div>
         <div className="!hidden !shrink-0 sm:!block">
-          <FriendAvatar name={friend.name} size={72} online={online} square />
+          <FriendAvatar
+            name={friend.name}
+            src={friend.avatarUrl}
+            size={72}
+            online={online}
+            square
+          />
         </div>
         <Flex vertical gap={2} className="!min-w-0 !flex-1">
           <Text

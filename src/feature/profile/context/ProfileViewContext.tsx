@@ -16,7 +16,7 @@ export interface ProfileView {
   name?: string;
   location?: string;
   bio?: string;
-  /** avatar gradient + initial for other people (they have no uploaded pic) */
+  avatarUrl?: string;
   gradient?: [string, string];
   initial?: string;
 }
@@ -55,7 +55,8 @@ export function ProfileViewProvider({
       personId,
       name,
       location: person?.location,
-      bio: person?.reason,
+      bio: person?.reason ?? fetchedUser?.bio ?? undefined,
+      avatarUrl: person?.avatarUrl ?? fetchedUser?.avatarUrl ?? undefined,
       gradient: pickGradient(personId),
       initial: (name.trim()[0] ?? "?").toUpperCase(),
     };

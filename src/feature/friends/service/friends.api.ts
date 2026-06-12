@@ -27,7 +27,12 @@ import { unfriendService } from "../services/unfriend.service";
 
 /** FriendPerson (wire) → PersonDTO (store). BE has no mutuals graph yet. */
 function toPerson(p: FriendPersonDTO): PersonDTO {
-  return { id: p.id, name: p.name, mutualFriends: 0 };
+  return {
+    id: p.id,
+    name: p.name,
+    avatarUrl: p.avatarUrl || undefined,
+    mutualFriends: 0,
+  };
 }
 
 // Snapshot fetched once per session — useFriendsBootstrap calls init() from

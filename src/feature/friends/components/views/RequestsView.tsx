@@ -38,6 +38,7 @@ export function RequestsView() {
             <FriendCard
               key={r.id}
               name={r.name}
+              avatarUrl={r.avatarUrl}
               onOpen={() => nav.push(`/profile/${r.id}`)}
               meta={t("section.mutual", { count: r.mutualFriends })}
               secondaryMeta={r.requestedAt}

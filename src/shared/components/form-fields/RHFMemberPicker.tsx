@@ -14,6 +14,7 @@ const { Text } = Typography;
 export interface MemberOption {
   id: string;
   name: string;
+  avatarUrl?: string;
 }
 
 export interface RHFMemberPickerProps {
@@ -87,8 +88,11 @@ export function RHFMemberPicker({
                         onChange={() => toggle(u.id)}
                         onClick={(e) => e.stopPropagation()}
                       />
-                      <Avatar className="bg-[var(--color-primary)] text-[var(--color-on-primary)] [font-weight:600]"
-                        size={32}  >
+                      <Avatar
+                        className="bg-[var(--color-primary)] text-[var(--color-on-primary)] [font-weight:600]"
+                        size={32}
+                        src={u.avatarUrl || undefined}
+                      >
                         {u.name.charAt(0).toUpperCase()}
                       </Avatar>
                       <Text

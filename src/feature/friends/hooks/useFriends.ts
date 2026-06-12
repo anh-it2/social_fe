@@ -86,7 +86,7 @@ export function useSuggestions(): PersonDTO[] {
 
     // Deduped presence users — online entries take precedence so their
     // (richer) data wins, self excluded.
-    const seen = new Map<string, { id: string; name: string }>();
+    const seen = new Map<string, { id: string; name: string; avatar?: string }>();
     for (const u of [...onlineUsers, ...knownUsers]) {
       if (u.id === selfId || seen.has(u.id)) continue;
       seen.set(u.id, u);
@@ -94,7 +94,12 @@ export function useSuggestions(): PersonDTO[] {
 
     return [...seen.values()]
       .filter((u) => isCandidate(u.id))
-      .map((u) => ({ id: u.id, name: u.name, mutualFriends: 0 }))
+      .map((u) => ({
+        id: u.id,
+        name: u.name,
+        avatarUrl: u.avatar,
+        mutualFriends: 0,
+      }))
       .sort(
         (a, b) =>
           Number(onlineIds.has(b.id)) - Number(onlineIds.has(a.id)) ||

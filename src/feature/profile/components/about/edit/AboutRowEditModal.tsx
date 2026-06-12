@@ -80,10 +80,10 @@ export function AboutRowEditModal({
       bg="var(--color-bg-secondary)"
       borderColor="var(--color-border)"
     >
-      <Flex className="[padding:24px_28px]" vertical gap={20} >
+      <Flex className="!px-7 !py-6" vertical gap={20}>
         <Title
           level={5}
-          className="!m-0 !leading-tight text-[var(--color-text)]"  >
+          className="!m-0 !pr-10 !leading-tight text-[var(--color-text)]">
           {title}
         </Title>
         <FormProvider {...methods}>

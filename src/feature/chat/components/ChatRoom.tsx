@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useLogout } from "@/feature/auth/hooks/useLogout";
 import { usePresenceStore } from "@/feature/presence/stores/presence.store";
+import { requestPresenceSnapshot } from "@/feature/presence/socket";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
 import { useChatStore } from "../stores/chat.store";
@@ -40,6 +41,7 @@ export function ChatRoom() {
 
   useEffect(() => {
     closeAllChatBoxes();
+    requestPresenceSnapshot();
   }, [closeAllChatBoxes]);
 
   useEffect(() => {

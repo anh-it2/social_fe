@@ -22,6 +22,7 @@ export function FriendItem({ friend }: FriendItemProps) {
         className="!w-full h-[96px] bg-[var(--color-bg-tertiary)] rounded-[12px]"  >
         <FriendAvatar
           name={friend.name}
+          src={friend.avatarUrl}
           size={72}
           online={online}
           square

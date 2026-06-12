@@ -8,6 +8,7 @@ import { CommentList } from "./CommentList";
 interface CommentSectionProps {
   comments: Comment[];
   onAdd: (payload: CommentInputPayload) => void;
+  authorAvatarUrl?: string;
   authorInitial?: string;
   authorGradient?: [string, string];
 }
@@ -15,6 +16,7 @@ interface CommentSectionProps {
 export function CommentSection({
   comments,
   onAdd,
+  authorAvatarUrl,
   authorInitial,
   authorGradient,
 }: CommentSectionProps) {
@@ -26,6 +28,7 @@ export function CommentSection({
       <CommentList comments={comments} />
       <CommentInput
         onSubmit={onAdd}
+        authorAvatarUrl={authorAvatarUrl}
         authorInitial={authorInitial}
         authorGradient={authorGradient}
       />

@@ -28,7 +28,7 @@ export function BirthdayItem({ entry, online }: BirthdayItemProps) {
       gap={12}
       className="!w-full !p-3 bg-[var(--color-bg-secondary)] [border:1px_solid_var(--color-border)] rounded-[14px]"  >
       <div className="!shrink-0">
-        <FriendAvatar name={entry.name} size={48} online={online} />
+        <FriendAvatar name={entry.name} src={entry.avatarUrl} size={48} online={online} />
       </div>
       <Flex vertical gap={2} className="!min-w-0 !flex-1">
         <Text
