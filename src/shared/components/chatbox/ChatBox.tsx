@@ -11,7 +11,9 @@ import { useTyping } from "@/feature/chat/hooks/useTyping";
 import { buildDmId } from "@/feature/chat/lib/conversation";
 import { MessageInput } from "@/feature/chat/components/main/input/MessageInput";
 import { MessageList } from "@/feature/chat/components/main/message/MessageList";
+import { Avatar } from "@/feature/chat/components/Avatar";
 import { ChatMenu } from "@/feature/chat/components/menu/ChatMenu";
+import { usePresenceStore } from "@/feature/presence/stores/presence.store";
 import { useChatStore } from "@/feature/chat/stores/chat.store";
 import { useConversationSettingsStore } from "@/feature/chat/stores/conversation-settings.store";
 import { DEFAULT_EMOJI } from "@/feature/chat/lib/themes";
@@ -20,7 +22,6 @@ import type { ReplyContext } from "@/feature/chat/types";
 import type { ChatPreview } from "@/shared/data/chats";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
 import { useChatRoomUnreadStore } from "@/shared/stores/chatRoomUnread.store";
-import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
 
@@ -69,10 +70,19 @@ export function ChatBox({ chat }: ChatBoxProps) {
   );
   const mentionAllowedIds = isGroup ? groupMemberIds ?? [] : [chat.id];
   const peerNickname = isGroup ? undefined : settings?.nicknames?.[chat.id];
-  const displayName = peerNickname ?? chat.name;
   const goToEmoji = settings?.emoji ?? DEFAULT_EMOJI;
+  const presenceUser = usePresenceStore((s) =>
+    isGroup ? undefined : s.knownUsers.find((u) => u.id === chat.id),
+  );
+  const peerAvatar = presenceUser?.avatar ?? chat.avatar;
+  const peerName = presenceUser?.name ?? chat.name;
+  const displayName = peerNickname ?? peerName;
 
-  const user: OnlineUserDto = { id: chat.id, name: chat.name };
+  const user: OnlineUserDto = {
+    id: chat.id,
+    name: peerName,
+    avatar: peerAvatar,
+  };
 
   const lastSeenSeqRef = useRef<number>(-1);
   const initRef = useRef(false);
@@ -150,23 +160,15 @@ export function ChatBox({ chat }: ChatBoxProps) {
         }}
       >
         <Flex align="center" gap={10} className="!min-w-0 !flex-1">
-          <div className="!relative !shrink-0">
-            <Flex
-              align="center"
-              justify="center"
-              className="!rounded-full"
-              style={{
-                width: 36,
-                height: 36,
-                background: gradientBg([...chat.gradient]),
-              }}
-            >
-              <Icon name={isGroup ? "group" : "person"} size={20} color="#FFFFFF" />
-            </Flex>
-            {!isGroup && chat.online ? (
-              <span className="[position:absolute] right-[-2px] bottom-[-2px] w-[10px] h-[10px] rounded-[50%] bg-[#22c55e] [border:2px_solid_var(--color-bg-secondary)]"  />
-            ) : null}
-          </div>
+          <Avatar
+            name={displayName}
+            src={peerAvatar}
+            seed={chat.id}
+            size={36}
+            online={!isGroup && !!chat.online}
+            ringColor="var(--color-bg-secondary)"
+            group={isGroup}
+          />
           <Flex vertical className="!min-w-0">
             <Text
               ellipsis

@@ -35,6 +35,7 @@ export function ContactsSection() {
       .map((u) => ({
         id: u.id,
         name: u.name,
+        avatar: u.avatar,
         initial: (u.name?.[0] ?? "?").toUpperCase(),
         gradient: pickGradient(u.id),
         online: onlineIds.has(u.id),
@@ -59,6 +60,7 @@ export function ContactsSection() {
       time: "",
       online: !!c.online,
       gradient: c.gradient,
+      avatar: c.avatar,
     });
   }
 

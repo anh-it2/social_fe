@@ -4,6 +4,7 @@ import { gradientStyle, initials } from "../lib/avatar";
 
 interface AvatarProps {
   name: string;
+  src?: string;
   seed?: string;
   size?: number;
   online?: boolean;
@@ -13,6 +14,7 @@ interface AvatarProps {
 
 export function Avatar({
   name,
+  src,
   seed,
   size = 52,
   online = false,
@@ -29,8 +31,9 @@ export function Avatar({
     >
       <AntAvatar
         size={size}
+        src={!group && src ? src : undefined}
         style={{
-          ...gradientStyle(seedKey),
+          ...(src && !group ? {} : gradientStyle(seedKey)),
           fontWeight: 700,
           fontSize: Math.round(size * 0.36),
         }}

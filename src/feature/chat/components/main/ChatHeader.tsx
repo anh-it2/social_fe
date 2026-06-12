@@ -58,6 +58,7 @@ export function ChatHeader({
         )}
         <Avatar
           name={displayName}
+          src={isDm ? selection.user.avatar : undefined}
           seed={peerId}
           size={44}
           online={isOnline}

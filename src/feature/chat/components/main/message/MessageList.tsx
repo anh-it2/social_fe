@@ -204,6 +204,7 @@ export function MessageList({
                   type={m.type}
                   mine={mine}
                   senderName={resolvedSenderName}
+                  senderAvatar={!mine ? user.avatar : undefined}
                   senderSeed={user.id}
                   showAvatar={!sameAsPrev}
                   replyTo={resolvedReplyTo}

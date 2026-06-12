@@ -75,6 +75,7 @@ export function ChatDropdownContent({ onClose, onCreateGroup }: ChatDropdownCont
       time: "",
       online: entry.online,
       gradient: pickGradient(entry.user.id),
+      avatar: entry.user.avatar,
     });
     onClose();
   }

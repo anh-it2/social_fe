@@ -21,9 +21,13 @@ export const useChatBoxesStore = create<ChatBoxesState>((set) => ({
   unread: {},
   openChat: (chat) =>
     set((state) => {
-      const { [chat.id]: _u, ...restUnread } = state.unread;
+      const restUnread = { ...state.unread };
+      delete restUnread[chat.id];
       if (state.openChats.some((c) => c.id === chat.id)) {
         return {
+          openChats: state.openChats.map((c) =>
+            c.id === chat.id ? { ...c, ...chat } : c,
+          ),
           minimized: { ...state.minimized, [chat.id]: false },
           unread: restUnread,
         };
@@ -37,8 +41,10 @@ export const useChatBoxesStore = create<ChatBoxesState>((set) => ({
     }),
   closeChat: (id) =>
     set((state) => {
-      const { [id]: _m, ...restMin } = state.minimized;
-      const { [id]: _u, ...restUnread } = state.unread;
+      const restMin = { ...state.minimized };
+      const restUnread = { ...state.unread };
+      delete restMin[id];
+      delete restUnread[id];
       return {
         openChats: state.openChats.filter((c) => c.id !== id),
         minimized: restMin,
@@ -65,7 +71,8 @@ export const useChatBoxesStore = create<ChatBoxesState>((set) => ({
   markRead: (id) =>
     set((state) => {
       if (!state.unread[id]) return state;
-      const { [id]: _u, ...rest } = state.unread;
+      const rest = { ...state.unread };
+      delete rest[id];
       return { unread: rest };
     }),
 }));

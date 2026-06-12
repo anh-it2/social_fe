@@ -30,6 +30,7 @@ interface MessageBubbleProps {
   type?: "text" | "image" | "file" | "video";
   mine: boolean;
   senderName: string;
+  senderAvatar?: string;
   senderSeed?: string;
   showAvatar?: boolean;
   replyTo?: ReplyContext;
@@ -52,6 +53,7 @@ export function MessageBubble({
   type = "text",
   mine,
   senderName,
+  senderAvatar,
   senderSeed,
   showAvatar = true,
   replyTo,
@@ -130,6 +132,7 @@ export function MessageBubble({
         <MessageAvatar
           show={showAvatar}
           name={senderName}
+          src={senderAvatar}
           seed={senderSeed}
         />
       )}

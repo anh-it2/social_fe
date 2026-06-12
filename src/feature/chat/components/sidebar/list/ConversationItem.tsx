@@ -2,13 +2,11 @@
 
 import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
-import { Icon } from "@/shared/components/Icon";
 import { buildDmId } from "@/feature/chat/lib/conversation";
-import { pickGradient } from "@/feature/chat/lib/avatar";
 import { ChatMenu } from "@/feature/chat/components/menu/ChatMenu";
+import { Avatar } from "@/feature/chat/components/Avatar";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
 import type { GroupInfo } from "@/feature/chat/stores/chat.store.type";
-import { gradientBg } from "@/shared/utils/gradient";
 
 const { Text } = Typography;
 
@@ -65,18 +63,13 @@ export function ConversationItem(props: ConversationItemProps) {
       }`}
     >
       <div className="relative shrink-0">
-        <Flex
-          align="center"
-          justify="center"
-          className="!rounded-full"
-          style={{
-            width: 52,
-            height: 52,
-            background: gradientBg([...pickGradient(id)]),
-          }}
-        >
-          <Icon name={isDm ? "person" : "group"} size={28} color="#FFFFFF" />
-        </Flex>
+        <Avatar
+          name={name}
+          src={isDm ? props.user.avatar : undefined}
+          seed={id}
+          size={52}
+          group={!isDm}
+        />
         {isDm && online ? (
           <span
             className="absolute right-[0px] bottom-[0px] w-[14px] h-[14px] rounded-[50%] bg-[#22c55e] [border:2px_solid_var(--color-bg-secondary)]"  />

@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
+import { publishPresenceProfile } from "@/feature/presence/socket";
 import { getProfileService } from "@/feature/profile/services/getProfile.service";
 import { updateProfileService } from "@/feature/profile/services/updateProfile.service";
 import { EDIT_PROFILE_DEFAULTS } from "./edit-profile.constants";
@@ -38,6 +39,7 @@ export function useProfileMeta() {
   const userName = useAuthStore((s) => s.userName);
   const isLoggined = useAuthStore((s) => s.isLoggined);
   const queryClient = useQueryClient();
+  const publishedProfileRef = useRef("");
 
   const query = useQuery({
     queryKey: PROFILE_QUERY_KEY,
@@ -52,8 +54,14 @@ export function useProfileMeta() {
   // socket (re)connect publishes the right image.
   const loadedAvatar = query.data?.avatarUrl;
   useEffect(() => {
-    if (query.isSuccess) mirrorAvatarForPresence(loadedAvatar);
-  }, [query.isSuccess, loadedAvatar]);
+    if (!query.isSuccess) return;
+    mirrorAvatarForPresence(loadedAvatar);
+
+    const signature = `${query.data?.name ?? userName}\n${loadedAvatar ?? ""}`;
+    if (publishedProfileRef.current === signature) return;
+    publishedProfileRef.current = signature;
+    publishPresenceProfile(loadedAvatar, query.data?.name || userName);
+  }, [query.isSuccess, query.data?.name, loadedAvatar, userName]);
 
   // BE returns a complete profile; merge over defaults defensively and seed
   // the name from the auth store if the BE ever sends it empty.

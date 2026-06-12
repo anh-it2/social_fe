@@ -27,7 +27,13 @@ export function ProfileSection({
       gap={10}
       className="border-b border-[var(--color-border)] px-6 pb-6 pt-8"
     >
-      <Avatar name={name} seed={user.id} size={88} online={isOnline} />
+      <Avatar
+        name={name}
+        src={user.avatar}
+        seed={user.id}
+        size={88}
+        online={isOnline}
+      />
       <Title
         level={5}
         className="!m-0 !max-w-full !break-all !text-center !text-[16px] !font-semibold !text-[var(--color-text)]"

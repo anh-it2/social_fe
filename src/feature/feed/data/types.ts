@@ -87,6 +87,7 @@ export interface ContactRowData {
   id: string;
   initial: string;
   name: string;
+  avatar?: string;
   gradient: [string, string];
   online?: boolean;
 }
