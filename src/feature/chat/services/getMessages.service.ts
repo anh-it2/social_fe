@@ -1,5 +1,6 @@
 import { apiClient } from "@/shared/lib/apiClient";
 import type { ChatHistoryResponseDTO } from "../dto/chat.dto";
+import type { HistoryCursor } from "../types";
 
 /**
  * Pull one page of conversation history from social-platform-be. Backend
@@ -9,11 +10,14 @@ import type { ChatHistoryResponseDTO } from "../dto/chat.dto";
  */
 export async function getMessagesService(
   conversationId: string,
-  cursor?: number,
+  cursor?: HistoryCursor,
   limit = 30,
 ): Promise<ChatHistoryResponseDTO> {
   const params = new URLSearchParams();
-  if (cursor !== undefined) params.set("cursor", String(cursor));
+  if (cursor) {
+    params.set("cursor", String(cursor.timestamp));
+    if (cursor.id) params.set("cursorId", cursor.id);
+  }
   params.set("limit", String(limit));
   const res = await apiClient.get<ChatHistoryResponseDTO>(
     `/api/chat/${encodeURIComponent(conversationId)}/messages?${params.toString()}`,

@@ -136,7 +136,8 @@ export interface ChatHistoryRequestDTO {
 
 export interface ChatHistoryResponseDTO {
   messages: ChatMessageDTO[]; //because history is message that get from server
-  nextCurosr?: number;
+  nextCurosr?: number | null;
+  nextCursorId?: string | null;
   hasMore: boolean;
 }
 

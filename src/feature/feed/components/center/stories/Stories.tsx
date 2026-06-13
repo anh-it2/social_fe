@@ -52,6 +52,7 @@ export function Stories() {
       id: `us-${reel.id}`,
       initial: author.initial,
       name: author.name,
+      avatarUrl: author.avatarUrl,
       bgGradient: author.gradient,
       avatarColor: author.gradient[1],
       mediaUrl: reel.mediaUrl,
@@ -76,7 +77,13 @@ export function Stories() {
       >
         <CreateStoryCard onClick={() => setComposerOpen(true)} />
         {userStories.map((s) => (
-          <StoryCard key={s.id} story={s} />
+          <StoryCard
+            key={s.id}
+            story={{
+              ...s,
+              avatarUrl: s.avatarUrl ?? currentUser.avatarUrl,
+            }}
+          />
         ))}
         {STORIES.map((s) => (
           <StoryCard key={s.id} story={s} />

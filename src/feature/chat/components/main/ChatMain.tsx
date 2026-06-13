@@ -56,7 +56,14 @@ function ActiveChat({
   const peerIdForDm = isDm ? selection.user.id : null;
   const { sendMessage, editMessage, unsendMessage, isConnected } =
     useChat(conversationId);
-  const { messages, isLoading, reactMessage } = useMessages(conversationId);
+  const {
+    messages,
+    isLoading,
+    reactMessage,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useMessages(conversationId);
   const { notifyTyping, stopTyping } = useTyping(conversationId);
   const [replyTo, setReplyTo] = useState<ReplyContext | null>(null);
 
@@ -128,6 +135,9 @@ function ActiveChat({
         user={listUser}
         messages={visibleMessages}
         isLoading={isLoading}
+        hasOlderMessages={!searchActive && hasNextPage}
+        isLoadingOlder={isFetchingNextPage}
+        onLoadOlder={fetchNextPage}
         onReply={setReplyTo}
         onEdit={editMessage}
         onUnsend={unsendMessage}

@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex, Typography } from "antd";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { groupReactions } from "../../../../lib/reactions";
@@ -34,6 +34,7 @@ interface MessageBubbleProps {
   senderSeed?: string;
   showAvatar?: boolean;
   replyTo?: ReplyContext;
+  timestamp?: number;
   editedAt?: number;
   deleted?: boolean;
   themeGradient?: [string, string];
@@ -57,6 +58,7 @@ export function MessageBubble({
   senderSeed,
   showAvatar = true,
   replyTo,
+  timestamp,
   editedAt,
   deleted,
   themeGradient,
@@ -68,12 +70,22 @@ export function MessageBubble({
   onReact,
 }: MessageBubbleProps) {
   const t = useTranslations("Chat.message");
+  const locale = useLocale();
   const [editing, setEditing] = useState(false);
   const myId = useAuthStore((s) => s.userId);
   const myReaction = groupReactions(reactions, myId).mine;
   const isPinned = usePinnedMessagesStore((s) =>
     id ? s.pinned[conversationId]?.some((m) => m.id === id) ?? false : false,
   );
+  const sentAt = timestamp
+    ? new Intl.DateTimeFormat(locale, {
+        hour: "2-digit",
+        minute: "2-digit",
+        ...(new Date(timestamp).toDateString() === new Date().toDateString()
+          ? {}
+          : { day: "2-digit", month: "2-digit", year: "numeric" }),
+      }).format(timestamp)
+    : null;
 
   if (deleted) {
     return (
@@ -158,10 +170,10 @@ export function MessageBubble({
           themeGradient={themeGradient}
           themeOnPrimary={themeOnPrimary}
         />
-        {editedAt && (
+        {(sentAt || editedAt) && (
           <Text
             className="!mt-0.5 !text-[11px] text-[var(--color-text-muted)]"  >
-            {t("edited")}
+            {[sentAt, editedAt ? t("edited") : null].filter(Boolean).join(" · ")}
           </Text>
         )}
         {id && onReact && (

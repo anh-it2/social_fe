@@ -1,7 +1,12 @@
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { getChatSocket } from "../socket";
 import { useCallback, useEffect, useMemo } from "react";
-import { ChatMessage, HistoryInfinteData, HistoryMessagePage } from "../types";
+import {
+  ChatMessage,
+  HistoryCursor,
+  HistoryInfinteData,
+  HistoryMessagePage,
+} from "../types";
 import { useChat } from "./useChat";
 import {
   ChatMessageDTO,
@@ -51,7 +56,7 @@ export function useMessages(conversationId: string) {
   const { removeOptimisticMessage } = useChatStore.getState();
 
   const fetchHistoryMessage = useCallback(
-    async (cursor?: number): Promise<HistoryMessagePage> => {
+    async (cursor?: HistoryCursor): Promise<HistoryMessagePage> => {
       // History now comes from social-platform-be over REST (not the socket).
       // Socket still feeds live updates via the listeners below.
       const ack = await getMessagesService(conversationId, cursor, 30);
@@ -81,7 +86,13 @@ export function useMessages(conversationId: string) {
       if (cur === -1) {
         return {
           messages: messageData,
-          nextCursor: ack.nextCurosr ?? undefined,
+          nextCursor:
+            ack.nextCurosr != null
+              ? {
+                  timestamp: ack.nextCurosr,
+                  id: ack.nextCursorId ?? undefined,
+                }
+              : undefined,
           hasMore: ack.hasMore,
         };
       }
@@ -101,7 +112,13 @@ export function useMessages(conversationId: string) {
 
       return {
         messages: changed ? messages : messageData,
-        nextCursor: ack.nextCurosr ?? undefined,
+        nextCursor:
+          ack.nextCurosr != null
+            ? {
+                timestamp: ack.nextCurosr,
+                id: ack.nextCursorId ?? undefined,
+              }
+            : undefined,
         hasMore: ack.hasMore,
       };
     },
@@ -117,7 +134,7 @@ export function useMessages(conversationId: string) {
   } = useInfiniteQuery({
     queryKey: ["chat:messages", conversationId],
     queryFn: ({ pageParam }) => fetchHistoryMessage(pageParam),
-    initialPageParam: undefined as number | undefined,
+    initialPageParam: undefined as HistoryCursor | undefined,
     getNextPageParam: (lastPage) =>
       lastPage.hasMore ? lastPage.nextCursor : undefined,
     enabled: !!conversationId && isLoggined,
@@ -158,8 +175,6 @@ export function useMessages(conversationId: string) {
         }
         return;
       }
-
-      if (useChatStore.getState().isBlocked(messageDTO.senderId)) return;
 
       const message = toMessage(messageDTO);
 

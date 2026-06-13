@@ -20,6 +20,9 @@ interface MessageListProps {
   user: OnlineUserDto;
   messages: ChatMessage[];
   isLoading: boolean;
+  hasOlderMessages?: boolean;
+  isLoadingOlder?: boolean;
+  onLoadOlder?: () => Promise<unknown>;
   compact?: boolean;
   onReply?: (ctx: ReplyContext) => void;
   onEdit?: (id: string, content: string) => Promise<void> | void;
@@ -35,6 +38,9 @@ export function MessageList({
   user,
   messages,
   isLoading,
+  hasOlderMessages = false,
+  isLoadingOlder = false,
+  onLoadOlder,
   compact = false,
   onReply,
   onEdit,
@@ -59,6 +65,8 @@ export function MessageList({
   const endRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const initialScrollDoneRef = useRef<string | null>(null);
+  const loadingOlderRef = useRef(false);
+  const restoreScrollRef = useRef<{ height: number; top: number } | null>(null);
 
   const orderedMessages = useMemo(() => {
     return [...messages].sort((a, b) => {
@@ -91,6 +99,8 @@ export function MessageList({
       });
     };
 
+    if (restoreScrollRef.current) return;
+
     if (initialScrollDoneRef.current === conversationId) {
       requestAnimationFrame(() => scrollToEnd(true));
       return;
@@ -114,6 +124,41 @@ export function MessageList({
       });
     });
   }, [conversationId, messages.length, firstUnreadKey, someoneTyping]);
+
+  useEffect(() => {
+    const restore = restoreScrollRef.current;
+    const container = containerRef.current;
+    if (!restore || !container) return;
+    container.scrollTop =
+      container.scrollHeight - restore.height + restore.top;
+    restoreScrollRef.current = null;
+    loadingOlderRef.current = false;
+  }, [messages.length]);
+
+  async function handleScroll() {
+    const container = containerRef.current;
+    if (
+      !container ||
+      container.scrollTop > 80 ||
+      !hasOlderMessages ||
+      !onLoadOlder ||
+      isLoadingOlder ||
+      loadingOlderRef.current
+    ) {
+      return;
+    }
+
+    loadingOlderRef.current = true;
+    restoreScrollRef.current = {
+      height: container.scrollHeight,
+      top: container.scrollTop,
+    };
+    try {
+      await onLoadOlder();
+    } finally {
+      if (!restoreScrollRef.current) loadingOlderRef.current = false;
+    }
+  }
 
   function handleJumpToPinned(messageId: string) {
     const c = containerRef.current;
@@ -148,11 +193,17 @@ export function MessageList({
       <PinnedBanner conversationId={conversationId} onJump={handleJumpToPinned} />
     <div
       ref={containerRef}
+      onScroll={handleScroll}
       className={`flex-1 overflow-y-auto bg-[#fafbfc] dark:bg-[#0a0a0a] [overscroll-behavior:contain] ${
         compact ? "px-3 py-3" : "px-3 py-4 sm:px-8 sm:py-6"
       }`}
     >
       <Flex vertical gap={compact ? 8 : 12}>
+        {isLoadingOlder && (
+          <Flex justify="center" className="py-2">
+            <Spin size="small" />
+          </Flex>
+        )}
         {messages.length === 0 ? (
           <Flex justify="center" className="py-8">
             <Text className="!text-[13px] !text-[var(--color-text-muted)]">
@@ -208,6 +259,7 @@ export function MessageList({
                   senderSeed={user.id}
                   showAvatar={!sameAsPrev}
                   replyTo={resolvedReplyTo}
+                  timestamp={m.timestamp ?? m.queueAt}
                   editedAt={m.editedAt}
                   deleted={m.deleted}
                   themeGradient={theme.gradient}

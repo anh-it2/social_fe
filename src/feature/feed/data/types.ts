@@ -19,6 +19,7 @@ export interface StoryCardData {
   id: string;
   initial: string;
   name: string;
+  avatarUrl?: string;
   bgGradient: [string, string];
   avatarColor: string;
   mediaUrl?: string;

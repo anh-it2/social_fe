@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Image, Typography } from "antd";
+import { Avatar, Image, Typography } from "antd";
 import { useState } from "react";
 import type { StoryCardData } from "../../../data/types";
 import { gradientBg } from "@/shared/utils/gradient";
@@ -51,22 +51,21 @@ export function StoryCard({ story }: StoryCardProps) {
         <div
           className="!absolute !inset-0 [background:linear-gradient(180deg,_rgba(0,0,0,0.45)_0%,_rgba(0,0,0,0)_35%,_rgba(0,0,0,0)_60%,_rgba(0,0,0,0.75)_100%)]"  />
       )}
-      <Flex
-        align="center"
-        justify="center"
+      <Avatar
+        src={story.avatarUrl}
+        size={36}
         className="!absolute !h-9 !w-9 !rounded-full"
         style={{
-          background: story.avatarColor,
+          background: story.avatarUrl ? undefined : story.avatarColor,
           border: "3px solid #2374e1",
           top: 12,
           left: 12,
           zIndex: 1,
+          fontWeight: 700,
         }}
       >
-        <Text className="!text-sm !font-bold !leading-none !text-white">
-          {story.initial}
-        </Text>
-      </Flex>
+        {story.initial}
+      </Avatar>
       <Text
         className="!absolute !text-xs !font-semibold !text-white left-[12px] top-[156px] z-[1]"  >
         {story.name}

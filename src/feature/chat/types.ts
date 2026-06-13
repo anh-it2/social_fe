@@ -49,8 +49,13 @@ export interface ChatMessage {
 
 export interface HistoryMessagePage {
   messages: ChatMessage[];
-  nextCursor?: number;
+  nextCursor?: HistoryCursor;
   hasMore: boolean;
+}
+
+export interface HistoryCursor {
+  timestamp: number;
+  id?: string;
 }
 
 export interface TypingEvent {
@@ -68,7 +73,7 @@ export interface ReadReceipt {
 
 export type HistoryInfinteData = InfiniteData<
   HistoryMessagePage,
-  number | undefined
+  HistoryCursor | undefined
 >;
 
 // Re-export event maps from DTO (socket modules need these)
