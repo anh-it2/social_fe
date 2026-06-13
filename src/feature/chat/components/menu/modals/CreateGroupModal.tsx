@@ -15,8 +15,8 @@ import {
   buildGroupSchema,
   type GroupFormValues,
 } from "./create-group/createGroupForm.utils";
-import { getChatSocket } from "../../../socket";
-import type { CreateGroupAck } from "../../../dto/conversation-settings.dto";
+import { createGroupService } from "../../../services/groupChat.service";
+import { useChatStore } from "../../../stores/chat.store";
 
 const { Title, Text } = Typography;
 
@@ -60,44 +60,17 @@ export function CreateGroupModal({
   const busy = methods.formState.isSubmitting;
 
   const handleSave = methods.handleSubmit(async (values) => {
-    const socket = getChatSocket();
-    if (!socket?.connected) {
-      message.error(t("notConnected"));
-      return;
+    try {
+      const group = await createGroupService({
+        name: values.name.trim() || t("defaultName"),
+        memberIds: values.memberIds.filter((id) => id !== myId),
+      });
+      useChatStore.getState().upsertGroup(group);
+      message.success(t("created"));
+      onClose();
+    } catch (error) {
+      message.error(error instanceof Error ? error.message : t("failed"));
     }
-    const tempId = crypto.randomUUID().slice(0, 10);
-    const allMembers = [myId, ...values.memberIds];
-    await new Promise<void>((resolve) => {
-      let done = false;
-      const finish = (fn: () => void) => {
-        if (done) return;
-        done = true;
-        fn();
-        resolve();
-      };
-      const timer = setTimeout(() => {
-        finish(() => message.error(t("failed")));
-      }, 8000);
-      socket.emit(
-        "group:create",
-        {
-          tempId,
-          name: values.name.trim() || t("defaultName"),
-          memberIds: allMembers,
-        },
-        (res: CreateGroupAck) => {
-          clearTimeout(timer);
-          finish(() => {
-            if (res.ok) {
-              message.success(t("created"));
-              onClose();
-            } else {
-              message.error(res.error ?? t("failed"));
-            }
-          });
-        },
-      );
-    });
   });
 
   return (

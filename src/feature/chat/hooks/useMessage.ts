@@ -143,6 +143,7 @@ export function useMessages(conversationId: string) {
     // missed. Re-fetch history on every (re)open to resync server truth.
     staleTime: 0,
     refetchOnMount: "always",
+    refetchInterval: conversationId.startsWith("group:") ? 3000 : false,
 
     // flatten newest-first: page[0] is newest, within a page newest-first too
     select: (raw): ChatMessage[] => {

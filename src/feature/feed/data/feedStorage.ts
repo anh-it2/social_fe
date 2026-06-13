@@ -28,12 +28,13 @@ function readAll(): FeedStorageShape {
   }
 }
 
-function writeAll(next: FeedStorageShape) {
-  if (typeof window === "undefined") return;
+function writeAll(next: FeedStorageShape): boolean {
+  if (typeof window === "undefined") return false;
   try {
     window.localStorage.setItem(feedStorageKey(), JSON.stringify(next));
+    return true;
   } catch {
-    /* quota errors ignored */
+    return false;
   }
 }
 
@@ -47,7 +48,7 @@ export function readFeedSlice<K extends keyof FeedStorageShape>(
 export function writeFeedSlice<K extends keyof FeedStorageShape>(
   key: K,
   value: NonNullable<FeedStorageShape[K]>,
-) {
+): boolean {
   const all = readAll();
-  writeAll({ ...all, [key]: value });
+  return writeAll({ ...all, [key]: value });
 }

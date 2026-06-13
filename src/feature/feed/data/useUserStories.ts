@@ -39,17 +39,20 @@ function getServerSnapshot(): StoryCardData[] {
 export function useUserStories() {
   const stories = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  const addStory = useCallback((story: StoryCardData) => {
+  const addStory = useCallback((story: StoryCardData): boolean => {
     ensureLoaded();
-    state = [story, ...(state as StoryCardData[])];
-    writeFeedSlice("userStories", state);
+    const next = [story, ...(state as StoryCardData[])];
+    if (!writeFeedSlice("userStories", next)) return false;
+    state = next;
     emit();
+    return true;
   }, []);
 
   const removeStory = useCallback((id: string) => {
     ensureLoaded();
-    state = (state as StoryCardData[]).filter((s) => s.id !== id);
-    writeFeedSlice("userStories", state);
+    const next = (state as StoryCardData[]).filter((s) => s.id !== id);
+    if (!writeFeedSlice("userStories", next)) return;
+    state = next;
     emit();
   }, []);
 

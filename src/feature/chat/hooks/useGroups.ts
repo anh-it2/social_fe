@@ -2,6 +2,7 @@
 
 import { App } from "antd";
 import { useTranslations } from "next-intl";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useChatBoxesStore } from "@/shared/stores/chatBoxes.store";
@@ -13,6 +14,7 @@ import type {
   GroupDeletedDTO,
   GroupUpdatedDTO,
 } from "../dto/conversation-settings.dto";
+import { getMyGroupsService } from "../services/groupChat.service";
 
 function toGroupInfo(dto: GroupCreatedDTO) {
   return {
@@ -32,6 +34,25 @@ export function useGroups() {
   const groups = useChatStore((s) => s.groups);
   const { message } = App.useApp();
   const t = useTranslations("GroupAdmin.notifications");
+  const { data: serverGroups } = useQuery({
+    queryKey: ["chat:groups", myId],
+    queryFn: getMyGroupsService,
+    enabled: !!myId,
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  });
+
+  useEffect(() => {
+    if (!serverGroups) return;
+    const store = useChatStore.getState();
+    const serverIds = new Set(serverGroups.map((group) => group.conversationId));
+    for (const group of serverGroups) store.upsertGroup(group);
+    for (const group of Object.values(store.groups)) {
+      if (group.memberIds.includes(myId) && !serverIds.has(group.conversationId)) {
+        store.removeGroup(group.conversationId);
+      }
+    }
+  }, [serverGroups, myId]);
 
   useEffect(() => {
     if (!myId) return;

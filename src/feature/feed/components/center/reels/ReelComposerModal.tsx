@@ -10,6 +10,7 @@ import { gradientBg } from "@/shared/utils/gradient";
 import { MUSIC_TRACKS } from "../../../data/constants";
 import type { MusicTrack, ReelData } from "../../../data/types";
 import { useCurrentUserIdentity } from "../../../hooks/useCurrentUserIdentity";
+import { uploadPostMediaService } from "../../../services/media/uploadPostMedia.service";
 import styles from "./ReelComposerModal.module.scss";
 
 const { Text, Title } = Typography;
@@ -17,7 +18,7 @@ const { Text, Title } = Typography;
 interface ReelComposerModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (reel: ReelData) => void;
+  onSubmit: (reel: ReelData) => boolean | void;
   /**
    * Which surface this composer feeds. The UI is shared between the Story
    * rail ("Tạo tin") and the Reels rail ("Tạo reel"); only the copy differs.
@@ -190,19 +191,14 @@ export function ReelComposerModal({
     const raw = rawFileRef.current;
     if (raw) {
       try {
-        persistedUrl = await new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result as string);
-          reader.onerror = () => reject(reader.error);
-          reader.readAsDataURL(raw);
-        });
+        persistedUrl = await uploadPostMediaService(raw);
       } catch {
-        // fallback to blob URL — reel works in-session, won't persist
+        message.error(tPostComposer("uploadFailed"));
+        return;
       }
     }
 
-    submittedRef.current = true;
-    onSubmit({
+    const saved = onSubmit({
       id: `r-${Date.now()}`,
       mediaType,
       mediaUrl: persistedUrl,
@@ -210,6 +206,11 @@ export function ReelComposerModal({
       caption: caption.trim() || undefined,
       author: currentUser,
     });
+    if (saved === false) {
+      message.error(tPostComposer("uploadFailed"));
+      return;
+    }
+    submittedRef.current = true;
     message.success(tc("success"));
     onClose();
   };

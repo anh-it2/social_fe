@@ -46,9 +46,9 @@ export function Stories() {
     el.scrollBy({ left: dir * Math.max(280, el.clientWidth * 0.8), behavior: "smooth" });
   };
 
-  const handleCreateStory = (reel: ReelData) => {
+  const handleCreateStory = (reel: ReelData): boolean => {
     const author = reel.author ?? currentUser;
-    addStory({
+    const saved = addStory({
       id: `us-${reel.id}`,
       initial: author.initial,
       name: author.name,
@@ -61,10 +61,12 @@ export function Stories() {
       caption: reel.caption,
       createdAt: Date.now(),
     });
+    if (!saved) return false;
     requestAnimationFrame(() => {
       scrollerRef.current?.scrollTo({ left: 0, behavior: "smooth" });
       updateArrows();
     });
+    return true;
   };
 
   return (

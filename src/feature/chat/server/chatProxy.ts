@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { callBackend } from "@/shared/lib/beProxy";
-import type { ChatHistoryResponseDTO } from "../dto/chat.dto";
+import type { ChatHistoryResponseDTO, ChatMessageDTO } from "../dto/chat.dto";
+import type { GroupInfo } from "../stores/chat.store.type";
 
 const RESOURCE = "chat";
 
@@ -19,6 +20,43 @@ export function listMessages(
     method: "get",
     path: `/chat/${encodeURIComponent(conversationId)}/messages${qs}`,
     shape: (page) => page,
+    resource: RESOURCE,
+  });
+}
+
+export function listGroups(req: NextRequest): Promise<NextResponse> {
+  return callBackend<GroupInfo[], GroupInfo[]>({
+    req,
+    method: "get",
+    path: "/chat/groups",
+    shape: (groups) => groups,
+    resource: RESOURCE,
+  });
+}
+
+export async function createGroup(req: NextRequest): Promise<NextResponse> {
+  const payload = await req.json().catch(() => null);
+  return callBackend<GroupInfo, GroupInfo>({
+    req,
+    method: "post",
+    path: "/chat/groups",
+    payload,
+    shape: (group) => group,
+    resource: RESOURCE,
+  });
+}
+
+export async function sendGroupMessage(
+  req: NextRequest,
+  conversationId: string,
+): Promise<NextResponse> {
+  const payload = await req.json().catch(() => null);
+  return callBackend<ChatMessageDTO, ChatMessageDTO>({
+    req,
+    method: "post",
+    path: `/chat/${encodeURIComponent(conversationId)}/messages`,
+    payload,
+    shape: (message) => message,
     resource: RESOURCE,
   });
 }
