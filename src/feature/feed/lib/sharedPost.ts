@@ -1,5 +1,4 @@
-import { CURRENT_USER } from "../data/constants";
-import type { FeedPostData, SharedPostRef } from "../data/types";
+import type { FeedAuthor, FeedPostData, SharedPostRef } from "../data/types";
 
 export function rootSnapshot(post: FeedPostData): SharedPostRef {
   return (
@@ -22,14 +21,12 @@ export function buildSharedPost(
   originalPost: FeedPostData,
   caption: string,
   timeLabel: string,
+  author: FeedAuthor,
 ): FeedPostData {
   return {
     id: `fp-share-${Date.now()}`,
-    author: {
-      name: CURRENT_USER.name,
-      initial: CURRENT_USER.initial,
-      gradient: CURRENT_USER.gradient,
-    },
+    ownerId: author.id,
+    author,
     time: timeLabel,
     createdAt: Date.now(),
     text: caption.trim(),

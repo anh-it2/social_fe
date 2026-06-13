@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
-import { CURRENT_USER } from "../../../data/constants";
 import type { ReelData } from "../../../data/types";
+import { useCurrentUserIdentity } from "../../../hooks/useCurrentUserIdentity";
 
 const { Text } = Typography;
 
@@ -16,6 +16,8 @@ interface UserReelTileProps {
 
 export function UserReelTile({ reel }: UserReelTileProps) {
   const locale = useLocale();
+  const currentUser = useCurrentUserIdentity();
+  const author = reel.author ?? currentUser;
   return (
     <Link href={`/${locale}/reels?id=${reel.id}`} className="!shrink-0">
       <div
@@ -61,12 +63,23 @@ export function UserReelTile({ reel }: UserReelTileProps) {
           gap={4}
           className="!absolute left-[8px] right-[8px] bottom-[8px]"  >
           <Flex align="center" gap={6} className="!min-w-0">
-            <div
-              className="!h-6 !w-6 !shrink-0 !rounded-full"
-              style={{ background: gradientBg(CURRENT_USER.gradient) }}
-            />
+            {author.avatarUrl ? (
+              <Image
+                src={author.avatarUrl}
+                alt={author.name}
+                width={24}
+                height={24}
+                preview={false}
+                className="!h-6 !w-6 !shrink-0 !rounded-full !object-cover"
+              />
+            ) : (
+              <div
+                className="!h-6 !w-6 !shrink-0 !rounded-full"
+                style={{ background: gradientBg(author.gradient) }}
+              />
+            )}
             <Text className="!truncate !text-[12px] !font-semibold !text-white">
-              {CURRENT_USER.name}
+              {author.name}
             </Text>
           </Flex>
           {reel.caption && (

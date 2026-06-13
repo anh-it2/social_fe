@@ -8,12 +8,14 @@ const { Text } = Typography;
 
 interface AboutSideNavItemProps {
   category: AboutCategoryDef;
+  label: string;
   active: boolean;
   onClick: () => void;
 }
 
 export function AboutSideNavItem({
   category,
+  label,
   active,
   onClick,
 }: AboutSideNavItemProps) {
@@ -41,7 +43,7 @@ export function AboutSideNavItem({
         className="!text-[14px] !font-semibold"
         style={{ color: active ? "#FFFFFF" : "var(--color-text)" }}
       >
-        {category.label}
+        {label}
       </Text>
     </Flex>
   );

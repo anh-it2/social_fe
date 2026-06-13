@@ -8,8 +8,9 @@ import { gradientBg } from "@/shared/utils/gradient";
 import { emitNotification } from "@/feature/notification/lib/emit";
 import { getFirstUserId } from "@/shared/lib/firstUser";
 import { useNavigation } from "@/shared/hooks/useNavigation";
-import { CURRENT_USER, MUSIC_TRACKS } from "../../../data/constants";
+import { MUSIC_TRACKS } from "../../../data/constants";
 import type { ReelData } from "../../../data/types";
+import { useCurrentUserIdentity } from "../../../hooks/useCurrentUserIdentity";
 import styles from "./ReelViewerModal.module.scss";
 
 const { Text } = Typography;
@@ -22,6 +23,8 @@ interface ReelViewerModalProps {
 
 export function ReelViewerModal({ open, onClose, reel }: ReelViewerModalProps) {
   const t = useTranslations("Feed.reelViewer");
+  const currentUser = useCurrentUserIdentity();
+  const author = reel.author ?? currentUser;
   const nav = useNavigation();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -188,21 +191,24 @@ export function ReelViewerModal({ open, onClose, reel }: ReelViewerModalProps) {
               <Avatar
                 size={36}
                 onClick={handleAvatarClick}
+                src={author.avatarUrl}
                 style={{
-                  background: gradientBg(CURRENT_USER.gradient),
+                  background: author.avatarUrl
+                    ? undefined
+                    : gradientBg(author.gradient),
                   fontWeight: 700,
                   border: "2px solid #fff",
                   cursor: "pointer",
                 }}
               >
-                {CURRENT_USER.initial}
+                {author.initial}
               </Avatar>
               <Flex vertical gap={0} className="!flex-1 !min-w-0">
                 <Text
                   onClick={handleAvatarClick}
                   className="!text-sm !font-bold !leading-tight !text-white !cursor-pointer hover:!underline"
                 >
-                  {CURRENT_USER.name}
+                  {author.name}
                 </Text>
                 <Text
                   className="!text-[11px] !leading-tight text-[rgba(255,255,255,0.75)]"  >

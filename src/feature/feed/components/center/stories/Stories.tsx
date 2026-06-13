@@ -4,15 +4,17 @@ import { Button, Flex } from "antd";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
-import { CURRENT_USER, STORIES } from "../../../data/constants";
+import { STORIES } from "../../../data/constants";
 import type { ReelData } from "../../../data/types";
 import { useUserStories } from "../../../data/useUserStories";
+import { useCurrentUserIdentity } from "../../../hooks/useCurrentUserIdentity";
 import { ReelComposerModal } from "../reels/ReelComposerModal";
 import { CreateStoryCard } from "./CreateStoryCard";
 import { StoryCard } from "./StoryCard";
 
 export function Stories() {
   const t = useTranslations("Feed.story");
+  const currentUser = useCurrentUserIdentity();
   const { stories: userStories, addStory } = useUserStories();
   const [composerOpen, setComposerOpen] = useState(false);
   const scrollerRef = useRef<HTMLDivElement | null>(null);
@@ -45,12 +47,13 @@ export function Stories() {
   };
 
   const handleCreateStory = (reel: ReelData) => {
+    const author = reel.author ?? currentUser;
     addStory({
       id: `us-${reel.id}`,
-      initial: CURRENT_USER.initial,
-      name: CURRENT_USER.name,
-      bgGradient: CURRENT_USER.gradient,
-      avatarColor: CURRENT_USER.gradient[1],
+      initial: author.initial,
+      name: author.name,
+      bgGradient: author.gradient,
+      avatarColor: author.gradient[1],
       mediaUrl: reel.mediaUrl,
       mediaType: reel.mediaType,
       musicId: reel.musicId,

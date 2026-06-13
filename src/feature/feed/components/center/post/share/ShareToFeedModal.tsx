@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { gradientBg } from "@/shared/utils/gradient";
-import { CURRENT_USER } from "../../../../data/constants";
 import { buildSharedPost, rootSnapshot } from "../../../../lib/sharedPost";
 import type { FeedPostData } from "../../../../data/types";
+import { useCurrentUserIdentity } from "../../../../hooks/useCurrentUserIdentity";
 import { SharedPostPreview } from "../body/SharedPostPreview";
 import styles from "../../composer/modals/PostComposerModal.module.scss";
 
@@ -30,6 +30,7 @@ export function ShareToFeedModal({
   const t = useTranslations("Feed.shareToFeed");
   const tReel = useTranslations("Feed.reelViewer");
   const { message } = App.useApp();
+  const currentUser = useCurrentUserIdentity();
   const [caption, setCaption] = useState("");
   const submittedRef = useRef(false);
 
@@ -42,7 +43,9 @@ export function ShareToFeedModal({
 
   const handleSubmit = () => {
     submittedRef.current = true;
-    onSubmit(buildSharedPost(originalPost, caption, tReel("justNow")));
+    onSubmit(
+      buildSharedPost(originalPost, caption, tReel("justNow"), currentUser),
+    );
     message.success(t("shared"));
     onClose();
   };
@@ -68,14 +71,20 @@ export function ShareToFeedModal({
         <Flex align="center" gap={10}>
           <Avatar
             size={40}
-            style={{ background: gradientBg(CURRENT_USER.gradient), fontWeight: 700 }}
+            src={currentUser.avatarUrl}
+            style={{
+              background: currentUser.avatarUrl
+                ? undefined
+                : gradientBg(currentUser.gradient),
+              fontWeight: 700,
+            }}
           >
-            {CURRENT_USER.initial}
+            {currentUser.initial}
           </Avatar>
           <Flex vertical gap={0}>
             <Text
               className="!text-sm !font-semibold text-[var(--color-text)]"  >
-              {CURRENT_USER.name}
+              {currentUser.name}
             </Text>
             <Flex
               align="center"

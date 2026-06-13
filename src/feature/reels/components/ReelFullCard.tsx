@@ -7,6 +7,7 @@ import { Icon } from "@/shared/components/Icon";
 import { gradientBg } from "@/shared/utils/gradient";
 import { MUSIC_TRACKS } from "@/feature/feed/data/constants";
 import type { RecommendedReel, ReelData } from "@/feature/feed/data/types";
+import { useCurrentUserIdentity } from "@/feature/feed/hooks/useCurrentUserIdentity";
 
 const { Text } = Typography;
 
@@ -31,6 +32,7 @@ type Props = RecommendCardProps | UserCardProps;
 
 export function ReelFullCard(props: Props) {
   const t = useTranslations("Feed.reelsPage");
+  const currentUser = useCurrentUserIdentity();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -103,11 +105,13 @@ export function ReelFullCard(props: Props) {
       ? props.reel.caption
       : props.reel.caption ?? "";
   const authorName =
-    props.kind === "recommend" ? props.reel.author.name : "You";
+    props.kind === "recommend"
+      ? props.reel.author.name
+      : (props.reel.author ?? currentUser).name;
   const authorGradient: [string, string] =
     props.kind === "recommend"
       ? props.reel.author.gradient
-      : ["#7c3aed", "#ec4899"];
+      : (props.reel.author ?? currentUser).gradient;
   const views = props.kind === "recommend" ? props.reel.views : null;
 
   return (

@@ -13,8 +13,8 @@ export { REACTIONS, REACTION_BY_ID } from "@/shared/data/reactions";
 
 export const CURRENT_USER: CurrentUser = {
   id: "me",
-  initial: "A",
-  name: "Vũ Minh Anh",
+  initial: "U",
+  name: "Người dùng",
   gradient: ["#7c3aed", "#ec4899"],
 };
 

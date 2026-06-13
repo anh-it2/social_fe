@@ -7,8 +7,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { DarkModal } from "@/shared/components/modal/DarkModal";
 import { gradientBg } from "@/shared/utils/gradient";
-import { CURRENT_USER, MUSIC_TRACKS } from "../../../data/constants";
+import { MUSIC_TRACKS } from "../../../data/constants";
 import type { MusicTrack, ReelData } from "../../../data/types";
+import { useCurrentUserIdentity } from "../../../hooks/useCurrentUserIdentity";
 import styles from "./ReelComposerModal.module.scss";
 
 const { Text, Title } = Typography;
@@ -82,6 +83,7 @@ export function ReelComposerModal({
   );
   const tPostComposer = useTranslations("Feed.postComposer");
   const { message } = App.useApp();
+  const currentUser = useCurrentUserIdentity();
   const [file, setFile] = useState<UploadFile | null>(null);
   const [mediaUrl, setMediaUrl] = useState<string>("");
   const [mediaType, setMediaType] = useState<"video" | "image" | null>(null);
@@ -206,6 +208,7 @@ export function ReelComposerModal({
       mediaUrl: persistedUrl,
       musicId: musicId ?? undefined,
       caption: caption.trim() || undefined,
+      author: currentUser,
     });
     message.success(tc("success"));
     onClose();
@@ -428,17 +431,20 @@ export function ReelComposerModal({
               <Flex align="center" gap={8}>
                 <Avatar
                   size={32}
+                  src={currentUser.avatarUrl}
                   style={{
-                    background: gradientBg(CURRENT_USER.gradient),
+                    background: currentUser.avatarUrl
+                      ? undefined
+                      : gradientBg(currentUser.gradient),
                     fontWeight: 700,
                   }}
                 >
-                  {CURRENT_USER.initial}
+                  {currentUser.initial}
                 </Avatar>
                 <Flex vertical gap={0}>
                   <Text
                     className="!text-sm !font-semibold !leading-tight text-[var(--color-text)]"  >
-                    {CURRENT_USER.name}
+                    {currentUser.name}
                   </Text>
                   <Flex
                     align="center"

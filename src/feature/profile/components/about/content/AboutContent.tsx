@@ -24,6 +24,16 @@ export function AboutContent({ active }: AboutContentProps) {
   const { getRows, addRow, updateRow, deleteRow, hydrated } = useAboutData();
   const category = ABOUT_CATEGORIES.find((c) => c.id === active);
   if (!category) return null;
+  const categoryKeys = {
+    overview: "overview",
+    work_education: "categories.workEducation",
+    places: "categories.placesLived",
+    contact_basic: "categories.contactBasicInfo",
+    family: "categories.familyRelationships",
+    details: "categories.details",
+    life_events: "categories.lifeEvents",
+  } as const;
+  const categoryLabel = t(categoryKeys[category.id]);
 
   const wrapperStyle: React.CSSProperties = {
     background: "var(--color-bg-secondary)",
@@ -101,7 +111,7 @@ export function AboutContent({ active }: AboutContentProps) {
         style={wrapperStyle}
       >
         <Text className="!text-[20px] !font-bold !leading-tight text-[var(--color-text)]">
-          {active === "overview" ? t("overview") : category.label}
+          {categoryLabel}
         </Text>
         {rows.length === 0 ? (
           <Empty
@@ -163,7 +173,7 @@ export function AboutContent({ active }: AboutContentProps) {
     >
       <Text
         className="!text-[20px] !font-bold !leading-tight text-[var(--color-text)]"  >
-        {category.label}
+        {categoryLabel}
       </Text>
       {category.sections.map((s, i) => (
         <Flex vertical gap={20} key={s.id} className="!w-full">

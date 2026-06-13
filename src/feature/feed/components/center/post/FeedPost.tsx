@@ -9,7 +9,7 @@ import { notifyMentions } from "@/feature/mention/lib/notify";
 import { emitNotification } from "@/feature/notification/lib/emit";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { useProfileMeta } from "@/feature/profile/components/edit/data/useProfileMeta";
-import { CURRENT_USER } from "../../../data/constants";
+import { useCurrentUserIdentity } from "../../../hooks/useCurrentUserIdentity";
 import { usePostMutations } from "../../../data/usePostMutations";
 import { usePostComments } from "../../../data/usePostComments";
 import { useSavedPosts } from "../../../data/useSavedReels";
@@ -46,10 +46,9 @@ export function FeedPost({
   const tPost = useTranslations("Feed.post");
   const { message } = App.useApp();
   const authUserId = useAuthStore((s) => s.userId);
+  const currentUser = useCurrentUserIdentity();
   const { meta, hydrated } = useProfileMeta();
-  // Real ownership: the logged-in user authored this post. Replaces the old
-  // mock check (author.name === CURRENT_USER.name) now that posts carry a
-  // real authorId from the BE.
+  // Real ownership is based on the author id returned by the backend.
   const isOwnPost =
     !!authUserId &&
     (post.ownerId === authUserId || post.author.id === authUserId);
@@ -149,7 +148,7 @@ export function FeedPost({
 
   function handleShareNow() {
     if (!onShareToProfile) return;
-    onShareToProfile(buildSharedPost(post, "", t("justNow")));
+    onShareToProfile(buildSharedPost(post, "", t("justNow"), currentUser));
     message.success(tShare("shared"));
   }
 
@@ -227,8 +226,8 @@ export function FeedPost({
           comments={comments}
           onAdd={handleAdd}
           authorAvatarUrl={hydrated ? meta.avatarUrl || undefined : undefined}
-          authorInitial={CURRENT_USER.initial}
-          authorGradient={CURRENT_USER.gradient}
+          authorInitial={currentUser.initial}
+          authorGradient={currentUser.gradient}
         />
       ) : null}
       {onUpdate && (
