@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef } from "react";
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import type { OnlineUserDto } from "@/feature/presence/dto/presence.dto";
-import { buildDmId } from "../../../lib/conversation";
 import { useChatStore } from "../../../stores/chat.store";
 import { useConversationSettingsStore } from "../../../stores/conversation-settings.store";
 import { getTheme } from "../../../lib/themes";
@@ -17,6 +16,7 @@ import { TypingIndicator } from "./TypingIndicator";
 const { Text } = Typography;
 
 interface MessageListProps {
+  conversationId: string;
   user: OnlineUserDto;
   messages: ChatMessage[];
   isLoading: boolean;
@@ -35,6 +35,7 @@ function messageKey(m: ChatMessage) {
 }
 
 export function MessageList({
+  conversationId,
   user,
   messages,
   isLoading,
@@ -49,7 +50,6 @@ export function MessageList({
 }: MessageListProps) {
   const t = useTranslations("Chat.messageList");
   const myId = useAuthStore((s) => s.userId);
-  const conversationId = buildDmId(myId, user.id);
   const settings = useConversationSettingsStore(
     (s) => s.settings[conversationId],
   );
@@ -255,8 +255,10 @@ export function MessageList({
                   type={m.type}
                   mine={mine}
                   senderName={resolvedSenderName}
-                  senderAvatar={!mine ? user.avatar : undefined}
-                  senderSeed={user.id}
+                  senderAvatar={
+                    !mine ? m.senderAvatar ?? user.avatar : undefined
+                  }
+                  senderSeed={m.senderId}
                   showAvatar={!sameAsPrev}
                   replyTo={resolvedReplyTo}
                   timestamp={m.timestamp ?? m.queueAt}

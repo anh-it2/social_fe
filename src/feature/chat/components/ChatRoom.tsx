@@ -15,6 +15,7 @@ import { ChatRightPanel } from "./right/panels/ChatRightPanel";
 import { ChatSidebar } from "./sidebar/ChatSidebar";
 
 export function ChatRoom() {
+  const myId = useAuthStore((s) => s.userId);
   const userName = useAuthStore((s) => s.userName);
   const logout = useLogout();
   const onlineUsers = usePresenceStore((s) => s.onlineUsers);
@@ -35,8 +36,11 @@ export function ChatRoom() {
   }, [onlineUsers, knownUsers]);
 
   const groups = useMemo(
-    () => Object.values(groupsMap).sort((a, b) => b.createdAt - a.createdAt),
-    [groupsMap],
+    () =>
+      Object.values(groupsMap)
+        .filter((group) => group.memberIds.includes(myId))
+        .sort((a, b) => b.createdAt - a.createdAt),
+    [groupsMap, myId],
   );
 
   useEffect(() => {

@@ -28,6 +28,7 @@ export interface ChatMessageDTO {
   conversationId: string;
   senderId: string;
   senderName: string;
+  senderAvatar?: string;
   content: string;
   seq?: number;
   timestamp: number;

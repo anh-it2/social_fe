@@ -68,16 +68,18 @@ export function buildChatEntries(
       isGroup: false,
       user: u.user,
     })),
-    ...groups.map<ChatListEntry>((g) => ({
-      type: "group",
-      id: g.conversationId,
-      name: g.name,
-      online: g.memberIds.some(
-        (mid) => mid !== ctx.myId && ctx.onlineUserIds.has(mid),
-      ),
-      isGroup: true,
-      group: g,
-    })),
+    ...groups
+      .filter((g) => g.memberIds.includes(ctx.myId))
+      .map<ChatListEntry>((g) => ({
+        type: "group",
+        id: g.conversationId,
+        name: g.name,
+        online: g.memberIds.some(
+          (mid) => mid !== ctx.myId && ctx.onlineUserIds.has(mid),
+        ),
+        isGroup: true,
+        group: g,
+      })),
   ];
 }
 

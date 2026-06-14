@@ -52,7 +52,12 @@ export function useMessages(conversationId: string) {
   const chatSocket = getChatSocket();
   const { isConnected } = useChat(conversationId);
   const isLoggined = useAuthStore((s) => s.isLoggined);
+  const myId = useAuthStore((s) => s.userId);
   const queryClient = useQueryClient();
+  const messageQueryKey = useMemo(
+    () => ["chat:messages", myId, conversationId] as const,
+    [myId, conversationId],
+  );
   const { removeOptimisticMessage } = useChatStore.getState();
 
   const fetchHistoryMessage = useCallback(
@@ -132,7 +137,7 @@ export function useMessages(conversationId: string) {
     isFetchingNextPage,
     isLoading,
   } = useInfiniteQuery({
-    queryKey: ["chat:messages", conversationId],
+    queryKey: messageQueryKey,
     queryFn: ({ pageParam }) => fetchHistoryMessage(pageParam),
     initialPageParam: undefined as HistoryCursor | undefined,
     getNextPageParam: (lastPage) =>
@@ -143,7 +148,6 @@ export function useMessages(conversationId: string) {
     // missed. Re-fetch history on every (re)open to resync server truth.
     staleTime: 0,
     refetchOnMount: "always",
-    refetchInterval: conversationId.startsWith("group:") ? 3000 : false,
 
     // flatten newest-first: page[0] is newest, within a page newest-first too
     select: (raw): ChatMessage[] => {
@@ -197,7 +201,7 @@ export function useMessages(conversationId: string) {
       }
 
       queryClient.setQueryData<HistoryInfinteData>(
-        ["chat:messages", conversationId],
+        messageQueryKey,
         (old) => {
           if (!old || old.pages.length === 0) {
             return {
@@ -231,7 +235,7 @@ export function useMessages(conversationId: string) {
       if (dto.conversationId !== conversationId) return;
 
       queryClient.setQueryData<HistoryInfinteData>(
-        ["chat:messages", conversationId],
+        messageQueryKey,
         (old) => {
           if (!old) return old;
 
@@ -274,7 +278,7 @@ export function useMessages(conversationId: string) {
           dto.editedAt,
         );
       queryClient.setQueryData<HistoryInfinteData>(
-        ["chat:messages", conversationId],
+        messageQueryKey,
         (old) => {
           if (!old) return old;
           let changed = false;
@@ -300,7 +304,7 @@ export function useMessages(conversationId: string) {
         .getState()
         .applyDeletedToOptimistic(conversationId, dto.messageId);
       queryClient.setQueryData<HistoryInfinteData>(
-        ["chat:messages", conversationId],
+        messageQueryKey,
         (old) => {
           if (!old) return old;
           let changed = false;
@@ -322,7 +326,7 @@ export function useMessages(conversationId: string) {
     const handleReacted = (dto: ReactionBroadcastDTO) => {
       if (dto.conversationId !== conversationId) return;
       queryClient.setQueryData<HistoryInfinteData>(
-        ["chat:messages", conversationId],
+        messageQueryKey,
         (old) => {
           if (!old) return old;
           // find current reactions for this message, then apply the change
@@ -408,7 +412,13 @@ export function useMessages(conversationId: string) {
       chatSocket.off("chat:pins-replay", handlePinsReplay);
       chatSocket.off("chat:reacted", handleReacted);
     };
-  }, [chatSocket, conversationId, isConnected, queryClient]);
+  }, [
+    chatSocket,
+    conversationId,
+    isConnected,
+    messageQueryKey,
+    queryClient,
+  ]);
 
   // toggle/replace the current user's reaction on a message.
   // emoji = null removes it. Optimistic: patch cache, rollback if NAK.
@@ -420,7 +430,7 @@ export function useMessages(conversationId: string) {
 
       let prev: MessageReaction[] | undefined;
       queryClient.setQueryData<HistoryInfinteData>(
-        ["chat:messages", conversationId],
+        messageQueryKey,
         (old) => {
           if (!old) return old;
           for (const page of old.pages) {
@@ -443,13 +453,13 @@ export function useMessages(conversationId: string) {
           if (ack.ok) return;
           // rollback to the pre-optimistic snapshot
           queryClient.setQueryData<HistoryInfinteData>(
-            ["chat:messages", conversationId],
+            messageQueryKey,
             (old) => patchReactions(old, messageId, prev ?? []),
           );
         },
       );
     },
-    [chatSocket, conversationId, queryClient],
+    [chatSocket, conversationId, messageQueryKey, queryClient],
   );
 
   // per-conversation selector — avoid re-render on unrelated conv changes

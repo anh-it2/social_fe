@@ -1,17 +1,14 @@
 import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { getChatSocket } from "../socket";
 import { useCallback, useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { useChatStore } from "../stores/chat.store";
 import { toSendMessageDto } from "../dto/chat.mapper";
 import { ChatMessageDTO, MessageActionAck } from "../dto/chat.dto";
 import { ChatMessage, ReplyContext } from "../types";
-import { sendGroupMessageService } from "../services/groupChat.service";
 
 export function useChat(conversationId: string) {
   const { isLoggined, userId: senderId, userName: senderName } = useAuthStore();
   const chatSocket = getChatSocket();
-  const queryClient = useQueryClient();
   const [isConnected, setIsConnected] = useState<boolean>(
     chatSocket?.connected ?? false,
   );
@@ -57,13 +54,7 @@ export function useChat(conversationId: string) {
 
   // flush pending after connect
   useEffect(() => {
-    if (
-      checkCondition() ||
-      !isConnected ||
-      conversationId.startsWith("group:")
-    ) {
-      return;
-    }
+    if (checkCondition() || !isConnected) return;
 
     const pending = getPending(conversationId);
 
@@ -105,35 +96,6 @@ export function useChat(conversationId: string) {
 
         addOptimisticMessage(conversationId, optimisticMessage);
 
-        if (conversationId.startsWith("group:")) {
-          if (type === "system") {
-            markFailed(conversationId, tempId);
-            return reject(new Error("Unsupported message type"));
-          }
-          void sendGroupMessageService(conversationId, {
-            content,
-            type,
-            replyTo,
-          })
-            .then((message) => {
-              reconcileAck(conversationId, tempId, {
-                id: message.id,
-                timestamp: message.timestamp,
-              });
-              void queryClient.invalidateQueries({
-                queryKey: ["chat:messages", conversationId],
-              });
-              resolve();
-            })
-            .catch((error) => {
-              useChatStore
-                .getState()
-                .removeOptimisticMessage(conversationId, { tempId });
-              reject(error);
-            });
-          return;
-        }
-
         if (!chatSocket || !isConnected) {
           return reject(new Error("Not connected — message queued"));
         }
@@ -172,7 +134,6 @@ export function useChat(conversationId: string) {
       senderName,
       chatSocket,
       isConnected,
-      queryClient,
     ],
   );
 
@@ -253,9 +214,6 @@ export function useChat(conversationId: string) {
     retryMessage,
     editMessage,
     unsendMessage,
-    isConnected:
-      conversationId.startsWith("group:") && isLoggined
-        ? true
-        : isConnected,
+    isConnected,
   };
 }

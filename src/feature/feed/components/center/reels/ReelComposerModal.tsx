@@ -192,8 +192,12 @@ export function ReelComposerModal({
     if (raw) {
       try {
         persistedUrl = await uploadPostMediaService(raw);
-      } catch {
-        message.error(tPostComposer("uploadFailed"));
+      } catch (error) {
+        message.error(
+          error instanceof Error && error.message
+            ? error.message
+            : tc("uploadFailed"),
+        );
         return;
       }
     }
@@ -207,7 +211,7 @@ export function ReelComposerModal({
       author: currentUser,
     });
     if (saved === false) {
-      message.error(tPostComposer("uploadFailed"));
+      message.error(tc("uploadFailed"));
       return;
     }
     submittedRef.current = true;

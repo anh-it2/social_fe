@@ -38,6 +38,20 @@ function writeAll(next: FeedStorageShape): boolean {
   }
 }
 
+function isPersistableMediaUrl(url?: string): boolean {
+  return !url || (!url.startsWith("data:") && !url.startsWith("blob:"));
+}
+
+function compactLegacyMedia(all: FeedStorageShape): FeedStorageShape {
+  return {
+    ...all,
+    reels: all.reels?.filter((item) => isPersistableMediaUrl(item.mediaUrl)),
+    userStories: all.userStories?.filter((item) =>
+      isPersistableMediaUrl(item.mediaUrl),
+    ),
+  };
+}
+
 export function readFeedSlice<K extends keyof FeedStorageShape>(
   key: K,
 ): NonNullable<FeedStorageShape[K]> | [] {
@@ -50,5 +64,5 @@ export function writeFeedSlice<K extends keyof FeedStorageShape>(
   value: NonNullable<FeedStorageShape[K]>,
 ): boolean {
   const all = readAll();
-  return writeAll({ ...all, [key]: value });
+  return writeAll(compactLegacyMedia({ ...all, [key]: value }));
 }

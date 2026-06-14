@@ -31,6 +31,8 @@ export function useGlobalChatUnread() {
       const { activePeerId, markUnread } = useChatRoomUnreadStore.getState();
       const isGroup = dto.conversationId.startsWith("group:");
       if (isGroup) {
+        const group = useChatStore.getState().groups[dto.conversationId];
+        if (!group?.memberIds.includes(myId)) return;
         if (dto.conversationId === activePeerId) return;
         if (useChatStore.getState().isMuted(dto.conversationId)) return;
         markUnread(dto.conversationId);
@@ -52,6 +54,8 @@ export function useGlobalChatUnread() {
       const { activePeerId, markUnread } = useChatRoomUnreadStore.getState();
       const isGroup = dto.conversationId.startsWith("group:");
       if (isGroup) {
+        const group = useChatStore.getState().groups[dto.conversationId];
+        if (!group?.memberIds.includes(myId)) return;
         if (dto.conversationId === activePeerId) return;
         if (useChatStore.getState().isMuted(dto.conversationId)) return;
         markUnread(dto.conversationId, "reaction");

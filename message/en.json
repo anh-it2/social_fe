@@ -666,7 +666,8 @@
       "save": "Save",
       "warningEmpty": "Add text, media, or a feeling first",
       "successCreated": "Post created",
-      "successUpdated": "Post updated"
+      "successUpdated": "Post updated",
+      "uploadFailed": "Failed to upload image/video."
     },
     "reelComposer": {
       "title": "Create Reel",
@@ -694,7 +695,8 @@
       "errorFileTooBig": "File too big (max 100MB)",
       "warningUploadFirst": "Upload video or image first",
       "errorCannotPlay": "Cannot play track",
-      "success": "Reel posted"
+      "success": "Reel posted",
+      "uploadFailed": "Failed to upload image/video."
     },
     "storyComposer": {
       "title": "Create story",
@@ -703,7 +705,8 @@
       "captionPlaceholder": "Add a caption to your story...",
       "info": "Stories disappear automatically after 24 hours",
       "submit": "Post story",
-      "success": "Story posted"
+      "success": "Story posted",
+      "uploadFailed": "Failed to post story. Please try again."
     },
     "reelViewer": {
       "title": "Reels",

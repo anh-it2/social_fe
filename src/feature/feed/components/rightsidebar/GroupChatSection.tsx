@@ -3,6 +3,7 @@
 import { Flex, Typography } from "antd";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { useAuthStore } from "@/feature/auth/stores/auth.store";
 import { Icon } from "@/shared/components/Icon";
 import { CreateGroupModal } from "@/feature/chat/components/menu/modals/CreateGroupModal";
 import { pickGradient } from "@/feature/chat/lib/avatar";
@@ -17,14 +18,17 @@ const { Text } = Typography;
 export function GroupChatSection() {
   const t = useTranslations("Feed.rightSidebar");
   const groupsMap = useChatStore((s) => s.groups);
+  const myId = useAuthStore((s) => s.userId);
   const openChat = useChatBoxesStore((s) => s.openChat);
   const markRead = useChatRoomUnreadStore((s) => s.markRead);
   const [createOpen, setCreateOpen] = useState(false);
 
   const groups = useMemo(
     () =>
-      Object.values(groupsMap).sort((a, b) => b.createdAt - a.createdAt),
-    [groupsMap],
+      Object.values(groupsMap)
+        .filter((group) => group.memberIds.includes(myId))
+        .sort((a, b) => b.createdAt - a.createdAt),
+    [groupsMap, myId],
   );
 
   function handleClick(g: GroupInfo) {

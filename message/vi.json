@@ -666,7 +666,8 @@
       "save": "Lưu",
       "warningEmpty": "Hãy thêm văn bản, phương tiện hoặc cảm xúc trước",
       "successCreated": "Đã tạo bài viết",
-      "successUpdated": "Đã cập nhật bài viết"
+      "successUpdated": "Đã cập nhật bài viết",
+      "uploadFailed": "Không thể tải ảnh/video lên."
     },
     "reelComposer": {
       "title": "Tạo Reel",
@@ -694,7 +695,8 @@
       "errorFileTooBig": "Tệp quá lớn (tối đa 100MB)",
       "warningUploadFirst": "Hãy tải lên video hoặc ảnh trước",
       "errorCannotPlay": "Không thể phát bài hát",
-      "success": "Đã đăng Reel"
+      "success": "Đã đăng Reel",
+      "uploadFailed": "Không thể tải ảnh/video lên."
     },
     "storyComposer": {
       "title": "Tạo tin",
@@ -703,7 +705,8 @@
       "captionPlaceholder": "Thêm chú thích cho tin của bạn...",
       "info": "Tin sẽ tự động biến mất sau 24 giờ",
       "submit": "Đăng tin",
-      "success": "Đã đăng tin"
+      "success": "Đã đăng tin",
+      "uploadFailed": "Không thể đăng tin. Vui lòng thử lại."
     },
     "reelViewer": {
       "title": "Reels",

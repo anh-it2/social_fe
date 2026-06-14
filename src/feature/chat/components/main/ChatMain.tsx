@@ -132,6 +132,7 @@ function ActiveChat({
         matchCount={visibleMessages.length}
       />
       <MessageList
+        conversationId={conversationId}
         user={listUser}
         messages={visibleMessages}
         isLoading={isLoading}

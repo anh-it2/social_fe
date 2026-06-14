@@ -13,6 +13,7 @@ export function toMessage(dto: ChatMessageDTO): ChatMessage {
     conversationId: dto.conversationId,
     senderId: dto.senderId,
     senderName: dto.senderName,
+    senderAvatar: dto.senderAvatar,
     content: dto.content,
     timestamp: dto.timestamp,
     queueAt: dto.timestamp,

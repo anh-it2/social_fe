@@ -233,6 +233,7 @@ export function ChatBox({ chat }: ChatBoxProps) {
       {!minimized ? (
         <>
           <MessageList
+            conversationId={conversationId}
             user={user}
             messages={messages}
             isLoading={isLoading}
