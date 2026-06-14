@@ -1,19 +1,53 @@
-import { apiClient } from "@/shared/lib/apiClient";
-import type { UploadResponseDTO } from "../../dto/post.dto";
+interface UploadTokenResponse {
+  token?: string;
+  apiBaseUrl?: string;
+  message?: string;
+}
+
+interface BackendUploadResponse {
+  success?: boolean;
+  data?: {
+    url?: string;
+  };
+  message?: string;
+}
 
 /**
- * Uploads one image/video to the BE and resolves with its public URL.
- * apiClient defaults Content-Type to application/json; clear it for this
- * call so the browser sets `multipart/form-data` *with the boundary*
- * (a hardcoded value without the boundary makes the server fail to parse).
+ * Upload directly to the backend instead of relaying the file through a
+ * Next/Vercel route. Vercel rejects large function request bodies before the
+ * backend's Multer limit is reached, which surfaces as HTTP 413.
  */
 export async function uploadPostMediaService(file: File): Promise<string> {
+  const tokenResponse = await fetch("/api/socket-token", {
+    credentials: "include",
+    cache: "no-store",
+  });
+  const tokenBody = (await tokenResponse.json().catch(() => ({}))) as
+    UploadTokenResponse;
+
+  if (!tokenResponse.ok || !tokenBody.token || !tokenBody.apiBaseUrl) {
+    throw new Error(tokenBody.message || "Không thể xác thực tải tệp");
+  }
+
   const form = new FormData();
-  form.append("file", file);
-  const res = await apiClient.post<UploadResponseDTO>(
-    "/api/posts/upload",
-    form,
-    { headers: { "content-type": undefined } },
+  form.append("file", file, file.name);
+
+  const response = await fetch(
+    `${tokenBody.apiBaseUrl.replace(/\/$/, "")}/posts/upload`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${tokenBody.token}`,
+      },
+      body: form,
+    },
   );
-  return res.data.url;
+  const body = (await response.json().catch(() => ({}))) as BackendUploadResponse;
+  const url = body.data?.url;
+
+  if (!response.ok || !url) {
+    throw new Error(body.message || "Tải tệp lên thất bại");
+  }
+
+  return url;
 }

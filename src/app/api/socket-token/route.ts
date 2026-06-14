@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AUTH_COOKIE } from "@/feature/auth/server/authProxy";
+import { API_BASE_URL } from "@/shared/lib/apiBaseUrl";
 
 /**
  * Hands the browser the BE JWT held in the httpOnly `token` cookie so the
@@ -19,5 +20,8 @@ export async function GET(req: NextRequest) {
   if (!token) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
   }
-  return NextResponse.json({ token });
+  return NextResponse.json({
+    token,
+    apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? API_BASE_URL,
+  });
 }

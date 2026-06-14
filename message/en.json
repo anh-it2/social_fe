@@ -368,7 +368,11 @@
       "mention": "mentioned you in a post.",
       "friendRequest": "sent you a friend request.",
       "friendAccept": "accepted your friend request.",
-      "friendReject": "declined your friend request."
+      "friendReject": "declined your friend request.",
+      "reportSubmitted": "submitted a new report.",
+      "reportSubmittedWithPreview": "submitted a new report: \"{preview}\"",
+      "reportApproved": "approved your report.",
+      "reportRejected": "rejected your report."
     },
     "time": {
       "justNow": "just now",

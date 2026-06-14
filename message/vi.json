@@ -368,7 +368,11 @@
       "mention": "đã nhắc đến bạn trong một bài viết.",
       "friendRequest": "đã gửi cho bạn lời mời kết bạn.",
       "friendAccept": "đã chấp nhận lời mời kết bạn của bạn.",
-      "friendReject": "đã từ chối lời mời kết bạn của bạn."
+      "friendReject": "đã từ chối lời mời kết bạn của bạn.",
+      "reportSubmitted": "đã gửi một báo cáo mới.",
+      "reportSubmittedWithPreview": "đã gửi một báo cáo mới: \"{preview}\"",
+      "reportApproved": "đã phê duyệt báo cáo của bạn.",
+      "reportRejected": "đã từ chối báo cáo của bạn."
     },
     "time": {
       "justNow": "vừa xong",
