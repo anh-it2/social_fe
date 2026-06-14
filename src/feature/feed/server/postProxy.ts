@@ -8,6 +8,10 @@ import {
   type Envelope,
 } from "@/shared/lib/beProxy";
 import type { CommentDTO, PostDTO } from "../dto/post.dto";
+import type {
+  CreateStoryBody,
+  StoryDTO,
+} from "../dto/story.dto";
 
 const RESOURCE = "post";
 
@@ -40,6 +44,28 @@ export async function createPost(req: NextRequest): Promise<NextResponse> {
     method: "post",
     path: "/posts",
     shape: (post) => ({ post }),
+    payload,
+    resource: RESOURCE,
+  });
+}
+
+export function listStories(req: NextRequest): Promise<NextResponse> {
+  return callBackend<StoryDTO[], { stories: StoryDTO[] }>({
+    req,
+    method: "get",
+    path: "/posts/stories",
+    shape: (stories) => ({ stories }),
+    resource: RESOURCE,
+  });
+}
+
+export async function createStory(req: NextRequest): Promise<NextResponse> {
+  const payload = (await req.json().catch(() => ({}))) as CreateStoryBody;
+  return callBackend<StoryDTO, { story: StoryDTO }>({
+    req,
+    method: "post",
+    path: "/posts/stories",
+    shape: (story) => ({ story }),
     payload,
     resource: RESOURCE,
   });

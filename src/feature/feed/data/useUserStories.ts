@@ -1,60 +1,52 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { StoryCardData } from "./types";
-import { readFeedSlice, writeFeedSlice } from "./feedStorage";
+import {
+  createStoryService,
+  listStoriesService,
+} from "../services/story.service";
 
-let state: StoryCardData[] | null = null;
-const listeners = new Set<() => void>();
-
-function ensureLoaded() {
-  if (state !== null) return;
-  if (typeof window === "undefined") {
-    state = [];
-    return;
-  }
-  state = readFeedSlice("userStories") as StoryCardData[];
-}
-
-function emit() {
-  for (const l of listeners) l();
-}
-
-function subscribe(cb: () => void) {
-  listeners.add(cb);
-  return () => {
-    listeners.delete(cb);
-  };
-}
-
-function getSnapshot(): StoryCardData[] {
-  ensureLoaded();
-  return state as StoryCardData[];
-}
-
-function getServerSnapshot(): StoryCardData[] {
-  return [];
-}
+const STORIES_QUERY_KEY = ["stories"] as const;
 
 export function useUserStories() {
-  const stories = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const queryClient = useQueryClient();
+  const { data: stories = [], isLoading } = useQuery({
+    queryKey: STORIES_QUERY_KEY,
+    queryFn: listStoriesService,
+    staleTime: 30_000,
+    refetchOnWindowFocus: true,
+    refetchInterval: 15_000,
+  });
 
-  const addStory = useCallback((story: StoryCardData): boolean => {
-    ensureLoaded();
-    const next = [story, ...(state as StoryCardData[])];
-    if (!writeFeedSlice("userStories", next)) return false;
-    state = next;
-    emit();
-    return true;
-  }, []);
+  const addStory = useCallback(
+    async (story: StoryCardData): Promise<boolean> => {
+      if (!story.mediaUrl || !story.mediaType) return false;
+      const created = await createStoryService({
+        mediaUrl: story.mediaUrl,
+        mediaType: story.mediaType,
+        caption: story.caption,
+        musicId: story.musicId,
+      });
+      queryClient.setQueryData<StoryCardData[]>(
+        STORIES_QUERY_KEY,
+        (current = []) => [
+          created,
+          ...current.filter((item) => item.id !== created.id),
+        ],
+      );
+      return true;
+    },
+    [queryClient],
+  );
 
   const removeStory = useCallback((id: string) => {
-    ensureLoaded();
-    const next = (state as StoryCardData[]).filter((s) => s.id !== id);
-    if (!writeFeedSlice("userStories", next)) return;
-    state = next;
-    emit();
-  }, []);
+    queryClient.setQueryData<StoryCardData[]>(
+      STORIES_QUERY_KEY,
+      (current = []) => current.filter((story) => story.id !== id),
+    );
+  }, [queryClient]);
 
-  return { stories, hydrated: true, addStory, removeStory };
+  return { stories, hydrated: !isLoading, addStory, removeStory };
 }

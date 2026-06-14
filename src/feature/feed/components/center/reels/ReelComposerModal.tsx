@@ -18,7 +18,7 @@ const { Text, Title } = Typography;
 interface ReelComposerModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (reel: ReelData) => boolean | void;
+  onSubmit: (reel: ReelData) => boolean | void | Promise<boolean | void>;
   /**
    * Which surface this composer feeds. The UI is shared between the Story
    * rail ("Tạo tin") and the Reels rail ("Tạo reel"); only the copy differs.
@@ -202,16 +202,25 @@ export function ReelComposerModal({
       }
     }
 
-    const saved = onSubmit({
-      id: `r-${Date.now()}`,
-      mediaType,
-      mediaUrl: persistedUrl,
-      musicId: musicId ?? undefined,
-      caption: caption.trim() || undefined,
-      author: currentUser,
-    });
-    if (saved === false) {
-      message.error(tc("uploadFailed"));
+    try {
+      const saved = await onSubmit({
+        id: `r-${Date.now()}`,
+        mediaType,
+        mediaUrl: persistedUrl,
+        musicId: musicId ?? undefined,
+        caption: caption.trim() || undefined,
+        author: currentUser,
+      });
+      if (saved === false) {
+        message.error(tc("uploadFailed"));
+        return;
+      }
+    } catch (error) {
+      message.error(
+        error instanceof Error && error.message
+          ? error.message
+          : tc("uploadFailed"),
+      );
       return;
     }
     submittedRef.current = true;
