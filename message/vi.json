@@ -653,6 +653,7 @@
     "postComposer": {
       "create": "Tạo bài viết",
       "edit": "Chỉnh sửa bài viết",
+      "visibility": "Hiển thị",
       "visibilityPublic": "Công khai",
       "visibilityFollowers": "Người theo dõi",
       "visibilityPrivate": "Chỉ mình tôi",

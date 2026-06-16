@@ -653,6 +653,7 @@
     "postComposer": {
       "create": "Create post",
       "edit": "Edit post",
+      "visibility": "Visibility",
       "visibilityPublic": "Public",
       "visibilityFollowers": "Followers",
       "visibilityPrivate": "Only me",
